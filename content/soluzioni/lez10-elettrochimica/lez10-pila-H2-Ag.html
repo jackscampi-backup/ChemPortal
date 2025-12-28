@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Esame 1-1 - Quesito 1: Pila H2-Ag</title>
+    <style>
+        body {
+            font-family: 'Georgia', serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px;
+            line-height: 1.8;
+            color: #333;
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #2980b9;
+            margin-top: 30px;
+        }
+        .exercise-box {
+            background: #f8f9fa;
+            border-left: 4px solid #3498db;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .data-box {
+            background: #e8f4f8;
+            border: 1px solid #3498db;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .result-box {
+            background: #d4edda;
+            border: 2px solid #28a745;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        .result-box strong {
+            font-size: 1.2em;
+            color: #155724;
+        }
+        .reaction {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 15px 0;
+            text-align: center;
+            font-size: 1.1em;
+        }
+        .step {
+            background: #ffffff;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .step-number {
+            background: #3498db;
+            color: white;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+        .formula {
+            background: #f1f1f1;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            margin: 10px 0;
+            display: inline-block;
+        }
+        .important {
+            color: #c0392b;
+            font-weight: bold;
+        }
+        .note {
+            background: #fff8e1;
+            border-left: 4px solid #ff9800;
+            padding: 15px;
+            margin: 15px 0;
+            font-style: italic;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: center;
+        }
+        th {
+            background: #3498db;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+    
+    .done-buttons {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+    .mark-btn {
+        padding: 12px 24px;
+        font-size: 1em;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .mark-done {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        color: white;
+    }
+    .mark-done:hover, .mark-done.selected {
+        background: linear-gradient(135deg, #1e7e34, #17a085);
+        transform: scale(1.05);
+    }
+    .mark-review {
+        background: linear-gradient(135deg, #ffc107, #fd7e14);
+        color: white;
+    }
+    .mark-review:hover, .mark-review.selected {
+        background: linear-gradient(135deg, #d39e00, #dc6502);
+        transform: scale(1.05);
+    }
+    .mark-reset {
+        background: #6c757d;
+        color: white;
+    }
+    .mark-reset:hover {
+        background: #545b62;
+    }
+    .mark-btn.selected {
+        box-shadow: 0 0 0 3px rgba(0,0,0,0.2);
+    }
+</style>
+
+<style>
+    .quiz-container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px;
+        padding-bottom: 120px;
+    }
+    .question-section {
+        background: linear-gradient(135deg, #e8f4f8 0%, #d4edda 100%);
+        border: 2px solid #17a2b8;
+        border-radius: 10px;
+        padding: 25px;
+        margin-bottom: 20px;
+    }
+    .question-section h2 {
+        color: #0c5460;
+        margin-top: 0;
+        margin-bottom: 15px;
+    }
+    .show-next-btn {
+        display: block;
+        width: 100%;
+        padding: 15px 30px;
+        font-size: 1.1em;
+        font-weight: bold;
+        color: white;
+        background: linear-gradient(135deg, #007bff, #0056b3);
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        margin: 15px 0;
+        transition: all 0.3s ease;
+    }
+    .show-next-btn:hover {
+        background: linear-gradient(135deg, #0056b3, #004094);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 123, 255, 0.4);
+    }
+    .show-all-btn {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        margin-top: 10px;
+    }
+    .show-all-btn:hover {
+        background: linear-gradient(135deg, #218838, #1db385);
+        box-shadow: 0 4px 12px rgba(40, 167, 69, 0.4);
+    }
+    .step-container {
+        display: none;
+        animation: fadeIn 0.5s ease;
+        margin-bottom: 20px;
+        border: 1px solid #dee2e6;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    .step-container.visible {
+        display: block;
+    }
+    .step-header {
+        background: linear-gradient(135deg, #6c757d, #495057);
+        color: white;
+        padding: 12px 20px;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+    }
+    .step-number-badge {
+        background: white;
+        color: #495057;
+        border-radius: 50%;
+        width: 28px;
+        height: 28px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 12px;
+        font-weight: bold;
+    }
+    .step-content {
+        padding: 20px;
+        background: white;
+    }
+    .progress-bar {
+        background: #e9ecef;
+        border-radius: 10px;
+        height: 8px;
+        margin: 15px 0;
+        overflow: hidden;
+    }
+    .progress-fill {
+        background: linear-gradient(90deg, #28a745, #20c997);
+        height: 100%;
+        border-radius: 10px;
+        transition: width 0.5s ease;
+    }
+    .progress-text {
+        text-align: center;
+        color: #6c757d;
+        font-size: 0.9em;
+        margin-bottom: 15px;
+    }
+    .controls {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: white;
+        padding: 15px 20px;
+        border-top: 2px solid #dee2e6;
+        box-shadow: 0 -4px 12px rgba(0,0,0,0.1);
+        z-index: 1000;
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+    }
+    .quiz-container {
+        padding-bottom: 100px;
+    }
+    .show-next-btn {
+        width: auto;
+        margin: 0;
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .final-answer {
+        background: #d4edda;
+        border: 2px solid #28a745;
+        border-radius: 10px;
+        padding: 20px;
+        margin-top: 20px;
+    }
+    .final-answer h3 {
+        color: #155724;
+        margin-top: 0;
+    }
+
+    .done-buttons {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+    .mark-btn {
+        padding: 12px 24px;
+        font-size: 1em;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .mark-done {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        color: white;
+    }
+    .mark-done:hover, .mark-done.selected {
+        background: linear-gradient(135deg, #1e7e34, #17a085);
+        transform: scale(1.05);
+    }
+    .mark-review {
+        background: linear-gradient(135deg, #ffc107, #fd7e14);
+        color: white;
+    }
+    .mark-review:hover, .mark-review.selected {
+        background: linear-gradient(135deg, #d39e00, #dc6502);
+        transform: scale(1.05);
+    }
+    .mark-reset {
+        background: #6c757d;
+        color: white;
+    }
+    .mark-reset:hover {
+        background: #545b62;
+    }
+    .mark-btn.selected {
+        box-shadow: 0 0 0 3px rgba(0,0,0,0.2);
+    }
+</style>
+</head>
+<body>
+<div class="quiz-container">
+    <h1>Esame 1-1 - Quesito 1</h1>
+
+    <div class="question-section">
+        <h2>Testo dell'esercizio</h2>
+        <div class="question-text">
+    <strong>Testo:</strong> Data la cella elettrochimica cosi costruita: Pt(s)| H<sub>2</sub> (g) p = 1 atm, H<sub>3</sub>O<sup>+</sup>, pH = 2 || Ag<sup>+</sup> 0,2 M |Ag.<br><br>
+    Calcolare:<br>
+    a) la f.e.m.<br>
+    b) la massa di argento depositato sull'elettrodo dopo che nella cella e passata una corrente di 1,2 A per 40 minuti.
+</div>
+    </div>
+
+    <div class="progress-text" id="progress-text">Passaggio 0 di 14</div>
+    <div class="progress-bar">
+        <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+    </div>
+
+    <div class="controls">
+        <button id="next-btn" class="show-next-btn" onclick="showNextStep()">
+            ▶ Prossimo passaggio
+        </button>
+        <button id="all-btn" class="show-next-btn show-all-btn" onclick="showAllSteps()">
+            ⏩ Mostra tutto
+        </button>
+        <div id="done-buttons" class="done-buttons" style="display: none;">
+            <button id="mark-done" class="mark-btn mark-done" onclick="markExercise('done')">
+                ✓ Fatto
+            </button>
+            <button id="mark-review" class="mark-btn mark-review" onclick="markExercise('review')">
+                ⚠ Da rivedere
+            </button>
+            <button class="mark-btn mark-reset" onclick="resetExercise()">
+                ↺ Ricomincia
+            </button>
+            <button class="mark-btn" style="background: #17a2b8;" onclick="closeExercise()">
+                ✕ Chiudi
+            </button>
+        </div>
+    </div>
+
+    <div id="steps-wrapper">
+        
+        <div id="step-0" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">1</span>
+                Parte A: Calcolo della f.e.m.
+            </div>
+            <div class="step-content">
+                <div class="data-box">
+    <strong>Dati forniti:</strong><br>
+    - E°(Ag<sup>+</sup>/Ag) = +0.80 V<br>
+    - E°(H<sup>+</sup>/H<sub>2</sub>) = 0 V (elettrodo standard a idrogeno)<br>
+    - MM(Ag) = 108 g/mol<br>
+    - F = 96500 C/mol (costante di Faraday)
+</div><h2>Parte A: Calcolo della f.e.m.</h2>
+            </div>
+        </div>
+        
+        <div id="step-1" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">2</span>
+                Comprendere la notazione della cella
+            </div>
+            <div class="step-content">
+                <h2><span class="step-number">1</span> Comprendere la notazione della cella</h2>
+
+<div class="step">
+    <p>La cella e scritta nella notazione convenzionale:</p>
+    <div class="formula">
+        Pt(s)| H<sub>2</sub> (g) p = 1 atm, H<sub>3</sub>O<sup>+</sup>, pH = 2 || Ag<sup>+</sup> 0,2 M |Ag
+    </div>
+
+    <p>Questa notazione ci dice che:</p>
+    <ul>
+        <li><strong>Lato sinistro (anodo):</strong> elettrodo a idrogeno con H<sub>2</sub> gassoso a 1 atm e soluzione a pH = 2</li>
+        <li><strong>||</strong> rappresenta il ponte salino che separa le due semicelle</li>
+        <li><strong>Lato destro (catodo):</strong> elettrodo di argento immerso in una soluzione di Ag<sup>+</sup> 0,2 M</li>
+    </ul>
+
+    <div class="note">
+        <strong>Convenzione importante:</strong> Nella notazione IUPAC, l'anodo (ossidazione) e sempre scritto a sinistra, il catodo (riduzione) a destra. Questo ci dice gia quale semicella si ossida e quale si riduce!
+    </div>
+</div>
+            </div>
+        </div>
+        
+        <div id="step-2" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">3</span>
+                Identificare le semireazioni
+            </div>
+            <div class="step-content">
+                <h2><span class="step-number">2</span> Identificare le semireazioni</h2>
+
+<div class="step">
+    <p>Dalla notazione della cella sappiamo che:</p>
+
+    <p><strong>Semireazione all'anodo (ossidazione) - elettrodo a idrogeno:</strong></p>
+    <div class="reaction">
+        H<sub>2</sub> ---> 2H<sup>+</sup> + 2e<sup>-</sup>
+    </div>
+
+    <p><strong>Semireazione al catodo (riduzione) - elettrodo di argento:</strong></p>
+    <div class="reaction">
+        Ag<sup>+</sup> + e<sup>-</sup> ---> Ag
+    </div>
+
+    <p>Per bilanciare gli elettroni, moltiplichiamo la semireazione dell'argento per 2:</p>
+    <div class="reaction">
+        2Ag<sup>+</sup> + 2e<sup>-</sup> ---> 2Ag
+    </div>
+
+    <p><strong>Reazione globale:</strong></p>
+    <div class="reaction" style="background: #d4edda; border-color: #28a745;">
+        H<sub>2</sub> + 2Ag<sup>+</sup> ---> 2H<sup>+</sup> + 2Ag
+    </div>
+</div>
+            </div>
+        </div>
+        
+        <div id="step-3" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">4</span>
+                Calcolare le concentrazioni dalle condizioni date
+            </div>
+            <div class="step-content">
+                <h2><span class="step-number">3</span> Calcolare le concentrazioni dalle condizioni date</h2>
+
+<div class="step">
+    <p>Prima di applicare l'equazione di Nernst, dobbiamo determinare le concentrazioni degli ioni:</p>
+
+    <p><strong>Concentrazione di H<sup>+</sup> dal pH:</strong></p>
+    <p>Sappiamo che pH = 2, quindi:</p>
+    <div class="formula">
+        [H<sup>+</sup>] = 10<sup>-pH</sup> = 10<sup>-2</sup> M = 0,01 M
+    </div>
+
+    <p><strong>Concentrazione di Ag<sup>+</sup>:</strong></p>
+    <p>E data direttamente dal problema:</p>
+    <div class="formula">
+        [Ag<sup>+</sup>] = 0,2 M
+    </div>
+
+    <p><strong>Pressione di H<sub>2</sub>:</strong></p>
+    <div class="formula">
+        p(H<sub>2</sub>) = 1 atm (condizione standard per il gas)
+    </div>
+</div>
+            </div>
+        </div>
+        
+        <div id="step-4" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">5</span>
+                Calcolare il potenziale di ciascun elettrodo con N...
+            </div>
+            <div class="step-content">
+                <h2><span class="step-number">4</span> Calcolare il potenziale di ciascun elettrodo con Nernst</h2>
+
+<div class="step">
+    <p>Poiche le concentrazioni non sono standard (1 M), dobbiamo usare l'<strong>equazione di Nernst</strong> per calcolare i potenziali reali di ciascun elettrodo.</p>
+
+    <p>L'equazione di Nernst per una semireazione di riduzione e:</p>
+    <div class="formula">
+        E = E° + (0,059/n) x log([forma ossidata]/[forma ridotta])
+    </div>
+
+    <p><strong>Potenziale dell'elettrodo a idrogeno (anodo):</strong></p>
+    <p>Semireazione di riduzione: 2H<sup>+</sup> + 2e<sup>-</sup> ---> H<sub>2</sub></p>
+    <div class="formula">
+        E(H<sup>+</sup>/H<sub>2</sub>) = E° + (0,059/2) x log([H<sup>+</sup>]<sup>2</sup>/p(H<sub>2</sub>))
+    </div>
+
+    <p>Sostituendo i valori (E° = 0 V, n = 2, [H<sup>+</sup>] = 0,01 M, p(H<sub>2</sub>) = 1 atm):</p>
+    <div class="formula">
+        E(H<sup>+</sup>/H<sub>2</sub>) = 0 + (0,059/2) x log((0,01)<sup>2</sup>/1)
+    </div>
+    <div class="formula">
+        E(H<sup>+</sup>/H<sub>2</sub>) = 0,0295 x log(10<sup>-4</sup>)
+    </div>
+    <div class="formula">
+        E(H<sup>+</sup>/H<sub>2</sub>) = 0,0295 x (-4)
+    </div>
+    <div class="formula">
+        E(H<sup>+</sup>/H<sub>2</sub>) = -0,118 V
+    </div>
+
+    <div class="note">
+        <strong>Nota:</strong> Il potenziale dell'elettrodo a idrogeno e negativo perche la soluzione e meno acida rispetto alle condizioni standard (pH = 0, cioe [H<sup>+</sup>] = 1 M).
+    </div>
+</div>
+
+<div class="step">
+    <p><strong>Potenziale dell'elettrodo di argento (catodo):</strong></p>
+    <p>Semireazione di riduzione: Ag<sup>+</sup> + e<sup>-</sup> ---> Ag</p>
+    <div class="formula">
+        E(Ag<sup>+</sup>/Ag) = E° + (0,059/1) x log([Ag<sup>+</sup>])
+    </div>
+
+    <p>Sostituendo i valori (E° = +0,80 V, n = 1, [Ag<sup>+</sup>] = 0,2 M):</p>
+    <div class="formula">
+        E(Ag<sup>+</sup>/Ag) = 0,80 + 0,059 x log(0,2)
+    </div>
+    <div class="formula">
+        E(Ag<sup>+</sup>/Ag) = 0,80 + 0,059 x (-0,699)
+    </div>
+    <div class="formula">
+        E(Ag<sup>+</sup>/Ag) = 0,80 - 0,041
+    </div>
+    <div class="formula">
+        E(Ag<sup>+</sup>/Ag) = +0,759 V
+    </div>
+
+    <div class="note">
+        <strong>Nota:</strong> Il potenziale dell'elettrodo di argento e leggermente inferiore al valore standard perche [Ag<sup>+</sup>] = 0,2 M < 1 M. Minore concentrazione di ioni significa minore "voglia" di ridursi.
+    </div>
+</div>
+            </div>
+        </div>
+        
+        <div id="step-5" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">6</span>
+                Calcolare la f.e.m. della cella
+            </div>
+            <div class="step-content">
+                <h2><span class="step-number">5</span> Calcolare la f.e.m. della cella</h2>
+
+<div class="step">
+    <p>La forza elettromotrice (f.e.m.) della cella si calcola come:</p>
+    <div class="formula">
+        E<sub>cella</sub> = E<sub>catodo</sub> - E<sub>anodo</sub>
+    </div>
+
+    <p>Sostituendo i valori calcolati:</p>
+    <div class="formula">
+        E<sub>cella</sub> = E(Ag<sup>+</sup>/Ag) - E(H<sup>+</sup>/H<sub>2</sub>)
+    </div>
+    <div class="formula">
+        E<sub>cella</sub> = (+0,759) - (-0,118)
+    </div>
+    <div class="formula">
+        E<sub>cella</sub> = 0,759 + 0,118
+    </div>
+    <div class="formula">
+        E<sub>cella</sub> = +0,877 V
+    </div>
+
+    <div class="result-box">
+        <strong>f.e.m. = +0,88 V</strong> (arrotondato a due cifre significative)
+    </div>
+
+    <div class="note">
+        <strong>Verifica:</strong> Il valore positivo conferma che la reazione e spontanea nella direzione scritta: l'idrogeno si ossida e l'argento si riduce.
+    </div>
+</div>
+            </div>
+        </div>
+        
+        <div id="step-6" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">7</span>
+                Parte B: Calcolo della massa di argento depositato
+            </div>
+            <div class="step-content">
+                <h2>Parte B: Calcolo della massa di argento depositato</h2>
+            </div>
+        </div>
+        
+        <div id="step-7" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">8</span>
+                Comprendere il processo di elettrolisi
+            </div>
+            <div class="step-content">
+                <h2><span class="step-number">6</span> Comprendere il processo di elettrolisi</h2>
+
+<div class="step">
+    <p>Quando una corrente elettrica attraversa la cella, al catodo avviene la riduzione degli ioni Ag<sup>+</sup>:</p>
+    <div class="reaction">
+        Ag<sup>+</sup> + e<sup>-</sup> ---> Ag (deposizione)
+    </div>
+
+    <p>La quantita di argento depositato dipende dalla <strong>carica elettrica totale</strong> passata attraverso la cella, secondo le <strong>leggi di Faraday dell'elettrolisi</strong>.</p>
+</div>
+            </div>
+        </div>
+        
+        <div id="step-8" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">9</span>
+                Calcolare la carica elettrica totale
+            </div>
+            <div class="step-content">
+                <h2><span class="step-number">7</span> Calcolare la carica elettrica totale</h2>
+
+<div class="step">
+    <p>La carica elettrica (Q) si calcola come:</p>
+    <div class="formula">
+        Q = I x t
+    </div>
+
+    <p>Dove:</p>
+    <ul>
+        <li>I = intensita di corrente = 1,2 A</li>
+        <li>t = tempo = 40 minuti = 40 x 60 = 2400 secondi</li>
+    </ul>
+
+    <p>Sostituendo:</p>
+    <div class="formula">
+        Q = 1,2 A x 2400 s = 2880 C
+    </div>
+
+    <div class="note">
+        <strong>Attenzione alle unita:</strong> 1 Ampere = 1 Coulomb/secondo, quindi A x s = C
+    </div>
+</div>
+            </div>
+        </div>
+        
+        <div id="step-9" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">10</span>
+                Calcolare le moli di elettroni
+            </div>
+            <div class="step-content">
+                <h2><span class="step-number">8</span> Calcolare le moli di elettroni</h2>
+
+<div class="step">
+    <p>Dalla costante di Faraday sappiamo che:</p>
+    <div class="formula">
+        1 mole di elettroni = 96500 C
+    </div>
+
+    <p>Quindi le moli di elettroni passate sono:</p>
+    <div class="formula">
+        n(e<sup>-</sup>) = Q / F = 2880 C / 96500 C/mol
+    </div>
+    <div class="formula">
+        n(e<sup>-</sup>) = 0,0298 mol
+    </div>
+</div>
+            </div>
+        </div>
+        
+        <div id="step-10" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">11</span>
+                Calcolare le moli di argento depositato
+            </div>
+            <div class="step-content">
+                <h2><span class="step-number">9</span> Calcolare le moli di argento depositato</h2>
+
+<div class="step">
+    <p>Dalla semireazione di riduzione:</p>
+    <div class="reaction">
+        Ag<sup>+</sup> + e<sup>-</sup> ---> Ag
+    </div>
+
+    <p>Vediamo che <strong>1 mole di elettroni</strong> produce <strong>1 mole di Ag</strong>.</p>
+
+    <p>Quindi:</p>
+    <div class="formula">
+        n(Ag) = n(e<sup>-</sup>) = 0,0298 mol
+    </div>
+</div>
+            </div>
+        </div>
+        
+        <div id="step-11" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">12</span>
+                Calcolare la massa di argento
+            </div>
+            <div class="step-content">
+                <h2><span class="step-number">10</span> Calcolare la massa di argento</h2>
+
+<div class="step">
+    <p>La massa si calcola dalla relazione:</p>
+    <div class="formula">
+        m = n x MM
+    </div>
+
+    <p>Dove MM(Ag) = 108 g/mol.</p>
+
+    <p>Sostituendo:</p>
+    <div class="formula">
+        m(Ag) = 0,0298 mol x 108 g/mol
+    </div>
+    <div class="formula">
+        m(Ag) = 3,22 g
+    </div>
+
+    <div class="result-box">
+        <strong>Massa di Ag depositato = 3,22 g</strong>
+    </div>
+</div>
+            </div>
+        </div>
+        
+        <div id="step-12" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">13</span>
+                Formula diretta per l'elettrolisi
+            </div>
+            <div class="step-content">
+                <h2><span class="step-number">11</span> Formula diretta per l'elettrolisi</h2>
+
+<div class="step">
+    <p>Tutti i passaggi precedenti possono essere riassunti in un'unica formula (legge di Faraday):</p>
+    <div class="formula">
+        m = (I x t x MM) / (n x F)
+    </div>
+
+    <p>Dove:</p>
+    <ul>
+        <li>m = massa depositata (g)</li>
+        <li>I = corrente (A)</li>
+        <li>t = tempo (s)</li>
+        <li>MM = massa molare (g/mol)</li>
+        <li>n = numero di elettroni scambiati nella semireazione</li>
+        <li>F = costante di Faraday (96500 C/mol)</li>
+    </ul>
+
+    <p>Verifichiamo:</p>
+    <div class="formula">
+        m = (1,2 x 2400 x 108) / (1 x 96500)
+    </div>
+    <div class="formula">
+        m = 311040 / 96500 = 3,22 g
+    </div>
+</div>
+            </div>
+        </div>
+        
+        <div id="step-13" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">14</span>
+                Riepilogo finale
+            </div>
+            <div class="step-content">
+                <h2>Riepilogo finale</h2>
+
+<div class="result-box" style="text-align: left;">
+    <p><strong>Pila H<sub>2</sub>-Ag:</strong></p>
+    <ul>
+        <li><strong>Anodo (-):</strong> H<sub>2</sub> ---> 2H<sup>+</sup> + 2e<sup>-</sup> (ossidazione)</li>
+        <li><strong>Catodo (+):</strong> 2Ag<sup>+</sup> + 2e<sup>-</sup> ---> 2Ag (riduzione)</li>
+        <li><strong>Condizioni:</strong> pH = 2, [Ag<sup>+</sup>] = 0,2 M, p(H<sub>2</sub>) = 1 atm</li>
+    </ul>
+    <br>
+    <p style="text-align: center; font-size: 1.2em;">
+        <strong>a) f.e.m. = +0,88 V</strong><br><br>
+        <strong>b) Massa di Ag depositato = 3,22 g</strong>
+    </p>
+</div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+<script>
+    let currentStep = 0;
+    let totalSteps = 0;
+
+    document.addEventListener('DOMContentLoaded', function() {
+        totalSteps = document.querySelectorAll('.step-container').length;
+        updateProgress();
+        updateButtons();
+    });
+
+    function showNextStep() {
+        if (currentStep < totalSteps) {
+            const step = document.getElementById('step-' + currentStep);
+            if (step) {
+                step.classList.add('visible');
+                step.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                currentStep++;
+                updateProgress();
+                updateButtons();
+
+                if (window.parent !== window) {
+                    window.parent.postMessage({type: 'stepShown', step: currentStep, total: totalSteps}, '*');
+                }
+            }
+        }
+    }
+
+    function showAllSteps() {
+        document.querySelectorAll('.step-container').forEach(function(step) {
+            step.classList.add('visible');
+        });
+        currentStep = totalSteps;
+        updateProgress();
+        updateButtons();
+
+        if (window.parent !== window) {
+            window.parent.postMessage({type: 'allStepsShown'}, '*');
+        }
+    }
+
+    function hideAllSteps() {
+        document.querySelectorAll('.step-container').forEach(function(step) {
+            step.classList.remove('visible');
+        });
+        currentStep = 0;
+        updateProgress();
+        updateButtons();
+    }
+
+    function updateProgress() {
+        const pct = totalSteps > 0 ? (currentStep / totalSteps) * 100 : 0;
+        const fill = document.getElementById('progress-fill');
+        const text = document.getElementById('progress-text');
+        if (fill) fill.style.width = pct + '%';
+        if (text) text.textContent = 'Passaggio ' + currentStep + ' di ' + totalSteps;
+    }
+
+    function updateButtons() {
+        const nextBtn = document.getElementById('next-btn');
+        const allBtn = document.getElementById('all-btn');
+        const doneButtons = document.getElementById('done-buttons');
+
+        if (currentStep >= totalSteps) {
+            if (nextBtn) nextBtn.style.display = 'none';
+            if (allBtn) allBtn.style.display = 'none';
+            if (doneButtons) doneButtons.style.display = 'flex';
+        } else {
+            if (nextBtn) nextBtn.style.display = 'block';
+            if (allBtn) allBtn.style.display = 'block';
+            if (doneButtons) doneButtons.style.display = 'none';
+        }
+    }
+
+    function markExercise(status) {
+        // Salva in localStorage
+        const exerciseId = window.location.pathname.split('/').pop().replace('.html', '');
+        let progress = JSON.parse(localStorage.getItem('chemportal_progress') || '{}');
+        if (!progress.exercises) progress.exercises = {};
+        progress.exercises[exerciseId] = status;
+        localStorage.setItem('chemportal_progress', JSON.stringify(progress));
+
+        // Feedback visivo
+        const btn = status === 'done' ? document.getElementById('mark-done') : document.getElementById('mark-review');
+        const otherBtn = status === 'done' ? document.getElementById('mark-review') : document.getElementById('mark-done');
+
+        btn.classList.add('selected');
+        otherBtn.classList.remove('selected');
+
+        // Notifica parent
+        if (window.parent !== window) {
+            window.parent.postMessage({type: 'exerciseMarked', status: status, id: exerciseId}, '*');
+        }
+    }
+
+    function resetExercise() {
+        hideAllSteps();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Messaggi dal parent
+    window.addEventListener('message', function(e) {
+        if (e.data.type === 'showNext') showNextStep();
+        else if (e.data.type === 'showAll') showAllSteps();
+        else if (e.data.type === 'hideAll') hideAllSteps();
+    });
+
+    function closeExercise() {
+        if (window.parent !== window) {
+            // Siamo in iframe, chiedi al parent di chiudere
+            window.parent.postMessage({type: 'closeModal'}, '*');
+        } else {
+            // Standalone: torna alla pagina esercizi
+            const path = window.location.pathname;
+            if (path.includes('/content/soluzioni/')) {
+                window.location.href = '../../esercizi.html';
+            } else {
+                window.history.back();
+            }
+        }
+    }
+</script>
+</body>
+</html>

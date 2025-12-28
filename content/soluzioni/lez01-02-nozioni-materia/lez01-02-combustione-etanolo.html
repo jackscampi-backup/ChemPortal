@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Esame 1-1 - Esercizio 2: Combustione dell'Etanolo</title>
+    <style>
+        body {
+            font-family: 'Georgia', serif;
+            line-height: 1.8;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px;
+            color: #333;
+            background-color: #fff;
+        }
+
+        h1 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 15px;
+            font-size: 1.8em;
+        }
+
+        h2 {
+            color: #2980b9;
+            margin-top: 35px;
+            font-size: 1.4em;
+        }
+
+        .exercise-box {
+            background-color: #f8f9fa;
+            border-left: 5px solid #3498db;
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .exercise-box h3 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+
+        .step {
+            background-color: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .step-number {
+            display: inline-block;
+            background-color: #3498db;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .formula {
+            background-color: #eef7ff;
+            padding: 15px 20px;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            font-size: 1.1em;
+            margin: 15px 0;
+            border: 1px solid #bee5ff;
+            text-align: center;
+        }
+
+        .calculation {
+            background-color: #f0f8f0;
+            padding: 15px 20px;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            margin: 15px 0;
+            border: 1px solid #c8e6c9;
+        }
+
+        .result {
+            background-color: #e8f5e9;
+            border: 2px solid #4caf50;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 25px 0;
+            text-align: center;
+        }
+
+        .result strong {
+            color: #2e7d32;
+            font-size: 1.3em;
+        }
+
+        .reaction {
+            background-color: #fff3e0;
+            padding: 15px;
+            border-radius: 6px;
+            text-align: center;
+            font-size: 1.2em;
+            margin: 15px 0;
+            border: 1px solid #ffcc80;
+        }
+
+        .note {
+            background-color: #fff8e1;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 20px 0;
+            font-style: italic;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+
+        .data-table td {
+            padding: 8px 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .data-table td:first-child {
+            font-weight: bold;
+            color: #555;
+        }
+
+        .highlight {
+            background-color: #fff9c4;
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+    
+    .done-buttons {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+    .mark-btn {
+        padding: 12px 24px;
+        font-size: 1em;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .mark-done {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        color: white;
+    }
+    .mark-done:hover, .mark-done.selected {
+        background: linear-gradient(135deg, #1e7e34, #17a085);
+        transform: scale(1.05);
+    }
+    .mark-review {
+        background: linear-gradient(135deg, #ffc107, #fd7e14);
+        color: white;
+    }
+    .mark-review:hover, .mark-review.selected {
+        background: linear-gradient(135deg, #d39e00, #dc6502);
+        transform: scale(1.05);
+    }
+    .mark-reset {
+        background: #6c757d;
+        color: white;
+    }
+    .mark-reset:hover {
+        background: #545b62;
+    }
+    .mark-btn.selected {
+        box-shadow: 0 0 0 3px rgba(0,0,0,0.2);
+    }
+</style>
+
+<style>
+    .quiz-container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px;
+        padding-bottom: 120px;
+    }
+    .question-section {
+        background: linear-gradient(135deg, #e8f4f8 0%, #d4edda 100%);
+        border: 2px solid #17a2b8;
+        border-radius: 10px;
+        padding: 25px;
+        margin-bottom: 20px;
+    }
+    .question-section h2 {
+        color: #0c5460;
+        margin-top: 0;
+        margin-bottom: 15px;
+    }
+    .show-next-btn {
+        display: block;
+        width: 100%;
+        padding: 15px 30px;
+        font-size: 1.1em;
+        font-weight: bold;
+        color: white;
+        background: linear-gradient(135deg, #007bff, #0056b3);
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        margin: 15px 0;
+        transition: all 0.3s ease;
+    }
+    .show-next-btn:hover {
+        background: linear-gradient(135deg, #0056b3, #004094);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 123, 255, 0.4);
+    }
+    .show-all-btn {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        margin-top: 10px;
+    }
+    .show-all-btn:hover {
+        background: linear-gradient(135deg, #218838, #1db385);
+        box-shadow: 0 4px 12px rgba(40, 167, 69, 0.4);
+    }
+    .step-container {
+        display: none;
+        animation: fadeIn 0.5s ease;
+        margin-bottom: 20px;
+        border: 1px solid #dee2e6;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    .step-container.visible {
+        display: block;
+    }
+    .step-header {
+        background: linear-gradient(135deg, #6c757d, #495057);
+        color: white;
+        padding: 12px 20px;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+    }
+    .step-number-badge {
+        background: white;
+        color: #495057;
+        border-radius: 50%;
+        width: 28px;
+        height: 28px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 12px;
+        font-weight: bold;
+    }
+    .step-content {
+        padding: 20px;
+        background: white;
+    }
+    .progress-bar {
+        background: #e9ecef;
+        border-radius: 10px;
+        height: 8px;
+        margin: 15px 0;
+        overflow: hidden;
+    }
+    .progress-fill {
+        background: linear-gradient(90deg, #28a745, #20c997);
+        height: 100%;
+        border-radius: 10px;
+        transition: width 0.5s ease;
+    }
+    .progress-text {
+        text-align: center;
+        color: #6c757d;
+        font-size: 0.9em;
+        margin-bottom: 15px;
+    }
+    .controls {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: white;
+        padding: 15px 20px;
+        border-top: 2px solid #dee2e6;
+        box-shadow: 0 -4px 12px rgba(0,0,0,0.1);
+        z-index: 1000;
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+    }
+    .quiz-container {
+        padding-bottom: 100px;
+    }
+    .show-next-btn {
+        width: auto;
+        margin: 0;
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .final-answer {
+        background: #d4edda;
+        border: 2px solid #28a745;
+        border-radius: 10px;
+        padding: 20px;
+        margin-top: 20px;
+    }
+    .final-answer h3 {
+        color: #155724;
+        margin-top: 0;
+    }
+
+    .done-buttons {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+    .mark-btn {
+        padding: 12px 24px;
+        font-size: 1em;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .mark-done {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        color: white;
+    }
+    .mark-done:hover, .mark-done.selected {
+        background: linear-gradient(135deg, #1e7e34, #17a085);
+        transform: scale(1.05);
+    }
+    .mark-review {
+        background: linear-gradient(135deg, #ffc107, #fd7e14);
+        color: white;
+    }
+    .mark-review:hover, .mark-review.selected {
+        background: linear-gradient(135deg, #d39e00, #dc6502);
+        transform: scale(1.05);
+    }
+    .mark-reset {
+        background: #6c757d;
+        color: white;
+    }
+    .mark-reset:hover {
+        background: #545b62;
+    }
+    .mark-btn.selected {
+        box-shadow: 0 0 0 3px rgba(0,0,0,0.2);
+    }
+</style>
+</head>
+<body>
+<div class="quiz-container">
+    <h1>Esame 1-1 - Esercizio 2</h1>
+
+    <div class="question-section">
+        <h2>Testo dell'esercizio</h2>
+        <div class="question-text">
+        <h3>Testo del Problema</h3>
+        <p>Data la reazione: C2H5OH (l) + O2 (g) --> CO2 (g) + H2O (g)</p>
+        <p>Calcolare:</p>
+        <p><strong>a)</strong> il volume di CO2 (misurato a 30 C e 0,98 atm) prodotto dalla combustione di 100 mL di etanolo</p>
+        <p><strong>b)</strong> il lavoro di espansione prodotto dalla reazione a T = 1000 C (trascurare il volume iniziale dei reagenti)</p>
+
+        <table class="data-table">
+            <tr>
+                <td>Massa molare etanolo (C2H5OH):</td>
+                <td>46 g/mol</td>
+            </tr>
+            <tr>
+                <td>Densita etanolo:</td>
+                <td>0,789 g/mL</td>
+            </tr>
+            <tr>
+                <td>Volume etanolo:</td>
+                <td>100 mL</td>
+            </tr>
+            <tr>
+                <td>Costante R:</td>
+                <td>0,0821 L atm / (mol K)</td>
+            </tr>
+        </table>
+    </div>
+    </div>
+
+    <div class="progress-text" id="progress-text">Passaggio 0 di 4</div>
+    <div class="progress-bar">
+        <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+    </div>
+
+    <div class="controls">
+        <button id="next-btn" class="show-next-btn" onclick="showNextStep()">
+            ▶ Prossimo passaggio
+        </button>
+        <button id="all-btn" class="show-next-btn show-all-btn" onclick="showAllSteps()">
+            ⏩ Mostra tutto
+        </button>
+        <div id="done-buttons" class="done-buttons" style="display: none;">
+            <button id="mark-done" class="mark-btn mark-done" onclick="markExercise('done')">
+                ✓ Fatto
+            </button>
+            <button id="mark-review" class="mark-btn mark-review" onclick="markExercise('review')">
+                ⚠ Da rivedere
+            </button>
+            <button class="mark-btn mark-reset" onclick="resetExercise()">
+                ↺ Ricomincia
+            </button>
+            <button class="mark-btn" style="background: #17a2b8;" onclick="closeExercise()">
+                ✕ Chiudi
+            </button>
+        </div>
+    </div>
+
+    <div id="steps-wrapper">
+        
+        <div id="step-0" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">1</span>
+                Parte Preliminare: Bilanciamento della Reazione
+            </div>
+            <div class="step-content">
+                <h2>Parte Preliminare: Bilanciamento della Reazione</h2>
+
+    <div class="step">
+        <p><span class="step-number">1</span><strong>Scriviamo la reazione non bilanciata</strong></p>
+
+        <p>La reazione di combustione dell'etanolo e:</p>
+
+        <div class="reaction">
+            C2H5OH (l) + O2 (g) --> CO2 (g) + H2O (g)
+        </div>
+
+        <p>Prima di fare qualsiasi calcolo, dobbiamo <strong>bilanciare la reazione</strong>. Questo significa assicurarci che il numero di atomi di ciascun elemento sia lo stesso a sinistra e a destra della freccia.</p>
+    </div>
+
+    <div class="step">
+        <p><span class="step-number">2</span><strong>Contiamo gli atomi di ciascun elemento</strong></p>
+
+        <p>Analizziamo la molecola di <strong>etanolo (C2H5OH)</strong>:</p>
+        <ul>
+            <li><strong>Carbonio (C):</strong> 2 atomi</li>
+            <li><strong>Idrogeno (H):</strong> 5 + 1 = 6 atomi (5 dal gruppo C2H5 e 1 dal gruppo OH)</li>
+            <li><strong>Ossigeno (O):</strong> 1 atomo</li>
+        </ul>
+
+        <p>Quindi nei prodotti dobbiamo avere:</p>
+        <ul>
+            <li>2 atomi di C --> servono <strong>2 molecole di CO2</strong></li>
+            <li>6 atomi di H --> servono <strong>3 molecole di H2O</strong> (ogni H2O contiene 2 H)</li>
+        </ul>
+    </div>
+
+    <div class="step">
+        <p><span class="step-number">3</span><strong>Bilanciamo l'ossigeno</strong></p>
+
+        <p>Ora contiamo gli ossigeni a destra:</p>
+        <ul>
+            <li>Da 2 CO2: 2 x 2 = 4 atomi di O</li>
+            <li>Da 3 H2O: 3 x 1 = 3 atomi di O</li>
+            <li><strong>Totale a destra: 7 atomi di O</strong></li>
+        </ul>
+
+        <p>A sinistra abbiamo:</p>
+        <ul>
+            <li>1 atomo di O dall'etanolo</li>
+            <li>Gli altri devono venire da O2</li>
+        </ul>
+
+        <p>Quindi ci servono 7 - 1 = 6 atomi di O da O2, cioe <strong>3 molecole di O2</strong>.</p>
+
+        <div class="note">
+            <strong>Reazione bilanciata:</strong><br>
+            C2H5OH (l) + 3 O2 (g) --> 2 CO2 (g) + 3 H2O (g)
+        </div>
+    </div>
+            </div>
+        </div>
+        
+        <div id="step-1" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">2</span>
+                Parte a) Volume di CO2 prodotto
+            </div>
+            <div class="step-content">
+                <h2>Parte a) Volume di CO2 prodotto</h2>
+
+    <div class="step">
+        <p><span class="step-number">4</span><strong>Calcoliamo la massa di etanolo</strong></p>
+
+        <p>Il problema ci da il <strong>volume</strong> di etanolo (100 mL) e la sua <strong>densita</strong> (0,789 g/mL). Per trovare le moli, dobbiamo prima trovare la massa.</p>
+
+        <p>La relazione tra massa, volume e densita e:</p>
+
+        <div class="formula">
+            massa = volume x densita
+        </div>
+
+        <div class="calculation">
+            m(etanolo) = 100 mL x 0,789 g/mL<br><br>
+            m(etanolo) = <strong>78,9 g</strong>
+        </div>
+    </div>
+
+    <div class="step">
+        <p><span class="step-number">5</span><strong>Calcoliamo le moli di etanolo</strong></p>
+
+        <p>Ora convertiamo la massa in moli usando la massa molare:</p>
+
+        <div class="formula">
+            n = m / MM
+        </div>
+
+        <div class="calculation">
+            n(etanolo) = 78,9 g / 46 g/mol<br><br>
+            n(etanolo) = <strong>1,715 mol</strong>
+        </div>
+    </div>
+
+    <div class="step">
+        <p><span class="step-number">6</span><strong>Calcoliamo le moli di CO2 prodotte</strong></p>
+
+        <p>Dalla reazione bilanciata sappiamo che:</p>
+
+        <div class="reaction">
+            1 mol C2H5OH --> 2 mol CO2
+        </div>
+
+        <p>Il rapporto stechiometrico e 1:2, quindi:</p>
+
+        <div class="calculation">
+            n(CO2) = n(etanolo) x 2<br><br>
+            n(CO2) = 1,715 mol x 2<br><br>
+            n(CO2) = <strong>3,43 mol</strong>
+        </div>
+    </div>
+
+    <div class="step">
+        <p><span class="step-number">7</span><strong>Calcoliamo il volume di CO2 usando la legge dei gas ideali</strong></p>
+
+        <p>Dobbiamo trovare il volume di CO2 alle condizioni specificate: T = 30 C e P = 0,98 atm.</p>
+
+        <p>Usiamo l'<strong>equazione di stato dei gas ideali</strong>:</p>
+
+        <div class="formula">
+            PV = nRT --> V = nRT / P
+        </div>
+
+        <p>Prima convertiamo la temperatura in Kelvin:</p>
+
+        <div class="calculation">
+            T = 30 C + 273 = 303 K
+        </div>
+
+        <p>Ora sostituiamo tutti i valori:</p>
+
+        <div class="calculation">
+            V = (n x R x T) / P<br><br>
+            V = (3,43 mol x 0,0821 L atm mol<sup>-1</sup> K<sup>-1</sup> x 303 K) / 0,98 atm<br><br>
+            V = (3,43 x 0,0821 x 303) / 0,98 L<br><br>
+            V = 85,33 / 0,98 L<br><br>
+            V = <strong>87,1 L</strong>
+        </div>
+    </div>
+
+    <div class="result">
+        <p><strong>Risposta Parte a)</strong></p>
+        <p>Il volume di CO2 prodotto dalla combustione di 100 mL di etanolo,<br>
+        misurato a 30 C e 0,98 atm, e:</p>
+        <p><strong>V(CO2) = 87,1 L</strong></p>
+    </div>
+            </div>
+        </div>
+        
+        <div id="step-2" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">3</span>
+                Parte b) Lavoro di Espansione
+            </div>
+            <div class="step-content">
+                <h2>Parte b) Lavoro di Espansione</h2>
+
+    <div class="step">
+        <p><span class="step-number">8</span><strong>Comprendiamo il concetto di lavoro di espansione</strong></p>
+
+        <p>Durante una reazione chimica a pressione costante, se il numero di moli di gas cambia, il sistema compie (o subisce) un <strong>lavoro di espansione</strong> (o compressione).</p>
+
+        <p>La formula per il lavoro a pressione costante e:</p>
+
+        <div class="formula">
+            w = -P x Delta V
+        </div>
+
+        <p>Per i gas ideali, questa diventa:</p>
+
+        <div class="formula">
+            w = -Delta n(gas) x R x T
+        </div>
+
+        <p>dove Delta n(gas) = moli di gas prodotti - moli di gas reagenti</p>
+
+        <div class="note">
+            <strong>Convenzione del segno:</strong> Il lavoro e <strong>negativo</strong> quando il sistema si espande (cioe compie lavoro sull'ambiente). E <strong>positivo</strong> quando il sistema viene compresso (l'ambiente compie lavoro sul sistema).
+        </div>
+    </div>
+
+    <div class="step">
+        <p><span class="step-number">9</span><strong>Calcoliamo Delta n per la reazione</strong></p>
+
+        <p>Dalla reazione bilanciata:</p>
+
+        <div class="reaction">
+            C2H5OH (l) + 3 O2 (g) --> 2 CO2 (g) + 3 H2O (g)
+        </div>
+
+        <p>Contiamo le moli di gas (l'etanolo e LIQUIDO, quindi non lo consideriamo):</p>
+
+        <ul>
+            <li><strong>Gas reagenti:</strong> 3 mol O2</li>
+            <li><strong>Gas prodotti:</strong> 2 mol CO2 + 3 mol H2O = 5 mol</li>
+        </ul>
+
+        <p>Quindi per ogni mole di etanolo che reagisce:</p>
+
+        <div class="calculation">
+            Delta n = mol gas prodotti - mol gas reagenti<br><br>
+            Delta n = 5 - 3 = <strong>+2 mol gas</strong> (per mole di etanolo)
+        </div>
+
+        <p>Poiche abbiamo 1,715 mol di etanolo:</p>
+
+        <div class="calculation">
+            Delta n(totale) = 1,715 mol x 2<br><br>
+            Delta n(totale) = <strong>3,43 mol</strong>
+        </div>
+    </div>
+
+    <div class="step">
+        <p><span class="step-number">10</span><strong>Calcoliamo il lavoro di espansione</strong></p>
+
+        <p>Convertiamo la temperatura in Kelvin:</p>
+
+        <div class="calculation">
+            T = 1000 C + 273 = 1273 K
+        </div>
+
+        <p>Applichiamo la formula del lavoro:</p>
+
+        <div class="formula">
+            w = -Delta n x R x T
+        </div>
+
+        <div class="calculation">
+            w = -3,43 mol x 0,0821 L atm mol<sup>-1</sup> K<sup>-1</sup> x 1273 K<br><br>
+            w = -3,43 x 0,0821 x 1273 L atm<br><br>
+            w = <strong>-358,4 L atm</strong>
+        </div>
+    </div>
+
+    <div class="step">
+        <p><span class="step-number">11</span><strong>Convertiamo in kilojoule</strong></p>
+
+        <p>Per esprimere il lavoro in unita piu familiari, convertiamo da L atm a kJ.</p>
+
+        <p>Il fattore di conversione e:</p>
+
+        <div class="formula">
+            1 L atm = 101,325 J
+        </div>
+
+        <div class="calculation">
+            w = -358,4 L atm x 101,325 J/(L atm)<br><br>
+            w = -36 315 J<br><br>
+            w = <strong>-36,3 kJ</strong>
+        </div>
+    </div>
+
+    <div class="result">
+        <p><strong>Risposta Parte b)</strong></p>
+        <p>Il lavoro di espansione prodotto dalla reazione a 1000 C e:</p>
+        <p><strong>w = -358 L atm = -36,3 kJ</strong></p>
+        <p><em>Il segno negativo indica che il sistema compie lavoro sull'ambiente (espansione)</em></p>
+    </div>
+            </div>
+        </div>
+        
+        <div id="step-3" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">4</span>
+                Riepilogo del Procedimento
+            </div>
+            <div class="step-content">
+                <h2>Riepilogo del Procedimento</h2>
+
+    <div class="step">
+        <p><strong>Parte a)</strong></p>
+        <ol>
+            <li>Bilanciare la reazione: C2H5OH + 3 O2 --> 2 CO2 + 3 H2O</li>
+            <li>Calcolare la massa di etanolo: m = V x d = 78,9 g</li>
+            <li>Calcolare le moli di etanolo: n = m/MM = 1,715 mol</li>
+            <li>Calcolare le moli di CO2 (rapporto 1:2): n(CO2) = 3,43 mol</li>
+            <li>Calcolare il volume con PV = nRT: V = 87,1 L</li>
+        </ol>
+
+        <p><strong>Parte b)</strong></p>
+        <ol>
+            <li>Calcolare Delta n(gas): 5 mol prodotti - 3 mol reagenti = 2 mol per mole di etanolo</li>
+            <li>Delta n totale = 1,715 x 2 = 3,43 mol</li>
+            <li>Calcolare il lavoro: w = -Delta n x R x T = -358 L atm = -36,3 kJ</li>
+        </ol>
+    </div>
+
+    <div class="note">
+        <strong>Osservazione fisica:</strong> Il segno negativo del lavoro ci dice che durante la combustione il sistema (i gas) si espande: infatti passiamo da 3 moli di gas (O2) a 5 moli di gas (CO2 + H2O). Questa espansione contro la pressione esterna richiede energia, che viene fornita dalla reazione esotermica di combustione.
+    </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+<script>
+    let currentStep = 0;
+    let totalSteps = 0;
+
+    document.addEventListener('DOMContentLoaded', function() {
+        totalSteps = document.querySelectorAll('.step-container').length;
+        updateProgress();
+        updateButtons();
+    });
+
+    function showNextStep() {
+        if (currentStep < totalSteps) {
+            const step = document.getElementById('step-' + currentStep);
+            if (step) {
+                step.classList.add('visible');
+                step.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                currentStep++;
+                updateProgress();
+                updateButtons();
+
+                if (window.parent !== window) {
+                    window.parent.postMessage({type: 'stepShown', step: currentStep, total: totalSteps}, '*');
+                }
+            }
+        }
+    }
+
+    function showAllSteps() {
+        document.querySelectorAll('.step-container').forEach(function(step) {
+            step.classList.add('visible');
+        });
+        currentStep = totalSteps;
+        updateProgress();
+        updateButtons();
+
+        if (window.parent !== window) {
+            window.parent.postMessage({type: 'allStepsShown'}, '*');
+        }
+    }
+
+    function hideAllSteps() {
+        document.querySelectorAll('.step-container').forEach(function(step) {
+            step.classList.remove('visible');
+        });
+        currentStep = 0;
+        updateProgress();
+        updateButtons();
+    }
+
+    function updateProgress() {
+        const pct = totalSteps > 0 ? (currentStep / totalSteps) * 100 : 0;
+        const fill = document.getElementById('progress-fill');
+        const text = document.getElementById('progress-text');
+        if (fill) fill.style.width = pct + '%';
+        if (text) text.textContent = 'Passaggio ' + currentStep + ' di ' + totalSteps;
+    }
+
+    function updateButtons() {
+        const nextBtn = document.getElementById('next-btn');
+        const allBtn = document.getElementById('all-btn');
+        const doneButtons = document.getElementById('done-buttons');
+
+        if (currentStep >= totalSteps) {
+            if (nextBtn) nextBtn.style.display = 'none';
+            if (allBtn) allBtn.style.display = 'none';
+            if (doneButtons) doneButtons.style.display = 'flex';
+        } else {
+            if (nextBtn) nextBtn.style.display = 'block';
+            if (allBtn) allBtn.style.display = 'block';
+            if (doneButtons) doneButtons.style.display = 'none';
+        }
+    }
+
+    function markExercise(status) {
+        // Salva in localStorage
+        const exerciseId = window.location.pathname.split('/').pop().replace('.html', '');
+        let progress = JSON.parse(localStorage.getItem('chemportal_progress') || '{}');
+        if (!progress.exercises) progress.exercises = {};
+        progress.exercises[exerciseId] = status;
+        localStorage.setItem('chemportal_progress', JSON.stringify(progress));
+
+        // Feedback visivo
+        const btn = status === 'done' ? document.getElementById('mark-done') : document.getElementById('mark-review');
+        const otherBtn = status === 'done' ? document.getElementById('mark-review') : document.getElementById('mark-done');
+
+        btn.classList.add('selected');
+        otherBtn.classList.remove('selected');
+
+        // Notifica parent
+        if (window.parent !== window) {
+            window.parent.postMessage({type: 'exerciseMarked', status: status, id: exerciseId}, '*');
+        }
+    }
+
+    function resetExercise() {
+        hideAllSteps();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Messaggi dal parent
+    window.addEventListener('message', function(e) {
+        if (e.data.type === 'showNext') showNextStep();
+        else if (e.data.type === 'showAll') showAllSteps();
+        else if (e.data.type === 'hideAll') hideAllSteps();
+    });
+
+    function closeExercise() {
+        if (window.parent !== window) {
+            // Siamo in iframe, chiedi al parent di chiudere
+            window.parent.postMessage({type: 'closeModal'}, '*');
+        } else {
+            // Standalone: torna alla pagina esercizi
+            const path = window.location.pathname;
+            if (path.includes('/content/soluzioni/')) {
+                window.location.href = '../../esercizi.html';
+            } else {
+                window.history.back();
+            }
+        }
+    }
+</script>
+</body>
+</html>

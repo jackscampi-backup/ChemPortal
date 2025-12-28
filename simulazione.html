@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulazione Esame - ChemPortal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2563eb',
+                        secondary: '#1e40af',
+                        accent: '#3b82f6',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-primary to-secondary text-white shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex items-center justify-between">
+                <a href="index.html" class="flex items-center space-x-3">
+                    <span class="text-3xl">⚗️</span>
+                    <div>
+                        <h1 class="text-2xl font-bold">ChemPortal</h1>
+                        <p class="text-blue-200 text-sm">Chimica Generale</p>
+                    </div>
+                </a>
+                <nav class="hidden md:flex space-x-6 items-center">
+                    <a href="index.html" class="hover:text-blue-200">Home</a>
+                    <a href="manuale.html" class="hover:text-blue-200">Manuale</a>
+                    <a href="esercizi.html" class="hover:text-blue-200">Esercizi</a>
+                    <a href="flashcard.html" class="hover:text-blue-200">Formule</a>
+                    <a href="simulazione.html" class="hover:text-blue-200 font-medium border-b-2 border-white pb-1">Simulazione</a>
+                    <div class="relative">
+                        <input type="text" id="globalSearch" placeholder="Cerca..."
+                               class="px-3 py-1 rounded-lg text-gray-800 text-sm w-40 focus:w-56 transition-all focus:outline-none focus:ring-2 focus:ring-white">
+                        <div id="searchResults" class="hidden absolute top-full right-0 mt-2 w-80 bg-white rounded-lg shadow-xl max-h-96 overflow-y-auto z-50"></div>
+                    </div>
+                </nav>
+                <button id="mobileMenuBtn" class="md:hidden text-white">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <div id="mobileMenu" class="hidden md:hidden bg-secondary">
+            <nav class="container mx-auto px-4 py-3 flex flex-col space-y-2">
+                <a href="index.html" class="text-white hover:text-blue-200 py-2">Home</a>
+                <a href="manuale.html" class="text-white hover:text-blue-200 py-2">Manuale</a>
+                <a href="esercizi.html" class="text-white hover:text-blue-200 py-2">Esercizi</a>
+                <a href="flashcard.html" class="text-white hover:text-blue-200 py-2">Formule</a>
+                <a href="simulazione.html" class="text-white hover:text-blue-200 py-2">Simulazione</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8">
+        <!-- Selection Screen -->
+        <div id="selectionScreen">
+            <!-- Breadcrumb -->
+            <nav class="mb-6">
+                <ol class="flex items-center space-x-2 text-sm text-gray-500">
+                    <li><a href="index.html" class="hover:text-primary">Home</a></li>
+                    <li><span class="mx-2">/</span></li>
+                    <li>Simulazione Esame</li>
+                </ol>
+            </nav>
+
+            <!-- Page Header -->
+            <div class="mb-8">
+                <h2 class="text-3xl font-bold text-gray-800 mb-2">Simulazione Esame</h2>
+                <p class="text-gray-600">Scegli un esame e mettiti alla prova come in un vero esame!</p>
+            </div>
+
+            <!-- Instructions -->
+            <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg mb-8">
+                <h3 class="font-semibold text-blue-800 mb-2">Come funziona</h3>
+                <ul class="text-blue-700 text-sm space-y-1">
+                    <li>1. Seleziona un esame dall'elenco</li>
+                    <li>2. Vedrai le 8 domande dell'esame (senza soluzioni)</li>
+                    <li>3. Attiva il timer se vuoi simulare i tempi reali (2 ore)</li>
+                    <li>4. Quando hai finito, premi "Mostra soluzioni" per vedere le risposte</li>
+                </ul>
+            </div>
+
+            <!-- Timer Option -->
+            <div class="bg-white rounded-xl shadow-md p-6 mb-8">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h3 class="font-semibold text-gray-800">Timer</h3>
+                        <p class="text-sm text-gray-500">Simula i tempi reali dell'esame (2 ore)</p>
+                    </div>
+                    <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" id="timerToggle" class="sr-only peer">
+                        <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Exam List -->
+            <div id="examsList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Will be populated by JS -->
+            </div>
+        </div>
+
+        <!-- Exam Screen (hidden by default) -->
+        <div id="examScreen" class="hidden">
+            <!-- Timer Bar -->
+            <div id="timerBar" class="hidden bg-white rounded-xl shadow-md p-4 mb-6 sticky top-20 z-40">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center space-x-4">
+                        <span class="text-gray-600">Tempo rimanente:</span>
+                        <span id="timerDisplay" class="timer text-primary">02:00:00</span>
+                    </div>
+                    <button onclick="toggleTimer()" id="timerPauseBtn" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300">
+                        Pausa
+                    </button>
+                </div>
+                <div class="mt-2 bg-gray-200 rounded-full h-2">
+                    <div id="timerProgress" class="bg-primary rounded-full h-2 transition-all" style="width: 100%"></div>
+                </div>
+            </div>
+
+            <!-- Exam Header -->
+            <div class="bg-white rounded-xl shadow-md p-6 mb-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h2 id="examTitle" class="text-2xl font-bold text-gray-800"></h2>
+                        <p class="text-gray-500">8 domande</p>
+                    </div>
+                    <div class="flex space-x-4">
+                        <button onclick="showAllSolutions()" class="px-6 py-3 bg-green-500 text-white rounded-lg hover:bg-green-600 transition flex items-center space-x-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                            </svg>
+                            <span>Mostra tutte le soluzioni</span>
+                        </button>
+                        <button onclick="backToSelection()" class="px-6 py-3 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition">
+                            Torna alla selezione
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Questions -->
+            <div id="questionsContainer" class="space-y-6">
+                <!-- Will be populated by JS -->
+            </div>
+
+            <!-- Bottom Actions -->
+            <div class="mt-8 flex justify-center space-x-4">
+                <button onclick="showAllSolutions()" class="px-8 py-4 bg-green-500 text-white rounded-xl hover:bg-green-600 transition text-lg font-semibold flex items-center space-x-2">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <span>Ho finito - Mostra soluzioni</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Solution Modal -->
+        <div id="solutionModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4">
+            <div class="bg-white rounded-xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden flex flex-col">
+                <div class="bg-gray-50 p-4 border-b flex items-center justify-between">
+                    <h3 id="solutionModalTitle" class="text-xl font-bold text-gray-800"></h3>
+                    <button onclick="closeSolutionModal()" class="text-gray-500 hover:text-gray-700">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="flex-1 overflow-auto">
+                    <iframe id="solutionFrame" class="w-full h-full" style="min-height: 500px;"></iframe>
+                </div>
+                <div class="bg-gray-50 p-4 border-t flex justify-end">
+                    <button onclick="closeSolutionModal()" class="px-6 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition">
+                        Chiudi e torna all'esame
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/data.js"></script>
+    <script src="js/progress.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/search.js"></script>
+    <script>
+        let exams = [];
+        let currentExam = null;
+        let timerInterval = null;
+        let timerSeconds = 2 * 60 * 60; // 2 hours
+        let timerPaused = false;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadExams();
+            initMobileMenu();
+        });
+
+        function loadExams() {
+            exams = EXAMS_DATA.exams;
+            renderExamsList();
+        }
+
+        function renderExamsList() {
+            const container = document.getElementById('examsList');
+            const progress = Progress.get();
+
+            container.innerHTML = exams.map(exam => {
+                const isComplete = progress.exams && progress.exams[exam.id];
+                // Estrai topics unici dalle domande
+                const topics = [...new Set(exam.questions.map(q => q.topic))];
+                return `
+                    <div onclick="startExam('${exam.id}')"
+                         class="bg-white rounded-xl shadow-md p-6 cursor-pointer hover:shadow-xl transition-all border-l-4 ${isComplete ? 'border-green-500' : 'border-purple-500'}">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-xl font-bold text-gray-800">${exam.title}</h3>
+                            ${isComplete ? '<span class="badge badge-done">Completato</span>' : ''}
+                        </div>
+                        <p class="text-gray-500 mb-4">${exam.questions.length} domande</p>
+                        <div class="flex flex-wrap gap-2">
+                            ${topics.map(topic =>
+                                `<span class="bg-purple-100 text-purple-700 px-2 py-1 rounded text-xs">${topic}</span>`
+                            ).join('')}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function startExam(examId) {
+            currentExam = exams.find(e => e.id === examId);
+            if (!currentExam) return;
+
+            // Hide selection, show exam
+            document.getElementById('selectionScreen').classList.add('hidden');
+            document.getElementById('examScreen').classList.remove('hidden');
+            document.getElementById('examTitle').textContent = currentExam.title;
+
+            // Setup timer if enabled
+            const timerEnabled = document.getElementById('timerToggle').checked;
+            if (timerEnabled) {
+                timerSeconds = 2 * 60 * 60;
+                document.getElementById('timerBar').classList.remove('hidden');
+                startTimer();
+            }
+
+            // Render questions (placeholder - in real app would load from PDF)
+            renderQuestions();
+
+            window.scrollTo(0, 0);
+        }
+
+        function renderQuestions() {
+            const container = document.getElementById('questionsContainer');
+            const questions = currentExam.questions;
+
+            container.innerHTML = questions.map((q, i) => `
+                <div class="bg-white rounded-xl shadow-md overflow-hidden" id="question-${i+1}">
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-lg font-bold text-gray-800">Domanda ${q.num}</h3>
+                            <span class="bg-purple-100 text-purple-700 px-3 py-1 rounded-full text-sm">${q.topic}</span>
+                        </div>
+                        <p class="text-gray-700 mb-4 leading-relaxed">
+                            ${q.text}
+                        </p>
+                        <button onclick="toggleSolution(${i + 1})"
+                                class="solution-toggle-btn px-4 py-2 bg-primary text-white rounded-lg hover:bg-secondary transition flex items-center space-x-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                            </svg>
+                            <span>Mostra soluzione</span>
+                        </button>
+                    </div>
+                    <div id="solution-${i+1}" class="solution-content bg-green-50 border-t border-green-200">
+                        <div class="p-6">
+                            <h4 class="font-semibold text-green-800 mb-3">Soluzione</h4>
+                            <p class="text-gray-600 mb-3">
+                                Clicca per vedere la soluzione completa passo-passo:
+                            </p>
+                            <a href="esercizi.html"
+                               onclick="openSolution('${q.solution}', '${getSolutionCategory(q.solution)}'); return false;"
+                               class="inline-flex items-center px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition">
+                                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                                </svg>
+                                Apri soluzione
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function getSolutionCategory(solutionId) {
+            // Mappa l'ID della soluzione alla categoria
+            if (solutionId.startsWith('lez01-02')) return 'lez01-02-nozioni-materia';
+            if (solutionId.startsWith('lez03-04') || solutionId.startsWith('lez03-')) return 'lez03-04-teoria-periodicita';
+            if (solutionId.startsWith('lez05')) return 'lez05-legami';
+            if (solutionId.startsWith('lez06')) return 'lez06-acidi-basi';
+            if (solutionId.startsWith('lez07')) return 'lez07-08-termodinamica';
+            if (solutionId.startsWith('lez09')) return 'lez09-cinetica';
+            if (solutionId.startsWith('lez10')) return 'lez10-elettrochimica';
+            return '';
+        }
+
+        function openSolution(solutionId, category) {
+            // Apre la soluzione nella modale
+            const modal = document.getElementById('solutionModal');
+            const frame = document.getElementById('solutionFrame');
+            const title = document.getElementById('solutionModalTitle');
+
+            title.textContent = `Soluzione: ${solutionId.replace(/-/g, ' ')}`;
+            frame.src = `content/soluzioni/${category}/${solutionId}.html`;
+
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeSolutionModal() {
+            const modal = document.getElementById('solutionModal');
+            const frame = document.getElementById('solutionFrame');
+
+            modal.classList.add('hidden');
+            frame.src = '';
+            document.body.style.overflow = '';
+        }
+
+        // Listener per messaggi dall'iframe
+        window.addEventListener('message', (e) => {
+            if (e.data.type === 'closeModal') {
+                closeSolutionModal();
+            }
+        });
+
+        // Chiudi modale con Escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeSolutionModal();
+        });
+
+        function toggleSolution(questionNum) {
+            const solution = document.getElementById(`solution-${questionNum}`);
+            solution.classList.toggle('show');
+        }
+
+        function showAllSolutions() {
+            for (let i = 1; i <= 8; i++) {
+                const solution = document.getElementById(`solution-${i}`);
+                if (solution) solution.classList.add('show');
+            }
+
+            // Stop timer
+            if (timerInterval) {
+                clearInterval(timerInterval);
+                timerInterval = null;
+            }
+
+            // Mark exam as complete
+            if (currentExam) {
+                Progress.markExam(currentExam.id, true);
+            }
+
+            ChemPortal.showNotification('Esame completato!', 'success');
+        }
+
+        function backToSelection() {
+            // Stop timer
+            if (timerInterval) {
+                clearInterval(timerInterval);
+                timerInterval = null;
+            }
+
+            document.getElementById('examScreen').classList.add('hidden');
+            document.getElementById('selectionScreen').classList.remove('hidden');
+            document.getElementById('timerBar').classList.add('hidden');
+
+            renderExamsList(); // Refresh to show completion status
+        }
+
+        function startTimer() {
+            updateTimerDisplay();
+            timerInterval = setInterval(() => {
+                if (!timerPaused) {
+                    timerSeconds--;
+                    updateTimerDisplay();
+
+                    if (timerSeconds <= 0) {
+                        clearInterval(timerInterval);
+                        showAllSolutions();
+                        ChemPortal.showNotification('Tempo scaduto!', 'error');
+                    }
+                }
+            }, 1000);
+        }
+
+        function updateTimerDisplay() {
+            const hours = Math.floor(timerSeconds / 3600);
+            const minutes = Math.floor((timerSeconds % 3600) / 60);
+            const seconds = timerSeconds % 60;
+
+            const display = document.getElementById('timerDisplay');
+            display.textContent = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+
+            // Update progress bar
+            const totalSeconds = 2 * 60 * 60;
+            const progress = (timerSeconds / totalSeconds) * 100;
+            document.getElementById('timerProgress').style.width = `${progress}%`;
+
+            // Warning colors
+            display.classList.remove('warning', 'danger');
+            if (timerSeconds < 30 * 60) {
+                display.classList.add('danger');
+            } else if (timerSeconds < 60 * 60) {
+                display.classList.add('warning');
+            }
+        }
+
+        function toggleTimer() {
+            timerPaused = !timerPaused;
+            const btn = document.getElementById('timerPauseBtn');
+            btn.textContent = timerPaused ? 'Riprendi' : 'Pausa';
+        }
+
+        function initMobileMenu() {
+            const btn = document.getElementById('mobileMenuBtn');
+            const menu = document.getElementById('mobileMenu');
+            if (btn && menu) {
+                btn.addEventListener('click', () => menu.classList.toggle('hidden'));
+            }
+        }
+    </script>
+</body>
+</html>

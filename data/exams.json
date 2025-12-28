@@ -1,0 +1,56 @@
+{
+  "exams": [
+    {
+      "id": "1-1",
+      "title": "Esame 1-1",
+      "file": "1-1.pdf",
+      "questions": 8,
+      "topics": ["Stechiometria", "Lewis", "pH", "Elettrochimica", "Termodinamica"]
+    },
+    {
+      "id": "1-2",
+      "title": "Esame 1-2",
+      "file": "1-2.pdf",
+      "questions": 8,
+      "topics": ["Redox", "VSEPR", "Tamponi", "Pile", "Cinetica"]
+    },
+    {
+      "id": "2-1",
+      "title": "Esame 2-1",
+      "file": "2-1.pdf",
+      "questions": 8,
+      "topics": ["Cu+HNO3", "Ioni isoelettronici", "Equilibrio", "Nernst"]
+    },
+    {
+      "id": "3-1",
+      "title": "Esame 3-1",
+      "file": "3-1.pdf",
+      "questions": 8,
+      "topics": ["Bilanciamento", "Configurazioni", "Hess", "Elettrolisi"]
+    },
+    {
+      "id": "4-1",
+      "title": "Esame 4-1",
+      "file": "4-1.pdf",
+      "questions": 8,
+      "topics": ["Stechiometria gas", "Lewis", "pH", "Pile concentrazione"]
+    },
+    {
+      "id": "5-1",
+      "title": "Esame 5-1",
+      "file": "5-1.pdf",
+      "questions": 8,
+      "topics": ["Redox", "VSEPR", "Calorimetria", "Faraday"]
+    },
+    {
+      "id": "6-1",
+      "title": "Esame 6-1",
+      "file": "6-1.pdf",
+      "questions": 8,
+      "topics": ["Pirite", "Ibridizzazione", "Kp", "Arrhenius"]
+    }
+  ],
+  "solutionMapping": {
+    "note": "Mapping delle domande d'esame ai file di soluzione. Da completare analizzando i PDF degli esami."
+  }
+}

@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Esame 4-1 - Esercizio 8 - Cinetica della Decomposizione di N2O5</title>
+    <style>
+        body { font-family: Georgia, serif; max-width: 800px; margin: 40px auto; padding: 20px; line-height: 1.8; color: #333; }
+        h2 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+        h3 { color: #2980b9; margin-top: 30px; }
+        h4 { color: #27ae60; }
+        .result { background-color: #e8f5e9; padding: 15px; border-radius: 5px; border-left: 4px solid #4caf50; margin: 20px 0; }
+        .domanda { background: #f8f9fa; border-left: 4px solid #3498db; padding: 15px; margin: 20px 0; font-style: italic; }
+        sub { font-size: 0.8em; vertical-align: sub; }
+        sup { font-size: 0.8em; vertical-align: super; }
+        .formula-box { background: #fff3e0; padding: 15px; border-radius: 5px; border: 2px solid #ff9800; margin: 20px 0; text-align: center; }
+        .calcolo { background: #e3f2fd; padding: 15px; border-radius: 5px; border-left: 4px solid #2196f3; margin: 15px 0; }
+        .warning { background: #fff8e1; padding: 15px; border-radius: 5px; border-left: 4px solid #ffc107; margin: 15px 0; }
+    
+    .done-buttons {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+    .mark-btn {
+        padding: 12px 24px;
+        font-size: 1em;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .mark-done {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        color: white;
+    }
+    .mark-done:hover, .mark-done.selected {
+        background: linear-gradient(135deg, #1e7e34, #17a085);
+        transform: scale(1.05);
+    }
+    .mark-review {
+        background: linear-gradient(135deg, #ffc107, #fd7e14);
+        color: white;
+    }
+    .mark-review:hover, .mark-review.selected {
+        background: linear-gradient(135deg, #d39e00, #dc6502);
+        transform: scale(1.05);
+    }
+    .mark-reset {
+        background: #6c757d;
+        color: white;
+    }
+    .mark-reset:hover {
+        background: #545b62;
+    }
+    .mark-btn.selected {
+        box-shadow: 0 0 0 3px rgba(0,0,0,0.2);
+    }
+</style>
+
+<style>
+    .quiz-container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px;
+        padding-bottom: 120px;
+    }
+    .question-section {
+        background: linear-gradient(135deg, #e8f4f8 0%, #d4edda 100%);
+        border: 2px solid #17a2b8;
+        border-radius: 10px;
+        padding: 25px;
+        margin-bottom: 20px;
+    }
+    .question-section h2 {
+        color: #0c5460;
+        margin-top: 0;
+        margin-bottom: 15px;
+    }
+    .show-next-btn {
+        display: block;
+        width: 100%;
+        padding: 15px 30px;
+        font-size: 1.1em;
+        font-weight: bold;
+        color: white;
+        background: linear-gradient(135deg, #007bff, #0056b3);
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        margin: 15px 0;
+        transition: all 0.3s ease;
+    }
+    .show-next-btn:hover {
+        background: linear-gradient(135deg, #0056b3, #004094);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 123, 255, 0.4);
+    }
+    .show-all-btn {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        margin-top: 10px;
+    }
+    .show-all-btn:hover {
+        background: linear-gradient(135deg, #218838, #1db385);
+        box-shadow: 0 4px 12px rgba(40, 167, 69, 0.4);
+    }
+    .step-container {
+        display: none;
+        animation: fadeIn 0.5s ease;
+        margin-bottom: 20px;
+        border: 1px solid #dee2e6;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    .step-container.visible {
+        display: block;
+    }
+    .step-header {
+        background: linear-gradient(135deg, #6c757d, #495057);
+        color: white;
+        padding: 12px 20px;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+    }
+    .step-number-badge {
+        background: white;
+        color: #495057;
+        border-radius: 50%;
+        width: 28px;
+        height: 28px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 12px;
+        font-weight: bold;
+    }
+    .step-content {
+        padding: 20px;
+        background: white;
+    }
+    .progress-bar {
+        background: #e9ecef;
+        border-radius: 10px;
+        height: 8px;
+        margin: 15px 0;
+        overflow: hidden;
+    }
+    .progress-fill {
+        background: linear-gradient(90deg, #28a745, #20c997);
+        height: 100%;
+        border-radius: 10px;
+        transition: width 0.5s ease;
+    }
+    .progress-text {
+        text-align: center;
+        color: #6c757d;
+        font-size: 0.9em;
+        margin-bottom: 15px;
+    }
+    .controls {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: white;
+        padding: 15px 20px;
+        border-top: 2px solid #dee2e6;
+        box-shadow: 0 -4px 12px rgba(0,0,0,0.1);
+        z-index: 1000;
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+    }
+    .quiz-container {
+        padding-bottom: 100px;
+    }
+    .show-next-btn {
+        width: auto;
+        margin: 0;
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .final-answer {
+        background: #d4edda;
+        border: 2px solid #28a745;
+        border-radius: 10px;
+        padding: 20px;
+        margin-top: 20px;
+    }
+    .final-answer h3 {
+        color: #155724;
+        margin-top: 0;
+    }
+
+    .done-buttons {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+    .mark-btn {
+        padding: 12px 24px;
+        font-size: 1em;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .mark-done {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        color: white;
+    }
+    .mark-done:hover, .mark-done.selected {
+        background: linear-gradient(135deg, #1e7e34, #17a085);
+        transform: scale(1.05);
+    }
+    .mark-review {
+        background: linear-gradient(135deg, #ffc107, #fd7e14);
+        color: white;
+    }
+    .mark-review:hover, .mark-review.selected {
+        background: linear-gradient(135deg, #d39e00, #dc6502);
+        transform: scale(1.05);
+    }
+    .mark-reset {
+        background: #6c757d;
+        color: white;
+    }
+    .mark-reset:hover {
+        background: #545b62;
+    }
+    .mark-btn.selected {
+        box-shadow: 0 0 0 3px rgba(0,0,0,0.2);
+    }
+</style>
+</head>
+<body>
+<div class="quiz-container">
+    <h1>Esercizio</h1>
+
+    <div class="question-section">
+        <h2>Testo dell'esercizio</h2>
+        <p>Risolvi l'esercizio seguente.</p>
+    </div>
+
+    <div class="progress-text" id="progress-text">Passaggio 0 di 15</div>
+    <div class="progress-bar">
+        <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+    </div>
+
+    <div class="controls">
+        <button id="next-btn" class="show-next-btn" onclick="showNextStep()">
+            ▶ Prossimo passaggio
+        </button>
+        <button id="all-btn" class="show-next-btn show-all-btn" onclick="showAllSteps()">
+            ⏩ Mostra tutto
+        </button>
+        <div id="done-buttons" class="done-buttons" style="display: none;">
+            <button id="mark-done" class="mark-btn mark-done" onclick="markExercise('done')">
+                ✓ Fatto
+            </button>
+            <button id="mark-review" class="mark-btn mark-review" onclick="markExercise('review')">
+                ⚠ Da rivedere
+            </button>
+            <button class="mark-btn mark-reset" onclick="resetExercise()">
+                ↺ Ricomincia
+            </button>
+            <button class="mark-btn" style="background: #17a2b8;" onclick="closeExercise()">
+                ✕ Chiudi
+            </button>
+        </div>
+    </div>
+
+    <div id="steps-wrapper">
+        
+        <div id="step-0" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">1</span>
+                Esame 4-1 - Esercizio 8: Cinetica della Decomposiz...
+            </div>
+            <div class="step-content">
+                <h2>Esame 4-1 - Esercizio 8: Cinetica della Decomposizione di N<sub>2</sub>O<sub>5</sub></h2>
+
+<div class="domanda">
+<strong>Testo della domanda:</strong><br>
+In un reattore da 1 litro mantenuto a 35C si caricano 0,05 moli di N<sub>2</sub>O<sub>5</sub>. Sapendo che la k<sub>cin</sub> della reazione di decomposizione dell'N<sub>2</sub>O<sub>5</sub> a NO<sub>2</sub> e O<sub>2</sub> a quella temperatura vale 1,12 x 10<sup>-4</sup> s<sup>-1</sup>, calcolare la composizione della miscela gassosa dopo un'ora dal caricamento del gas.
+</div>
+            </div>
+        </div>
+        
+        <div id="step-1" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">2</span>
+                Introduzione: Cosa dobbiamo fare?
+            </div>
+            <div class="step-content">
+                <h3>Introduzione: Cosa dobbiamo fare?</h3>
+
+<p>In questo esercizio ci viene chiesto di studiare come evolve nel tempo una reazione di decomposizione. Abbiamo un gas, il <strong>pentossido di diazoto</strong> (N<sub>2</sub>O<sub>5</sub>), che si decompone spontaneamente producendo biossido di azoto (NO<sub>2</sub>) e ossigeno (O<sub>2</sub>).</p>
+
+<p>La reazione bilanciata e:</p>
+
+<div class="formula-box">
+<strong>2 N<sub>2</sub>O<sub>5</sub> --> 4 NO<sub>2</sub> + O<sub>2</sub></strong>
+</div>
+
+<p>Dato che ci viene fornita la costante cinetica con unita s<sup>-1</sup>, possiamo immediatamente dedurre che si tratta di una <strong>reazione del primo ordine</strong>. Questo e un indizio fondamentale, perche le unita di k ci dicono sempre l'ordine della reazione:</p>
+
+<ul>
+    <li>Ordine 0: k ha unita mol/(L x s)</li>
+    <li><strong>Ordine 1: k ha unita s<sup>-1</sup></strong> (questo e il nostro caso!)</li>
+    <li>Ordine 2: k ha unita L/(mol x s)</li>
+</ul>
+            </div>
+        </div>
+        
+        <div id="step-2" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">3</span>
+                Raccolta dei dati
+            </div>
+            <div class="step-content">
+                <h3>Raccolta dei dati</h3>
+
+<p>Prima di iniziare i calcoli, organizziamo tutti i dati che ci vengono forniti:</p>
+
+<div class="calcolo">
+<ul>
+    <li>Volume del reattore: V = 1 L</li>
+    <li>Moli iniziali di N<sub>2</sub>O<sub>5</sub>: n<sub>0</sub> = 0,05 mol</li>
+    <li>Costante cinetica: k = 1,12 x 10<sup>-4</sup> s<sup>-1</sup></li>
+    <li>Temperatura: T = 35C (costante)</li>
+    <li>Tempo: t = 1 ora = 3600 s</li>
+</ul>
+</div>
+
+<div class="warning">
+<strong>Attenzione!</strong> E fondamentale convertire il tempo in secondi, perche la costante cinetica e espressa in s<sup>-1</sup>. Le unita devono essere coerenti!
+</div>
+            </div>
+        </div>
+        
+        <div id="step-3" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">4</span>
+                Passo 1: Calcolo della concentrazione iniziale
+            </div>
+            <div class="step-content">
+                <h3>Passo 1: Calcolo della concentrazione iniziale</h3>
+
+<p>Poiche il volume del reattore e esattamente 1 litro, la concentrazione iniziale di N<sub>2</sub>O<sub>5</sub> coincide numericamente con le moli:</p>
+
+<div class="calcolo">
+<p>[N<sub>2</sub>O<sub>5</sub>]<sub>0</sub> = n<sub>0</sub> / V = 0,05 mol / 1 L = <strong>0,05 M</strong></p>
+</div>
+            </div>
+        </div>
+        
+        <div id="step-4" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">5</span>
+                Passo 2: La legge cinetica del primo ordine
+            </div>
+            <div class="step-content">
+                <h3>Passo 2: La legge cinetica del primo ordine</h3>
+
+<p>Per una reazione del primo ordine, la concentrazione del reagente decresce esponenzialmente nel tempo secondo la formula:</p>
+
+<div class="formula-box">
+<strong>[A] = [A]<sub>0</sub> x e<sup>(-k x t)</sup></strong>
+</div>
+
+<p>Questa formula ci dice che la concentrazione del reagente diminuisce seguendo una curva esponenziale. Piu tempo passa, piu la concentrazione si abbassa, ma mai diventa esattamente zero (almeno teoricamente).</p>
+
+<p>Applichiamola al nostro caso:</p>
+
+<div class="calcolo">
+<p>[N<sub>2</sub>O<sub>5</sub>] = [N<sub>2</sub>O<sub>5</sub>]<sub>0</sub> x e<sup>(-k x t)</sup></p>
+<p>[N<sub>2</sub>O<sub>5</sub>] = 0,05 x e<sup>(-1,12 x 10<sup>-4</sup> x 3600)</sup></p>
+</div>
+            </div>
+        </div>
+        
+        <div id="step-5" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">6</span>
+                Passo 3: Calcolo dell'esponente
+            </div>
+            <div class="step-content">
+                <h3>Passo 3: Calcolo dell'esponente</h3>
+
+<p>Prima calcoliamo l'esponente k x t:</p>
+
+<div class="calcolo">
+<p>k x t = 1,12 x 10<sup>-4</sup> s<sup>-1</sup> x 3600 s</p>
+<p>k x t = 1,12 x 3600 x 10<sup>-4</sup></p>
+<p>k x t = 4032 x 10<sup>-4</sup></p>
+<p>k x t = <strong>0,4032</strong></p>
+</div>
+
+<p>Notiamo che il risultato e adimensionale (i secondi si semplificano), come deve essere per un esponente.</p>
+            </div>
+        </div>
+        
+        <div id="step-6" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">7</span>
+                Passo 4: Calcolo di e-0,4032
+            </div>
+            <div class="step-content">
+                <h3>Passo 4: Calcolo di e<sup>-0,4032</sup></h3>
+
+<p>Ora dobbiamo calcolare e<sup>-0,4032</sup>. Il numero e (numero di Nepero) vale circa 2,718. Usando una calcolatrice scientifica:</p>
+
+<div class="calcolo">
+<p>e<sup>-0,4032</sup> = <strong>0,6682</strong></p>
+</div>
+
+<p>Questo valore ci dice che, dopo un'ora, rimane circa il 66,8% del reagente iniziale. Quindi poco piu di un terzo si e decomposto.</p>
+            </div>
+        </div>
+        
+        <div id="step-7" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">8</span>
+                Passo 5: Calcolo della concentrazione finale di N2...
+            </div>
+            <div class="step-content">
+                <h3>Passo 5: Calcolo della concentrazione finale di N<sub>2</sub>O<sub>5</sub></h3>
+
+<p>Ora possiamo calcolare la concentrazione di N<sub>2</sub>O<sub>5</sub> dopo un'ora:</p>
+
+<div class="calcolo">
+<p>[N<sub>2</sub>O<sub>5</sub>] = 0,05 M x 0,6682</p>
+<p>[N<sub>2</sub>O<sub>5</sub>] = <strong>0,0334 M</strong></p>
+</div>
+
+<p>Poiche il volume e 1 L, le moli di N<sub>2</sub>O<sub>5</sub> rimaste sono:</p>
+
+<div class="calcolo">
+<p>n(N<sub>2</sub>O<sub>5</sub>) = 0,0334 mol x 1 L = <strong>0,0334 mol</strong></p>
+</div>
+            </div>
+        </div>
+        
+        <div id="step-8" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">9</span>
+                Passo 6: Calcolo delle moli di N2O5 decomposte
+            </div>
+            <div class="step-content">
+                <h3>Passo 6: Calcolo delle moli di N<sub>2</sub>O<sub>5</sub> decomposte</h3>
+
+<p>Per calcolare i prodotti, dobbiamo prima sapere quante moli di N<sub>2</sub>O<sub>5</sub> si sono decomposte:</p>
+
+<div class="calcolo">
+<p>n(N<sub>2</sub>O<sub>5</sub>)<sub>decomposte</sub> = n<sub>0</sub> - n<sub>finale</sub></p>
+<p>n(N<sub>2</sub>O<sub>5</sub>)<sub>decomposte</sub> = 0,05 - 0,0334</p>
+<p>n(N<sub>2</sub>O<sub>5</sub>)<sub>decomposte</sub> = <strong>0,0166 mol</strong></p>
+</div>
+            </div>
+        </div>
+        
+        <div id="step-9" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">10</span>
+                Passo 7: Uso della stechiometria per calcolare i p...
+            </div>
+            <div class="step-content">
+                <h3>Passo 7: Uso della stechiometria per calcolare i prodotti</h3>
+
+<p>Ora utilizziamo i <strong>coefficienti stechiometrici</strong> della reazione bilanciata per calcolare le moli di prodotti formati. Ricordiamo la reazione:</p>
+
+<div class="formula-box">
+<strong>2 N<sub>2</sub>O<sub>5</sub> --> 4 NO<sub>2</sub> + O<sub>2</sub></strong>
+</div>
+
+<p>I rapporti stechiometrici sono:</p>
+<ul>
+    <li>N<sub>2</sub>O<sub>5</sub> : NO<sub>2</sub> = 2 : 4 = 1 : 2</li>
+    <li>N<sub>2</sub>O<sub>5</sub> : O<sub>2</sub> = 2 : 1</li>
+</ul>
+
+<h4>Calcolo delle moli di NO<sub>2</sub></h4>
+
+<p>Dalla stechiometria, per ogni 2 moli di N<sub>2</sub>O<sub>5</sub> che si decompongono, si formano 4 moli di NO<sub>2</sub>. Quindi:</p>
+
+<div class="calcolo">
+<p>n(NO<sub>2</sub>) = n(N<sub>2</sub>O<sub>5</sub>)<sub>decomposte</sub> x (4/2)</p>
+<p>n(NO<sub>2</sub>) = 0,0166 x 2</p>
+<p>n(NO<sub>2</sub>) = <strong>0,0332 mol</strong></p>
+</div>
+
+<h4>Calcolo delle moli di O<sub>2</sub></h4>
+
+<p>Dalla stechiometria, per ogni 2 moli di N<sub>2</sub>O<sub>5</sub> che si decompongono, si forma 1 mole di O<sub>2</sub>. Quindi:</p>
+
+<div class="calcolo">
+<p>n(O<sub>2</sub>) = n(N<sub>2</sub>O<sub>5</sub>)<sub>decomposte</sub> x (1/2)</p>
+<p>n(O<sub>2</sub>) = 0,0166 x 0,5</p>
+<p>n(O<sub>2</sub>) = <strong>0,0083 mol</strong></p>
+</div>
+            </div>
+        </div>
+        
+        <div id="step-10" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">11</span>
+                Passo 8: Verifica della coerenza
+            </div>
+            <div class="step-content">
+                <h3>Passo 8: Verifica della coerenza</h3>
+
+<p>E sempre buona pratica verificare che i nostri calcoli siano coerenti. Possiamo farlo controllando la conservazione degli atomi.</p>
+
+<h4>Controllo degli atomi di azoto (N)</h4>
+<div class="calcolo">
+<p><strong>Azoto iniziale:</strong> 0,05 mol N<sub>2</sub>O<sub>5</sub> x 2 atomi N = 0,10 mol di atomi N</p>
+<p><strong>Azoto finale:</strong></p>
+<ul>
+    <li>In N<sub>2</sub>O<sub>5</sub> rimasto: 0,0334 mol x 2 = 0,0668 mol di atomi N</li>
+    <li>In NO<sub>2</sub> formato: 0,0332 mol x 1 = 0,0332 mol di atomi N</li>
+    <li>Totale: 0,0668 + 0,0332 = 0,10 mol di atomi N</li>
+</ul>
+<p>Gli atomi di azoto si conservano!</p>
+</div>
+
+<h4>Controllo degli atomi di ossigeno (O)</h4>
+<div class="calcolo">
+<p><strong>Ossigeno iniziale:</strong> 0,05 mol N<sub>2</sub>O<sub>5</sub> x 5 atomi O = 0,25 mol di atomi O</p>
+<p><strong>Ossigeno finale:</strong></p>
+<ul>
+    <li>In N<sub>2</sub>O<sub>5</sub> rimasto: 0,0334 mol x 5 = 0,167 mol di atomi O</li>
+    <li>In NO<sub>2</sub> formato: 0,0332 mol x 2 = 0,0664 mol di atomi O</li>
+    <li>In O<sub>2</sub> formato: 0,0083 mol x 2 = 0,0166 mol di atomi O</li>
+    <li>Totale: 0,167 + 0,0664 + 0,0166 = 0,25 mol di atomi O</li>
+</ul>
+<p>Gli atomi di ossigeno si conservano!</p>
+</div>
+            </div>
+        </div>
+        
+        <div id="step-11" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">12</span>
+                Passo 9: Calcolo delle concentrazioni finali
+            </div>
+            <div class="step-content">
+                <h3>Passo 9: Calcolo delle concentrazioni finali</h3>
+
+<p>Poiche il volume del reattore e 1 L, le concentrazioni coincidono numericamente con le moli:</p>
+
+<div class="calcolo">
+<ul>
+    <li>[N<sub>2</sub>O<sub>5</sub>] = 0,0334 mol / 1 L = <strong>0,0334 M</strong></li>
+    <li>[NO<sub>2</sub>] = 0,0332 mol / 1 L = <strong>0,0332 M</strong></li>
+    <li>[O<sub>2</sub>] = 0,0083 mol / 1 L = <strong>0,0083 M</strong></li>
+</ul>
+</div>
+            </div>
+        </div>
+        
+        <div id="step-12" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">13</span>
+                Passo 10: Calcolo delle moli totali e verifica
+            </div>
+            <div class="step-content">
+                <h3>Passo 10: Calcolo delle moli totali e verifica</h3>
+
+<p>Calcoliamo le moli totali di gas presenti dopo un'ora:</p>
+
+<div class="calcolo">
+<p>n<sub>totali</sub> = n(N<sub>2</sub>O<sub>5</sub>) + n(NO<sub>2</sub>) + n(O<sub>2</sub>)</p>
+<p>n<sub>totali</sub> = 0,0334 + 0,0332 + 0,0083</p>
+<p>n<sub>totali</sub> = <strong>0,0749 mol</strong></p>
+</div>
+
+<p>Notiamo che le moli totali sono aumentate rispetto alle moli iniziali (0,05 mol). Questo e corretto! Nella reazione, 2 molecole di reagente producono 5 molecole di prodotti (4 NO<sub>2</sub> + 1 O<sub>2</sub>), quindi il numero totale di moli aumenta durante la reazione.</p>
+
+<div class="result">
+            </div>
+        </div>
+        
+        <div id="step-13" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">14</span>
+                RISULTATO FINALE: Composizione della miscela gasso...
+            </div>
+            <div class="step-content">
+                <h3>RISULTATO FINALE: Composizione della miscela gassosa dopo 1 ora</h3>
+
+<p>Dopo un'ora dalla carica del reattore, la miscela gassosa e composta da:</p>
+
+<table style="width: 100%; border-collapse: collapse; margin: 10px 0;">
+    <tr style="background: #3498db; color: white;">
+        <th style="padding: 10px; border: 1px solid #333;">Specie</th>
+        <th style="padding: 10px; border: 1px solid #333;">Moli (mol)</th>
+        <th style="padding: 10px; border: 1px solid #333;">Concentrazione (M)</th>
+    </tr>
+    <tr>
+        <td style="padding: 10px; border: 1px solid #333; text-align: center;"><strong>N<sub>2</sub>O<sub>5</sub></strong></td>
+        <td style="padding: 10px; border: 1px solid #333; text-align: center;">0,0334</td>
+        <td style="padding: 10px; border: 1px solid #333; text-align: center;">0,0334</td>
+    </tr>
+    <tr style="background: #f8f9fa;">
+        <td style="padding: 10px; border: 1px solid #333; text-align: center;"><strong>NO<sub>2</sub></strong></td>
+        <td style="padding: 10px; border: 1px solid #333; text-align: center;">0,0332</td>
+        <td style="padding: 10px; border: 1px solid #333; text-align: center;">0,0332</td>
+    </tr>
+    <tr>
+        <td style="padding: 10px; border: 1px solid #333; text-align: center;"><strong>O<sub>2</sub></strong></td>
+        <td style="padding: 10px; border: 1px solid #333; text-align: center;">0,0083</td>
+        <td style="padding: 10px; border: 1px solid #333; text-align: center;">0,0083</td>
+    </tr>
+    <tr style="background: #e8f5e9;">
+        <td style="padding: 10px; border: 1px solid #333; text-align: center;"><strong>TOTALE</strong></td>
+        <td style="padding: 10px; border: 1px solid #333; text-align: center;"><strong>0,0749</strong></td>
+        <td style="padding: 10px; border: 1px solid #333; text-align: center;">-</td>
+    </tr>
+</table>
+
+<p><strong>Interpretazione:</strong> Dopo un'ora, circa il 33% dell'N<sub>2</sub>O<sub>5</sub> iniziale si e decomposto, producendo NO<sub>2</sub> e O<sub>2</sub> in rapporto 4:1.</p>
+</div>
+            </div>
+        </div>
+        
+        <div id="step-14" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">15</span>
+                Considerazioni aggiuntive
+            </div>
+            <div class="step-content">
+                <h3>Considerazioni aggiuntive</h3>
+
+<h4>Perche la reazione e del primo ordine rispetto a N<sub>2</sub>O<sub>5</sub>?</h4>
+
+<p>Anche se la reazione bilanciata mostra un coefficiente 2 davanti a N<sub>2</sub>O<sub>5</sub>, l'ordine di reazione NON e determinato dalla stechiometria! L'ordine di reazione e una proprieta sperimentale che dipende dal meccanismo di reazione.</p>
+
+<p>Nel caso della decomposizione di N<sub>2</sub>O<sub>5</sub>, studi sperimentali hanno dimostrato che la velocita e proporzionale alla prima potenza della concentrazione di N<sub>2</sub>O<sub>5</sub>:</p>
+
+<div class="formula-box">
+<strong>v = k x [N<sub>2</sub>O<sub>5</sub>]</strong>
+</div>
+
+<p>Questo indica un meccanismo di reazione che procede attraverso una serie di passaggi elementari, dove il passaggio determinante la velocita (il piu lento) coinvolge una sola molecola di N<sub>2</sub>O<sub>5</sub>.</p>
+
+<h4>Tempo di dimezzamento per questa reazione</h4>
+
+<p>Per una reazione del primo ordine, il tempo di dimezzamento e indipendente dalla concentrazione iniziale e vale:</p>
+
+<div class="calcolo">
+<p>t<sub>1/2</sub> = ln(2) / k = 0,693 / (1,12 x 10<sup>-4</sup> s<sup>-1</sup>)</p>
+<p>t<sub>1/2</sub> = 6188 s = <strong>103 minuti</strong> (circa 1 ora e 43 minuti)</p>
+</div>
+
+<p>Dopo un'ora (60 minuti), non siamo ancora arrivati al tempo di dimezzamento, il che e coerente con il fatto che ci rimane ancora circa il 67% del reagente iniziale.</p>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+<script>
+    let currentStep = 0;
+    let totalSteps = 0;
+
+    document.addEventListener('DOMContentLoaded', function() {
+        totalSteps = document.querySelectorAll('.step-container').length;
+        updateProgress();
+        updateButtons();
+    });
+
+    function showNextStep() {
+        if (currentStep < totalSteps) {
+            const step = document.getElementById('step-' + currentStep);
+            if (step) {
+                step.classList.add('visible');
+                step.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                currentStep++;
+                updateProgress();
+                updateButtons();
+
+                if (window.parent !== window) {
+                    window.parent.postMessage({type: 'stepShown', step: currentStep, total: totalSteps}, '*');
+                }
+            }
+        }
+    }
+
+    function showAllSteps() {
+        document.querySelectorAll('.step-container').forEach(function(step) {
+            step.classList.add('visible');
+        });
+        currentStep = totalSteps;
+        updateProgress();
+        updateButtons();
+
+        if (window.parent !== window) {
+            window.parent.postMessage({type: 'allStepsShown'}, '*');
+        }
+    }
+
+    function hideAllSteps() {
+        document.querySelectorAll('.step-container').forEach(function(step) {
+            step.classList.remove('visible');
+        });
+        currentStep = 0;
+        updateProgress();
+        updateButtons();
+    }
+
+    function updateProgress() {
+        const pct = totalSteps > 0 ? (currentStep / totalSteps) * 100 : 0;
+        const fill = document.getElementById('progress-fill');
+        const text = document.getElementById('progress-text');
+        if (fill) fill.style.width = pct + '%';
+        if (text) text.textContent = 'Passaggio ' + currentStep + ' di ' + totalSteps;
+    }
+
+    function updateButtons() {
+        const nextBtn = document.getElementById('next-btn');
+        const allBtn = document.getElementById('all-btn');
+        const doneButtons = document.getElementById('done-buttons');
+
+        if (currentStep >= totalSteps) {
+            if (nextBtn) nextBtn.style.display = 'none';
+            if (allBtn) allBtn.style.display = 'none';
+            if (doneButtons) doneButtons.style.display = 'flex';
+        } else {
+            if (nextBtn) nextBtn.style.display = 'block';
+            if (allBtn) allBtn.style.display = 'block';
+            if (doneButtons) doneButtons.style.display = 'none';
+        }
+    }
+
+    function markExercise(status) {
+        // Salva in localStorage
+        const exerciseId = window.location.pathname.split('/').pop().replace('.html', '');
+        let progress = JSON.parse(localStorage.getItem('chemportal_progress') || '{}');
+        if (!progress.exercises) progress.exercises = {};
+        progress.exercises[exerciseId] = status;
+        localStorage.setItem('chemportal_progress', JSON.stringify(progress));
+
+        // Feedback visivo
+        const btn = status === 'done' ? document.getElementById('mark-done') : document.getElementById('mark-review');
+        const otherBtn = status === 'done' ? document.getElementById('mark-review') : document.getElementById('mark-done');
+
+        btn.classList.add('selected');
+        otherBtn.classList.remove('selected');
+
+        // Notifica parent
+        if (window.parent !== window) {
+            window.parent.postMessage({type: 'exerciseMarked', status: status, id: exerciseId}, '*');
+        }
+    }
+
+    function resetExercise() {
+        hideAllSteps();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Messaggi dal parent
+    window.addEventListener('message', function(e) {
+        if (e.data.type === 'showNext') showNextStep();
+        else if (e.data.type === 'showAll') showAllSteps();
+        else if (e.data.type === 'hideAll') hideAllSteps();
+    });
+
+    function closeExercise() {
+        if (window.parent !== window) {
+            // Siamo in iframe, chiedi al parent di chiudere
+            window.parent.postMessage({type: 'closeModal'}, '*');
+        } else {
+            // Standalone: torna alla pagina esercizi
+            const path = window.location.pathname;
+            if (path.includes('/content/soluzioni/')) {
+                window.location.href = '../../esercizi.html';
+            } else {
+                window.history.back();
+            }
+        }
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,1132 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Capitolo 1-2: Nozioni sulla Materia, Moli, Stechiometria e Gas</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 2cm;
+        }
+        body {
+            font-family: Georgia, serif;
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            line-height: 1.8;
+            color: #333;
+        }
+        h1 {
+            color: #1a5276;
+            border-bottom: 4px solid #2980b9;
+            padding-bottom: 15px;
+            font-size: 2em;
+        }
+        h2 {
+            color: #2471a3;
+            margin-top: 40px;
+            border-left: 4px solid #3498db;
+            padding-left: 15px;
+            page-break-after: avoid;
+        }
+        h3 {
+            color: #1e8449;
+            margin-top: 25px;
+        }
+        h4 {
+            color: #7d3c98;
+            margin-top: 20px;
+        }
+        .indice {
+            background: #eaf2f8;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .indice ul {
+            columns: 2;
+            list-style-type: none;
+            padding-left: 0;
+        }
+        .indice li {
+            margin: 5px 0;
+        }
+        .indice a {
+            color: #2471a3;
+            text-decoration: none;
+        }
+        .prerequisiti {
+            background: #fef9e7;
+            padding: 15px;
+            border-left: 4px solid #f39c12;
+            margin: 20px 0;
+        }
+        .definizione {
+            background: #e8f6f3;
+            padding: 15px;
+            border-left: 4px solid #1abc9c;
+            margin: 15px 0;
+        }
+        .formula-box {
+            background: #fdebd0;
+            padding: 20px;
+            border: 2px solid #e67e22;
+            border-radius: 8px;
+            margin: 20px 0;
+            text-align: center;
+            font-size: 1.2em;
+        }
+        .formula-box .nome {
+            font-weight: bold;
+            color: #d35400;
+            margin-bottom: 10px;
+        }
+        .formula-box .formula {
+            font-size: 1.3em;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+        }
+        .formula-box .quando {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 10px;
+            text-align: left;
+        }
+        .formula-box .unita {
+            font-size: 0.85em;
+            color: #555;
+            text-align: left;
+            margin-top: 10px;
+            background: #fff;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .esempio-esame {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 25px 0;
+            border: 2px solid #3498db;
+        }
+        .esempio-esame .titolo {
+            font-weight: bold;
+            color: #2980b9;
+            font-size: 1.2em;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        .testo-problema {
+            background: #f8f9fa;
+            border-left: 4px solid #3498db;
+            padding: 15px;
+            margin: 15px 0;
+            font-style: italic;
+        }
+        .attenzione {
+            background: #fdedec;
+            padding: 15px;
+            border-left: 4px solid #e74c3c;
+            margin: 15px 0;
+        }
+        .riepilogo {
+            background: #d5f5e3;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 30px 0;
+        }
+        .procedura {
+            background: #fff;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        .procedura ol {
+            margin: 0;
+            padding-left: 20px;
+        }
+        .procedura li {
+            margin: 8px 0;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #bdc3c7;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background: #3498db;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        sub { font-size: 0.75em; }
+        sup { font-size: 0.75em; }
+        .step {
+            background: #f0f8ff;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+            border-left: 3px solid #3498db;
+        }
+        .step-number {
+            display: inline-block;
+            background-color: #3498db;
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 28px;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        .risultato {
+            background: #d4edda;
+            padding: 15px;
+            border-radius: 5px;
+            border: 2px solid #28a745;
+            text-align: center;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+        .nota {
+            background: #fff3cd;
+            padding: 10px 15px;
+            border-left: 4px solid #ffc107;
+            margin: 15px 0;
+            font-style: italic;
+        }
+        .costanti-box {
+            background: #f8f9fa;
+            padding: 15px;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        .calcolo {
+            background: #f0f8f0;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            margin: 10px 0;
+            border: 1px solid #c8e6c9;
+        }
+        .reazione {
+            background: #fff3e0;
+            padding: 15px;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 1.1em;
+            margin: 15px 0;
+            border: 1px solid #ffcc80;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Capitolo 1-2: Nozioni sulla Materia, Moli, Stechiometria e Gas</h1>
+
+<div class="indice">
+    <strong>INDICE DEL CAPITOLO</strong>
+    <ul>
+        <li>1. Prerequisiti</li>
+        <li>2. La mole e le conversioni fondamentali</li>
+        <li>3. Numeri di ossidazione</li>
+        <li>4. Bilanciamento delle reazioni redox</li>
+        <li>5. Stechiometria e reagente limitante</li>
+        <li>6. Gas ideali e leggi dei gas</li>
+        <li>7. Soluzioni e concentrazioni</li>
+        <li>8. Esercizi d'esame svolti</li>
+        <li>9. Errori comuni da evitare</li>
+        <li>10. Riepilogo formule</li>
+    </ul>
+</div>
+
+<div class="prerequisiti">
+    <strong>PREREQUISITI</strong>
+    <p>Prima di affrontare questo capitolo, dovresti conoscere:</p>
+    <ul>
+        <li>Tavola periodica: simboli degli elementi e loro masse atomiche</li>
+        <li>Operazioni matematiche di base: proporzioni, potenze di 10</li>
+        <li>Concetto di atomo, molecola, ione</li>
+        <li>Notazione scientifica (es. 6,022 x 10<sup>23</sup>)</li>
+    </ul>
+</div>
+
+<!-- SEZIONE 1: LA MOLE -->
+<h2 id="mole">1. La Mole e le Conversioni Fondamentali</h2>
+
+<p>Immagina di dover contare i granelli di sabbia su una spiaggia. Impossibile, vero? Eppure in chimica dobbiamo "contare" gli atomi e le molecole, che sono ancora piu piccoli e piu numerosi. Per risolvere questo problema, i chimici hanno inventato un'unita di misura speciale: la <strong>mole</strong>.</p>
+
+<div class="definizione">
+    <strong>Definizione di MOLE:</strong> La mole e l'unita di misura della quantita di sostanza nel Sistema Internazionale. Una mole contiene esattamente <strong>6,022 x 10<sup>23</sup></strong> particelle (atomi, molecole, ioni o elettroni). Questo numero enorme si chiama <strong>numero di Avogadro</strong> (N<sub>A</sub>).
+</div>
+
+<p>Ma perche proprio questo numero? La risposta e elegante: se prendiamo una quantita in grammi di un elemento pari alla sua massa atomica, otteniamo esattamente una mole di quell'elemento. Per esempio:</p>
+<ul>
+    <li>12,01 g di carbonio = 1 mole di atomi di C = 6,022 x 10<sup>23</sup> atomi</li>
+    <li>55,85 g di ferro = 1 mole di atomi di Fe = 6,022 x 10<sup>23</sup> atomi</li>
+    <li>18,02 g di acqua = 1 mole di molecole di H<sub>2</sub>O = 6,022 x 10<sup>23</sup> molecole</li>
+</ul>
+
+<p>La mole e quindi il <strong>ponte</strong> tra il mondo macroscopico (quello che pesiamo in laboratorio, in grammi) e il mondo microscopico (il numero di particelle). Questa e la formula fondamentale che userai in quasi tutti gli esercizi:</p>
+
+<div class="formula-box">
+    <div class="nome">Formula delle Moli</div>
+    <div class="formula">n = m / M</div>
+    <div class="quando">
+        <strong>QUANDO si usa:</strong> Ogni volta che devi convertire una massa (grammi) in numero di moli, o viceversa. E la formula piu importante di tutta la stechiometria!
+    </div>
+    <div class="unita">
+        <strong>Unita di misura:</strong><br>
+        n = numero di moli [mol]<br>
+        m = massa [g]<br>
+        M = massa molare [g/mol] (si legge sulla tavola periodica)
+    </div>
+</div>
+
+<div class="formula-box">
+    <div class="nome">Numero di Particelle</div>
+    <div class="formula">N = n x N<sub>A</sub></div>
+    <div class="quando">
+        <strong>QUANDO si usa:</strong> Per calcolare il numero effettivo di atomi, molecole o ioni partendo dalle moli.
+    </div>
+    <div class="unita">
+        <strong>Costante:</strong> N<sub>A</sub> = 6,022 x 10<sup>23</sup> mol<sup>-1</sup>
+    </div>
+</div>
+
+<div class="formula-box">
+    <div class="nome">Densita</div>
+    <div class="formula">d = m / V</div>
+    <div class="quando">
+        <strong>QUANDO si usa:</strong> Per passare da volume a massa (o viceversa) quando conosci la densita della sostanza. Molto comune quando il problema ti da il volume di un liquido.
+    </div>
+    <div class="unita">
+        <strong>Unita di misura:</strong> d [g/mL] oppure [g/cm<sup>3</sup>] oppure [kg/L]<br>
+        Ricorda: 1 mL = 1 cm<sup>3</sup> e 1 g/mL = 1 kg/L
+    </div>
+</div>
+
+<h3>Schema di Conversione Fondamentale</h3>
+<p>Quando affronti un problema di stechiometria, segui sempre questa catena logica di conversioni:</p>
+
+<div class="procedura">
+    <strong>Volume (liquido) --[x densita]--> Massa --[/ massa molare]--> Moli --[x N<sub>A</sub>]--> N. particelle</strong>
+    <p style="margin-top: 10px;">E viceversa, se devi andare nella direzione opposta, inverti le operazioni!</p>
+</div>
+
+<!-- SEZIONE 2: NUMERI DI OSSIDAZIONE -->
+<h2 id="nox">2. Numeri di Ossidazione</h2>
+
+<p>Il numero di ossidazione (n.o.) e un concetto fondamentale per capire le reazioni redox. Puoi pensarlo come la "carica fittizia" che un atomo avrebbe se tutti i legami fossero ionici. Non e una carica reale, ma un utile strumento di contabilita degli elettroni.</p>
+
+<div class="definizione">
+    <strong>Regole per assegnare i numeri di ossidazione:</strong>
+    <ol>
+        <li><strong>Elementi allo stato elementare:</strong> n.o. = 0 (es. Fe, O<sub>2</sub>, H<sub>2</sub>, S<sub>8</sub>, Cl<sub>2</sub>)</li>
+        <li><strong>Ioni monoatomici:</strong> n.o. = carica dello ione (es. Na<sup>+</sup> ha n.o. = +1, Cl<sup>-</sup> ha n.o. = -1)</li>
+        <li><strong>Idrogeno:</strong> n.o. = +1 (quasi sempre). Eccezione: negli idruri metallici (NaH, CaH<sub>2</sub>) e -1</li>
+        <li><strong>Ossigeno:</strong> n.o. = -2 (quasi sempre). Eccezione: nei perossidi (H<sub>2</sub>O<sub>2</sub>) e -1</li>
+        <li><strong>Fluoro:</strong> n.o. = -1 (sempre, e l'elemento piu elettronegativo)</li>
+        <li><strong>Metalli alcalini (Gruppo 1):</strong> n.o. = +1</li>
+        <li><strong>Metalli alcalino-terrosi (Gruppo 2):</strong> n.o. = +2</li>
+        <li><strong>Regola della somma:</strong> in una molecola neutra la somma dei n.o. = 0; in uno ione la somma = carica dello ione</li>
+    </ol>
+</div>
+
+<p>La regola della somma e quella che usi per trovare i n.o. incogniti. Vediamo come funziona con un esempio.</p>
+
+<!-- SEZIONE 3: BILANCIAMENTO REDOX -->
+<h2 id="redox">3. Bilanciamento delle Reazioni Redox</h2>
+
+<p>Le reazioni di ossidoriduzione (redox) sono quelle in cui avviene un <strong>trasferimento di elettroni</strong> tra specie chimiche. Una specie <strong>perde</strong> elettroni (si ossida) e un'altra li <strong>acquista</strong> (si riduce). Gli elettroni persi devono essere uguali a quelli acquistati: questo e il principio fondamentale del bilanciamento redox.</p>
+
+<div class="definizione">
+    <strong>Definizioni fondamentali da memorizzare:</strong>
+    <ul>
+        <li><strong>Ossidazione:</strong> perdita di elettroni (il n.o. AUMENTA)</li>
+        <li><strong>Riduzione:</strong> acquisto di elettroni (il n.o. DIMINUISCE)</li>
+        <li><strong>Ossidante:</strong> la specie che SI RIDUCE (acquista elettroni) - "ruba" elettroni</li>
+        <li><strong>Riducente:</strong> la specie che SI OSSIDA (cede elettroni) - "dona" elettroni</li>
+    </ul>
+    <p><strong>Trucco mnemonico:</strong> "L'ossidante si riduce, il riducente si ossida" - sembra un controsenso, ma funziona cosi!</p>
+</div>
+
+<h3>Metodo delle Semireazioni (Ambiente Acido)</h3>
+
+<p>Questo e il metodo piu affidabile per bilanciare le redox. Richiede un po' di pratica, ma una volta imparato funziona sempre.</p>
+
+<div class="procedura">
+    <strong>PROCEDURA PER IL BILANCIAMENTO REDOX:</strong>
+    <ol>
+        <li><strong>Identificare</strong> quali specie si ossidano e quali si riducono (calcola i n.o. prima e dopo)</li>
+        <li><strong>Scrivere le semireazioni</strong> separate di ossidazione e riduzione</li>
+        <li><strong>Bilanciare</strong> gli atomi diversi da O e H</li>
+        <li><strong>Bilanciare gli ossigeni</strong> aggiungendo H<sub>2</sub>O dal lato dove mancano O</li>
+        <li><strong>Bilanciare gli idrogeni</strong> aggiungendo H<sup>+</sup> dal lato dove mancano H (ambiente acido)</li>
+        <li><strong>Bilanciare le cariche</strong> aggiungendo elettroni (e<sup>-</sup>) dal lato piu positivo</li>
+        <li><strong>Moltiplicare</strong> le semireazioni per avere lo stesso numero di elettroni in entrambe</li>
+        <li><strong>Sommare</strong> le semireazioni e semplificare (gli elettroni si cancellano!)</li>
+    </ol>
+</div>
+
+<!-- SEZIONE 4: STECHIOMETRIA -->
+<h2 id="stechiometria">4. Stechiometria e Reagente Limitante</h2>
+
+<p>La stechiometria e lo studio delle <strong>quantita</strong> nelle reazioni chimiche. I coefficienti stechiometrici in una reazione bilanciata ci dicono in che rapporto molare reagiscono e si formano le sostanze. Questo e il cuore di quasi tutti i problemi d'esame!</p>
+
+<div class="formula-box">
+    <div class="nome">Rapporto Molare (Stechiometrico)</div>
+    <div class="formula">Rapporto = coeff. stechiometrico prodotto / coeff. stechiometrico reagente</div>
+    <div class="quando">
+        <strong>QUANDO si usa:</strong> Per convertire le moli di un reagente nelle moli di un prodotto (o viceversa). Questo rapporto viene dalla reazione bilanciata.
+    </div>
+</div>
+
+<h3>Il Reagente Limitante</h3>
+
+<p>Quando mescoli due o piu reagenti, raramente sono nelle proporzioni stechiometriche perfette. Uno di essi si esaurira prima degli altri: questo e il <strong>reagente limitante</strong>, perche limita la quantita di prodotto che puoi ottenere. Gli altri reagenti sono <strong>in eccesso</strong>.</p>
+
+<div class="procedura">
+    <strong>PROCEDURA PER IDENTIFICARE IL REAGENTE LIMITANTE:</strong>
+    <ol>
+        <li>Scrivi la reazione bilanciata</li>
+        <li>Calcola le moli di ciascun reagente disponibili</li>
+        <li>Per ogni reagente, calcola: moli / coefficiente stechiometrico</li>
+        <li>Il reagente con il valore piu piccolo e il reagente limitante</li>
+        <li>Usa le moli del reagente limitante per calcolare il prodotto</li>
+    </ol>
+</div>
+
+<div class="formula-box">
+    <div class="nome">Resa Percentuale</div>
+    <div class="formula">Resa % = (quantita ottenuta / quantita teorica) x 100</div>
+    <div class="quando">
+        <strong>QUANDO si usa:</strong> Quando il problema indica che la reazione non va a completamento. La resa teorica (100%) e quella calcolata dalla stechiometria; la resa reale e sempre minore.
+    </div>
+</div>
+
+<!-- SEZIONE 5: GAS IDEALI -->
+<h2 id="gas">5. Gas Ideali e Leggi dei Gas</h2>
+
+<p>I gas ideali sono un modello teorico molto utile. L'equazione dei gas ideali e fondamentale per tutti i problemi che coinvolgono gas.</p>
+
+<div class="formula-box">
+    <div class="nome">Equazione di Stato dei Gas Ideali</div>
+    <div class="formula">PV = nRT</div>
+    <div class="quando">
+        <strong>QUANDO si usa:</strong> Per calcolare P, V, n o T di un gas quando conosci le altre tre grandezze.
+    </div>
+    <div class="unita">
+        <strong>Unita di misura:</strong><br>
+        P = pressione [atm] o [bar]<br>
+        V = volume [L]<br>
+        n = moli [mol]<br>
+        T = temperatura [K] (Kelvin = Celsius + 273,15)<br>
+        R = costante dei gas = 0,0821 L atm/(mol K) oppure 0,08314 L bar/(mol K)
+    </div>
+</div>
+
+<div class="nota">
+    <strong>ATTENZIONE CRITICA!</strong> La temperatura deve essere SEMPRE in Kelvin: T(K) = T(C) + 273,15. Se usi i gradi Celsius, il risultato sara completamente sbagliato! Inoltre, scegli il valore di R in base alle unita di pressione.
+</div>
+
+<h3>Volume Molare</h3>
+<p>A condizioni normali (STP), una mole di qualsiasi gas ideale occupa un volume fisso:</p>
+<ul>
+    <li><strong>22,4 L</strong> a 1 atm e 273 K</li>
+    <li><strong>22,7 L</strong> a 1 bar e 273 K (queste sono le "nuove" condizioni standard IUPAC)</li>
+</ul>
+
+<div class="formula-box">
+    <div class="nome">Pressioni Parziali (Legge di Dalton)</div>
+    <div class="formula">P<sub>tot</sub> = p<sub>1</sub> + p<sub>2</sub> + p<sub>3</sub> + ... &nbsp;&nbsp;&nbsp; e &nbsp;&nbsp;&nbsp; p<sub>gas</sub> = X<sub>gas</sub> x P<sub>tot</sub></div>
+    <div class="quando">
+        <strong>QUANDO si usa:</strong> Quando hai una miscela di gas e devi calcolare la pressione parziale di ciascun componente.
+    </div>
+    <div class="unita">
+        X<sub>gas</sub> = frazione molare del gas = n<sub>gas</sub> / n<sub>tot</sub>
+    </div>
+</div>
+
+<!-- SEZIONE 6: SOLUZIONI -->
+<h2 id="soluzioni">6. Soluzioni e Concentrazioni</h2>
+
+<p>Una soluzione e una miscela omogenea di due o piu sostanze. La piu usata e la <strong>molarita</strong>.</p>
+
+<div class="formula-box">
+    <div class="nome">Molarita (M)</div>
+    <div class="formula">M = n<sub>soluto</sub> / V<sub>soluzione</sub></div>
+    <div class="quando">
+        <strong>QUANDO si usa:</strong> E la concentrazione piu usata. Esprime le moli di soluto per litro di soluzione.
+    </div>
+    <div class="unita">
+        <strong>Unita:</strong> [M] = mol/L<br>
+        <strong>Attenzione:</strong> Il volume e quello della SOLUZIONE, non del solvente!
+    </div>
+</div>
+
+<!-- SEZIONE 7: ESERCIZI D'ESAME -->
+<h2 id="esercizi">7. Esercizi d'Esame Svolti</h2>
+
+<p>Questa e la sezione piu importante del capitolo. Gli esercizi che seguono sono simili a quelli che troverai all'esame. Per ogni esercizio, spieghero non solo COSA fare, ma anche PERCHE lo facciamo in quel modo.</p>
+
+<!-- ESERCIZIO 1: Moli e Atomi -->
+<div class="esempio-esame">
+    <div class="titolo">ESERCIZIO 1: Moli e atomi di ferro (calcolo base)</div>
+
+    <div class="testo-problema">
+        <strong>Testo:</strong> Il volume di un chiodo di ferro (d = 7,874 g/cm<sup>3</sup>) e di 0,34 cm<sup>3</sup>. Calcolare il numero di moli e il numero di atomi di ferro presenti.
+    </div>
+
+    <p>Questo e un esercizio classico che ti chiede di passare da un <strong>volume</strong> al <strong>numero di particelle</strong>. Per farlo, dobbiamo seguire la catena di conversioni: Volume --> Massa --> Moli --> Numero di atomi.</p>
+
+    <div class="step">
+        <p><span class="step-number">1</span><strong>Dal volume alla massa</strong></p>
+        <p>Il problema ci da il volume (0,34 cm<sup>3</sup>) e la densita (7,874 g/cm<sup>3</sup>). Per trovare la massa, usiamo la definizione di densita: d = m/V, da cui ricaviamo m = d x V.</p>
+        <div class="calcolo">
+            m = d x V = 7,874 g/cm<sup>3</sup> x 0,34 cm<sup>3</sup> = <strong>2,677 g</strong>
+        </div>
+        <p>Nota come le unita si semplificano: (g/cm<sup>3</sup>) x (cm<sup>3</sup>) = g. Questo e un buon modo per verificare di non aver fatto errori!</p>
+    </div>
+
+    <div class="step">
+        <p><span class="step-number">2</span><strong>Dalla massa alle moli</strong></p>
+        <p>Ora che abbiamo la massa, possiamo calcolare le moli usando n = m/M. La massa molare del ferro si legge dalla tavola periodica: M(Fe) = 55,85 g/mol.</p>
+        <div class="calcolo">
+            n = m / M = 2,677 g / 55,85 g/mol = <strong>0,0479 mol</strong>
+        </div>
+        <p>Questo significa che nel nostro chiodo ci sono circa 0,048 moli di atomi di ferro.</p>
+    </div>
+
+    <div class="step">
+        <p><span class="step-number">3</span><strong>Dalle moli al numero di atomi</strong></p>
+        <p>Infine, per trovare il numero effettivo di atomi, moltiplichiamo le moli per il numero di Avogadro.</p>
+        <div class="calcolo">
+            N = n x N<sub>A</sub> = 0,0479 mol x 6,022 x 10<sup>23</sup> mol<sup>-1</sup> = <strong>2,88 x 10<sup>22</sup> atomi</strong>
+        </div>
+        <p>Un numero enorme! Anche in un piccolo chiodo ci sono miliardi di miliardi di atomi.</p>
+    </div>
+
+    <div class="risultato">
+        <strong>RISPOSTE:</strong><br>
+        Moli di ferro: <strong>0,048 mol</strong><br>
+        Numero di atomi: <strong>2,88 x 10<sup>22</sup> atomi</strong>
+    </div>
+</div>
+
+<!-- ESERCIZIO 2: Numeri di Ossidazione -->
+<div class="esempio-esame">
+    <div class="titolo">ESERCIZIO 2: Assegnare i numeri di ossidazione</div>
+
+    <div class="testo-problema">
+        <strong>Testo:</strong> Assegnare il numero di ossidazione allo zolfo in CaSO<sub>3</sub> (solfito di calcio).
+    </div>
+
+    <p>Per risolvere questo tipo di esercizio, usiamo la regola della somma: in una molecola neutra, la somma di tutti i numeri di ossidazione deve essere zero. Conosciamo i n.o. di Ca e O, quindi possiamo trovare quello di S.</p>
+
+    <div class="step">
+        <p><span class="step-number">1</span><strong>Assegnare i n.o. noti</strong></p>
+        <p>Applichiamo le regole:</p>
+        <ul>
+            <li>Il <strong>calcio (Ca)</strong> e un metallo del gruppo 2, quindi ha n.o. = +2</li>
+            <li>L'<strong>ossigeno (O)</strong> normalmente ha n.o. = -2 (non siamo in un perossido)</li>
+        </ul>
+    </div>
+
+    <div class="step">
+        <p><span class="step-number">2</span><strong>Impostare l'equazione della somma</strong></p>
+        <p>La molecola CaSO<sub>3</sub> e neutra, quindi la somma dei n.o. deve essere zero. Ci sono 1 Ca, 1 S e 3 O:</p>
+        <div class="calcolo">
+            n.o.(Ca) + n.o.(S) + 3 x n.o.(O) = 0<br>
+            (+2) + n.o.(S) + 3 x (-2) = 0<br>
+            +2 + n.o.(S) - 6 = 0<br>
+            n.o.(S) = +4
+        </div>
+    </div>
+
+    <div class="risultato">
+        <strong>RISPOSTA:</strong><br>
+        Nel solfito di calcio CaSO<sub>3</sub>: Ca = +2, S = <strong>+4</strong>, O = -2
+    </div>
+
+    <div class="nota">
+        <strong>Osservazione:</strong> Lo zolfo puo avere diversi n.o.: -2 (in H<sub>2</sub>S), +4 (in SO<sub>2</sub>, solfiti), +6 (in H<sub>2</sub>SO<sub>4</sub>, solfati). E importante ricordare che il n.o. dipende dal composto in cui si trova!
+    </div>
+</div>
+
+<!-- ESERCIZIO 3: Bilanciamento Redox Cu + HNO3 -->
+<div class="esempio-esame">
+    <div class="titolo">ESERCIZIO 3: Bilanciamento redox Cu + HNO<sub>3</sub></div>
+
+    <div class="testo-problema">
+        <strong>Testo:</strong> Bilanciare la reazione: Cu + HNO<sub>3</sub> --> Cu(NO<sub>3</sub>)<sub>2</sub> + NO + H<sub>2</sub>O<br>
+        Calcolare poi il volume di acido nitrico 3,69 M necessario per ossidare completamente 100 g di rame.
+    </div>
+
+    <p>Questo e un classico esercizio d'esame che combina bilanciamento redox e stechiometria. Procediamo con metodo.</p>
+
+    <h4>PARTE A: Bilanciamento della reazione</h4>
+
+    <div class="step">
+        <p><span class="step-number">1</span><strong>Identificare ossidazione e riduzione</strong></p>
+        <p>Per prima cosa, assegniamo i numeri di ossidazione e vediamo chi si ossida e chi si riduce:</p>
+        <ul>
+            <li><strong>Cu:</strong> nei reagenti e 0 (elemento puro), nei prodotti e +2 (in Cu(NO<sub>3</sub>)<sub>2</sub>). Il n.o. aumenta da 0 a +2: <strong>il rame si OSSIDA</strong> (perde 2 elettroni)</li>
+            <li><strong>N:</strong> in HNO<sub>3</sub> il n.o. e +5, in NO e +2. Il n.o. diminuisce da +5 a +2: <strong>l'azoto si RIDUCE</strong> (acquista 3 elettroni)</li>
+        </ul>
+        <p>Quindi il Cu e il <strong>riducente</strong> (si ossida, dona elettroni) e l'HNO<sub>3</sub> e l'<strong>ossidante</strong> (si riduce, acquista elettroni).</p>
+    </div>
+
+    <div class="step">
+        <p><span class="step-number">2</span><strong>Scrivere le semireazioni</strong></p>
+        <p><strong>Semireazione di ossidazione:</strong></p>
+        <div class="reazione">Cu --> Cu<sup>2+</sup> + 2e<sup>-</sup></div>
+        <p>Il rame perde 2 elettroni. La carica a sinistra e 0, a destra e +2 - 2 = 0. OK!</p>
+
+        <p><strong>Semireazione di riduzione:</strong></p>
+        <p>Partiamo da NO<sub>3</sub><sup>-</sup> --> NO. Dobbiamo bilanciare ossigeni, idrogeni e cariche.</p>
+        <ul>
+            <li>Bilancio O con H<sub>2</sub>O: NO<sub>3</sub><sup>-</sup> --> NO + 2H<sub>2</sub>O (aggiungo 2 H<sub>2</sub>O a destra per i 2 O in eccesso)</li>
+            <li>Bilancio H con H<sup>+</sup>: NO<sub>3</sub><sup>-</sup> + 4H<sup>+</sup> --> NO + 2H<sub>2</sub>O</li>
+            <li>Bilancio cariche con e<sup>-</sup>: a sinistra ho -1 + 4 = +3, a destra ho 0. Aggiungo 3e<sup>-</sup> a sinistra:</li>
+        </ul>
+        <div class="reazione">NO<sub>3</sub><sup>-</sup> + 4H<sup>+</sup> + 3e<sup>-</sup> --> NO + 2H<sub>2</sub>O</div>
+        <p>Verifica: carica sinistra = -1 + 4 - 3 = 0. Carica destra = 0. Perfetto!</p>
+    </div>
+
+    <div class="step">
+        <p><span class="step-number">3</span><strong>Pareggiare gli elettroni</strong></p>
+        <p>L'ossidazione cede 2 elettroni, la riduzione ne acquista 3. Il minimo comune multiplo di 2 e 3 e 6.</p>
+        <div class="calcolo">
+            Moltiplico l'ossidazione x 3: 3Cu --> 3Cu<sup>2+</sup> + <strong>6e<sup>-</sup></strong><br>
+            Moltiplico la riduzione x 2: 2NO<sub>3</sub><sup>-</sup> + 8H<sup>+</sup> + <strong>6e<sup>-</sup></strong> --> 2NO + 4H<sub>2</sub>O
+        </div>
+    </div>
+
+    <div class="step">
+        <p><span class="step-number">4</span><strong>Sommare le semireazioni</strong></p>
+        <p>Sommando e cancellando i 6e<sup>-</sup> da entrambi i lati:</p>
+        <div class="reazione">3Cu + 2NO<sub>3</sub><sup>-</sup> + 8H<sup>+</sup> --> 3Cu<sup>2+</sup> + 2NO + 4H<sub>2</sub>O</div>
+    </div>
+
+    <div class="step">
+        <p><span class="step-number">5</span><strong>Riscrivere in forma molecolare</strong></p>
+        <p>Gli 8H<sup>+</sup> provengono da 8HNO<sub>3</sub>. I 3Cu<sup>2+</sup> si legano a 6NO<sub>3</sub><sup>-</sup> per formare 3Cu(NO<sub>3</sub>)<sub>2</sub>.</p>
+        <p>Totale HNO<sub>3</sub> = 2 (per la riduzione a NO) + 6 (per formare Cu(NO<sub>3</sub>)<sub>2</sub>) = <strong>8</strong></p>
+        <div class="reazione"><strong>3Cu + 8HNO<sub>3</sub> --> 3Cu(NO<sub>3</sub>)<sub>2</sub> + 2NO + 4H<sub>2</sub>O</strong></div>
+        <p><strong>Verifica:</strong> Cu: 3=3; N: 8=6+2=8; O: 24=18+2+4=24; H: 8=8. Tutto torna!</p>
+    </div>
+
+    <h4>PARTE B: Calcolo stechiometrico</h4>
+
+    <div class="step">
+        <p><span class="step-number">6</span><strong>Calcolare le moli di Cu</strong></p>
+        <div class="calcolo">
+            n(Cu) = m / M = 100 g / 63,55 g/mol = <strong>1,574 mol</strong>
+        </div>
+    </div>
+
+    <div class="step">
+        <p><span class="step-number">7</span><strong>Calcolare le moli di HNO<sub>3</sub> necessarie</strong></p>
+        <p>Dalla reazione bilanciata: 3 mol Cu : 8 mol HNO<sub>3</sub>. Quindi:</p>
+        <div class="calcolo">
+            n(HNO<sub>3</sub>) = n(Cu) x (8/3) = 1,574 mol x (8/3) = <strong>4,197 mol</strong>
+        </div>
+    </div>
+
+    <div class="step">
+        <p><span class="step-number">8</span><strong>Calcolare il volume di soluzione</strong></p>
+        <p>Conosciamo la molarita (3,69 M) e le moli. Da M = n/V ricaviamo V = n/M:</p>
+        <div class="calcolo">
+            V = n / M = 4,197 mol / 3,69 mol/L = <strong>1,137 L = 1137 mL</strong>
+        </div>
+    </div>
+
+    <div class="risultato">
+        <strong>RISPOSTE:</strong><br>
+        Reazione bilanciata: <strong>3Cu + 8HNO<sub>3</sub> --> 3Cu(NO<sub>3</sub>)<sub>2</sub> + 2NO + 4H<sub>2</sub>O</strong><br>
+        Volume HNO<sub>3</sub> 3,69 M necessario: <strong>1,14 L (1140 mL)</strong>
+    </div>
+</div>
+
+<!-- ESERCIZIO 4: Reagente Limitante -->
+<div class="esempio-esame">
+    <div class="titolo">ESERCIZIO 4: Reagente limitante - Produzione del titanio</div>
+
+    <div class="testo-problema">
+        <strong>Testo:</strong> Il titanio metallico si prepara per reazione del tetracloruro di titanio con magnesio. Dalla reazione si forma anche cloruro di magnesio. Scrivere e bilanciare la reazione. Calcolare la massa di titanio metallico ottenibile dalla reazione di 250 g di tetracloruro di titanio e 250 g di magnesio.
+    </div>
+
+    <p>Quando il problema fornisce le quantita di <strong>due reagenti</strong>, devi sempre chiederti: quale dei due si esaurira per primo? Quello che si esaurisce per primo e il <strong>reagente limitante</strong> e determina la quantita massima di prodotto ottenibile.</p>
+
+    <div class="step">
+        <p><span class="step-number">1</span><strong>Scrivere e bilanciare la reazione</strong></p>
+        <p>Il titanio (Ti) si forma riducendo TiCl<sub>4</sub> con magnesio metallico:</p>
+        <div class="reazione"><strong>TiCl<sub>4</sub> + 2Mg --> Ti + 2MgCl<sub>2</sub></strong></div>
+        <p>Verifica: Ti: 1=1; Cl: 4=4; Mg: 2=2. OK!</p>
+        <p>Il rapporto stechiometrico ci dice che servono <strong>2 moli di Mg per ogni mole di TiCl<sub>4</sub></strong>.</p>
+    </div>
+
+    <div class="step">
+        <p><span class="step-number">2</span><strong>Calcolare le masse molari</strong></p>
+        <div class="calcolo">
+            M(TiCl<sub>4</sub>) = 47,87 + 4 x 35,45 = <strong>189,67 g/mol</strong><br>
+            M(Mg) = <strong>24,31 g/mol</strong><br>
+            M(Ti) = <strong>47,87 g/mol</strong>
+        </div>
+    </div>
+
+    <div class="step">
+        <p><span class="step-number">3</span><strong>Calcolare le moli disponibili di ciascun reagente</strong></p>
+        <div class="calcolo">
+            n(TiCl<sub>4</sub>) = 250 g / 189,67 g/mol = <strong>1,318 mol</strong><br>
+            n(Mg) = 250 g / 24,31 g/mol = <strong>10,28 mol</strong>
+        </div>
+        <p>Abbiamo molte piu moli di Mg che di TiCl<sub>4</sub>. Ma questo non significa automaticamente che TiCl<sub>4</sub> sia il reagente limitante: dobbiamo considerare la stechiometria!</p>
+    </div>
+
+    <div class="step">
+        <p><span class="step-number">4</span><strong>Identificare il reagente limitante</strong></p>
+        <p>Secondo la reazione, per reagire con tutto il TiCl<sub>4</sub> servirebbero:</p>
+        <div class="calcolo">
+            Mg necessario = n(TiCl<sub>4</sub>) x 2 = 1,318 mol x 2 = 2,636 mol
+        </div>
+        <p>Ma noi abbiamo 10,28 mol di Mg, che e molto piu di 2,636 mol. Quindi:</p>
+        <ul>
+            <li>Il Mg e <strong>in eccesso</strong> (ne abbiamo piu del necessario)</li>
+            <li>Il TiCl<sub>4</sub> e il <strong>REAGENTE LIMITANTE</strong> (si esaurira per primo)</li>
+        </ul>
+    </div>
+
+    <div class="step">
+        <p><span class="step-number">5</span><strong>Calcolare la massa di Ti prodotto</strong></p>
+        <p>Usiamo le moli del reagente limitante. Dalla stechiometria, il rapporto TiCl<sub>4</sub> : Ti e 1:1, quindi:</p>
+        <div class="calcolo">
+            n(Ti) = n(TiCl<sub>4</sub>) = 1,318 mol<br>
+            m(Ti) = n(Ti) x M(Ti) = 1,318 mol x 47,87 g/mol = <strong>63,09 g</strong>
+        </div>
+    </div>
+
+    <div class="risultato">
+        <strong>RISPOSTE:</strong><br>
+        Reazione: <strong>TiCl<sub>4</sub> + 2Mg --> Ti + 2MgCl<sub>2</sub></strong><br>
+        Reagente limitante: <strong>TiCl<sub>4</sub></strong><br>
+        Massa titanio ottenibile: <strong>63,1 g</strong>
+    </div>
+
+    <table>
+        <tr><th>Grandezza</th><th>Valore</th></tr>
+        <tr><td>n(TiCl<sub>4</sub>)</td><td>1,318 mol</td></tr>
+        <tr><td>n(Mg)</td><td>10,28 mol</td></tr>
+        <tr><td>Mg richiesto</td><td>2,636 mol</td></tr>
+        <tr><td>Reagente limitante</td><td>TiCl<sub>4</sub></td></tr>
+        <tr><td><strong>m(Ti)</strong></td><td><strong>63,1 g</strong></td></tr>
+    </table>
+</div>
+
+<!-- ESERCIZIO 5: Stechiometria con purezza e resa -->
+<div class="esempio-esame">
+    <div class="titolo">ESERCIZIO 5: Stechiometria con purezza e resa - Pirite e acido solforico</div>
+
+    <div class="testo-problema">
+        <strong>Testo:</strong> Calcolare il numero di moli di zolfo contenute in 0,850 kg di pirite (FeS<sub>2</sub>) al 95,0%. Calcolare la massa di acido solforico ottenibile da questa quantita di zolfo attraverso un processo al 78,0% di resa.
+    </div>
+
+    <p>Questo esercizio introduce due complicazioni tipiche dei problemi reali: la <strong>purezza</strong> del reagente (non tutto il campione e pirite pura) e la <strong>resa</strong> della reazione (non tutto lo zolfo si trasforma in acido solforico).</p>
+
+    <div class="step">
+        <p><span class="step-number">1</span><strong>Capire cosa significa "pirite al 95%"</strong></p>
+        <p>"Pirite al 95%" significa che su 100 g di campione, solo 95 g sono FeS<sub>2</sub> puro. Il resto (5 g) sono impurezze. Quindi dobbiamo prima calcolare la massa di pirite pura.</p>
+        <div class="calcolo">
+            Massa totale campione = 0,850 kg = 850 g<br>
+            Massa pirite pura = 850 g x 0,95 = <strong>807,5 g</strong>
+        </div>
+    </div>
+
+    <div class="step">
+        <p><span class="step-number">2</span><strong>Calcolare le moli di FeS<sub>2</sub></strong></p>
+        <div class="calcolo">
+            M(FeS<sub>2</sub>) = 55,85 + 2 x 32,07 = <strong>119,99 g/mol</strong><br>
+            n(FeS<sub>2</sub>) = 807,5 g / 119,99 g/mol = <strong>6,73 mol</strong>
+        </div>
+    </div>
+
+    <div class="step">
+        <p><span class="step-number">3</span><strong>Calcolare le moli di zolfo</strong></p>
+        <p>Questa e la parte cruciale: nella formula FeS<sub>2</sub>, il pedice "2" ci dice che <strong>ogni molecola di pirite contiene 2 atomi di zolfo</strong>. Quindi:</p>
+        <div class="calcolo">
+            n(S) = n(FeS<sub>2</sub>) x 2 = 6,73 mol x 2 = <strong>13,46 mol</strong>
+        </div>
+        <p>Questa e la risposta alla prima parte della domanda.</p>
+    </div>
+
+    <div class="step">
+        <p><span class="step-number">4</span><strong>Calcolare le moli teoriche di H<sub>2</sub>SO<sub>4</sub></strong></p>
+        <p>La reazione globale S --> H<sub>2</sub>SO<sub>4</sub> ha rapporto 1:1 (ogni atomo di S diventa una molecola di H<sub>2</sub>SO<sub>4</sub>). Se la resa fosse del 100%:</p>
+        <div class="calcolo">
+            n(H<sub>2</sub>SO<sub>4</sub>)<sub>teoriche</sub> = n(S) = 13,46 mol
+        </div>
+    </div>
+
+    <div class="step">
+        <p><span class="step-number">5</span><strong>Applicare la resa del 78%</strong></p>
+        <p>La resa del 78% significa che otteniamo solo il 78% del prodotto teorico. Questo tiene conto delle perdite inevitabili nei processi industriali.</p>
+        <div class="calcolo">
+            n(H<sub>2</sub>SO<sub>4</sub>)<sub>reali</sub> = 13,46 mol x 0,78 = 10,50 mol
+        </div>
+    </div>
+
+    <div class="step">
+        <p><span class="step-number">6</span><strong>Calcolare la massa di H<sub>2</sub>SO<sub>4</sub></strong></p>
+        <div class="calcolo">
+            M(H<sub>2</sub>SO<sub>4</sub>) = 2 x 1,008 + 32,07 + 4 x 16,00 = 98,09 g/mol<br>
+            m(H<sub>2</sub>SO<sub>4</sub>) = 10,50 mol x 98,09 g/mol = <strong>1030 g = 1,03 kg</strong>
+        </div>
+    </div>
+
+    <div class="risultato">
+        <strong>RISPOSTE:</strong><br>
+        Moli di zolfo nella pirite: <strong>13,5 mol</strong><br>
+        Massa H<sub>2</sub>SO<sub>4</sub> ottenibile (resa 78%): <strong>1030 g (1,03 kg)</strong>
+    </div>
+</div>
+
+<!-- ESERCIZIO 6: Stechiometria dei Gas -->
+<div class="esempio-esame">
+    <div class="titolo">ESERCIZIO 6: Stechiometria dei gas - Sintesi di PCl<sub>5</sub></div>
+
+    <div class="testo-problema">
+        <strong>Testo:</strong> Calcolare quanti litri di cloro misurati a condizioni normali (0 C e 1,0 bar) sono necessari per trasformare 50,5 g di PCl<sub>3</sub> in PCl<sub>5</sub>.
+    </div>
+
+    <p>In questo esercizio dobbiamo passare da una massa (grammi di PCl<sub>3</sub>) a un volume di gas (litri di Cl<sub>2</sub>). La chiave e usare la stechiometria per collegare i due reagenti, e poi l'equazione dei gas ideali per convertire le moli in volume.</p>
+
+    <div class="step">
+        <p><span class="step-number">1</span><strong>Scrivere e analizzare la reazione</strong></p>
+        <div class="reazione">PCl<sub>3</sub> + Cl<sub>2</sub> --> PCl<sub>5</sub></div>
+        <p>Questa e una reazione di <strong>addizione</strong>: il tricloruro di fosforo acquista una molecola di cloro per diventare pentacloruro. Tutti i coefficienti sono 1, quindi il rapporto molare e semplicemente <strong>1:1:1</strong>.</p>
+        <p>Questo significa che per ogni mole di PCl<sub>3</sub> che vogliamo convertire, abbiamo bisogno esattamente di una mole di Cl<sub>2</sub>.</p>
+    </div>
+
+    <div class="step">
+        <p><span class="step-number">2</span><strong>Calcolare le moli di PCl<sub>3</sub></strong></p>
+        <div class="calcolo">
+            M(PCl<sub>3</sub>) = 30,97 + 3 x 35,45 = 137,33 g/mol<br>
+            n(PCl<sub>3</sub>) = 50,5 g / 137,33 g/mol = <strong>0,368 mol</strong>
+        </div>
+    </div>
+
+    <div class="step">
+        <p><span class="step-number">3</span><strong>Determinare le moli di Cl<sub>2</sub> necessarie</strong></p>
+        <p>Dal rapporto stechiometrico 1:1:</p>
+        <div class="calcolo">
+            n(Cl<sub>2</sub>) = n(PCl<sub>3</sub>) = <strong>0,368 mol</strong>
+        </div>
+    </div>
+
+    <div class="step">
+        <p><span class="step-number">4</span><strong>Calcolare il volume usando PV = nRT</strong></p>
+        <p>Dobbiamo fare attenzione alle unita! La pressione e in bar, quindi usiamo R = 0,08314 L bar/(mol K). La temperatura deve essere in Kelvin:</p>
+        <div class="calcolo">
+            T = 0 C + 273,15 = 273 K<br>
+            V = nRT / P<br>
+            V = (0,368 mol x 0,08314 L bar mol<sup>-1</sup> K<sup>-1</sup> x 273 K) / 1,0 bar<br>
+            V = 8,35 L ≈ <strong>8,4 L</strong>
+        </div>
+    </div>
+
+    <div class="risultato">
+        <strong>RISPOSTA:</strong><br>
+        Volume di Cl<sub>2</sub> necessario a 0 C e 1,0 bar: <strong>8,4 L</strong>
+    </div>
+
+    <div class="nota">
+        <strong>Verifica rapida con il volume molare:</strong> A 0 C e 1 bar, il volume molare e circa 22,7 L/mol. Quindi 0,368 mol x 22,7 L/mol = 8,4 L. Conferma!
+    </div>
+</div>
+
+<!-- ESERCIZIO 7: Combustione e Lavoro -->
+<div class="esempio-esame">
+    <div class="titolo">ESERCIZIO 7: Combustione dell'etanolo - Volume CO<sub>2</sub> e lavoro di espansione</div>
+
+    <div class="testo-problema">
+        <strong>Testo:</strong> Data la reazione: C<sub>2</sub>H<sub>5</sub>OH(l) + O<sub>2</sub>(g) --> CO<sub>2</sub>(g) + H<sub>2</sub>O(g)<br>
+        Calcolare:<br>
+        a) il volume di CO<sub>2</sub> (misurato a 30 C e 0,98 atm) prodotto dalla combustione di 100 mL di etanolo (d = 0,789 g/mL)<br>
+        b) il lavoro di espansione prodotto dalla reazione a T = 1000 C
+    </div>
+
+    <p>Questo esercizio e piu complesso perche richiede di: (1) bilanciare la reazione, (2) partire dal volume di un liquido, (3) calcolare il volume di un gas a condizioni non standard, e (4) calcolare il lavoro di espansione.</p>
+
+    <div class="step">
+        <p><span class="step-number">1</span><strong>Bilanciare la reazione di combustione</strong></p>
+        <p>L'etanolo C<sub>2</sub>H<sub>5</sub>OH contiene 2 C, 6 H e 1 O. Nella combustione tutto il carbonio diventa CO<sub>2</sub> e tutto l'idrogeno diventa H<sub>2</sub>O:</p>
+        <ul>
+            <li>2 atomi di C --> servono 2 molecole di CO<sub>2</sub></li>
+            <li>6 atomi di H --> servono 3 molecole di H<sub>2</sub>O</li>
+            <li>Ossigeni a destra: 2x2 + 3x1 = 7 atomi di O</li>
+            <li>Ossigeni a sinistra: 1 dall'etanolo + ? da O<sub>2</sub>. Servono 7-1 = 6 atomi, cioe 3 molecole di O<sub>2</sub></li>
+        </ul>
+        <div class="reazione"><strong>C<sub>2</sub>H<sub>5</sub>OH + 3O<sub>2</sub> --> 2CO<sub>2</sub> + 3H<sub>2</sub>O</strong></div>
+    </div>
+
+    <div class="step">
+        <p><span class="step-number">2</span><strong>Calcolare le moli di etanolo</strong></p>
+        <p>Prima troviamo la massa dal volume usando la densita:</p>
+        <div class="calcolo">
+            m(etanolo) = V x d = 100 mL x 0,789 g/mL = 78,9 g<br>
+            M(C<sub>2</sub>H<sub>5</sub>OH) = 2x12 + 6x1 + 16 = 46 g/mol<br>
+            n(etanolo) = 78,9 g / 46 g/mol = <strong>1,715 mol</strong>
+        </div>
+    </div>
+
+    <div class="step">
+        <p><span class="step-number">3</span><strong>Calcolare le moli di CO<sub>2</sub></strong></p>
+        <p>Dalla stechiometria: 1 mol etanolo --> 2 mol CO<sub>2</sub></p>
+        <div class="calcolo">
+            n(CO<sub>2</sub>) = n(etanolo) x 2 = 1,715 mol x 2 = <strong>3,43 mol</strong>
+        </div>
+    </div>
+
+    <div class="step">
+        <p><span class="step-number">4</span><strong>Calcolare il volume di CO<sub>2</sub> a 30 C e 0,98 atm</strong></p>
+        <div class="calcolo">
+            T = 30 + 273 = 303 K<br>
+            V = nRT/P = (3,43 mol x 0,0821 L atm mol<sup>-1</sup> K<sup>-1</sup> x 303 K) / 0,98 atm<br>
+            V = 85,33 / 0,98 = <strong>87,1 L</strong>
+        </div>
+    </div>
+
+    <div class="step">
+        <p><span class="step-number">5</span><strong>Calcolare il lavoro di espansione a 1000 C</strong></p>
+        <p>Il lavoro di espansione a pressione costante e dato da w = -Delta n x R x T, dove Delta n e la variazione del numero di moli di gas.</p>
+        <p>Dalla reazione: Gas reagenti = 3 mol O<sub>2</sub> (l'etanolo e liquido!). Gas prodotti = 2 mol CO<sub>2</sub> + 3 mol H<sub>2</sub>O = 5 mol.</p>
+        <div class="calcolo">
+            Delta n (per mole di etanolo) = 5 - 3 = +2 mol<br>
+            Delta n (totale) = 1,715 mol x 2 = 3,43 mol<br>
+            T = 1000 + 273 = 1273 K<br>
+            w = -Delta n x R x T = -3,43 mol x 0,0821 L atm mol<sup>-1</sup> K<sup>-1</sup> x 1273 K<br>
+            w = <strong>-358 L atm</strong>
+        </div>
+        <p>Per convertire in kJ: 1 L atm = 101,325 J, quindi:</p>
+        <div class="calcolo">
+            w = -358 L atm x 101,325 J/(L atm) = -36 315 J = <strong>-36,3 kJ</strong>
+        </div>
+    </div>
+
+    <div class="risultato">
+        <strong>RISPOSTE:</strong><br>
+        a) Volume CO<sub>2</sub> a 30 C e 0,98 atm: <strong>87,1 L</strong><br>
+        b) Lavoro di espansione a 1000 C: <strong>w = -358 L atm = -36,3 kJ</strong><br>
+        <em>(Il segno negativo indica che il sistema compie lavoro sull'ambiente, espandendosi)</em>
+    </div>
+</div>
+
+<!-- ESERCIZIO 8: Precipitazione -->
+<div class="esempio-esame">
+    <div class="titolo">ESERCIZIO 8: Reazione di precipitazione con reagente limitante</div>
+
+    <div class="testo-problema">
+        <strong>Testo:</strong> A 360 mL di Ba(OH)<sub>2</sub> 0,25 M si aggiungono 250 mL di H<sub>2</sub>SO<sub>4</sub> 0,1 M. Calcolare la quantita di BaSO<sub>4</sub> che precipita.
+    </div>
+
+    <p>Questa e una reazione di precipitazione: il solfato di bario (BaSO<sub>4</sub>) e un sale poco solubile che precipita come solido. Dato che abbiamo due reagenti in soluzione, dobbiamo determinare il reagente limitante.</p>
+
+    <div class="step">
+        <p><span class="step-number">1</span><strong>Scrivere la reazione bilanciata</strong></p>
+        <div class="reazione">Ba(OH)<sub>2</sub> + H<sub>2</sub>SO<sub>4</sub> --> BaSO<sub>4</sub> (precipitato) + 2H<sub>2</sub>O</div>
+        <p>Il rapporto stechiometrico e 1:1:1 tra i reagenti e il precipitato.</p>
+    </div>
+
+    <div class="step">
+        <p><span class="step-number">2</span><strong>Calcolare le moli dei reagenti</strong></p>
+        <p>Ricorda: n = M x V, dove V deve essere in litri!</p>
+        <div class="calcolo">
+            n(Ba(OH)<sub>2</sub>) = 0,25 mol/L x 0,360 L = <strong>0,090 mol</strong><br>
+            n(H<sub>2</sub>SO<sub>4</sub>) = 0,1 mol/L x 0,250 L = <strong>0,025 mol</strong>
+        </div>
+    </div>
+
+    <div class="step">
+        <p><span class="step-number">3</span><strong>Identificare il reagente limitante</strong></p>
+        <p>Il rapporto stechiometrico e 1:1. Abbiamo 0,090 mol di Ba(OH)<sub>2</sub> e solo 0,025 mol di H<sub>2</sub>SO<sub>4</sub>.</p>
+        <p>Per reagire con tutto l'acido servirebbe: 0,025 mol di Ba(OH)<sub>2</sub></p>
+        <p>Ne abbiamo 0,090 mol, che e piu del necessario. Quindi:</p>
+        <ul>
+            <li>Ba(OH)<sub>2</sub> e <strong>in eccesso</strong></li>
+            <li>H<sub>2</sub>SO<sub>4</sub> e il <strong>REAGENTE LIMITANTE</strong></li>
+        </ul>
+    </div>
+
+    <div class="step">
+        <p><span class="step-number">4</span><strong>Calcolare la massa del precipitato</strong></p>
+        <p>Le moli di BaSO<sub>4</sub> sono uguali alle moli del reagente limitante (rapporto 1:1):</p>
+        <div class="calcolo">
+            n(BaSO<sub>4</sub>) = n(H<sub>2</sub>SO<sub>4</sub>) = 0,025 mol<br>
+            M(BaSO<sub>4</sub>) = 137,3 + 32,1 + 4 x 16 = 233,4 g/mol<br>
+            m(BaSO<sub>4</sub>) = 0,025 mol x 233,4 g/mol = <strong>5,84 g</strong>
+        </div>
+    </div>
+
+    <div class="risultato">
+        <strong>RISPOSTA:</strong><br>
+        Massa di BaSO<sub>4</sub> precipitato: <strong>5,84 g</strong>
+    </div>
+</div>
+
+<!-- SEZIONE 8: ERRORI COMUNI -->
+<h2 id="errori">8. Errori Comuni da Evitare</h2>
+
+<div class="attenzione">
+    <strong>ERRORI DA EVITARE:</strong>
+
+    <h4>1. Nelle conversioni di unita</h4>
+    <ul>
+        <li><strong>Dimenticare di convertire la temperatura in Kelvin:</strong> T(K) = T(C) + 273,15. Questo e l'errore piu comune e porta a risultati completamente sbagliati!</li>
+        <li><strong>Confondere mL con L:</strong> ricorda che 1 L = 1000 mL. Nella molarita il volume deve essere in L.</li>
+        <li><strong>Usare la costante R sbagliata:</strong> se P e in atm, usa R = 0,0821; se P e in bar, usa R = 0,08314.</li>
+        <li><strong>Confondere g/mL con kg/L:</strong> sono uguali! 1 g/mL = 1 kg/L</li>
+    </ul>
+
+    <h4>2. Nel bilanciamento redox</h4>
+    <ul>
+        <li><strong>Non verificare il bilancio finale:</strong> conta SEMPRE gli atomi di ogni elemento su entrambi i lati!</li>
+        <li><strong>Dimenticare di bilanciare H e O:</strong> usa H<sub>2</sub>O per bilanciare O e H<sup>+</sup> per bilanciare H (in ambiente acido).</li>
+        <li><strong>Non trovare il mcm degli elettroni:</strong> le due semireazioni devono scambiare lo stesso numero di elettroni.</li>
+        <li><strong>Confondere ossidante e riducente:</strong> l'OSSIDANTE si RIDUCE (acquista e<sup>-</sup>), il RIDUCENTE si OSSIDA (perde e<sup>-</sup>).</li>
+    </ul>
+
+    <h4>3. Nella stechiometria</h4>
+    <ul>
+        <li><strong>Non identificare il reagente limitante:</strong> quando hai piu reagenti, devi SEMPRE verificare quale si esaurisce per primo.</li>
+        <li><strong>Dimenticare di applicare la resa:</strong> se il problema dice "resa 80%", moltiplica il risultato teorico per 0,80.</li>
+        <li><strong>Non considerare la purezza:</strong> se il campione e "al 95%", solo il 95% della massa e reagente utile.</li>
+        <li><strong>Sbagliare il rapporto stechiometrico:</strong> leggi attentamente i coefficienti dalla reazione bilanciata.</li>
+    </ul>
+
+    <h4>4. Nei numeri di ossidazione</h4>
+    <ul>
+        <li><strong>Dimenticare le eccezioni dell'ossigeno:</strong> nei PEROSSIDI (H<sub>2</sub>O<sub>2</sub>) l'ossigeno ha n.o. = -1, non -2.</li>
+        <li><strong>Non verificare la somma:</strong> in una molecola neutra la somma deve essere 0, in uno ione deve essere uguale alla carica.</li>
+    </ul>
+</div>
+
+<!-- SEZIONE 9: RIEPILOGO FORMULE -->
+<h2 id="riepilogo">9. Riepilogo delle Formule</h2>
+
+<div class="riepilogo">
+    <h3>Formule Fondamentali</h3>
+    <table>
+        <tr>
+            <th>Formula</th>
+            <th>Descrizione</th>
+            <th>Unita</th>
+        </tr>
+        <tr>
+            <td><strong>n = m / M</strong></td>
+            <td>Moli da massa</td>
+            <td>mol = g / (g/mol)</td>
+        </tr>
+        <tr>
+            <td><strong>N = n x N<sub>A</sub></strong></td>
+            <td>Numero di particelle</td>
+            <td>N<sub>A</sub> = 6,022 x 10<sup>23</sup> mol<sup>-1</sup></td>
+        </tr>
+        <tr>
+            <td><strong>d = m / V</strong></td>
+            <td>Densita</td>
+            <td>g/mL o g/cm<sup>3</sup></td>
+        </tr>
+        <tr>
+            <td><strong>PV = nRT</strong></td>
+            <td>Equazione gas ideali</td>
+            <td>R = 0,0821 L atm/(mol K)</td>
+        </tr>
+        <tr>
+            <td><strong>M = n / V</strong></td>
+            <td>Molarita</td>
+            <td>mol/L</td>
+        </tr>
+        <tr>
+            <td><strong>X = n<sub>i</sub> / n<sub>tot</sub></strong></td>
+            <td>Frazione molare</td>
+            <td>adimensionale</td>
+        </tr>
+        <tr>
+            <td><strong>p<sub>gas</sub> = X<sub>gas</sub> x P<sub>tot</sub></strong></td>
+            <td>Pressione parziale</td>
+            <td>stessa unita di P<sub>tot</sub></td>
+        </tr>
+        <tr>
+            <td><strong>Resa % = (ottenuto/teorico) x 100</strong></td>
+            <td>Resa percentuale</td>
+            <td>%</td>
+        </tr>
+        <tr>
+            <td><strong>w = -Delta n x R x T</strong></td>
+            <td>Lavoro di espansione (gas)</td>
+            <td>L atm o J</td>
+        </tr>
+    </table>
+
+    <h3>Costanti Utili</h3>
+    <table>
+        <tr>
+            <th>Costante</th>
+            <th>Valore</th>
+        </tr>
+        <tr>
+            <td>Numero di Avogadro (N<sub>A</sub>)</td>
+            <td>6,022 x 10<sup>23</sup> mol<sup>-1</sup></td>
+        </tr>
+        <tr>
+            <td>Costante dei gas (R)</td>
+            <td>0,0821 L atm/(mol K) = 0,08314 L bar/(mol K) = 8,314 J/(mol K)</td>
+        </tr>
+        <tr>
+            <td>Volume molare STP (1 atm, 273 K)</td>
+            <td>22,4 L/mol</td>
+        </tr>
+        <tr>
+            <td>Volume molare (1 bar, 273 K)</td>
+            <td>22,7 L/mol</td>
+        </tr>
+        <tr>
+            <td>1 atm</td>
+            <td>101325 Pa = 760 mmHg = 1,013 bar</td>
+        </tr>
+        <tr>
+            <td>0 C</td>
+            <td>273,15 K</td>
+        </tr>
+        <tr>
+            <td>1 L atm</td>
+            <td>101,325 J</td>
+        </tr>
+    </table>
+</div>
+
+<div class="costanti-box">
+    <strong>Conversioni frequenti:</strong>
+    <ul>
+        <li>1 L = 1000 mL = 1 dm<sup>3</sup></li>
+        <li>1 mL = 1 cm<sup>3</sup></li>
+        <li>1 kg = 1000 g</li>
+        <li>T(K) = T(C) + 273,15</li>
+        <li>1 L atm = 101,325 J</li>
+        <li>1 cal = 4,184 J</li>
+        <li>1 g/mL = 1 kg/L</li>
+    </ul>
+</div>
+
+</body>
+</html>

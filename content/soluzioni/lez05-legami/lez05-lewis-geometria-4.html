@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Esame 9-1 - Strutture di Lewis e Geometria Molecolare</title>
+    <style>
+        body {
+            font-family: Georgia, serif;
+            max-width: 850px;
+            margin: 40px auto;
+            padding: 20px;
+            line-height: 1.7;
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #2980b9;
+            margin-top: 35px;
+            border-bottom: 2px solid #bdc3c7;
+            padding-bottom: 8px;
+        }
+        h3 {
+            color: #8e44ad;
+            margin-top: 25px;
+        }
+        .question {
+            background: #ecf0f1;
+            padding: 15px;
+            border-left: 4px solid #3498db;
+            margin: 20px 0;
+        }
+        .result {
+            background: #d5f5e3;
+            padding: 15px;
+            border-left: 4px solid #27ae60;
+            margin: 20px 0;
+            font-weight: bold;
+        }
+        .formula {
+            background: #fdebd0;
+            padding: 10px;
+            margin: 10px 0;
+            font-family: monospace;
+        }
+        .concept {
+            background: #e8daef;
+            padding: 12px;
+            border-left: 4px solid #8e44ad;
+            margin: 15px 0;
+        }
+        .warning {
+            background: #fadbd8;
+            padding: 12px;
+            border-left: 4px solid #e74c3c;
+            margin: 15px 0;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #bdc3c7;
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background: #3498db;
+            color: white;
+        }
+        .lewis-structure {
+            font-family: 'Courier New', monospace;
+            background: #f8f9fa;
+            padding: 15px;
+            border: 1px solid #dee2e6;
+            margin: 10px 0;
+            white-space: pre;
+            line-height: 1.4;
+        }
+        .compound-section {
+            border: 2px solid #3498db;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 30px 0;
+            background: #fafafa;
+        }
+        .summary-table td:first-child {
+            font-weight: bold;
+            background: #ecf0f1;
+        }
+    
+    .done-buttons {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+    .mark-btn {
+        padding: 12px 24px;
+        font-size: 1em;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .mark-done {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        color: white;
+    }
+    .mark-done:hover, .mark-done.selected {
+        background: linear-gradient(135deg, #1e7e34, #17a085);
+        transform: scale(1.05);
+    }
+    .mark-review {
+        background: linear-gradient(135deg, #ffc107, #fd7e14);
+        color: white;
+    }
+    .mark-review:hover, .mark-review.selected {
+        background: linear-gradient(135deg, #d39e00, #dc6502);
+        transform: scale(1.05);
+    }
+    .mark-reset {
+        background: #6c757d;
+        color: white;
+    }
+    .mark-reset:hover {
+        background: #545b62;
+    }
+    .mark-btn.selected {
+        box-shadow: 0 0 0 3px rgba(0,0,0,0.2);
+    }
+</style>
+
+<style>
+    .quiz-container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px;
+        padding-bottom: 120px;
+    }
+    .question-section {
+        background: linear-gradient(135deg, #e8f4f8 0%, #d4edda 100%);
+        border: 2px solid #17a2b8;
+        border-radius: 10px;
+        padding: 25px;
+        margin-bottom: 20px;
+    }
+    .question-section h2 {
+        color: #0c5460;
+        margin-top: 0;
+        margin-bottom: 15px;
+    }
+    .show-next-btn {
+        display: block;
+        width: 100%;
+        padding: 15px 30px;
+        font-size: 1.1em;
+        font-weight: bold;
+        color: white;
+        background: linear-gradient(135deg, #007bff, #0056b3);
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        margin: 15px 0;
+        transition: all 0.3s ease;
+    }
+    .show-next-btn:hover {
+        background: linear-gradient(135deg, #0056b3, #004094);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 123, 255, 0.4);
+    }
+    .show-all-btn {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        margin-top: 10px;
+    }
+    .show-all-btn:hover {
+        background: linear-gradient(135deg, #218838, #1db385);
+        box-shadow: 0 4px 12px rgba(40, 167, 69, 0.4);
+    }
+    .step-container {
+        display: none;
+        animation: fadeIn 0.5s ease;
+        margin-bottom: 20px;
+        border: 1px solid #dee2e6;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    .step-container.visible {
+        display: block;
+    }
+    .step-header {
+        background: linear-gradient(135deg, #6c757d, #495057);
+        color: white;
+        padding: 12px 20px;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+    }
+    .step-number-badge {
+        background: white;
+        color: #495057;
+        border-radius: 50%;
+        width: 28px;
+        height: 28px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 12px;
+        font-weight: bold;
+    }
+    .step-content {
+        padding: 20px;
+        background: white;
+    }
+    .progress-bar {
+        background: #e9ecef;
+        border-radius: 10px;
+        height: 8px;
+        margin: 15px 0;
+        overflow: hidden;
+    }
+    .progress-fill {
+        background: linear-gradient(90deg, #28a745, #20c997);
+        height: 100%;
+        border-radius: 10px;
+        transition: width 0.5s ease;
+    }
+    .progress-text {
+        text-align: center;
+        color: #6c757d;
+        font-size: 0.9em;
+        margin-bottom: 15px;
+    }
+    .controls {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: white;
+        padding: 15px 20px;
+        border-top: 2px solid #dee2e6;
+        box-shadow: 0 -4px 12px rgba(0,0,0,0.1);
+        z-index: 1000;
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+    }
+    .quiz-container {
+        padding-bottom: 100px;
+    }
+    .show-next-btn {
+        width: auto;
+        margin: 0;
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .final-answer {
+        background: #d4edda;
+        border: 2px solid #28a745;
+        border-radius: 10px;
+        padding: 20px;
+        margin-top: 20px;
+    }
+    .final-answer h3 {
+        color: #155724;
+        margin-top: 0;
+    }
+
+    .done-buttons {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+    .mark-btn {
+        padding: 12px 24px;
+        font-size: 1em;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .mark-done {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        color: white;
+    }
+    .mark-done:hover, .mark-done.selected {
+        background: linear-gradient(135deg, #1e7e34, #17a085);
+        transform: scale(1.05);
+    }
+    .mark-review {
+        background: linear-gradient(135deg, #ffc107, #fd7e14);
+        color: white;
+    }
+    .mark-review:hover, .mark-review.selected {
+        background: linear-gradient(135deg, #d39e00, #dc6502);
+        transform: scale(1.05);
+    }
+    .mark-reset {
+        background: #6c757d;
+        color: white;
+    }
+    .mark-reset:hover {
+        background: #545b62;
+    }
+    .mark-btn.selected {
+        box-shadow: 0 0 0 3px rgba(0,0,0,0.2);
+    }
+</style>
+</head>
+<body>
+<div class="quiz-container">
+    <h1>Esame 9-1: Strutture di Lewis e Geometria Molecolare</h1>
+
+    <div class="question-section">
+        <h2>Testo dell'esercizio</h2>
+        <p>Risolvi l'esercizio seguente.</p>
+    </div>
+
+    <div class="progress-text" id="progress-text">Passaggio 0 di 7</div>
+    <div class="progress-bar">
+        <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+    </div>
+
+    <div class="controls">
+        <button id="next-btn" class="show-next-btn" onclick="showNextStep()">
+            ▶ Prossimo passaggio
+        </button>
+        <button id="all-btn" class="show-next-btn show-all-btn" onclick="showAllSteps()">
+            ⏩ Mostra tutto
+        </button>
+        <div id="done-buttons" class="done-buttons" style="display: none;">
+            <button id="mark-done" class="mark-btn mark-done" onclick="markExercise('done')">
+                ✓ Fatto
+            </button>
+            <button id="mark-review" class="mark-btn mark-review" onclick="markExercise('review')">
+                ⚠ Da rivedere
+            </button>
+            <button class="mark-btn mark-reset" onclick="resetExercise()">
+                ↺ Ricomincia
+            </button>
+            <button class="mark-btn" style="background: #17a2b8;" onclick="closeExercise()">
+                ✕ Chiudi
+            </button>
+        </div>
+    </div>
+
+    <div id="steps-wrapper">
+        
+        <div id="step-0" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">1</span>
+                Introduzione: Come affrontare questo tipo di eserc...
+            </div>
+            <div class="step-content">
+                <h1>Esame 9-1: Strutture di Lewis e Geometria Molecolare</h1>
+
+<div class="question">
+    <strong>QUESITO 6:</strong><br>
+    Delle seguenti sostanze, descrivere le strutture di Lewis, geometria molecolare, polarita, interazioni intermolecolari e stato di aggregazione:<br>
+    <strong>BrF3, H2SO4, BaCl2, Solfuro acido di sodio (NaHS), SO3</strong><br><br>
+    Per ogni composto analizzare: elettroni di valenza, struttura di Lewis, geometria VSEPR, polarita, tipo di legame (ionico/covalente), interazioni intermolecolari, stato fisico.
+</div><h2>Introduzione: Come affrontare questo tipo di esercizio</h2>
+
+<p>Prima di iniziare con i singoli composti, facciamo un ripasso veloce della strategia da seguire. Quando ci viene chiesto di analizzare una molecola dal punto di vista strutturale, dobbiamo procedere con ordine:</p>
+
+<div class="concept">
+<strong>Strategia generale:</strong>
+<ol>
+    <li><strong>Identificare il tipo di composto:</strong> E ionico o covalente? Questo cambia tutto l'approccio.</li>
+    <li><strong>Per composti covalenti:</strong> Contare gli elettroni di valenza, disegnare la struttura di Lewis, applicare VSEPR.</li>
+    <li><strong>Per composti ionici:</strong> Identificare catione e anione, analizzare eventualmente la struttura degli ioni.</li>
+    <li><strong>Determinare la polarita:</strong> Basandosi sulla geometria e sull'elettronegativita.</li>
+    <li><strong>Dedurre le interazioni intermolecolari:</strong> Forze di London, dipolo-dipolo, legami idrogeno, forze ioniche.</li>
+</ol>
+</div>
+
+<!-- ==================== BrF3 ==================== -->
+<div class="compound-section">
+            </div>
+        </div>
+        
+        <div id="step-1" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">2</span>
+                1. TRIFLUORURO DI BROMO (BrF3)
+            </div>
+            <div class="step-content">
+                <h2>1. TRIFLUORURO DI BROMO (BrF3)</h2>
+
+<h3>Passo 1: Che tipo di composto e?</h3>
+<p>Il trifluoruro di bromo e formato da bromo (un alogeno del gruppo 17) e fluoro (anch'esso un alogeno). Quando due non-metalli si legano tra loro, formano legami <strong>covalenti</strong>. Quindi BrF3 e una <strong>molecola covalente</strong>.</p>
+
+<h3>Passo 2: Contiamo gli elettroni di valenza</h3>
+<p>Questa e la prima cosa da fare per costruire la struttura di Lewis. Prendiamo gli elettroni di valenza di ciascun atomo:</p>
+<ul>
+    <li><strong>Br</strong> (gruppo 17): 7 elettroni di valenza</li>
+    <li><strong>F</strong> (gruppo 17): 7 elettroni di valenza ciascuno</li>
+</ul>
+<div class="formula">
+Elettroni totali = 7 (Br) + 3 x 7 (F) = 7 + 21 = <strong>28 elettroni</strong>
+</div>
+
+<h3>Passo 3: Struttura di Lewis</h3>
+<p>Il bromo e l'atomo centrale perche e meno elettronegativo del fluoro (e questa la regola: l'atomo meno elettronegativo sta al centro, eccetto l'idrogeno che sta sempre fuori).</p>
+
+<p>Distribuiamo gli elettroni:</p>
+<ul>
+    <li>Prima formiamo i legami Br-F: usiamo 2 elettroni per ogni legame, quindi 3 x 2 = 6 elettroni</li>
+    <li>Poi completiamo l'ottetto sui fluori: ogni F ha bisogno di 6 elettroni aggiuntivi (3 coppie solitarie), quindi 3 x 6 = 18 elettroni</li>
+    <li>Elettroni usati finora: 6 + 18 = 24</li>
+    <li>Elettroni rimanenti: 28 - 24 = 4 elettroni, cioe <strong>2 coppie solitarie</strong> sul bromo</li>
+</ul>
+
+<div class="lewis-structure">
+           :F:
+            |
+    :F -- Br -- F:     + 2 coppie solitarie sul Br
+
+    Br ha: 3 legami + 2 coppie solitarie = 5 domini elettronici
+</div>
+
+<div class="warning">
+<strong>Attenzione!</strong> Il bromo ha 10 elettroni attorno a se (3 legami + 2 coppie solitarie = 5 x 2 = 10 elettroni). Questo e possibile perche il Br, essendo nel terzo periodo o superiore, puo espandere il suo ottetto utilizzando gli orbitali d vuoti.
+</div>
+
+<h3>Passo 4: Geometria VSEPR</h3>
+<p>Ora applichiamo la teoria VSEPR (Valence Shell Electron Pair Repulsion). L'idea di base e che le coppie di elettroni (sia di legame che solitarie) si respingono e cercano di stare il piu lontano possibile.</p>
+
+<p>Contiamo i <strong>domini elettronici</strong> attorno al Br:</p>
+<ul>
+    <li>3 coppie di legame (i 3 legami Br-F)</li>
+    <li>2 coppie solitarie</li>
+    <li><strong>Totale: 5 domini elettronici</strong></li>
+</ul>
+
+<p>5 domini elettronici corrispondono a una <strong>geometria elettronica bipiramide trigonale</strong>.</p>
+
+<p>Ma attenzione: la geometria molecolare (quella che "vediamo") considera solo gli atomi, non le coppie solitarie. Le 2 coppie solitarie occupano le posizioni equatoriali (dove c'e piu spazio per la loro maggiore repulsione).</p>
+
+<div class="result">
+<strong>Geometria molecolare di BrF3: a T (T-shaped)</strong><br>
+Gli angoli di legame sono circa 87,5° (leggermente inferiori a 90° a causa della repulsione delle coppie solitarie).
+</div>
+
+<h3>Passo 5: Polarita</h3>
+<p>Una molecola e polare se:</p>
+<ol>
+    <li>Ha legami polari (differenza di elettronegativita tra gli atomi)</li>
+    <li>I momenti dipolari NON si annullano (geometria asimmetrica)</li>
+</ol>
+
+<p>Nel caso di BrF3:</p>
+<ul>
+    <li>Il legame Br-F e molto polare (F e l'elemento piu elettronegativo della tavola periodica)</li>
+    <li>La geometria a T e <strong>asimmetrica</strong></li>
+    <li>I momenti dipolari NON si annullano</li>
+</ul>
+
+<div class="result">
+<strong>BrF3 e una molecola POLARE</strong>
+</div>
+
+<h3>Passo 6: Interazioni intermolecolari e stato fisico</h3>
+<p>Essendo BrF3 una molecola polare, le interazioni intermolecolari principali sono:</p>
+<ul>
+    <li><strong>Forze dipolo-dipolo</strong> (dovute alla polarita permanente)</li>
+    <li><strong>Forze di dispersione di London</strong> (presenti in tutte le molecole)</li>
+</ul>
+
+<p>Non ci sono legami idrogeno perche non c'e idrogeno nella molecola.</p>
+
+<div class="result">
+<strong>Stato fisico a temperatura ambiente: LIQUIDO</strong><br>
+(Punto di fusione: 8,8°C, punto di ebollizione: 125,7°C)
+</div>
+
+<table class="summary-table">
+    <tr><td>Elettroni di valenza</td><td>28</td></tr>
+    <tr><td>Geometria elettronica</td><td>Bipiramide trigonale</td></tr>
+    <tr><td>Geometria molecolare</td><td>A forma di T</td></tr>
+    <tr><td>Ibridizzazione</td><td>sp3d</td></tr>
+    <tr><td>Polarita</td><td>Polare</td></tr>
+    <tr><td>Interazioni</td><td>Dipolo-dipolo, London</td></tr>
+    <tr><td>Stato fisico</td><td>Liquido</td></tr>
+</table>
+</div>
+
+<!-- ==================== H2SO4 ==================== -->
+<div class="compound-section">
+            </div>
+        </div>
+        
+        <div id="step-2" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">3</span>
+                2. ACIDO SOLFORICO (H2SO4)
+            </div>
+            <div class="step-content">
+                <h2>2. ACIDO SOLFORICO (H2SO4)</h2>
+
+<h3>Passo 1: Che tipo di composto e?</h3>
+<p>L'acido solforico e un <strong>ossiacido</strong>, formato da idrogeno, zolfo e ossigeno. E una <strong>molecola covalente</strong> (anche se in acqua si dissocia in ioni, allo stato puro e covalente).</p>
+
+<h3>Passo 2: Contiamo gli elettroni di valenza</h3>
+<ul>
+    <li><strong>H</strong> (gruppo 1): 1 elettrone di valenza ciascuno</li>
+    <li><strong>S</strong> (gruppo 16): 6 elettroni di valenza</li>
+    <li><strong>O</strong> (gruppo 16): 6 elettroni di valenza ciascuno</li>
+</ul>
+<div class="formula">
+Elettroni totali = 2 x 1 (H) + 1 x 6 (S) + 4 x 6 (O) = 2 + 6 + 24 = <strong>32 elettroni</strong>
+</div>
+
+<h3>Passo 3: Struttura di Lewis</h3>
+<p>Lo zolfo e l'atomo centrale. Nell'acido solforico:</p>
+<ul>
+    <li>Due atomi di ossigeno sono legati solo allo zolfo (doppio legame S=O)</li>
+    <li>Due atomi di ossigeno sono legati sia allo zolfo che all'idrogeno (gruppi -OH)</li>
+</ul>
+
+<div class="lewis-structure">
+            O
+            ||
+    HO -- S -- OH
+            ||
+            O
+
+    Lo zolfo ha: 4 legami (2 doppi + 2 singoli)
+    = 4 domini elettronici = Geometria tetraedrica
+</div>
+
+<div class="concept">
+<strong>Nota importante:</strong> Lo zolfo in H2SO4 ha 12 elettroni attorno a se (espansione dell'ottetto). Questo e possibile perche lo zolfo e nel terzo periodo e ha orbitali d vuoti disponibili.
+</div>
+
+<h3>Passo 4: Geometria VSEPR</h3>
+<p>Contiamo i domini elettronici attorno allo zolfo:</p>
+<ul>
+    <li>2 doppi legami S=O (ogni doppio legame conta come 1 dominio)</li>
+    <li>2 legami singoli S-O (dei gruppi OH)</li>
+    <li>0 coppie solitarie sullo zolfo</li>
+    <li><strong>Totale: 4 domini elettronici</strong></li>
+</ul>
+
+<div class="result">
+<strong>Geometria molecolare: TETRAEDRICA (distorta)</strong><br>
+Angoli di legame circa 109,5° con piccole variazioni dovute alle differenze tra doppi e singoli legami.
+</div>
+
+<h3>Passo 5: Polarita</h3>
+<ul>
+    <li>I legami S-O e O-H sono polari</li>
+    <li>La molecola non e perfettamente simmetrica (i gruppi -OH sono diversi dagli ossigeni doppiamente legati)</li>
+</ul>
+
+<div class="result">
+<strong>H2SO4 e una molecola POLARE</strong>
+</div>
+
+<h3>Passo 6: Interazioni intermolecolari e stato fisico</h3>
+<p>L'acido solforico ha <strong>legami idrogeno</strong> molto forti, perche:</p>
+<ul>
+    <li>Contiene idrogeno legato all'ossigeno (gruppo -OH)</li>
+    <li>Gli ossigeni possono accettare legami idrogeno</li>
+    <li>Ha due gruppi -OH, quindi puo formare una rete estesa di legami idrogeno</li>
+</ul>
+
+<div class="result">
+<strong>Stato fisico a temperatura ambiente: LIQUIDO (viscoso)</strong><br>
+(Punto di fusione: 10°C, punto di ebollizione: 337°C)<br>
+L'alto punto di ebollizione e dovuto ai forti legami idrogeno.
+</div>
+
+<table class="summary-table">
+    <tr><td>Elettroni di valenza</td><td>32</td></tr>
+    <tr><td>Geometria elettronica</td><td>Tetraedrica</td></tr>
+    <tr><td>Geometria molecolare</td><td>Tetraedrica</td></tr>
+    <tr><td>Ibridizzazione S</td><td>sp3</td></tr>
+    <tr><td>Polarita</td><td>Polare</td></tr>
+    <tr><td>Interazioni</td><td>Legami idrogeno, dipolo-dipolo, London</td></tr>
+    <tr><td>Stato fisico</td><td>Liquido viscoso</td></tr>
+</table>
+</div>
+
+<!-- ==================== BaCl2 ==================== -->
+<div class="compound-section">
+            </div>
+        </div>
+        
+        <div id="step-3" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">4</span>
+                3. CLORURO DI BARIO (BaCl2)
+            </div>
+            <div class="step-content">
+                <h2>3. CLORURO DI BARIO (BaCl2)</h2>
+
+<h3>Passo 1: Che tipo di composto e?</h3>
+<p>Ecco un caso completamente diverso! Il bario (Ba) e un <strong>metallo alcalino-terroso</strong> (gruppo 2), mentre il cloro e un <strong>non-metallo</strong>. Quando un metallo si combina con un non-metallo, si forma un <strong>composto ionico</strong>.</p>
+
+<div class="warning">
+<strong>Attenzione!</strong> Per i composti ionici, NON ha senso parlare di "struttura di Lewis della molecola" o di "geometria molecolare" nel senso classico. I composti ionici non formano molecole discrete, ma <strong>reticoli cristallini</strong>.
+</div>
+
+<h3>Passo 2: Formazione degli ioni</h3>
+<p>Vediamo cosa succede:</p>
+<ul>
+    <li><strong>Ba</strong> perde 2 elettroni e diventa <strong>Ba2+</strong></li>
+    <li>Ogni <strong>Cl</strong> acquista 1 elettrone e diventa <strong>Cl-</strong></li>
+</ul>
+
+<div class="formula">
+Ba --> Ba2+ + 2e-
+2Cl + 2e- --> 2Cl-
+<br>
+Formula: Ba2+ + 2Cl- = BaCl2
+</div>
+
+<h3>Passo 3: Struttura degli ioni</h3>
+
+<p><strong>Catione Ba2+:</strong></p>
+<ul>
+    <li>Configurazione elettronica: [Xe] (gas nobile, ottetto completo)</li>
+    <li>Non ha elettroni di valenza nella struttura di Lewis (solo nucleo positivo)</li>
+</ul>
+
+<p><strong>Anione Cl-:</strong></p>
+<ul>
+    <li>Configurazione elettronica: [Ne] 3s2 3p6 = [Ar]</li>
+    <li>Ha 8 elettroni di valenza (ottetto completo)</li>
+</ul>
+
+<div class="lewis-structure">
+    Ba2+     e     [:Cl:]- (con 4 coppie solitarie attorno al Cl)
+</div>
+
+<h3>Passo 4: Struttura cristallina</h3>
+<p>Nel reticolo cristallino di BaCl2, ogni ione Ba2+ e circondato da ioni Cl- e viceversa. Non esiste una "geometria molecolare" perche non esistono molecole discrete.</p>
+
+<div class="result">
+<strong>BaCl2 non ha geometria molecolare: forma un RETICOLO IONICO</strong>
+</div>
+
+<h3>Passo 5: Polarita</h3>
+<p>Il concetto di "polarita molecolare" non si applica ai composti ionici. Il legame ionico e il risultato della completa differenza di elettronegativita, non un dipolo.</p>
+
+<h3>Passo 6: Interazioni e stato fisico</h3>
+<p>Le interazioni nei composti ionici sono <strong>forze elettrostatiche</strong> (attrazioni ione-ione), che sono molto piu forti delle interazioni intermolecolari tipiche dei composti covalenti.</p>
+
+<div class="result">
+<strong>Stato fisico a temperatura ambiente: SOLIDO CRISTALLINO</strong><br>
+(Punto di fusione: 961°C, punto di ebollizione: 1560°C)<br>
+L'altissimo punto di fusione e tipico dei composti ionici.
+</div>
+
+<table class="summary-table">
+    <tr><td>Tipo di composto</td><td>IONICO</td></tr>
+    <tr><td>Catione</td><td>Ba2+</td></tr>
+    <tr><td>Anione</td><td>Cl-</td></tr>
+    <tr><td>Struttura</td><td>Reticolo cristallino</td></tr>
+    <tr><td>Tipo di legame</td><td>Ionico</td></tr>
+    <tr><td>Interazioni</td><td>Forze elettrostatiche ione-ione</td></tr>
+    <tr><td>Stato fisico</td><td>Solido cristallino bianco</td></tr>
+</table>
+</div>
+
+<!-- ==================== NaHS ==================== -->
+<div class="compound-section">
+            </div>
+        </div>
+        
+        <div id="step-4" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">5</span>
+                4. SOLFURO ACIDO DI SODIO (NaHS)
+            </div>
+            <div class="step-content">
+                <h2>4. SOLFURO ACIDO DI SODIO (NaHS)</h2>
+
+<h3>Passo 1: Che tipo di composto e?</h3>
+<p>Il nome "solfuro acido di sodio" ci dice che abbiamo a che fare con un <strong>sale acido</strong>. Il sodio (Na) e un <strong>metallo alcalino</strong>, quindi forma composti ionici.</p>
+
+<p>NaHS e un <strong>composto ionico</strong> formato da:</p>
+<ul>
+    <li>Catione: Na+ (sodio)</li>
+    <li>Anione: HS- (ione idrogeno solfuro, detto anche ione bisolfuro)</li>
+</ul>
+
+<h3>Passo 2: Struttura dello ione HS-</h3>
+<p>Lo ione HS- e interessante perche ha una struttura covalente. Calcoliamo gli elettroni:</p>
+<ul>
+    <li><strong>H:</strong> 1 elettrone</li>
+    <li><strong>S:</strong> 6 elettroni</li>
+    <li><strong>Carica negativa:</strong> +1 elettrone</li>
+</ul>
+<div class="formula">
+Elettroni totali in HS- = 1 + 6 + 1 = <strong>8 elettroni</strong>
+</div>
+
+<h3>Passo 3: Struttura di Lewis dello ione HS-</h3>
+
+<div class="lewis-structure">
+    [H -- S:]-
+
+    Lo zolfo ha: 1 legame + 3 coppie solitarie = 4 domini elettronici
+</div>
+
+<p>Lo zolfo ha un legame singolo con l'idrogeno e 3 coppie solitarie, per un totale di 8 elettroni (ottetto completo).</p>
+
+<h3>Passo 4: Geometria dello ione HS-</h3>
+<p>Per lo ione HS-, essendo una specie biatomica, non ha senso parlare di geometria molecolare complessa. E semplicemente <strong>lineare</strong>.</p>
+
+<h3>Passo 5: Tipo di legame</h3>
+<ul>
+    <li><strong>Tra Na+ e HS-:</strong> legame IONICO</li>
+    <li><strong>Tra H e S nello ione HS-:</strong> legame COVALENTE (polare)</li>
+</ul>
+
+<h3>Passo 6: Interazioni e stato fisico</h3>
+<p>Come tutti i composti ionici:</p>
+<ul>
+    <li>Le interazioni principali sono <strong>forze elettrostatiche</strong> tra ioni</li>
+    <li>Forma un <strong>reticolo cristallino</strong></li>
+</ul>
+
+<div class="result">
+<strong>Stato fisico a temperatura ambiente: SOLIDO CRISTALLINO</strong><br>
+E un solido bianco, inodore (ma in presenza di acidi libera H2S, che ha odore di uova marce).
+</div>
+
+<table class="summary-table">
+    <tr><td>Tipo di composto</td><td>IONICO (sale acido)</td></tr>
+    <tr><td>Catione</td><td>Na+</td></tr>
+    <tr><td>Anione</td><td>HS- (idrogeno solfuro)</td></tr>
+    <tr><td>Elettroni valenza HS-</td><td>8</td></tr>
+    <tr><td>Geometria HS-</td><td>Lineare</td></tr>
+    <tr><td>Tipo di legame</td><td>Ionico (Na-HS), Covalente (H-S)</td></tr>
+    <tr><td>Interazioni</td><td>Forze elettrostatiche ione-ione</td></tr>
+    <tr><td>Stato fisico</td><td>Solido cristallino bianco</td></tr>
+</table>
+</div>
+
+<!-- ==================== SO3 ==================== -->
+<div class="compound-section">
+            </div>
+        </div>
+        
+        <div id="step-5" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">6</span>
+                5. TRIOSSIDO DI ZOLFO (SO3)
+            </div>
+            <div class="step-content">
+                <h2>5. TRIOSSIDO DI ZOLFO (SO3)</h2>
+
+<h3>Passo 1: Che tipo di composto e?</h3>
+<p>Il triossido di zolfo e formato da zolfo (non-metallo) e ossigeno (non-metallo). E quindi una <strong>molecola covalente</strong>.</p>
+
+<h3>Passo 2: Contiamo gli elettroni di valenza</h3>
+<ul>
+    <li><strong>S</strong> (gruppo 16): 6 elettroni di valenza</li>
+    <li><strong>O</strong> (gruppo 16): 6 elettroni di valenza ciascuno</li>
+</ul>
+<div class="formula">
+Elettroni totali = 1 x 6 (S) + 3 x 6 (O) = 6 + 18 = <strong>24 elettroni</strong>
+</div>
+
+<h3>Passo 3: Struttura di Lewis</h3>
+<p>Lo zolfo e l'atomo centrale. Per SO3 ci sono diverse strutture di risonanza possibili, ma la struttura piu stabile ha:</p>
+
+<div class="lewis-structure">
+         :O:
+          ||
+    :O == S == O:     (con strutture di risonanza)
+
+    oppure la rappresentazione con una freccia di risonanza:
+
+         O             O              O
+         ||            ||             ||
+    O -- S -- O  <-->  O == S -- O  <-->  O -- S == O
+         ||                  ||                  ||
+</div>
+
+<p>La struttura reale e un <strong>ibrido di risonanza</strong>: tutti e tre i legami S-O sono equivalenti, con un ordine di legame di circa 1,5 (intermedio tra singolo e doppio).</p>
+
+<h3>Passo 4: Geometria VSEPR</h3>
+<p>Contiamo i domini elettronici attorno allo zolfo:</p>
+<ul>
+    <li>3 legami (che siano singoli, doppi o di risonanza, ogni legame conta come 1 dominio)</li>
+    <li>0 coppie solitarie sullo zolfo</li>
+    <li><strong>Totale: 3 domini elettronici</strong></li>
+</ul>
+
+<p>3 domini elettronici senza coppie solitarie = <strong>geometria trigonale planare</strong>.</p>
+
+<div class="result">
+<strong>Geometria molecolare: TRIGONALE PLANARE</strong><br>
+Angoli di legame: esattamente 120°
+</div>
+
+<h3>Passo 5: Polarita</h3>
+<p>Qui viene la parte interessante! I legami S-O sono polari (l'ossigeno e piu elettronegativo dello zolfo). Pero...</p>
+
+<ul>
+    <li>La geometria trigonale planare e <strong>perfettamente simmetrica</strong></li>
+    <li>I tre momenti dipolari puntano verso gli ossigeni, a 120° l'uno dall'altro</li>
+    <li>La <strong>somma vettoriale</strong> dei momenti dipolari e <strong>zero</strong></li>
+</ul>
+
+<div class="result">
+<strong>SO3 e una molecola APOLARE</strong><br>
+(nonostante i legami polari, la geometria simmetrica li annulla)
+</div>
+
+<h3>Passo 6: Interazioni intermolecolari e stato fisico</h3>
+<p>Essendo SO3 una molecola apolare, le uniche interazioni intermolecolari sono:</p>
+<ul>
+    <li><strong>Forze di dispersione di London</strong> (deboli)</li>
+</ul>
+
+<div class="result">
+<strong>Stato fisico a temperatura ambiente: dipende dalla forma</strong><br>
+- Forma monomerica (SO3 singolo): GAS a temperatura ambiente (p.eb. 45°C)<br>
+- Forma polimerica (catene o anelli): SOLIDO cristallino<br><br>
+La forma comunemente considerata e quella gassosa.
+</div>
+
+<div class="concept">
+<strong>Curiosita:</strong> SO3 tende a polimerizzare, formando anelli (SO3)3 o catene. Quando e puro e fresco, e un gas, ma col tempo si trasforma in solido. E l'anidride dell'acido solforico: SO3 + H2O --> H2SO4.
+</div>
+
+<table class="summary-table">
+    <tr><td>Elettroni di valenza</td><td>24</td></tr>
+    <tr><td>Geometria elettronica</td><td>Trigonale planare</td></tr>
+    <tr><td>Geometria molecolare</td><td>Trigonale planare</td></tr>
+    <tr><td>Ibridizzazione S</td><td>sp2</td></tr>
+    <tr><td>Angoli di legame</td><td>120°</td></tr>
+    <tr><td>Polarita</td><td>Apolare</td></tr>
+    <tr><td>Interazioni</td><td>Forze di London</td></tr>
+    <tr><td>Stato fisico</td><td>Gas (monomero) / Solido (polimero)</td></tr>
+</table>
+</div>
+
+<!-- ==================== RIEPILOGO FINALE ==================== -->
+            </div>
+        </div>
+        
+        <div id="step-6" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">7</span>
+                Riepilogo Comparativo
+            </div>
+            <div class="step-content">
+                <h2>Riepilogo Comparativo</h2>
+
+<table>
+    <tr>
+        <th>Composto</th>
+        <th>Tipo</th>
+        <th>Geometria</th>
+        <th>Polarita</th>
+        <th>Interazioni</th>
+        <th>Stato</th>
+    </tr>
+    <tr>
+        <td><strong>BrF3</strong></td>
+        <td>Covalente</td>
+        <td>A T</td>
+        <td>Polare</td>
+        <td>Dipolo-dipolo, London</td>
+        <td>Liquido</td>
+    </tr>
+    <tr>
+        <td><strong>H2SO4</strong></td>
+        <td>Covalente</td>
+        <td>Tetraedrica</td>
+        <td>Polare</td>
+        <td>Legami H, dipolo-dipolo</td>
+        <td>Liquido viscoso</td>
+    </tr>
+    <tr>
+        <td><strong>BaCl2</strong></td>
+        <td>Ionico</td>
+        <td>Reticolo</td>
+        <td>N/A</td>
+        <td>Elettrostatiche</td>
+        <td>Solido</td>
+    </tr>
+    <tr>
+        <td><strong>NaHS</strong></td>
+        <td>Ionico</td>
+        <td>Reticolo</td>
+        <td>N/A</td>
+        <td>Elettrostatiche</td>
+        <td>Solido</td>
+    </tr>
+    <tr>
+        <td><strong>SO3</strong></td>
+        <td>Covalente</td>
+        <td>Trig. planare</td>
+        <td>Apolare</td>
+        <td>London</td>
+        <td>Gas</td>
+    </tr>
+</table>
+
+<div class="result" style="margin-top: 30px;">
+<strong>Concetti chiave da ricordare:</strong>
+<ul>
+    <li>Metallo + Non-metallo = Composto IONICO (reticolo cristallino)</li>
+    <li>Non-metallo + Non-metallo = Composto COVALENTE (molecole discrete)</li>
+    <li>Geometria simmetrica + legami polari = Molecola APOLARE (come SO3)</li>
+    <li>Geometria asimmetrica o coppie solitarie = Molecola POLARE (come BrF3)</li>
+    <li>Legami idrogeno = Alto punto di ebollizione (come H2SO4)</li>
+</ul>
+</div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+<script>
+    let currentStep = 0;
+    let totalSteps = 0;
+
+    document.addEventListener('DOMContentLoaded', function() {
+        totalSteps = document.querySelectorAll('.step-container').length;
+        updateProgress();
+        updateButtons();
+    });
+
+    function showNextStep() {
+        if (currentStep < totalSteps) {
+            const step = document.getElementById('step-' + currentStep);
+            if (step) {
+                step.classList.add('visible');
+                step.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                currentStep++;
+                updateProgress();
+                updateButtons();
+
+                if (window.parent !== window) {
+                    window.parent.postMessage({type: 'stepShown', step: currentStep, total: totalSteps}, '*');
+                }
+            }
+        }
+    }
+
+    function showAllSteps() {
+        document.querySelectorAll('.step-container').forEach(function(step) {
+            step.classList.add('visible');
+        });
+        currentStep = totalSteps;
+        updateProgress();
+        updateButtons();
+
+        if (window.parent !== window) {
+            window.parent.postMessage({type: 'allStepsShown'}, '*');
+        }
+    }
+
+    function hideAllSteps() {
+        document.querySelectorAll('.step-container').forEach(function(step) {
+            step.classList.remove('visible');
+        });
+        currentStep = 0;
+        updateProgress();
+        updateButtons();
+    }
+
+    function updateProgress() {
+        const pct = totalSteps > 0 ? (currentStep / totalSteps) * 100 : 0;
+        const fill = document.getElementById('progress-fill');
+        const text = document.getElementById('progress-text');
+        if (fill) fill.style.width = pct + '%';
+        if (text) text.textContent = 'Passaggio ' + currentStep + ' di ' + totalSteps;
+    }
+
+    function updateButtons() {
+        const nextBtn = document.getElementById('next-btn');
+        const allBtn = document.getElementById('all-btn');
+        const doneButtons = document.getElementById('done-buttons');
+
+        if (currentStep >= totalSteps) {
+            if (nextBtn) nextBtn.style.display = 'none';
+            if (allBtn) allBtn.style.display = 'none';
+            if (doneButtons) doneButtons.style.display = 'flex';
+        } else {
+            if (nextBtn) nextBtn.style.display = 'block';
+            if (allBtn) allBtn.style.display = 'block';
+            if (doneButtons) doneButtons.style.display = 'none';
+        }
+    }
+
+    function markExercise(status) {
+        // Salva in localStorage
+        const exerciseId = window.location.pathname.split('/').pop().replace('.html', '');
+        let progress = JSON.parse(localStorage.getItem('chemportal_progress') || '{}');
+        if (!progress.exercises) progress.exercises = {};
+        progress.exercises[exerciseId] = status;
+        localStorage.setItem('chemportal_progress', JSON.stringify(progress));
+
+        // Feedback visivo
+        const btn = status === 'done' ? document.getElementById('mark-done') : document.getElementById('mark-review');
+        const otherBtn = status === 'done' ? document.getElementById('mark-review') : document.getElementById('mark-done');
+
+        btn.classList.add('selected');
+        otherBtn.classList.remove('selected');
+
+        // Notifica parent
+        if (window.parent !== window) {
+            window.parent.postMessage({type: 'exerciseMarked', status: status, id: exerciseId}, '*');
+        }
+    }
+
+    function resetExercise() {
+        hideAllSteps();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Messaggi dal parent
+    window.addEventListener('message', function(e) {
+        if (e.data.type === 'showNext') showNextStep();
+        else if (e.data.type === 'showAll') showAllSteps();
+        else if (e.data.type === 'hideAll') hideAllSteps();
+    });
+
+    function closeExercise() {
+        if (window.parent !== window) {
+            // Siamo in iframe, chiedi al parent di chiudere
+            window.parent.postMessage({type: 'closeModal'}, '*');
+        } else {
+            // Standalone: torna alla pagina esercizi
+            const path = window.location.pathname;
+            if (path.includes('/content/soluzioni/')) {
+                window.location.href = '../../esercizi.html';
+            } else {
+                window.history.back();
+            }
+        }
+    }
+</script>
+</body>
+</html>

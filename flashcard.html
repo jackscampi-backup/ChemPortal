@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flashcard Formule - ChemPortal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2563eb',
+                        secondary: '#1e40af',
+                        accent: '#3b82f6',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .flashcard {
+            perspective: 1000px;
+            cursor: pointer;
+        }
+        .flashcard-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+        .flashcard.flipped .flashcard-inner {
+            transform: rotateY(180deg);
+        }
+        .flashcard-front, .flashcard-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 1rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            text-align: center;
+        }
+        .flashcard-front {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        .flashcard-back {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+            transform: rotateY(180deg);
+        }
+        .formula {
+            font-family: 'Courier New', monospace;
+            font-size: 1.4em;
+            background: rgba(255,255,255,0.2);
+            padding: 15px 25px;
+            border-radius: 10px;
+            margin: 10px 0;
+        }
+        .category-btn {
+            transition: all 0.3s ease;
+        }
+        .category-btn.active {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-primary to-secondary text-white shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex items-center justify-between">
+                <a href="index.html" class="flex items-center space-x-3">
+                    <span class="text-3xl">⚗️</span>
+                    <div>
+                        <h1 class="text-2xl font-bold">ChemPortal</h1>
+                        <p class="text-blue-200 text-sm">Chimica Generale</p>
+                    </div>
+                </a>
+                <nav class="hidden md:flex space-x-6 items-center">
+                    <a href="index.html" class="hover:text-blue-200">Home</a>
+                    <a href="manuale.html" class="hover:text-blue-200">Manuale</a>
+                    <a href="esercizi.html" class="hover:text-blue-200">Esercizi</a>
+                    <a href="flashcard.html" class="hover:text-blue-200 font-medium border-b-2 border-white pb-1">Formule</a>
+                    <a href="simulazione.html" class="hover:text-blue-200">Simulazione</a>
+                    <div class="relative">
+                        <input type="text" id="globalSearch" placeholder="Cerca..."
+                               class="px-3 py-1 rounded-lg text-gray-800 text-sm w-40 focus:w-56 transition-all focus:outline-none focus:ring-2 focus:ring-white">
+                        <div id="searchResults" class="hidden absolute top-full right-0 mt-2 w-80 bg-white rounded-lg shadow-xl max-h-96 overflow-y-auto z-50"></div>
+                    </div>
+                </nav>
+                <button id="mobileMenuBtn" class="md:hidden text-white">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <div id="mobileMenu" class="hidden md:hidden bg-secondary">
+            <nav class="container mx-auto px-4 py-3 flex flex-col space-y-2">
+                <a href="index.html" class="text-white hover:text-blue-200 py-2">Home</a>
+                <a href="manuale.html" class="text-white hover:text-blue-200 py-2">Manuale</a>
+                <a href="esercizi.html" class="text-white hover:text-blue-200 py-2">Esercizi</a>
+                <a href="flashcard.html" class="text-white hover:text-blue-200 py-2">Formule</a>
+                <a href="simulazione.html" class="text-white hover:text-blue-200 py-2">Simulazione</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8">
+        <!-- Breadcrumb -->
+        <nav class="mb-6">
+            <ol class="flex items-center space-x-2 text-sm text-gray-500">
+                <li><a href="index.html" class="hover:text-primary">Home</a></li>
+                <li><span class="mx-2">/</span></li>
+                <li>Flashcard Formule</li>
+            </ol>
+        </nav>
+
+        <!-- Page Header -->
+        <div class="mb-8 text-center">
+            <h2 class="text-3xl font-bold text-gray-800 mb-2">Flashcard Formule</h2>
+            <p class="text-gray-600">Clicca sulla card per vedere la formula. Memorizza prima di girare!</p>
+        </div>
+
+        <!-- Category Filter -->
+        <div class="flex flex-wrap justify-center gap-3 mb-8">
+            <button onclick="filterCategory('all')" class="category-btn active px-4 py-2 bg-gray-800 text-white rounded-full" data-cat="all">
+                Tutte
+            </button>
+            <button onclick="filterCategory('stechiometria')" class="category-btn px-4 py-2 bg-blue-500 text-white rounded-full" data-cat="stechiometria">
+                Stechiometria
+            </button>
+            <button onclick="filterCategory('gas')" class="category-btn px-4 py-2 bg-cyan-500 text-white rounded-full" data-cat="gas">
+                Gas
+            </button>
+            <button onclick="filterCategory('termodinamica')" class="category-btn px-4 py-2 bg-orange-500 text-white rounded-full" data-cat="termodinamica">
+                Termodinamica
+            </button>
+            <button onclick="filterCategory('equilibrio')" class="category-btn px-4 py-2 bg-purple-500 text-white rounded-full" data-cat="equilibrio">
+                Equilibrio
+            </button>
+            <button onclick="filterCategory('acidibasi')" class="category-btn px-4 py-2 bg-yellow-500 text-white rounded-full" data-cat="acidibasi">
+                Acidi/Basi
+            </button>
+            <button onclick="filterCategory('cinetica')" class="category-btn px-4 py-2 bg-teal-500 text-white rounded-full" data-cat="cinetica">
+                Cinetica
+            </button>
+            <button onclick="filterCategory('elettrochimica')" class="category-btn px-4 py-2 bg-red-500 text-white rounded-full" data-cat="elettrochimica">
+                Elettrochimica
+            </button>
+        </div>
+
+        <!-- Stats -->
+        <div class="text-center mb-6">
+            <span id="cardCount" class="text-gray-500">Mostrando 0 formule</span>
+        </div>
+
+        <!-- Flashcards Grid -->
+        <div id="flashcardsContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Cards will be populated by JS -->
+        </div>
+
+        <!-- Shuffle Button -->
+        <div class="text-center mt-8">
+            <button onclick="shuffleCards()" class="px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition flex items-center space-x-2 mx-auto">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                </svg>
+                <span>Mescola le card</span>
+            </button>
+        </div>
+    </main>
+
+    <script>
+        // Dati delle flashcard
+        const flashcards = [
+            // STECHIOMETRIA
+            { category: 'stechiometria', question: 'Come si calcola il numero di moli?', formula: 'n = m / MM', note: 'm = massa (g), MM = massa molare (g/mol)' },
+            { category: 'stechiometria', question: 'Come si calcola il numero di particelle?', formula: 'N = n × Nₐ', note: 'Nₐ = 6.022 × 10²³ (Avogadro)' },
+            { category: 'stechiometria', question: 'Come si calcola la concentrazione molare?', formula: 'M = n / V', note: 'V in litri, M in mol/L' },
+            { category: 'stechiometria', question: 'Come si calcola la densita?', formula: 'd = m / V', note: 'Solitamente g/mL o g/cm³' },
+
+            // GAS
+            { category: 'gas', question: 'Legge dei gas ideali', formula: 'PV = nRT', note: 'R = 0.0821 L·atm/(mol·K) o 8.314 J/(mol·K)' },
+            { category: 'gas', question: 'Condizioni normali (c.n.)', formula: 'T = 273 K, P = 1 atm', note: 'Volume molare = 22.4 L/mol' },
+            { category: 'gas', question: 'Pressione parziale di un gas', formula: 'Pᵢ = xᵢ × Pₜₒₜ', note: 'xᵢ = frazione molare' },
+            { category: 'gas', question: 'Legge di Dalton', formula: 'Pₜₒₜ = P₁ + P₂ + P₃ + ...', note: 'Somma delle pressioni parziali' },
+
+            // TERMODINAMICA
+            { category: 'termodinamica', question: 'Energia libera di Gibbs', formula: 'ΔG = ΔH - TΔS', note: 'Spontanea se ΔG < 0' },
+            { category: 'termodinamica', question: 'Energia libera in condizioni non standard', formula: 'ΔG = ΔG° + RT ln Q', note: 'Q = quoziente di reazione' },
+            { category: 'termodinamica', question: 'Relazione ΔG° e Keq', formula: 'ΔG° = -RT ln Keq', note: 'A T = 298 K: ΔG° = -5.7 log Keq (kJ/mol)' },
+            { category: 'termodinamica', question: 'Legge di Hess', formula: 'ΔH°ᵣₓₙ = Σ ΔH°f(prod) - Σ ΔH°f(reag)', note: 'Somma algebrica delle entalpie di formazione' },
+            { category: 'termodinamica', question: 'Capacita termica', formula: 'q = mcΔT', note: 'm = massa, c = calore specifico, ΔT = variazione T' },
+            { category: 'termodinamica', question: 'Lavoro di espansione', formula: 'w = -PΔV = -ΔnRT', note: 'Δn = moli gas prodotti - moli gas reagenti' },
+
+            // EQUILIBRIO
+            { category: 'equilibrio', question: 'Costante di equilibrio Kc', formula: 'Kc = [prodotti]ⁿ / [reagenti]ᵐ', note: 'Solo specie in fase acquosa o gassosa' },
+            { category: 'equilibrio', question: 'Relazione Kp e Kc', formula: 'Kp = Kc × (RT)^Δn', note: 'Δn = moli gas prodotti - moli gas reagenti' },
+            { category: 'equilibrio', question: 'Prodotto di solubilita', formula: 'Kps = [catione]ᵃ × [anione]ᵇ', note: 'Per sali poco solubili' },
+
+            // ACIDI E BASI
+            { category: 'acidibasi', question: 'Definizione di pH', formula: 'pH = -log[H₃O⁺]', note: 'pH + pOH = 14 a 25°C' },
+            { category: 'acidibasi', question: 'pH di un acido forte', formula: 'pH = -log Cₐ', note: 'Cₐ = concentrazione acido' },
+            { category: 'acidibasi', question: 'pH di un acido debole', formula: '[H⁺] = √(Ka × Cₐ)', note: 'Approssimazione valida se Ka << Cₐ' },
+            { category: 'acidibasi', question: 'pH di una base debole', formula: '[OH⁻] = √(Kb × Cb)', note: 'Poi pOH = -log[OH⁻], pH = 14 - pOH' },
+            { category: 'acidibasi', question: 'Relazione Ka e Kb', formula: 'Ka × Kb = Kw = 10⁻¹⁴', note: 'Per una coppia coniugata' },
+            { category: 'acidibasi', question: 'Equazione di Henderson-Hasselbalch', formula: 'pH = pKa + log([A⁻]/[HA])', note: 'Per soluzioni tampone' },
+
+            // CINETICA
+            { category: 'cinetica', question: 'Equazione di Arrhenius', formula: 'k = A × e^(-Ea/RT)', note: 'Ea = energia di attivazione' },
+            { category: 'cinetica', question: 'Forma logaritmica di Arrhenius', formula: 'ln(k₂/k₁) = (Ea/R)(1/T₁ - 1/T₂)', note: 'Per calcolare Ea o k a T diversa' },
+            { category: 'cinetica', question: 'Tempo di dimezzamento (1° ordine)', formula: 't₁/₂ = ln2 / k = 0.693 / k', note: 'Indipendente dalla concentrazione' },
+            { category: 'cinetica', question: 'Tempo di dimezzamento (2° ordine)', formula: 't₁/₂ = 1 / (k × [A]₀)', note: 'Dipende dalla concentrazione iniziale' },
+            { category: 'cinetica', question: 'Legge cinetica 1° ordine', formula: '[A] = [A]₀ × e^(-kt)', note: 'Oppure ln[A] = ln[A]₀ - kt' },
+            { category: 'cinetica', question: 'Legge cinetica 2° ordine', formula: '1/[A] = 1/[A]₀ + kt', note: 'Per reazione A → prodotti' },
+
+            // ELETTROCHIMICA
+            { category: 'elettrochimica', question: 'Forza elettromotrice di una pila', formula: 'E°cella = E°catodo - E°anodo', note: 'Catodo: riduzione, Anodo: ossidazione' },
+            { category: 'elettrochimica', question: 'Equazione di Nernst', formula: 'E = E° - (0.059/n) × log Q', note: 'A 25°C. n = elettroni scambiati' },
+            { category: 'elettrochimica', question: 'Relazione E° e Keq', formula: 'E° = (0.059/n) × log Keq', note: 'A 25°C. Oppure log Keq = nE°/0.059' },
+            { category: 'elettrochimica', question: 'Relazione E° e ΔG°', formula: 'ΔG° = -nFE°', note: 'F = 96485 C/mol (Faraday)' },
+            { category: 'elettrochimica', question: 'Prima legge di Faraday', formula: 'm = (MM × I × t) / (n × F)', note: 'I in A, t in s, m in g' },
+            { category: 'elettrochimica', question: 'Carica elettrica', formula: 'Q = I × t', note: 'Q in Coulomb, I in Ampere, t in secondi' },
+        ];
+
+        let currentCategory = 'all';
+        let displayedCards = [...flashcards];
+
+        function renderCards() {
+            const container = document.getElementById('flashcardsContainer');
+            container.innerHTML = displayedCards.map((card, index) => `
+                <div class="flashcard h-64" onclick="flipCard(this)">
+                    <div class="flashcard-inner">
+                        <div class="flashcard-front">
+                            <p class="text-lg font-medium mb-4">${card.question}</p>
+                            <p class="text-sm opacity-75">Clicca per vedere la formula</p>
+                        </div>
+                        <div class="flashcard-back">
+                            <div class="formula">${card.formula}</div>
+                            <p class="text-sm mt-4 opacity-90">${card.note}</p>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            document.getElementById('cardCount').textContent = `Mostrando ${displayedCards.length} formule`;
+        }
+
+        function flipCard(card) {
+            card.classList.toggle('flipped');
+        }
+
+        function filterCategory(category) {
+            currentCategory = category;
+
+            // Update button states
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.cat === category) {
+                    btn.classList.add('active');
+                }
+            });
+
+            // Filter cards
+            if (category === 'all') {
+                displayedCards = [...flashcards];
+            } else {
+                displayedCards = flashcards.filter(card => card.category === category);
+            }
+
+            renderCards();
+        }
+
+        function shuffleCards() {
+            for (let i = displayedCards.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [displayedCards[i], displayedCards[j]] = [displayedCards[j], displayedCards[i]];
+            }
+            renderCards();
+
+            // Reset all flipped cards
+            document.querySelectorAll('.flashcard').forEach(card => {
+                card.classList.remove('flipped');
+            });
+        }
+
+        // Mobile menu
+        document.getElementById('mobileMenuBtn').addEventListener('click', () => {
+            document.getElementById('mobileMenu').classList.toggle('hidden');
+        });
+
+        // Initial render
+        document.addEventListener('DOMContentLoaded', () => {
+            renderCards();
+        });
+    </script>
+    <script src="js/data.js"></script>
+    <script src="js/search.js"></script>
+</body>
+</html>

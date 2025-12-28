@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Esame 4-1 - Esercizio 2: Pila Ag-Cu</title>
+    <style>
+        body {
+            font-family: 'Georgia', serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px;
+            line-height: 1.8;
+            color: #333;
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #2980b9;
+            margin-top: 30px;
+        }
+        .exercise-box {
+            background: #f8f9fa;
+            border-left: 4px solid #3498db;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .data-box {
+            background: #e8f4f8;
+            border: 1px solid #3498db;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .result-box {
+            background: #d4edda;
+            border: 2px solid #28a745;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        .result-box strong {
+            font-size: 1.2em;
+            color: #155724;
+        }
+        .reaction {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 15px 0;
+            text-align: center;
+            font-size: 1.1em;
+        }
+        .step {
+            background: #ffffff;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .step-number {
+            background: #3498db;
+            color: white;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+        .formula {
+            background: #f1f1f1;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            margin: 10px 0;
+            display: inline-block;
+        }
+        .important {
+            color: #c0392b;
+            font-weight: bold;
+        }
+        .note {
+            background: #fff8e1;
+            border-left: 4px solid #ff9800;
+            padding: 15px;
+            margin: 15px 0;
+            font-style: italic;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: center;
+        }
+        th {
+            background: #3498db;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+    
+    .done-buttons {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+    .mark-btn {
+        padding: 12px 24px;
+        font-size: 1em;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .mark-done {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        color: white;
+    }
+    .mark-done:hover, .mark-done.selected {
+        background: linear-gradient(135deg, #1e7e34, #17a085);
+        transform: scale(1.05);
+    }
+    .mark-review {
+        background: linear-gradient(135deg, #ffc107, #fd7e14);
+        color: white;
+    }
+    .mark-review:hover, .mark-review.selected {
+        background: linear-gradient(135deg, #d39e00, #dc6502);
+        transform: scale(1.05);
+    }
+    .mark-reset {
+        background: #6c757d;
+        color: white;
+    }
+    .mark-reset:hover {
+        background: #545b62;
+    }
+    .mark-btn.selected {
+        box-shadow: 0 0 0 3px rgba(0,0,0,0.2);
+    }
+</style>
+
+<style>
+    .quiz-container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px;
+        padding-bottom: 120px;
+    }
+    .question-section {
+        background: linear-gradient(135deg, #e8f4f8 0%, #d4edda 100%);
+        border: 2px solid #17a2b8;
+        border-radius: 10px;
+        padding: 25px;
+        margin-bottom: 20px;
+    }
+    .question-section h2 {
+        color: #0c5460;
+        margin-top: 0;
+        margin-bottom: 15px;
+    }
+    .show-next-btn {
+        display: block;
+        width: 100%;
+        padding: 15px 30px;
+        font-size: 1.1em;
+        font-weight: bold;
+        color: white;
+        background: linear-gradient(135deg, #007bff, #0056b3);
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        margin: 15px 0;
+        transition: all 0.3s ease;
+    }
+    .show-next-btn:hover {
+        background: linear-gradient(135deg, #0056b3, #004094);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 123, 255, 0.4);
+    }
+    .show-all-btn {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        margin-top: 10px;
+    }
+    .show-all-btn:hover {
+        background: linear-gradient(135deg, #218838, #1db385);
+        box-shadow: 0 4px 12px rgba(40, 167, 69, 0.4);
+    }
+    .step-container {
+        display: none;
+        animation: fadeIn 0.5s ease;
+        margin-bottom: 20px;
+        border: 1px solid #dee2e6;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    .step-container.visible {
+        display: block;
+    }
+    .step-header {
+        background: linear-gradient(135deg, #6c757d, #495057);
+        color: white;
+        padding: 12px 20px;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+    }
+    .step-number-badge {
+        background: white;
+        color: #495057;
+        border-radius: 50%;
+        width: 28px;
+        height: 28px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 12px;
+        font-weight: bold;
+    }
+    .step-content {
+        padding: 20px;
+        background: white;
+    }
+    .progress-bar {
+        background: #e9ecef;
+        border-radius: 10px;
+        height: 8px;
+        margin: 15px 0;
+        overflow: hidden;
+    }
+    .progress-fill {
+        background: linear-gradient(90deg, #28a745, #20c997);
+        height: 100%;
+        border-radius: 10px;
+        transition: width 0.5s ease;
+    }
+    .progress-text {
+        text-align: center;
+        color: #6c757d;
+        font-size: 0.9em;
+        margin-bottom: 15px;
+    }
+    .controls {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: white;
+        padding: 15px 20px;
+        border-top: 2px solid #dee2e6;
+        box-shadow: 0 -4px 12px rgba(0,0,0,0.1);
+        z-index: 1000;
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+    }
+    .quiz-container {
+        padding-bottom: 100px;
+    }
+    .show-next-btn {
+        width: auto;
+        margin: 0;
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .final-answer {
+        background: #d4edda;
+        border: 2px solid #28a745;
+        border-radius: 10px;
+        padding: 20px;
+        margin-top: 20px;
+    }
+    .final-answer h3 {
+        color: #155724;
+        margin-top: 0;
+    }
+
+    .done-buttons {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+    .mark-btn {
+        padding: 12px 24px;
+        font-size: 1em;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .mark-done {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        color: white;
+    }
+    .mark-done:hover, .mark-done.selected {
+        background: linear-gradient(135deg, #1e7e34, #17a085);
+        transform: scale(1.05);
+    }
+    .mark-review {
+        background: linear-gradient(135deg, #ffc107, #fd7e14);
+        color: white;
+    }
+    .mark-review:hover, .mark-review.selected {
+        background: linear-gradient(135deg, #d39e00, #dc6502);
+        transform: scale(1.05);
+    }
+    .mark-reset {
+        background: #6c757d;
+        color: white;
+    }
+    .mark-reset:hover {
+        background: #545b62;
+    }
+    .mark-btn.selected {
+        box-shadow: 0 0 0 3px rgba(0,0,0,0.2);
+    }
+</style>
+</head>
+<body>
+<div class="quiz-container">
+    <h1>Esame 4-1 - Esercizio 2</h1>
+
+    <div class="question-section">
+        <h2>Testo dell'esercizio</h2>
+        <div class="question-text">
+    <strong>Testo:</strong> Calcolare il potenziale di una pila costituita da un elettrodo standard ad Ag+ ed un elettrodo standard a Cu2+. Calcolare inoltre la Keq della reazione in gioco.
+</div>
+    </div>
+
+    <div class="progress-text" id="progress-text">Passaggio 0 di 9</div>
+    <div class="progress-bar">
+        <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+    </div>
+
+    <div class="controls">
+        <button id="next-btn" class="show-next-btn" onclick="showNextStep()">
+            ▶ Prossimo passaggio
+        </button>
+        <button id="all-btn" class="show-next-btn show-all-btn" onclick="showAllSteps()">
+            ⏩ Mostra tutto
+        </button>
+        <div id="done-buttons" class="done-buttons" style="display: none;">
+            <button id="mark-done" class="mark-btn mark-done" onclick="markExercise('done')">
+                ✓ Fatto
+            </button>
+            <button id="mark-review" class="mark-btn mark-review" onclick="markExercise('review')">
+                ⚠ Da rivedere
+            </button>
+            <button class="mark-btn mark-reset" onclick="resetExercise()">
+                ↺ Ricomincia
+            </button>
+            <button class="mark-btn" style="background: #17a2b8;" onclick="closeExercise()">
+                ✕ Chiudi
+            </button>
+        </div>
+    </div>
+
+    <div id="steps-wrapper">
+        
+        <div id="step-0" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">1</span>
+                Capire cosa succede in una pila
+            </div>
+            <div class="step-content">
+                <div class="data-box">
+    <strong>Dati forniti:</strong><br>
+    • E°(Ag+/Ag) = +0.80 V<br>
+    • E°(Cu2+/Cu) = +0.34 V
+</div><h2><span class="step-number">1</span> Capire cosa succede in una pila</h2>
+
+<div class="step">
+    <p>Una <strong>pila galvanica</strong> (o voltaica) è un dispositivo che converte energia chimica in energia elettrica. È costituita da due <strong>semicelle</strong>, ciascuna contenente un elettrodo metallico immerso in una soluzione contenente i suoi ioni.</p>
+
+    <p>In una pila avvengono simultaneamente:</p>
+    <ul>
+        <li><strong>Ossidazione</strong> all'anodo (polo negativo): il metallo perde elettroni</li>
+        <li><strong>Riduzione</strong> al catodo (polo positivo): gli ioni acquistano elettroni</li>
+    </ul>
+
+    <p>Gli elettroni fluiscono spontaneamente dall'anodo al catodo attraverso il circuito esterno, generando corrente elettrica.</p>
+</div>
+            </div>
+        </div>
+        
+        <div id="step-1" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">2</span>
+                Identificare catodo e anodo
+            </div>
+            <div class="step-content">
+                <h2><span class="step-number">2</span> Identificare catodo e anodo</h2>
+
+<div class="step">
+    <p>Per capire quale metallo si ossida e quale ione si riduce, dobbiamo confrontare i <strong>potenziali standard di riduzione</strong>:</p>
+
+    <table>
+        <tr>
+            <th>Semicella</th>
+            <th>E° (V)</th>
+            <th>Ruolo</th>
+        </tr>
+        <tr>
+            <td>Ag+/Ag</td>
+            <td>+0.80</td>
+            <td><strong>CATODO</strong> (riduzione)</td>
+        </tr>
+        <tr>
+            <td>Cu2+/Cu</td>
+            <td>+0.34</td>
+            <td><strong>ANODO</strong> (ossidazione)</td>
+        </tr>
+    </table>
+
+    <p><strong>Regola fondamentale:</strong> La specie con il potenziale di riduzione <span class="important">più alto</span> si riduce (catodo), quella con il potenziale <span class="important">più basso</span> si ossida (anodo).</p>
+
+    <p>Poiché E°(Ag+/Ag) = +0.80 V > E°(Cu2+/Cu) = +0.34 V:</p>
+    <ul>
+        <li><strong>Catodo (riduzione):</strong> gli ioni Ag+ acquistano elettroni e diventano Ag metallico</li>
+        <li><strong>Anodo (ossidazione):</strong> il Cu metallico cede elettroni e diventa ioni Cu2+</li>
+    </ul>
+
+    <div class="note">
+        <strong>Perché?</strong> L'argento ha una "voglia" maggiore di acquistare elettroni rispetto al rame. Quindi, mettendo insieme le due semicelle, l'argento "ruba" gli elettroni al rame.
+    </div>
+</div>
+            </div>
+        </div>
+        
+        <div id="step-2" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">3</span>
+                Scrivere le semireazioni
+            </div>
+            <div class="step-content">
+                <h2><span class="step-number">3</span> Scrivere le semireazioni</h2>
+
+<div class="step">
+    <p><strong>Semireazione al catodo (riduzione):</strong></p>
+    <div class="reaction">
+        Ag+ + e- → Ag
+    </div>
+
+    <p><strong>Semireazione all'anodo (ossidazione):</strong></p>
+    <div class="reaction">
+        Cu → Cu2+ + 2e-
+    </div>
+
+    <p>Notiamo che le due semireazioni coinvolgono un numero diverso di elettroni (1 per l'argento, 2 per il rame). Per bilanciare gli elettroni, dobbiamo moltiplicare la semireazione dell'argento per 2:</p>
+
+    <p><strong>Semireazioni bilanciate:</strong></p>
+    <div class="reaction">
+        <strong>Catodo:</strong> 2Ag+ + 2e- → 2Ag
+    </div>
+    <div class="reaction">
+        <strong>Anodo:</strong> Cu → Cu2+ + 2e-
+    </div>
+</div>
+            </div>
+        </div>
+        
+        <div id="step-3" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">4</span>
+                Scrivere la reazione globale
+            </div>
+            <div class="step-content">
+                <h2><span class="step-number">4</span> Scrivere la reazione globale</h2>
+
+<div class="step">
+    <p>Sommando le due semireazioni (gli elettroni si elidono):</p>
+
+    <div class="reaction" style="background: #d4edda; border-color: #28a745;">
+        <strong>2Ag+ + Cu → 2Ag + Cu2+</strong>
+    </div>
+
+    <p>Questa reazione ci dice che:</p>
+    <ul>
+        <li>2 ioni argento acquistano elettroni e diventano argento metallico</li>
+        <li>1 atomo di rame metallico perde elettroni e diventa ione rameico</li>
+        <li>Vengono scambiati <strong>n = 2 elettroni</strong> (informazione cruciale per i calcoli successivi!)</li>
+    </ul>
+</div>
+            </div>
+        </div>
+        
+        <div id="step-4" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">5</span>
+                Calcolare la forza elettromotrice (f.e.m.)
+            </div>
+            <div class="step-content">
+                <h2><span class="step-number">5</span> Calcolare la forza elettromotrice (f.e.m.)</h2>
+
+<div class="step">
+    <p>La <strong>forza elettromotrice</strong> (f.e.m. o E°cella) rappresenta la differenza di potenziale tra i due elettrodi in condizioni standard.</p>
+
+    <p>La formula per calcolare la f.e.m. è:</p>
+    <div class="formula">
+        E°cella = E°catodo - E°anodo
+    </div>
+
+    <p>Sostituendo i valori:</p>
+    <div class="formula">
+        E°cella = E°(Ag+/Ag) - E°(Cu2+/Cu)
+    </div>
+    <div class="formula">
+        E°cella = (+0.80 V) - (+0.34 V)
+    </div>
+    <div class="formula">
+        E°cella = +0.46 V
+    </div>
+
+    <div class="result-box">
+        <strong>E°cella = +0.46 V</strong>
+    </div>
+
+    <div class="note">
+        <strong>Verifica:</strong> Il valore positivo della f.e.m. conferma che la reazione è spontanea nella direzione scritta. Una pila deve sempre avere f.e.m. positiva!
+    </div>
+</div>
+            </div>
+        </div>
+        
+        <div id="step-5" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">6</span>
+                Calcolare la costante di equilibrio Keq
+            </div>
+            <div class="step-content">
+                <h2><span class="step-number">6</span> Calcolare la costante di equilibrio Keq</h2>
+
+<div class="step">
+    <p>Per trovare la costante di equilibrio, sfruttiamo la relazione tra energia libera di Gibbs, potenziale di cella e costante di equilibrio.</p>
+
+    <p><strong>Prima relazione:</strong> L'energia libera standard è legata al potenziale di cella:</p>
+    <div class="formula">
+        ΔG° = -nFE°
+    </div>
+
+    <p>Dove:</p>
+    <ul>
+        <li>n = numero di elettroni scambiati = 2</li>
+        <li>F = costante di Faraday = 96485 C/mol</li>
+        <li>E° = potenziale standard di cella = 0.46 V</li>
+    </ul>
+
+    <p><strong>Seconda relazione:</strong> L'energia libera standard è legata alla costante di equilibrio:</p>
+    <div class="formula">
+        ΔG° = -RT ln(Keq)
+    </div>
+
+    <p>Dove:</p>
+    <ul>
+        <li>R = costante dei gas = 8.314 J/(mol·K)</li>
+        <li>T = temperatura standard = 298 K (25°C)</li>
+    </ul>
+
+    <p><strong>Uguagliando le due espressioni:</strong></p>
+    <div class="formula">
+        -nFE° = -RT ln(Keq)
+    </div>
+
+    <p>Semplificando i segni negativi:</p>
+    <div class="formula">
+        nFE° = RT ln(Keq)
+    </div>
+
+    <p>Ricavando ln(Keq):</p>
+    <div class="formula">
+        ln(Keq) = nFE° / RT
+    </div>
+</div>
+            </div>
+        </div>
+        
+        <div id="step-6" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">7</span>
+                Calcolo numerico di Keq
+            </div>
+            <div class="step-content">
+                <h2><span class="step-number">7</span> Calcolo numerico di Keq</h2>
+
+<div class="step">
+    <p>Sostituiamo i valori nella formula:</p>
+
+    <div class="formula">
+        ln(Keq) = (2 × 96485 × 0.46) / (8.314 × 298)
+    </div>
+
+    <p><strong>Calcoliamo il numeratore:</strong></p>
+    <div class="formula">
+        2 × 96485 × 0.46 = 88766.2 J/mol
+    </div>
+
+    <p><strong>Calcoliamo il denominatore:</strong></p>
+    <div class="formula">
+        8.314 × 298 = 2477.6 J/mol
+    </div>
+
+    <p><strong>Calcoliamo ln(Keq):</strong></p>
+    <div class="formula">
+        ln(Keq) = 88766.2 / 2477.6 = 35.83
+    </div>
+
+    <p><strong>Ricaviamo Keq:</strong></p>
+    <div class="formula">
+        Keq = e^35.83
+    </div>
+
+    <div class="result-box">
+        <strong>Keq = 3.5 × 10^15</strong>
+    </div>
+</div>
+            </div>
+        </div>
+        
+        <div id="step-7" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">8</span>
+                Interpretazione del risultato
+            </div>
+            <div class="step-content">
+                <h2><span class="step-number">8</span> Interpretazione del risultato</h2>
+
+<div class="step">
+    <p>Il valore estremamente grande di Keq (dell'ordine di 10^15) ci dice che:</p>
+
+    <ul>
+        <li>La reazione <strong>2Ag+ + Cu → 2Ag + Cu2+</strong> è fortemente spostata verso i prodotti</li>
+        <li>All'equilibrio, praticamente tutti i reagenti si sono trasformati in prodotti</li>
+        <li>La reazione è <strong>essenzialmente irreversibile</strong> nelle condizioni standard</li>
+    </ul>
+
+    <div class="note">
+        <strong>Correlazione importante:</strong> Questo è coerente con il valore positivo e relativamente alto della f.e.m. (+0.46 V). Maggiore è E°cella, maggiore è Keq, e più spontanea è la reazione.
+    </div>
+</div>
+            </div>
+        </div>
+        
+        <div id="step-8" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">9</span>
+                Riepilogo finale
+            </div>
+            <div class="step-content">
+                <h2>Riepilogo finale</h2>
+
+<div class="result-box" style="text-align: left;">
+    <p><strong>Pila Ag-Cu:</strong></p>
+    <ul>
+        <li><strong>Anodo (-):</strong> Cu → Cu2+ + 2e- (ossidazione)</li>
+        <li><strong>Catodo (+):</strong> 2Ag+ + 2e- → 2Ag (riduzione)</li>
+        <li><strong>Reazione globale:</strong> 2Ag+ + Cu → 2Ag + Cu2+</li>
+        <li><strong>Elettroni scambiati:</strong> n = 2</li>
+    </ul>
+    <br>
+    <p style="text-align: center; font-size: 1.2em;">
+        <strong>E°cella = +0.46 V</strong><br><br>
+        <strong>Keq = 3.5 × 10^15</strong>
+    </p>
+</div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+<script>
+    let currentStep = 0;
+    let totalSteps = 0;
+
+    document.addEventListener('DOMContentLoaded', function() {
+        totalSteps = document.querySelectorAll('.step-container').length;
+        updateProgress();
+        updateButtons();
+    });
+
+    function showNextStep() {
+        if (currentStep < totalSteps) {
+            const step = document.getElementById('step-' + currentStep);
+            if (step) {
+                step.classList.add('visible');
+                step.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                currentStep++;
+                updateProgress();
+                updateButtons();
+
+                if (window.parent !== window) {
+                    window.parent.postMessage({type: 'stepShown', step: currentStep, total: totalSteps}, '*');
+                }
+            }
+        }
+    }
+
+    function showAllSteps() {
+        document.querySelectorAll('.step-container').forEach(function(step) {
+            step.classList.add('visible');
+        });
+        currentStep = totalSteps;
+        updateProgress();
+        updateButtons();
+
+        if (window.parent !== window) {
+            window.parent.postMessage({type: 'allStepsShown'}, '*');
+        }
+    }
+
+    function hideAllSteps() {
+        document.querySelectorAll('.step-container').forEach(function(step) {
+            step.classList.remove('visible');
+        });
+        currentStep = 0;
+        updateProgress();
+        updateButtons();
+    }
+
+    function updateProgress() {
+        const pct = totalSteps > 0 ? (currentStep / totalSteps) * 100 : 0;
+        const fill = document.getElementById('progress-fill');
+        const text = document.getElementById('progress-text');
+        if (fill) fill.style.width = pct + '%';
+        if (text) text.textContent = 'Passaggio ' + currentStep + ' di ' + totalSteps;
+    }
+
+    function updateButtons() {
+        const nextBtn = document.getElementById('next-btn');
+        const allBtn = document.getElementById('all-btn');
+        const doneButtons = document.getElementById('done-buttons');
+
+        if (currentStep >= totalSteps) {
+            if (nextBtn) nextBtn.style.display = 'none';
+            if (allBtn) allBtn.style.display = 'none';
+            if (doneButtons) doneButtons.style.display = 'flex';
+        } else {
+            if (nextBtn) nextBtn.style.display = 'block';
+            if (allBtn) allBtn.style.display = 'block';
+            if (doneButtons) doneButtons.style.display = 'none';
+        }
+    }
+
+    function markExercise(status) {
+        // Salva in localStorage
+        const exerciseId = window.location.pathname.split('/').pop().replace('.html', '');
+        let progress = JSON.parse(localStorage.getItem('chemportal_progress') || '{}');
+        if (!progress.exercises) progress.exercises = {};
+        progress.exercises[exerciseId] = status;
+        localStorage.setItem('chemportal_progress', JSON.stringify(progress));
+
+        // Feedback visivo
+        const btn = status === 'done' ? document.getElementById('mark-done') : document.getElementById('mark-review');
+        const otherBtn = status === 'done' ? document.getElementById('mark-review') : document.getElementById('mark-done');
+
+        btn.classList.add('selected');
+        otherBtn.classList.remove('selected');
+
+        // Notifica parent
+        if (window.parent !== window) {
+            window.parent.postMessage({type: 'exerciseMarked', status: status, id: exerciseId}, '*');
+        }
+    }
+
+    function resetExercise() {
+        hideAllSteps();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Messaggi dal parent
+    window.addEventListener('message', function(e) {
+        if (e.data.type === 'showNext') showNextStep();
+        else if (e.data.type === 'showAll') showAllSteps();
+        else if (e.data.type === 'hideAll') hideAllSteps();
+    });
+
+    function closeExercise() {
+        if (window.parent !== window) {
+            // Siamo in iframe, chiedi al parent di chiudere
+            window.parent.postMessage({type: 'closeModal'}, '*');
+        } else {
+            // Standalone: torna alla pagina esercizi
+            const path = window.location.pathname;
+            if (path.includes('/content/soluzioni/')) {
+                window.location.href = '../../esercizi.html';
+            } else {
+                window.history.back();
+            }
+        }
+    }
+</script>
+</body>
+</html>

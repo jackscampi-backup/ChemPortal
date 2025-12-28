@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Esame 9-1 - Cinetica: Determinazione dell'ordine di reazione</title>
+    <style>
+        body { font-family: Georgia, serif; max-width: 800px; margin: 40px auto; padding: 20px; line-height: 1.8; }
+        h1 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+        h2 { color: #2980b9; margin-top: 30px; }
+        h3 { color: #16a085; margin-top: 25px; }
+        .question { background: #ecf0f1; padding: 15px; border-left: 4px solid #3498db; margin: 20px 0; }
+        .result { background: #d5f5e3; padding: 15px; border-left: 4px solid #27ae60; margin: 20px 0; font-weight: bold; }
+        .formula { background: #fdebd0; padding: 10px; margin: 10px 0; font-family: monospace; }
+        .warning { background: #fadbd8; padding: 15px; border-left: 4px solid #e74c3c; margin: 20px 0; }
+        .tip { background: #e8daef; padding: 15px; border-left: 4px solid #9b59b6; margin: 20px 0; }
+        table { border-collapse: collapse; width: 100%; margin: 20px 0; }
+        th, td { border: 1px solid #bdc3c7; padding: 10px; text-align: center; }
+        th { background: #3498db; color: white; }
+        .highlight { background: #aed6f1; }
+        p { text-align: justify; }
+    
+    .done-buttons {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+    .mark-btn {
+        padding: 12px 24px;
+        font-size: 1em;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .mark-done {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        color: white;
+    }
+    .mark-done:hover, .mark-done.selected {
+        background: linear-gradient(135deg, #1e7e34, #17a085);
+        transform: scale(1.05);
+    }
+    .mark-review {
+        background: linear-gradient(135deg, #ffc107, #fd7e14);
+        color: white;
+    }
+    .mark-review:hover, .mark-review.selected {
+        background: linear-gradient(135deg, #d39e00, #dc6502);
+        transform: scale(1.05);
+    }
+    .mark-reset {
+        background: #6c757d;
+        color: white;
+    }
+    .mark-reset:hover {
+        background: #545b62;
+    }
+    .mark-btn.selected {
+        box-shadow: 0 0 0 3px rgba(0,0,0,0.2);
+    }
+</style>
+
+<style>
+    .quiz-container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px;
+        padding-bottom: 120px;
+    }
+    .question-section {
+        background: linear-gradient(135deg, #e8f4f8 0%, #d4edda 100%);
+        border: 2px solid #17a2b8;
+        border-radius: 10px;
+        padding: 25px;
+        margin-bottom: 20px;
+    }
+    .question-section h2 {
+        color: #0c5460;
+        margin-top: 0;
+        margin-bottom: 15px;
+    }
+    .show-next-btn {
+        display: block;
+        width: 100%;
+        padding: 15px 30px;
+        font-size: 1.1em;
+        font-weight: bold;
+        color: white;
+        background: linear-gradient(135deg, #007bff, #0056b3);
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        margin: 15px 0;
+        transition: all 0.3s ease;
+    }
+    .show-next-btn:hover {
+        background: linear-gradient(135deg, #0056b3, #004094);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 123, 255, 0.4);
+    }
+    .show-all-btn {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        margin-top: 10px;
+    }
+    .show-all-btn:hover {
+        background: linear-gradient(135deg, #218838, #1db385);
+        box-shadow: 0 4px 12px rgba(40, 167, 69, 0.4);
+    }
+    .step-container {
+        display: none;
+        animation: fadeIn 0.5s ease;
+        margin-bottom: 20px;
+        border: 1px solid #dee2e6;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    .step-container.visible {
+        display: block;
+    }
+    .step-header {
+        background: linear-gradient(135deg, #6c757d, #495057);
+        color: white;
+        padding: 12px 20px;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+    }
+    .step-number-badge {
+        background: white;
+        color: #495057;
+        border-radius: 50%;
+        width: 28px;
+        height: 28px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 12px;
+        font-weight: bold;
+    }
+    .step-content {
+        padding: 20px;
+        background: white;
+    }
+    .progress-bar {
+        background: #e9ecef;
+        border-radius: 10px;
+        height: 8px;
+        margin: 15px 0;
+        overflow: hidden;
+    }
+    .progress-fill {
+        background: linear-gradient(90deg, #28a745, #20c997);
+        height: 100%;
+        border-radius: 10px;
+        transition: width 0.5s ease;
+    }
+    .progress-text {
+        text-align: center;
+        color: #6c757d;
+        font-size: 0.9em;
+        margin-bottom: 15px;
+    }
+    .controls {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: white;
+        padding: 15px 20px;
+        border-top: 2px solid #dee2e6;
+        box-shadow: 0 -4px 12px rgba(0,0,0,0.1);
+        z-index: 1000;
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+    }
+    .quiz-container {
+        padding-bottom: 100px;
+    }
+    .show-next-btn {
+        width: auto;
+        margin: 0;
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .final-answer {
+        background: #d4edda;
+        border: 2px solid #28a745;
+        border-radius: 10px;
+        padding: 20px;
+        margin-top: 20px;
+    }
+    .final-answer h3 {
+        color: #155724;
+        margin-top: 0;
+    }
+
+    .done-buttons {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+    .mark-btn {
+        padding: 12px 24px;
+        font-size: 1em;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .mark-done {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        color: white;
+    }
+    .mark-done:hover, .mark-done.selected {
+        background: linear-gradient(135deg, #1e7e34, #17a085);
+        transform: scale(1.05);
+    }
+    .mark-review {
+        background: linear-gradient(135deg, #ffc107, #fd7e14);
+        color: white;
+    }
+    .mark-review:hover, .mark-review.selected {
+        background: linear-gradient(135deg, #d39e00, #dc6502);
+        transform: scale(1.05);
+    }
+    .mark-reset {
+        background: #6c757d;
+        color: white;
+    }
+    .mark-reset:hover {
+        background: #545b62;
+    }
+    .mark-btn.selected {
+        box-shadow: 0 0 0 3px rgba(0,0,0,0.2);
+    }
+</style>
+</head>
+<body>
+<div class="quiz-container">
+    <h1>Determinazione dell'ordine di reazione</h1>
+
+    <div class="question-section">
+        <h2>Testo dell'esercizio</h2>
+        <p>Risolvi l'esercizio seguente.</p>
+    </div>
+
+    <div class="progress-text" id="progress-text">Passaggio 0 di 7</div>
+    <div class="progress-bar">
+        <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+    </div>
+
+    <div class="controls">
+        <button id="next-btn" class="show-next-btn" onclick="showNextStep()">
+            ▶ Prossimo passaggio
+        </button>
+        <button id="all-btn" class="show-next-btn show-all-btn" onclick="showAllSteps()">
+            ⏩ Mostra tutto
+        </button>
+        <div id="done-buttons" class="done-buttons" style="display: none;">
+            <button id="mark-done" class="mark-btn mark-done" onclick="markExercise('done')">
+                ✓ Fatto
+            </button>
+            <button id="mark-review" class="mark-btn mark-review" onclick="markExercise('review')">
+                ⚠ Da rivedere
+            </button>
+            <button class="mark-btn mark-reset" onclick="resetExercise()">
+                ↺ Ricomincia
+            </button>
+            <button class="mark-btn" style="background: #17a2b8;" onclick="closeExercise()">
+                ✕ Chiudi
+            </button>
+        </div>
+    </div>
+
+    <div id="steps-wrapper">
+        
+        <div id="step-0" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">1</span>
+                Concetti di base: cosa significa "ordine di reazio...
+            </div>
+            <div class="step-content">
+                <h1>Determinazione dell'ordine di reazione</h1>
+
+<div class="question">
+<strong>QUESITO 3:</strong><br>
+Data la generica reazione A → prodotti si ricavano i seguenti dati sperimentali:<br><br>
+<table>
+    <tr>
+        <th>t (min)</th>
+        <td>0</td>
+        <td>15</td>
+        <td>30</td>
+        <td>45</td>
+    </tr>
+    <tr>
+        <th>[A] (M)</th>
+        <td>0.0245</td>
+        <td>0.0181</td>
+        <td>0.0133</td>
+        <td>0.0097</td>
+    </tr>
+</table>
+<br>
+Determinare l'ordine di reazione.
+</div><h2>Concetti di base: cosa significa "ordine di reazione"?</h2>
+
+<p>Prima di buttarci nei calcoli, fermiamoci un attimo a capire cosa stiamo cercando. L'<strong>ordine di reazione</strong> ci dice come la velocita di una reazione dipende dalla concentrazione del reagente. In parole semplici: quando la concentrazione cambia, la velocita cambia in modo diverso a seconda dell'ordine.</p>
+
+<p>Esistono tre ordini principali che dobbiamo considerare:</p>
+
+<ul>
+    <li><strong>Ordine 0:</strong> la velocita NON dipende dalla concentrazione. Che ci sia tanto o poco reagente, la reazione va sempre alla stessa velocita.</li>
+    <li><strong>Ordine 1:</strong> la velocita e direttamente proporzionale alla concentrazione. Se raddoppio la concentrazione, raddoppia anche la velocita.</li>
+    <li><strong>Ordine 2:</strong> la velocita e proporzionale al QUADRATO della concentrazione. Se raddoppio la concentrazione, la velocita quadruplica!</li>
+</ul>
+            </div>
+        </div>
+        
+        <div id="step-1" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">2</span>
+                Come determinare l'ordine: il metodo grafico
+            </div>
+            <div class="step-content">
+                <h2>Come determinare l'ordine: il metodo grafico</h2>
+
+<p>Ogni ordine di reazione ha una sua legge cinetica integrata che, <strong>se i dati seguono quell'ordine, produce un grafico lineare</strong> (una retta). Questa e la chiave del nostro metodo!</p>
+
+<div class="formula">
+<strong>Ordine 0:</strong> [A] = [A]₀ - k × t → grafico [A] vs t e lineare<br><br>
+<strong>Ordine 1:</strong> ln[A] = ln[A]₀ - k × t → grafico ln[A] vs t e lineare<br><br>
+<strong>Ordine 2:</strong> 1/[A] = 1/[A]₀ + k × t → grafico 1/[A] vs t e lineare
+</div>
+
+<p>Quindi il nostro piano e semplice: calcoliamo tutti e tre i tipi di dati ([A], ln[A], 1/[A]) per ogni tempo, e vediamo quale relazione produce una retta!</p>
+            </div>
+        </div>
+        
+        <div id="step-2" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">3</span>
+                Passo 1: Calcolo dei valori
+            </div>
+            <div class="step-content">
+                <h2>Passo 1: Calcolo dei valori</h2>
+
+<p>Partiamo dai dati originali e calcoliamo ln[A] e 1/[A] per ogni punto:</p>
+
+<h3>Per t = 0 min, [A] = 0.0245 M</h3>
+<div class="formula">
+ln(0.0245) = -3.709<br>
+1 / 0.0245 = 40.82 M⁻¹
+</div>
+
+<h3>Per t = 15 min, [A] = 0.0181 M</h3>
+<div class="formula">
+ln(0.0181) = -4.011<br>
+1 / 0.0181 = 55.25 M⁻¹
+</div>
+
+<h3>Per t = 30 min, [A] = 0.0133 M</h3>
+<div class="formula">
+ln(0.0133) = -4.320<br>
+1 / 0.0133 = 75.19 M⁻¹
+</div>
+
+<h3>Per t = 45 min, [A] = 0.0097 M</h3>
+<div class="formula">
+ln(0.0097) = -4.636<br>
+1 / 0.0097 = 103.09 M⁻¹
+</div>
+            </div>
+        </div>
+        
+        <div id="step-3" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">4</span>
+                Passo 2: Tabella riassuntiva
+            </div>
+            <div class="step-content">
+                <h2>Passo 2: Tabella riassuntiva</h2>
+
+<table>
+    <tr>
+        <th>t (min)</th>
+        <th>[A] (M)</th>
+        <th>ln[A]</th>
+        <th>1/[A] (M⁻¹)</th>
+    </tr>
+    <tr>
+        <td>0</td>
+        <td>0.0245</td>
+        <td>-3.709</td>
+        <td>40.82</td>
+    </tr>
+    <tr>
+        <td>15</td>
+        <td>0.0181</td>
+        <td>-4.011</td>
+        <td>55.25</td>
+    </tr>
+    <tr>
+        <td>30</td>
+        <td>0.0133</td>
+        <td>-4.320</td>
+        <td>75.19</td>
+    </tr>
+    <tr>
+        <td>45</td>
+        <td>0.0097</td>
+        <td>-4.636</td>
+        <td>103.09</td>
+    </tr>
+</table>
+            </div>
+        </div>
+        
+        <div id="step-4" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">5</span>
+                Passo 3: Verifica della linearita
+            </div>
+            <div class="step-content">
+                <h2>Passo 3: Verifica della linearita</h2>
+
+<p>Ora dobbiamo verificare quale relazione e lineare. Per una retta, la variazione deve essere <strong>costante</strong> in ogni intervallo di tempo uguale.</p>
+
+<h3>Test per Ordine 0: [A] vs t</h3>
+
+<p>Calcoliamo la variazione di [A] ogni 15 minuti:</p>
+
+<div class="formula">
+Da t=0 a t=15: Δ[A] = 0.0181 - 0.0245 = -0.0064 M<br>
+Da t=15 a t=30: Δ[A] = 0.0133 - 0.0181 = -0.0048 M<br>
+Da t=30 a t=45: Δ[A] = 0.0097 - 0.0133 = -0.0036 M
+</div>
+
+<p>Le variazioni sono: -0.0064, -0.0048, -0.0036. <strong>Non sono costanti!</strong> Quindi NON e ordine zero.</p>
+
+<div class="warning">
+<strong>Ordine 0: ESCLUSO</strong> - Le variazioni di [A] non sono costanti.
+</div>
+
+<h3>Test per Ordine 1: ln[A] vs t</h3>
+
+<p>Calcoliamo la variazione di ln[A] ogni 15 minuti:</p>
+
+<div class="formula">
+Da t=0 a t=15: Δln[A] = -4.011 - (-3.709) = -0.302<br>
+Da t=15 a t=30: Δln[A] = -4.320 - (-4.011) = -0.309<br>
+Da t=30 a t=45: Δln[A] = -4.636 - (-4.320) = -0.316
+</div>
+
+<p>Le variazioni sono: -0.302, -0.309, -0.316. Sono molto simili tra loro! La media e circa -0.309. Le piccole differenze sono dovute agli errori sperimentali e agli arrotondamenti.</p>
+
+<div class="tip">
+<strong>Ordine 1: POSSIBILE!</strong> - Le variazioni di ln[A] sono approssimativamente costanti.
+</div>
+
+<h3>Test per Ordine 2: 1/[A] vs t</h3>
+
+<p>Calcoliamo la variazione di 1/[A] ogni 15 minuti:</p>
+
+<div class="formula">
+Da t=0 a t=15: Δ(1/[A]) = 55.25 - 40.82 = 14.43 M⁻¹<br>
+Da t=15 a t=30: Δ(1/[A]) = 75.19 - 55.25 = 19.94 M⁻¹<br>
+Da t=30 a t=45: Δ(1/[A]) = 103.09 - 75.19 = 27.90 M⁻¹
+</div>
+
+<p>Le variazioni sono: 14.43, 19.94, 27.90. <strong>Non sono costanti!</strong> Anzi, aumentano progressivamente. Quindi NON e ordine due.</p>
+
+<div class="warning">
+<strong>Ordine 2: ESCLUSO</strong> - Le variazioni di 1/[A] non sono costanti.
+</div>
+            </div>
+        </div>
+        
+        <div id="step-5" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">6</span>
+                Passo 4: Conclusione
+            </div>
+            <div class="step-content">
+                <h2>Passo 4: Conclusione</h2>
+
+<p>Riassumiamo cosa abbiamo trovato:</p>
+
+<table>
+    <tr>
+        <th>Ordine</th>
+        <th>Grandezza testata</th>
+        <th>Variazioni</th>
+        <th>Lineare?</th>
+    </tr>
+    <tr>
+        <td>0</td>
+        <td>[A]</td>
+        <td>-0.0064, -0.0048, -0.0036</td>
+        <td>NO</td>
+    </tr>
+    <tr class="highlight">
+        <td>1</td>
+        <td>ln[A]</td>
+        <td>-0.302, -0.309, -0.316</td>
+        <td>SI</td>
+    </tr>
+    <tr>
+        <td>2</td>
+        <td>1/[A]</td>
+        <td>14.43, 19.94, 27.90</td>
+        <td>NO</td>
+    </tr>
+</table>
+
+<p>Solo il grafico di <strong>ln[A] vs t</strong> produce una relazione lineare (le variazioni sono costanti entro l'errore sperimentale).</p>
+
+<div class="result">
+<strong>RISPOSTA:</strong> La reazione e di <strong>PRIMO ORDINE</strong>.<br><br>
+Questo perche il grafico ln[A] vs t e lineare, mentre [A] vs t e 1/[A] vs t non lo sono.
+</div>
+            </div>
+        </div>
+        
+        <div id="step-6" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">7</span>
+                Bonus: calcolo della costante cinetica k
+            </div>
+            <div class="step-content">
+                <h2>Bonus: calcolo della costante cinetica k</h2>
+
+<p>Dato che abbiamo determinato che la reazione e di primo ordine, possiamo anche calcolare la costante cinetica k. Per una reazione del primo ordine:</p>
+
+<div class="formula">
+ln[A] = ln[A]₀ - k × t
+</div>
+
+<p>La pendenza della retta e uguale a -k. Usando i nostri dati:</p>
+
+<div class="formula">
+k = - (variazione di ln[A]) / (variazione di t)<br>
+k = - (-0.309) / 15 min<br>
+k = 0.309 / 15 min<br>
+k = 0.0206 min⁻¹
+</div>
+
+<p>Oppure, usando la formula integrata direttamente tra t=0 e t=45:</p>
+
+<div class="formula">
+k = [ln[A]₀ - ln[A]] / t<br>
+k = [-3.709 - (-4.636)] / 45 min<br>
+k = 0.927 / 45 min<br>
+k = 0.0206 min⁻¹
+</div>
+
+<div class="tip">
+<strong>Costante cinetica:</strong> k = 0.021 min⁻¹ (o equivalentemente k = 3.4 × 10⁻⁴ s⁻¹)
+</div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+<script>
+    let currentStep = 0;
+    let totalSteps = 0;
+
+    document.addEventListener('DOMContentLoaded', function() {
+        totalSteps = document.querySelectorAll('.step-container').length;
+        updateProgress();
+        updateButtons();
+    });
+
+    function showNextStep() {
+        if (currentStep < totalSteps) {
+            const step = document.getElementById('step-' + currentStep);
+            if (step) {
+                step.classList.add('visible');
+                step.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                currentStep++;
+                updateProgress();
+                updateButtons();
+
+                if (window.parent !== window) {
+                    window.parent.postMessage({type: 'stepShown', step: currentStep, total: totalSteps}, '*');
+                }
+            }
+        }
+    }
+
+    function showAllSteps() {
+        document.querySelectorAll('.step-container').forEach(function(step) {
+            step.classList.add('visible');
+        });
+        currentStep = totalSteps;
+        updateProgress();
+        updateButtons();
+
+        if (window.parent !== window) {
+            window.parent.postMessage({type: 'allStepsShown'}, '*');
+        }
+    }
+
+    function hideAllSteps() {
+        document.querySelectorAll('.step-container').forEach(function(step) {
+            step.classList.remove('visible');
+        });
+        currentStep = 0;
+        updateProgress();
+        updateButtons();
+    }
+
+    function updateProgress() {
+        const pct = totalSteps > 0 ? (currentStep / totalSteps) * 100 : 0;
+        const fill = document.getElementById('progress-fill');
+        const text = document.getElementById('progress-text');
+        if (fill) fill.style.width = pct + '%';
+        if (text) text.textContent = 'Passaggio ' + currentStep + ' di ' + totalSteps;
+    }
+
+    function updateButtons() {
+        const nextBtn = document.getElementById('next-btn');
+        const allBtn = document.getElementById('all-btn');
+        const doneButtons = document.getElementById('done-buttons');
+
+        if (currentStep >= totalSteps) {
+            if (nextBtn) nextBtn.style.display = 'none';
+            if (allBtn) allBtn.style.display = 'none';
+            if (doneButtons) doneButtons.style.display = 'flex';
+        } else {
+            if (nextBtn) nextBtn.style.display = 'block';
+            if (allBtn) allBtn.style.display = 'block';
+            if (doneButtons) doneButtons.style.display = 'none';
+        }
+    }
+
+    function markExercise(status) {
+        // Salva in localStorage
+        const exerciseId = window.location.pathname.split('/').pop().replace('.html', '');
+        let progress = JSON.parse(localStorage.getItem('chemportal_progress') || '{}');
+        if (!progress.exercises) progress.exercises = {};
+        progress.exercises[exerciseId] = status;
+        localStorage.setItem('chemportal_progress', JSON.stringify(progress));
+
+        // Feedback visivo
+        const btn = status === 'done' ? document.getElementById('mark-done') : document.getElementById('mark-review');
+        const otherBtn = status === 'done' ? document.getElementById('mark-review') : document.getElementById('mark-done');
+
+        btn.classList.add('selected');
+        otherBtn.classList.remove('selected');
+
+        // Notifica parent
+        if (window.parent !== window) {
+            window.parent.postMessage({type: 'exerciseMarked', status: status, id: exerciseId}, '*');
+        }
+    }
+
+    function resetExercise() {
+        hideAllSteps();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Messaggi dal parent
+    window.addEventListener('message', function(e) {
+        if (e.data.type === 'showNext') showNextStep();
+        else if (e.data.type === 'showAll') showAllSteps();
+        else if (e.data.type === 'hideAll') hideAllSteps();
+    });
+
+    function closeExercise() {
+        if (window.parent !== window) {
+            // Siamo in iframe, chiedi al parent di chiudere
+            window.parent.postMessage({type: 'closeModal'}, '*');
+        } else {
+            // Standalone: torna alla pagina esercizi
+            const path = window.location.pathname;
+            if (path.includes('/content/soluzioni/')) {
+                window.location.href = '../../esercizi.html';
+            } else {
+                window.history.back();
+            }
+        }
+    }
+</script>
+</body>
+</html>

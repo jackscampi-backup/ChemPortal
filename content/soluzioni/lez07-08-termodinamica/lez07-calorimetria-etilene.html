@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Esame 10-1 - Calore di Combustione dell'Etilene</title>
+    <style>
+        body { font-family: Georgia, serif; max-width: 800px; margin: 40px auto; padding: 20px; line-height: 1.8; }
+        h1 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+        h2 { color: #2980b9; margin-top: 30px; }
+        .question { background: #ecf0f1; padding: 15px; border-left: 4px solid #3498db; margin: 20px 0; }
+        .result { background: #d5f5e3; padding: 15px; border-left: 4px solid #27ae60; margin: 20px 0; font-weight: bold; }
+        .formula { background: #fdebd0; padding: 10px; margin: 10px 0; font-family: monospace; }
+        .step { background: #f8f9fa; padding: 15px; margin: 15px 0; border-radius: 5px; }
+        .highlight { color: #c0392b; font-weight: bold; }
+        .note { background: #e8f6f3; padding: 10px; margin: 10px 0; border-left: 3px solid #1abc9c; font-style: italic; }
+    
+    .done-buttons {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+    .mark-btn {
+        padding: 12px 24px;
+        font-size: 1em;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .mark-done {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        color: white;
+    }
+    .mark-done:hover, .mark-done.selected {
+        background: linear-gradient(135deg, #1e7e34, #17a085);
+        transform: scale(1.05);
+    }
+    .mark-review {
+        background: linear-gradient(135deg, #ffc107, #fd7e14);
+        color: white;
+    }
+    .mark-review:hover, .mark-review.selected {
+        background: linear-gradient(135deg, #d39e00, #dc6502);
+        transform: scale(1.05);
+    }
+    .mark-reset {
+        background: #6c757d;
+        color: white;
+    }
+    .mark-reset:hover {
+        background: #545b62;
+    }
+    .mark-btn.selected {
+        box-shadow: 0 0 0 3px rgba(0,0,0,0.2);
+    }
+</style>
+
+<style>
+    .quiz-container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px;
+        padding-bottom: 120px;
+    }
+    .question-section {
+        background: linear-gradient(135deg, #e8f4f8 0%, #d4edda 100%);
+        border: 2px solid #17a2b8;
+        border-radius: 10px;
+        padding: 25px;
+        margin-bottom: 20px;
+    }
+    .question-section h2 {
+        color: #0c5460;
+        margin-top: 0;
+        margin-bottom: 15px;
+    }
+    .show-next-btn {
+        display: block;
+        width: 100%;
+        padding: 15px 30px;
+        font-size: 1.1em;
+        font-weight: bold;
+        color: white;
+        background: linear-gradient(135deg, #007bff, #0056b3);
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        margin: 15px 0;
+        transition: all 0.3s ease;
+    }
+    .show-next-btn:hover {
+        background: linear-gradient(135deg, #0056b3, #004094);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 123, 255, 0.4);
+    }
+    .show-all-btn {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        margin-top: 10px;
+    }
+    .show-all-btn:hover {
+        background: linear-gradient(135deg, #218838, #1db385);
+        box-shadow: 0 4px 12px rgba(40, 167, 69, 0.4);
+    }
+    .step-container {
+        display: none;
+        animation: fadeIn 0.5s ease;
+        margin-bottom: 20px;
+        border: 1px solid #dee2e6;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    .step-container.visible {
+        display: block;
+    }
+    .step-header {
+        background: linear-gradient(135deg, #6c757d, #495057);
+        color: white;
+        padding: 12px 20px;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+    }
+    .step-number-badge {
+        background: white;
+        color: #495057;
+        border-radius: 50%;
+        width: 28px;
+        height: 28px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 12px;
+        font-weight: bold;
+    }
+    .step-content {
+        padding: 20px;
+        background: white;
+    }
+    .progress-bar {
+        background: #e9ecef;
+        border-radius: 10px;
+        height: 8px;
+        margin: 15px 0;
+        overflow: hidden;
+    }
+    .progress-fill {
+        background: linear-gradient(90deg, #28a745, #20c997);
+        height: 100%;
+        border-radius: 10px;
+        transition: width 0.5s ease;
+    }
+    .progress-text {
+        text-align: center;
+        color: #6c757d;
+        font-size: 0.9em;
+        margin-bottom: 15px;
+    }
+    .controls {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: white;
+        padding: 15px 20px;
+        border-top: 2px solid #dee2e6;
+        box-shadow: 0 -4px 12px rgba(0,0,0,0.1);
+        z-index: 1000;
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+    }
+    .quiz-container {
+        padding-bottom: 100px;
+    }
+    .show-next-btn {
+        width: auto;
+        margin: 0;
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .final-answer {
+        background: #d4edda;
+        border: 2px solid #28a745;
+        border-radius: 10px;
+        padding: 20px;
+        margin-top: 20px;
+    }
+    .final-answer h3 {
+        color: #155724;
+        margin-top: 0;
+    }
+
+    .done-buttons {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+    .mark-btn {
+        padding: 12px 24px;
+        font-size: 1em;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .mark-done {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        color: white;
+    }
+    .mark-done:hover, .mark-done.selected {
+        background: linear-gradient(135deg, #1e7e34, #17a085);
+        transform: scale(1.05);
+    }
+    .mark-review {
+        background: linear-gradient(135deg, #ffc107, #fd7e14);
+        color: white;
+    }
+    .mark-review:hover, .mark-review.selected {
+        background: linear-gradient(135deg, #d39e00, #dc6502);
+        transform: scale(1.05);
+    }
+    .mark-reset {
+        background: #6c757d;
+        color: white;
+    }
+    .mark-reset:hover {
+        background: #545b62;
+    }
+    .mark-btn.selected {
+        box-shadow: 0 0 0 3px rgba(0,0,0,0.2);
+    }
+</style>
+</head>
+<body>
+<div class="quiz-container">
+    <h1>Calore di Combustione dell'Etilene - Calorimetria</h1>
+
+    <div class="question-section">
+        <h2>Testo dell'esercizio</h2>
+        <p>Risolvi l'esercizio seguente.</p>
+    </div>
+
+    <div class="progress-text" id="progress-text">Passaggio 0 di 8</div>
+    <div class="progress-bar">
+        <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+    </div>
+
+    <div class="controls">
+        <button id="next-btn" class="show-next-btn" onclick="showNextStep()">
+            ▶ Prossimo passaggio
+        </button>
+        <button id="all-btn" class="show-next-btn show-all-btn" onclick="showAllSteps()">
+            ⏩ Mostra tutto
+        </button>
+        <div id="done-buttons" class="done-buttons" style="display: none;">
+            <button id="mark-done" class="mark-btn mark-done" onclick="markExercise('done')">
+                ✓ Fatto
+            </button>
+            <button id="mark-review" class="mark-btn mark-review" onclick="markExercise('review')">
+                ⚠ Da rivedere
+            </button>
+            <button class="mark-btn mark-reset" onclick="resetExercise()">
+                ↺ Ricomincia
+            </button>
+            <button class="mark-btn" style="background: #17a2b8;" onclick="closeExercise()">
+                ✕ Chiudi
+            </button>
+        </div>
+    </div>
+
+    <div id="steps-wrapper">
+        
+        <div id="step-0" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">1</span>
+                Che cosa ci viene chiesto?
+            </div>
+            <div class="step-content">
+                <h1>Calore di Combustione dell'Etilene - Calorimetria</h1>
+
+<div class="question">
+<strong>TESTO DEL QUESITO:</strong><br>
+Calcolare il calore di combustione dell'etilene sapendo che 0,1 g di etilene bruciati in una bomba calorimetrica producono un innalzamento di 2 °C di un calorimetro avente capacità termica di 600 cal/°C.
+</div><h2>Che cosa ci viene chiesto?</h2>
+
+<p>Questo esercizio riguarda la <strong>calorimetria</strong>, cioè la misura del calore sviluppato o assorbito durante una reazione chimica. In particolare, dobbiamo determinare quanto calore viene liberato quando si brucia <em>una mole</em> di etilene (C<sub>2</sub>H<sub>4</sub>).</p>
+
+<p>La situazione fisica è questa: abbiamo un dispositivo chiamato <strong>bomba calorimetrica</strong>, che è un contenitore isolato termicamente. Al suo interno bruciamo una piccola quantità di etilene (0,1 grammi) e misuriamo di quanto aumenta la temperatura del calorimetro. Da questo aumento di temperatura possiamo calcolare il calore liberato dalla combustione.</p>
+            </div>
+        </div>
+        
+        <div id="step-1" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">2</span>
+                I dati che abbiamo
+            </div>
+            <div class="step-content">
+                <h2>I dati che abbiamo</h2>
+
+<div class="step">
+<ul>
+    <li><strong>Massa di etilene:</strong> m = 0,1 g</li>
+    <li><strong>Variazione di temperatura:</strong> ΔT = 2 °C</li>
+    <li><strong>Capacità termica del calorimetro:</strong> C = 600 cal/°C</li>
+    <li><strong>Formula molecolare dell'etilene:</strong> C<sub>2</sub>H<sub>4</sub></li>
+</ul>
+</div>
+            </div>
+        </div>
+        
+        <div id="step-2" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">3</span>
+                Passo 1: Calcolo del calore assorbito dal calorime...
+            </div>
+            <div class="step-content">
+                <h2>Passo 1: Calcolo del calore assorbito dal calorimetro</h2>
+
+<p>Prima di tutto, dobbiamo capire cosa significa "capacità termica". La capacità termica di un oggetto ci dice <em>quanta energia</em> serve per aumentare la sua temperatura di 1 grado. Nel nostro caso, il calorimetro ha una capacità termica di 600 cal/°C, il che significa che per aumentare la sua temperatura di 1°C servono 600 calorie.</p>
+
+<p>La formula fondamentale della calorimetria è:</p>
+
+<div class="formula">
+Q = C × ΔT
+</div>
+
+<p>dove:</p>
+<ul>
+    <li><strong>Q</strong> = calore (in calorie)</li>
+    <li><strong>C</strong> = capacità termica (in cal/°C)</li>
+    <li><strong>ΔT</strong> = variazione di temperatura (in °C)</li>
+</ul>
+
+<p>Sostituiamo i nostri valori:</p>
+
+<div class="formula">
+Q = 600 cal/°C × 2 °C = 1200 cal
+</div>
+
+<p class="note"><strong>Cosa significa questo risultato?</strong> Quando abbiamo bruciato 0,1 g di etilene, il calorimetro ha assorbito 1200 calorie di energia. Questo calore proviene dalla combustione dell'etilene: la reazione chimica ha liberato energia, e questa energia è stata assorbita dal calorimetro sotto forma di aumento della temperatura.</p>
+            </div>
+        </div>
+        
+        <div id="step-3" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">4</span>
+                Passo 2: Conversione in kilojoule
+            </div>
+            <div class="step-content">
+                <h2>Passo 2: Conversione in kilojoule</h2>
+
+<p>In chimica, l'unità di misura standard per l'energia è il <strong>joule</strong> (J), non la caloria. Per questo dobbiamo convertire il nostro risultato. Il fattore di conversione è:</p>
+
+<div class="formula">
+1 cal = 4,184 J
+</div>
+
+<p>Quindi:</p>
+
+<div class="formula">
+Q = 1200 cal × 4,184 J/cal = 5020,8 J
+</div>
+
+<p>Convertiamo in kilojoule dividendo per 1000:</p>
+
+<div class="formula">
+Q = 5020,8 J ÷ 1000 = 5,0208 kJ ≈ 5,02 kJ
+</div>
+
+<p class="note">Abbiamo scoperto che bruciare 0,1 g di etilene libera circa 5 kilojoule di energia. Ma noi vogliamo sapere quanto calore viene liberato per <em>una mole</em> di etilene, quindi dobbiamo fare un altro passaggio.</p>
+            </div>
+        </div>
+        
+        <div id="step-4" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">5</span>
+                Passo 3: Calcolo delle moli di etilene
+            </div>
+            <div class="step-content">
+                <h2>Passo 3: Calcolo delle moli di etilene</h2>
+
+<p>Per passare dal calore liberato da 0,1 g al calore liberato da una mole, dobbiamo prima calcolare quante moli di etilene corrispondono a 0,1 g.</p>
+
+<p>L'etilene ha formula <strong>C<sub>2</sub>H<sub>4</sub></strong>. Calcoliamo la sua massa molare:</p>
+
+<div class="step">
+<p><strong>Massa molare del carbonio (C):</strong> 12 g/mol</p>
+<p><strong>Massa molare dell'idrogeno (H):</strong> 1 g/mol</p>
+<p><strong>Massa molare dell'etilene (C<sub>2</sub>H<sub>4</sub>):</strong></p>
+<div class="formula">
+MM = 2 × 12 + 4 × 1 = 24 + 4 = 28 g/mol
+</div>
+</div>
+
+<p>Ora possiamo calcolare le moli. La formula è:</p>
+
+<div class="formula">
+n = m / MM
+</div>
+
+<p>dove:</p>
+<ul>
+    <li><strong>n</strong> = numero di moli</li>
+    <li><strong>m</strong> = massa in grammi</li>
+    <li><strong>MM</strong> = massa molare in g/mol</li>
+</ul>
+
+<p>Sostituiamo:</p>
+
+<div class="formula">
+n = 0,1 g ÷ 28 g/mol = 0,00357 mol
+</div>
+
+<p>Oppure, scritto in modo più preciso:</p>
+
+<div class="formula">
+n = 1/280 mol ≈ 3,57 × 10<sup>-3</sup> mol
+</div>
+            </div>
+        </div>
+        
+        <div id="step-5" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">6</span>
+                Passo 4: Calcolo del calore di combustione per mol...
+            </div>
+            <div class="step-content">
+                <h2>Passo 4: Calcolo del calore di combustione per mole</h2>
+
+<p>Ora abbiamo tutti gli elementi per rispondere alla domanda. Sappiamo che:</p>
+<ul>
+    <li>Bruciare 0,00357 mol di etilene libera 5,02 kJ</li>
+    <li>Vogliamo sapere quanto calore libera 1 mol</li>
+</ul>
+
+<p>Impostiamo una semplice proporzione:</p>
+
+<div class="formula">
+ΔH<sub>comb</sub> = Q / n = 5,02 kJ ÷ 0,00357 mol
+</div>
+
+<p>Calcoliamo:</p>
+
+<div class="formula">
+ΔH<sub>comb</sub> = 5,02 ÷ 0,00357 = 1406,2 kJ/mol
+</div>
+
+<p>Arrotondiamo a un valore più ragionevole considerando le cifre significative dei dati iniziali:</p>
+
+<div class="formula">
+ΔH<sub>comb</sub> ≈ 1400 kJ/mol
+</div>
+
+<div class="result">
+<strong>RISPOSTA FINALE:</strong><br><br>
+Il calore di combustione dell'etilene è circa <span class="highlight">1400 kJ/mol</span> (o più precisamente 1406 kJ/mol).<br><br>
+Questo significa che quando una mole di etilene (28 grammi) brucia completamente, vengono liberate circa 1400 kilojoule di energia.
+</div>
+            </div>
+        </div>
+        
+        <div id="step-6" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">7</span>
+                Nota sul segno
+            </div>
+            <div class="step-content">
+                <h2>Nota sul segno</h2>
+
+<p>In termodinamica, quando scriviamo il <strong>calore di combustione</strong> come variazione di entalpia (ΔH), dobbiamo considerare il segno:</p>
+
+<ul>
+    <li>La combustione è una reazione <strong>esotermica</strong> (libera calore nell'ambiente)</li>
+    <li>Per convenzione, le reazioni esotermiche hanno ΔH <strong>negativo</strong></li>
+</ul>
+
+<p>Quindi, se volessimo scrivere la variazione di entalpia di combustione:</p>
+
+<div class="formula">
+ΔH<sub>comb</sub> = -1406 kJ/mol
+</div>
+
+<p>Il segno negativo indica che l'energia viene <em>ceduta</em> dal sistema (l'etilene che brucia) all'ambiente (il calorimetro).</p>
+            </div>
+        </div>
+        
+        <div id="step-7" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">8</span>
+                Riepilogo dei passaggi
+            </div>
+            <div class="step-content">
+                <h2>Riepilogo dei passaggi</h2>
+
+<div class="step">
+<ol>
+    <li><strong>Calcolo del calore:</strong> Q = C × ΔT = 600 × 2 = 1200 cal</li>
+    <li><strong>Conversione in kJ:</strong> Q = 1200 × 4,184 = 5020,8 J = 5,02 kJ</li>
+    <li><strong>Calcolo delle moli:</strong> n = 0,1 g ÷ 28 g/mol = 0,00357 mol</li>
+    <li><strong>Calore per mole:</strong> ΔH = 5,02 kJ ÷ 0,00357 mol ≈ 1400 kJ/mol</li>
+</ol>
+</div>
+
+<p style="text-align: center; color: #7f8c8d; margin-top: 40px;">---</p>
+<p style="text-align: center; color: #7f8c8d;"><em>Esercizio risolto per la preparazione all'esame di Chimica Generale</em></p>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+<script>
+    let currentStep = 0;
+    let totalSteps = 0;
+
+    document.addEventListener('DOMContentLoaded', function() {
+        totalSteps = document.querySelectorAll('.step-container').length;
+        updateProgress();
+        updateButtons();
+    });
+
+    function showNextStep() {
+        if (currentStep < totalSteps) {
+            const step = document.getElementById('step-' + currentStep);
+            if (step) {
+                step.classList.add('visible');
+                step.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                currentStep++;
+                updateProgress();
+                updateButtons();
+
+                if (window.parent !== window) {
+                    window.parent.postMessage({type: 'stepShown', step: currentStep, total: totalSteps}, '*');
+                }
+            }
+        }
+    }
+
+    function showAllSteps() {
+        document.querySelectorAll('.step-container').forEach(function(step) {
+            step.classList.add('visible');
+        });
+        currentStep = totalSteps;
+        updateProgress();
+        updateButtons();
+
+        if (window.parent !== window) {
+            window.parent.postMessage({type: 'allStepsShown'}, '*');
+        }
+    }
+
+    function hideAllSteps() {
+        document.querySelectorAll('.step-container').forEach(function(step) {
+            step.classList.remove('visible');
+        });
+        currentStep = 0;
+        updateProgress();
+        updateButtons();
+    }
+
+    function updateProgress() {
+        const pct = totalSteps > 0 ? (currentStep / totalSteps) * 100 : 0;
+        const fill = document.getElementById('progress-fill');
+        const text = document.getElementById('progress-text');
+        if (fill) fill.style.width = pct + '%';
+        if (text) text.textContent = 'Passaggio ' + currentStep + ' di ' + totalSteps;
+    }
+
+    function updateButtons() {
+        const nextBtn = document.getElementById('next-btn');
+        const allBtn = document.getElementById('all-btn');
+        const doneButtons = document.getElementById('done-buttons');
+
+        if (currentStep >= totalSteps) {
+            if (nextBtn) nextBtn.style.display = 'none';
+            if (allBtn) allBtn.style.display = 'none';
+            if (doneButtons) doneButtons.style.display = 'flex';
+        } else {
+            if (nextBtn) nextBtn.style.display = 'block';
+            if (allBtn) allBtn.style.display = 'block';
+            if (doneButtons) doneButtons.style.display = 'none';
+        }
+    }
+
+    function markExercise(status) {
+        // Salva in localStorage
+        const exerciseId = window.location.pathname.split('/').pop().replace('.html', '');
+        let progress = JSON.parse(localStorage.getItem('chemportal_progress') || '{}');
+        if (!progress.exercises) progress.exercises = {};
+        progress.exercises[exerciseId] = status;
+        localStorage.setItem('chemportal_progress', JSON.stringify(progress));
+
+        // Feedback visivo
+        const btn = status === 'done' ? document.getElementById('mark-done') : document.getElementById('mark-review');
+        const otherBtn = status === 'done' ? document.getElementById('mark-review') : document.getElementById('mark-done');
+
+        btn.classList.add('selected');
+        otherBtn.classList.remove('selected');
+
+        // Notifica parent
+        if (window.parent !== window) {
+            window.parent.postMessage({type: 'exerciseMarked', status: status, id: exerciseId}, '*');
+        }
+    }
+
+    function resetExercise() {
+        hideAllSteps();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Messaggi dal parent
+    window.addEventListener('message', function(e) {
+        if (e.data.type === 'showNext') showNextStep();
+        else if (e.data.type === 'showAll') showAllSteps();
+        else if (e.data.type === 'hideAll') hideAllSteps();
+    });
+
+    function closeExercise() {
+        if (window.parent !== window) {
+            // Siamo in iframe, chiedi al parent di chiudere
+            window.parent.postMessage({type: 'closeModal'}, '*');
+        } else {
+            // Standalone: torna alla pagina esercizi
+            const path = window.location.pathname;
+            if (path.includes('/content/soluzioni/')) {
+                window.location.href = '../../esercizi.html';
+            } else {
+                window.history.back();
+            }
+        }
+    }
+</script>
+</body>
+</html>

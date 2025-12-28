@@ -1,0 +1,1232 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Capitolo 6 - Acidi e Basi (v2)</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 2cm;
+        }
+        body {
+            font-family: Georgia, serif;
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            line-height: 1.8;
+            color: #333;
+        }
+        h1 {
+            color: #1a5276;
+            border-bottom: 4px solid #2980b9;
+            padding-bottom: 15px;
+            font-size: 2em;
+        }
+        h2 {
+            color: #2471a3;
+            margin-top: 40px;
+            border-left: 4px solid #3498db;
+            padding-left: 15px;
+            page-break-after: avoid;
+        }
+        h3 {
+            color: #1e8449;
+            margin-top: 25px;
+        }
+        h4 {
+            color: #7d3c98;
+            margin-top: 20px;
+        }
+        .indice {
+            background: #eaf2f8;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .indice ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        .indice li {
+            margin: 5px 0;
+        }
+        .indice a {
+            color: #2471a3;
+            text-decoration: none;
+        }
+        .prerequisiti {
+            background: #fef9e7;
+            padding: 15px;
+            border-left: 4px solid #f39c12;
+            margin: 20px 0;
+        }
+        .definizione {
+            background: #e8f6f3;
+            padding: 15px;
+            border-left: 4px solid #1abc9c;
+            margin: 15px 0;
+        }
+        .formula-box {
+            background: #fdebd0;
+            padding: 20px;
+            border: 2px solid #e67e22;
+            border-radius: 8px;
+            margin: 20px 0;
+            text-align: center;
+            font-size: 1.2em;
+        }
+        .formula-box .nome {
+            font-weight: bold;
+            color: #d35400;
+            margin-bottom: 10px;
+        }
+        .formula-box .formula {
+            font-size: 1.3em;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+        }
+        .formula-box .quando {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 10px;
+            text-align: left;
+        }
+        .formula-box .unita {
+            font-size: 0.85em;
+            color: #555;
+            text-align: left;
+            margin-top: 10px;
+            background: #fff;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .esempio-esame {
+            background: #e8f4fd;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+            border: 2px solid #3498db;
+        }
+        .esempio-esame .titolo {
+            font-weight: bold;
+            color: #2980b9;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+        .attenzione {
+            background: #fdedec;
+            padding: 15px;
+            border-left: 4px solid #e74c3c;
+            margin: 15px 0;
+        }
+        .riepilogo {
+            background: #d5f5e3;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 30px 0;
+        }
+        .procedura {
+            background: #fff;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        .procedura ol {
+            margin: 0;
+            padding-left: 20px;
+        }
+        .procedura li {
+            margin: 8px 0;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #bdc3c7;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background: #3498db;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        sub { font-size: 0.75em; }
+        sup { font-size: 0.75em; }
+        .step {
+            background: #f0f8ff;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+            border-left: 3px solid #3498db;
+        }
+        .step-title {
+            color: #e74c3c;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .risultato {
+            background: #d4edda;
+            padding: 15px;
+            border-radius: 5px;
+            border: 2px solid #28a745;
+            text-align: center;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+        .nota {
+            background: #fff3cd;
+            padding: 10px 15px;
+            border-left: 4px solid #ffc107;
+            margin: 15px 0;
+            font-style: italic;
+        }
+        .domanda {
+            background: #f8f9fa;
+            border-left: 4px solid #3498db;
+            padding: 15px 20px;
+            margin: 20px 0;
+            font-style: italic;
+        }
+        .concetto {
+            background: #e8daef;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Capitolo 6 - Acidi e Basi</h1>
+
+<div class="indice">
+    <strong>INDICE</strong>
+    <ul>
+        <li>1. Prerequisiti</li>
+        <li>2. Definizioni di acido e base</li>
+        <li>3. pH, pOH e prodotto ionico dell'acqua</li>
+        <li>4. Forza degli acidi e delle basi: Ka e Kb</li>
+        <li>5. Calcolo del pH di acidi e basi forti</li>
+        <li>6. Calcolo del pH di acidi e basi deboli</li>
+        <li>7. Soluzioni tampone e Henderson-Hasselbalch</li>
+        <li>8. Idrolisi salina</li>
+        <li>9. Esercizi d'esame risolti</li>
+        <li>10. Errori comuni da evitare</li>
+        <li>11. Riepilogo formule</li>
+    </ul>
+</div>
+
+<div class="prerequisiti">
+    <strong>PREREQUISITI</strong>
+    <ul>
+        <li>Concetto di mole e molarita (n = m/MM, C = n/V)</li>
+        <li>Logaritmi e antilogaritmi (log, 10<sup>x</sup>)</li>
+        <li>Equilibrio chimico e costanti di equilibrio</li>
+        <li>Equazioni di secondo grado (per risoluzioni rigorose)</li>
+    </ul>
+</div>
+
+<!-- SEZIONE 1: DEFINIZIONI -->
+<h2>1. Definizioni di Acido e Base</h2>
+
+<p>Nel corso della storia della chimica, sono state proposte diverse definizioni di acido e base. Per l'esame del Professor Sebastiano, le definizioni rilevanti sono tre: Arrhenius, Bronsted-Lowry e Lewis. Vediamole una per una.</p>
+
+<h3>1.1 Definizione di Arrhenius (1890)</h3>
+
+<div class="definizione">
+    <strong>ACIDO secondo Arrhenius:</strong> sostanza che in acqua si dissocia liberando ioni H<sup>+</sup>.<br><br>
+    <strong>BASE secondo Arrhenius:</strong> sostanza che in acqua si dissocia liberando ioni OH<sup>-</sup>.
+</div>
+
+<p>Questa e la definizione piu semplice e intuitiva. Quando sciogliamo acido cloridrico in acqua, si dissocia completamente:</p>
+
+<p style="text-align: center; font-size: 1.1em;">HCl --> H<sup>+</sup> + Cl<sup>-</sup></p>
+
+<p>Allo stesso modo, l'idrossido di sodio in acqua libera ioni ossidrile:</p>
+
+<p style="text-align: center; font-size: 1.1em;">NaOH --> Na<sup>+</sup> + OH<sup>-</sup></p>
+
+<p><strong>Il limite di questa definizione:</strong> non spiega perche sostanze come l'ammoniaca (NH<sub>3</sub>), che non contiene gruppi OH, si comportino da basi in acqua.</p>
+
+<h3>1.2 Definizione di Bronsted-Lowry (1923)</h3>
+
+<div class="definizione">
+    <strong>ACIDO secondo Bronsted-Lowry:</strong> sostanza capace di <strong>cedere</strong> un protone (H<sup>+</sup>).<br><br>
+    <strong>BASE secondo Bronsted-Lowry:</strong> sostanza capace di <strong>accettare</strong> un protone (H<sup>+</sup>).
+</div>
+
+<p>Questa definizione e piu generale e introduce un concetto fondamentale: le <strong>coppie coniugate acido-base</strong>. Quando un acido cede un protone, diventa la sua base coniugata; quando una base accetta un protone, diventa il suo acido coniugato.</p>
+
+<div class="concetto">
+<strong>Esempio con l'ammoniaca:</strong><br><br>
+NH<sub>3</sub> + H<sub>2</sub>O &#8652; NH<sub>4</sub><sup>+</sup> + OH<sup>-</sup><br><br>
+Cosa succede qui? L'ammoniaca (che e una base) accetta un protone dall'acqua e si trasforma in ione ammonio NH<sub>4</sub><sup>+</sup> (il suo acido coniugato). L'acqua, cedendo il protone, si trasforma in OH<sup>-</sup> (la sua base coniugata). Ecco perche l'ammoniaca e una base anche se non contiene OH!
+</div>
+
+<p><strong>L'acqua e una sostanza anfotera:</strong> puo comportarsi sia da acido (cedendo H<sup>+</sup>) che da base (accettando H<sup>+</sup>). Questo e fondamentale per capire molti equilibri acido-base.</p>
+
+<h3>1.3 Definizione di Lewis (1923)</h3>
+
+<div class="definizione">
+    <strong>ACIDO di Lewis:</strong> sostanza capace di <strong>accettare</strong> una coppia di elettroni (elettrofilo).<br><br>
+    <strong>BASE di Lewis:</strong> sostanza capace di <strong>cedere</strong> una coppia di elettroni (nucleofilo).
+</div>
+
+<p>Questa e la definizione piu generale di tutte. Per l'esame, e importante sapere che esiste, ma la maggior parte degli esercizi usa la definizione di Bronsted-Lowry.</p>
+
+<!-- SEZIONE 2: pH e pOH -->
+<h2>2. pH, pOH e Prodotto Ionico dell'Acqua</h2>
+
+<h3>2.1 L'autoprotolisi dell'acqua</h3>
+
+<p>L'acqua pura non e completamente "inerte" dal punto di vista acido-base. Una piccolissima frazione di molecole d'acqua reagisce tra loro scambiandosi protoni:</p>
+
+<p style="text-align: center; font-size: 1.1em;">H<sub>2</sub>O + H<sub>2</sub>O &#8652; H<sub>3</sub>O<sup>+</sup> + OH<sup>-</sup></p>
+
+<p>Questa reazione si chiama <strong>autoprotolisi dell'acqua</strong>. A 25C, il prodotto delle concentrazioni degli ioni e sempre costante:</p>
+
+<div class="formula-box">
+    <div class="nome">Prodotto ionico dell'acqua</div>
+    <div class="formula">K<sub>w</sub> = [H<sub>3</sub>O<sup>+</sup>] x [OH<sup>-</sup>] = 10<sup>-14</sup></div>
+    <div class="quando"><strong>Quando usarla:</strong> Sempre, a 25C. Questo valore lega le concentrazioni di H<sup>+</sup> e OH<sup>-</sup> in QUALSIASI soluzione acquosa, sia essa acida, basica o neutra.</div>
+</div>
+
+<p>In acqua pura, le concentrazioni di H<sub>3</sub>O<sup>+</sup> e OH<sup>-</sup> sono uguali. Dato che il loro prodotto deve essere 10<sup>-14</sup>:</p>
+
+<p style="text-align: center;">[H<sub>3</sub>O<sup>+</sup>] = [OH<sup>-</sup>] = 10<sup>-7</sup> M (soluzione neutra)</p>
+
+<h3>2.2 Le definizioni di pH e pOH</h3>
+
+<p>Le concentrazioni degli ioni H<sup>+</sup> e OH<sup>-</sup> sono numeri molto piccoli (tipo 0.0000001 M). Per comodita, usiamo una scala logaritmica:</p>
+
+<div class="formula-box">
+    <div class="nome">Definizione di pH</div>
+    <div class="formula">pH = -log<sub>10</sub>[H<sub>3</sub>O<sup>+</sup>]</div>
+    <div class="quando"><strong>Operazione inversa:</strong> Se conosci il pH e vuoi trovare la concentrazione di H<sup>+</sup>:<br>
+    [H<sub>3</sub>O<sup>+</sup>] = 10<sup>-pH</sup></div>
+</div>
+
+<div class="formula-box">
+    <div class="nome">Definizione di pOH</div>
+    <div class="formula">pOH = -log<sub>10</sub>[OH<sup>-</sup>]</div>
+    <div class="quando"><strong>Operazione inversa:</strong> [OH<sup>-</sup>] = 10<sup>-pOH</sup></div>
+</div>
+
+<div class="formula-box">
+    <div class="nome">Relazione fondamentale pH-pOH</div>
+    <div class="formula">pH + pOH = 14</div>
+    <div class="quando"><strong>Quando usarla:</strong> Sempre a 25C. Permette di passare da pH a pOH e viceversa. Questa relazione deriva dal fatto che K<sub>w</sub> = 10<sup>-14</sup>.</div>
+</div>
+
+<h3>2.3 La scala del pH</h3>
+
+<table>
+    <tr>
+        <th>pH</th>
+        <th>[H<sub>3</sub>O<sup>+</sup>]</th>
+        <th>Carattere</th>
+        <th>Esempio</th>
+    </tr>
+    <tr><td>0</td><td>1 M</td><td>Fortemente acido</td><td>HCl 1 M</td></tr>
+    <tr><td>1</td><td>10<sup>-1</sup> M</td><td>Fortemente acido</td><td>Succhi gastrici</td></tr>
+    <tr><td>2-3</td><td>10<sup>-2</sup> - 10<sup>-3</sup> M</td><td>Acido</td><td>Limone, aceto</td></tr>
+    <tr><td>7</td><td>10<sup>-7</sup> M</td><td>Neutro</td><td>Acqua pura</td></tr>
+    <tr><td>9-10</td><td>10<sup>-9</sup> - 10<sup>-10</sup> M</td><td>Basico</td><td>Ammoniaca diluita</td></tr>
+    <tr><td>14</td><td>10<sup>-14</sup> M</td><td>Fortemente basico</td><td>NaOH 1 M</td></tr>
+</table>
+
+<div class="nota">
+    <strong>Il pH puo essere negativo!</strong> Quando [H<sup>+</sup>] > 1 M (cioe in soluzioni molto concentrate di acido forte), il pH diventa negativo. Ad esempio, HCl 2 M ha pH = -log(2) = -0.30. Questo e perfettamente possibile e corretto!
+</div>
+
+<!-- SEZIONE 3: Ka e Kb -->
+<h2>3. Forza degli Acidi e delle Basi: Ka e Kb</h2>
+
+<p>Non tutti gli acidi si dissociano allo stesso modo. L'acido cloridrico (HCl) si dissocia completamente, mentre l'acido acetico (CH<sub>3</sub>COOH) si dissocia solo in piccola parte. La differenza sta nella <strong>costante di dissociazione</strong>.</p>
+
+<h3>3.1 La costante di acidita Ka</h3>
+
+<p>Per un generico acido debole HA che si dissocia in acqua:</p>
+
+<p style="text-align: center;">HA + H<sub>2</sub>O &#8652; H<sub>3</sub>O<sup>+</sup> + A<sup>-</sup></p>
+
+<div class="formula-box">
+    <div class="nome">Costante di acidita Ka</div>
+    <div class="formula">Ka = ([H<sub>3</sub>O<sup>+</sup>] x [A<sup>-</sup>]) / [HA]</div>
+    <div class="quando">
+        <strong>Come interpretare Ka:</strong><br>
+        - Ka > 1: acido forte (dissociazione praticamente completa)<br>
+        - 10<sup>-4</sup> < Ka < 1: acido medio-forte<br>
+        - 10<sup>-7</sup> < Ka < 10<sup>-4</sup>: acido debole<br>
+        - Ka < 10<sup>-7</sup>: acido molto debole
+    </div>
+</div>
+
+<p><strong>Il pKa:</strong> Analogamente al pH, definiamo pKa = -log(Ka). Un pKa piu basso indica un acido piu forte.</p>
+
+<h3>3.2 La costante di basicita Kb</h3>
+
+<p>Per una base debole B che reagisce con l'acqua:</p>
+
+<p style="text-align: center;">B + H<sub>2</sub>O &#8652; BH<sup>+</sup> + OH<sup>-</sup></p>
+
+<div class="formula-box">
+    <div class="nome">Costante di basicita Kb</div>
+    <div class="formula">Kb = ([BH<sup>+</sup>] x [OH<sup>-</sup>]) / [B]</div>
+</div>
+
+<h3>3.3 La relazione tra Ka e Kb</h3>
+
+<p>Per una coppia coniugata acido-base (ad esempio CH<sub>3</sub>COOH e CH<sub>3</sub>COO<sup>-</sup>), esiste una relazione fondamentale:</p>
+
+<div class="formula-box">
+    <div class="nome">Relazione Ka-Kb per coppie coniugate</div>
+    <div class="formula">Ka x Kb = K<sub>w</sub> = 10<sup>-14</sup></div>
+    <div class="quando"><strong>Conseguenza:</strong> pKa + pKb = 14<br><br>
+    <strong>Utilita:</strong> Se conosci Ka di un acido debole, puoi calcolare Kb della sua base coniugata (e viceversa).<br>
+    Esempio: Ka(CH<sub>3</sub>COOH) = 1.8 x 10<sup>-5</sup>, quindi Kb(CH<sub>3</sub>COO<sup>-</sup>) = 10<sup>-14</sup> / 1.8 x 10<sup>-5</sup> = 5.6 x 10<sup>-10</sup></div>
+</div>
+
+<h3>3.4 Il grado di dissociazione</h3>
+
+<div class="formula-box">
+    <div class="nome">Grado di dissociazione</div>
+    <div class="formula">alpha = [A<sup>-</sup>] / Ca = [H<sub>3</sub>O<sup>+</sup>] / Ca</div>
+    <div class="quando">Dove Ca e la concentrazione iniziale dell'acido. Si esprime spesso in percentuale:<br>
+    %dissociazione = alpha x 100</div>
+</div>
+
+<!-- SEZIONE 4: pH ACIDI/BASI FORTI -->
+<h2>4. Calcolo del pH di Acidi e Basi Forti</h2>
+
+<p>Gli acidi e le basi forti si dissociano <strong>completamente</strong> in acqua. Questo semplifica enormemente i calcoli!</p>
+
+<h3>4.1 Acidi forti</h3>
+
+<p><strong>Principali acidi forti da ricordare:</strong> HCl, HBr, HI, HNO<sub>3</sub>, H<sub>2</sub>SO<sub>4</sub> (prima dissociazione), HClO<sub>4</sub></p>
+
+<div class="formula-box">
+    <div class="nome">pH di un acido forte monoprotico</div>
+    <div class="formula">[H<sub>3</sub>O<sup>+</sup>] = Ca   --->   pH = -log(Ca)</div>
+    <div class="quando"><strong>Dove:</strong> Ca = concentrazione molare dell'acido</div>
+</div>
+
+<div class="nota">
+<strong>Per acidi diprotici come H<sub>2</sub>SO<sub>4</sub>:</strong> Ogni molecola libera 2 ioni H<sup>+</sup>, quindi [H<sup>+</sup>] = 2 x Ca
+</div>
+
+<h3>4.2 Basi forti</h3>
+
+<p><strong>Principali basi forti:</strong> NaOH, KOH, LiOH, Ca(OH)<sub>2</sub>, Ba(OH)<sub>2</sub>, Mg(OH)<sub>2</sub></p>
+
+<div class="formula-box">
+    <div class="nome">pOH di una base forte</div>
+    <div class="formula">[OH<sup>-</sup>] = Cb x (numero di OH)   --->   pOH = -log[OH<sup>-</sup>]   --->   pH = 14 - pOH</div>
+    <div class="quando"><strong>Attenzione alle basi diprotiche!</strong><br>
+    Per Ca(OH)<sub>2</sub>, Ba(OH)<sub>2</sub>, Mg(OH)<sub>2</sub>: ogni molecola libera 2 ioni OH<sup>-</sup><br>
+    Esempio: Ca(OH)<sub>2</sub> 0.01 M --> [OH<sup>-</sup>] = 2 x 0.01 = 0.02 M</div>
+</div>
+
+<!-- SEZIONE 5: pH ACIDI/BASI DEBOLI -->
+<h2>5. Calcolo del pH di Acidi e Basi Deboli</h2>
+
+<p>Per gli acidi e le basi deboli, la dissociazione NON e completa. Dobbiamo usare la costante Ka o Kb e risolvere un equilibrio.</p>
+
+<h3>5.1 pH di un acido debole</h3>
+
+<p>Consideriamo un acido debole HA in acqua. All'equilibrio:</p>
+
+<p style="text-align: center;">HA + H<sub>2</sub>O &#8652; H<sub>3</sub>O<sup>+</sup> + A<sup>-</sup></p>
+
+<p>Chiamiamo x la concentrazione di H<sup>+</sup> che si forma. All'equilibrio avremo:</p>
+<ul>
+    <li>[H<sub>3</sub>O<sup>+</sup>] = x</li>
+    <li>[A<sup>-</sup>] = x (per ogni H<sup>+</sup> che si forma, si forma anche un A<sup>-</sup>)</li>
+    <li>[HA] = Ca - x (l'acido iniziale meno quello che si e dissociato)</li>
+</ul>
+
+<div class="formula-box">
+    <div class="nome">Equazione esatta per acido debole</div>
+    <div class="formula">Ka = x<sup>2</sup> / (Ca - x)</div>
+    <div class="quando">Questa e un'equazione di secondo grado in x. Si puo risolvere con la formula quadratica, ma spesso possiamo usare un'approssimazione.</div>
+</div>
+
+<div class="formula-box">
+    <div class="nome">Approssimazione per acido debole (quando Ca >> x)</div>
+    <div class="formula">[H<sub>3</sub>O<sup>+</sup>] = sqrt(Ka x Ca)</div>
+    <div class="quando"><strong>Validita dell'approssimazione:</strong> L'approssimazione e valida se Ca/Ka > 100.<br>
+    In pratica, stiamo assumendo che l'acido si dissoci cosi poco che Ca - x ≈ Ca.<br><br>
+    <strong>Verifica sempre:</strong> Dopo aver calcolato x, controlla che x/Ca < 5%. Se supera il 5%, devi usare l'equazione esatta.</div>
+</div>
+
+<div class="procedura">
+    <strong>Procedura per calcolare il pH di un acido debole:</strong>
+    <ol>
+        <li>Scrivi l'equilibrio di dissociazione</li>
+        <li>Verifica se Ca/Ka > 100 (per decidere se usare l'approssimazione)</li>
+        <li><strong>Se l'approssimazione e valida:</strong> [H<sup>+</sup>] = sqrt(Ka x Ca)</li>
+        <li><strong>Se NON e valida:</strong> Risolvi Ka = x<sup>2</sup>/(Ca - x) con la formula quadratica</li>
+        <li>Calcola pH = -log[H<sup>+</sup>]</li>
+        <li>Verifica che x/Ca < 5%</li>
+    </ol>
+</div>
+
+<h3>5.2 pH di una base debole</h3>
+
+<p>Il ragionamento e analogo, ma lavoriamo con pOH invece che con pH:</p>
+
+<div class="formula-box">
+    <div class="nome">Approssimazione per base debole</div>
+    <div class="formula">[OH<sup>-</sup>] = sqrt(Kb x Cb)</div>
+    <div class="formula">pOH = -log[OH<sup>-</sup>]</div>
+    <div class="formula">pH = 14 - pOH</div>
+</div>
+
+<h3>5.3 Il problema inverso: trovare la concentrazione dato il pH</h3>
+
+<p>Negli esami spesso ti chiedono: "Quanti grammi di acido acetico servono per preparare una soluzione a pH 3.2?" Questo e il problema "al contrario": parti dal pH e devi trovare la concentrazione.</p>
+
+<div class="formula-box">
+    <div class="nome">Concentrazione iniziale da pH (acido debole)</div>
+    <div class="formula">Ca = x<sup>2</sup>/Ka + x</div>
+    <div class="quando">Dove x = [H<sup>+</sup>] = 10<sup>-pH</sup><br><br>
+    Questa formula si ricava direttamente da Ka = x<sup>2</sup>/(Ca - x) risolvendo per Ca.</div>
+</div>
+
+<!-- SEZIONE 6: TAMPONI -->
+<h2>6. Soluzioni Tampone</h2>
+
+<p>Una <strong>soluzione tampone</strong> e una soluzione che resiste alle variazioni di pH quando vengono aggiunte piccole quantita di acido o base forte. Per creare un tampone serve:</p>
+<ul>
+    <li>Un <strong>acido debole</strong> insieme alla sua <strong>base coniugata</strong> (es. CH<sub>3</sub>COOH + CH<sub>3</sub>COO<sup>-</sup>)</li>
+    <li>Oppure una <strong>base debole</strong> insieme al suo <strong>acido coniugato</strong> (es. NH<sub>3</sub> + NH<sub>4</sub><sup>+</sup>)</li>
+</ul>
+
+<div class="concetto">
+<strong>Come riconoscere quando si forma un tampone:</strong><br><br>
+Se mescoliamo un acido debole con una base forte (o viceversa), dopo la reazione di neutralizzazione potremmo ritrovarci con un tampone! Questo succede quando:<br>
+- La reazione non va a completamento (cioe un reagente e in eccesso)<br>
+- Rimangono sia l'acido debole che la sua base coniugata<br><br>
+Se invece uno dei due viene completamente consumato, NON abbiamo un tampone.
+</div>
+
+<h3>6.1 L'equazione di Henderson-Hasselbalch</h3>
+
+<div class="formula-box">
+    <div class="nome">Equazione di Henderson-Hasselbalch</div>
+    <div class="formula">pH = pKa + log([A<sup>-</sup>] / [HA])</div>
+    <div class="formula">pH = pKa + log(n<sub>base</sub> / n<sub>acido</sub>)</div>
+    <div class="quando">
+        <strong>Dove:</strong><br>
+        - [A<sup>-</sup>] = concentrazione della base coniugata (es. CH<sub>3</sub>COO<sup>-</sup>)<br>
+        - [HA] = concentrazione dell'acido debole (es. CH<sub>3</sub>COOH)<br>
+        - Poiche il volume e lo stesso per entrambe le specie, possiamo usare direttamente il <strong>rapporto delle moli</strong>
+    </div>
+</div>
+
+<div class="nota">
+    <strong>Caso speciale importantissimo:</strong> Quando [A<sup>-</sup>] = [HA] (cioe le moli di acido e base coniugata sono uguali), il logaritmo vale zero e quindi <strong>pH = pKa</strong>. Questa e la condizione di <strong>massima capacita tamponante</strong>.
+</div>
+
+<h3>6.2 Tampone con aggiunta di acido o base forte</h3>
+
+<p>Se a un tampone aggiungiamo un acido forte (a moli) o una base forte (b moli):</p>
+
+<div class="formula-box">
+    <div class="nome">Tampone dopo aggiunta di acido forte</div>
+    <div class="formula">pH = pKa + log((n<sub>base</sub> - a) / (n<sub>acido</sub> + a))</div>
+    <div class="quando">L'acido forte reagisce con la base coniugata, diminuendola e aumentando l'acido debole.</div>
+</div>
+
+<div class="formula-box">
+    <div class="nome">Tampone dopo aggiunta di base forte</div>
+    <div class="formula">pH = pKa + log((n<sub>base</sub> + b) / (n<sub>acido</sub> - b))</div>
+    <div class="quando">La base forte reagisce con l'acido debole, diminuendolo e aumentando la base coniugata.</div>
+</div>
+
+<!-- SEZIONE 7: IDROLISI -->
+<h2>7. Idrolisi Salina</h2>
+
+<p>Quando sciogliamo un sale in acqua, gli ioni che lo compongono possono reagire con l'acqua modificando il pH. Questo fenomeno si chiama <strong>idrolisi</strong>.</p>
+
+<h3>7.1 Comportamento dei diversi tipi di sali</h3>
+
+<table>
+    <tr>
+        <th>Tipo di sale</th>
+        <th>Derivato da</th>
+        <th>pH soluzione</th>
+        <th>Esempio</th>
+    </tr>
+    <tr>
+        <td>Acido forte + base forte</td>
+        <td>HCl + NaOH</td>
+        <td><strong>Neutro (pH = 7)</strong></td>
+        <td>NaCl</td>
+    </tr>
+    <tr>
+        <td>Acido debole + base forte</td>
+        <td>CH<sub>3</sub>COOH + NaOH</td>
+        <td><strong>Basico (pH > 7)</strong></td>
+        <td>CH<sub>3</sub>COONa</td>
+    </tr>
+    <tr>
+        <td>Acido forte + base debole</td>
+        <td>HCl + NH<sub>3</sub></td>
+        <td><strong>Acido (pH < 7)</strong></td>
+        <td>NH<sub>4</sub>Cl</td>
+    </tr>
+    <tr>
+        <td>Acido debole + base debole</td>
+        <td>CH<sub>3</sub>COOH + NH<sub>3</sub></td>
+        <td>Dipende da Ka e Kb</td>
+        <td>CH<sub>3</sub>COONH<sub>4</sub></td>
+    </tr>
+</table>
+
+<h3>7.2 La costante di idrolisi</h3>
+
+<div class="formula-box">
+    <div class="nome">Costante di idrolisi</div>
+    <div class="formula">Ki = K<sub>w</sub> / Ka (per anioni di acidi deboli)</div>
+    <div class="formula">Ki = K<sub>w</sub> / Kb (per cationi di basi deboli)</div>
+</div>
+
+<!-- SEZIONE 8: ESERCIZI D'ESAME -->
+<h2>8. Esercizi d'Esame Risolti</h2>
+
+<p>Dall'analisi degli esami passati del Professor Sebastiano, i tipi di esercizi su acidi e basi sono:</p>
+<ol>
+    <li>Calcolo del pH di un acido/base debole</li>
+    <li>Trovare la massa di acido/base per ottenere un certo pH (problema inverso)</li>
+    <li>pH di miscele acido-base che formano tamponi</li>
+    <li>Reazioni di neutralizzazione con eccesso di acido o base forte</li>
+</ol>
+
+<p>Vediamo ora degli esercizi risolti in modo <strong>discorsivo</strong>, spiegando il ragionamento passo per passo.</p>
+
+<!-- ESERCIZIO 1 -->
+<div class="esempio-esame">
+    <div class="titolo">ESERCIZIO 1: pH di un acido debole e grado di dissociazione</div>
+
+    <div class="domanda">
+    <strong>Testo:</strong> Calcolare il pH di una soluzione di acido benzoico (C<sub>6</sub>H<sub>5</sub>COOH, Ka = 6.45 x 10<sup>-5</sup>) 0.10 M. Calcolare inoltre il grado di dissociazione dell'acido.
+    </div>
+
+    <h4>Analisi del problema</h4>
+    <p>L'acido benzoico e un <strong>acido debole</strong>. Lo sappiamo perche ci danno la Ka, che e un numero piccolo (6.45 x 10<sup>-5</sup>). Se fosse un acido forte, non ci sarebbe bisogno di Ka perche la dissociazione sarebbe completa.</p>
+
+    <p>L'equilibrio di dissociazione e:</p>
+    <p style="text-align: center;">C<sub>6</sub>H<sub>5</sub>COOH &#8652; C<sub>6</sub>H<sub>5</sub>COO<sup>-</sup> + H<sup>+</sup></p>
+
+    <div class="step">
+        <div class="step-title">Passo 1: Verifichiamo se possiamo usare l'approssimazione</div>
+        <p>Prima di tutto, controlliamo se possiamo usare la formula semplificata [H<sup>+</sup>] = sqrt(Ka x Ca). La regola e: l'approssimazione e valida se Ca/Ka > 100.</p>
+        <p>Ca/Ka = 0.10 / 6.45 x 10<sup>-5</sup> = 1550</p>
+        <p>1550 e molto maggiore di 100, quindi <strong>l'approssimazione e valida</strong>! Possiamo procedere con la formula semplificata.</p>
+    </div>
+
+    <div class="step">
+        <div class="step-title">Passo 2: Calcoliamo [H<sup>+</sup>]</div>
+        <p>Usando l'approssimazione:</p>
+        <p>Ka = x<sup>2</sup> / Ca (dove x = [H<sup>+</sup>])</p>
+        <p>x<sup>2</sup> = Ka x Ca = 6.45 x 10<sup>-5</sup> x 0.10 = 6.45 x 10<sup>-6</sup></p>
+        <p>x = sqrt(6.45 x 10<sup>-6</sup>) = <strong>2.54 x 10<sup>-3</sup> M</strong></p>
+    </div>
+
+    <div class="step">
+        <div class="step-title">Passo 3: Calcoliamo il pH</div>
+        <p>pH = -log[H<sup>+</sup>] = -log(2.54 x 10<sup>-3</sup>)</p>
+        <p>Per calcolare il logaritmo: log(2.54 x 10<sup>-3</sup>) = log(2.54) + log(10<sup>-3</sup>) = 0.40 + (-3) = -2.60</p>
+        <p>Quindi: pH = -(-2.60) = <strong>2.60</strong></p>
+    </div>
+
+    <div class="step">
+        <div class="step-title">Passo 4: Calcoliamo il grado di dissociazione</div>
+        <p>Il grado di dissociazione ci dice quale frazione dell'acido si e dissociata.</p>
+        <p>alpha = [H<sup>+</sup>] / Ca = (2.54 x 10<sup>-3</sup>) / 0.10 = 0.0254</p>
+        <p>In percentuale: <strong>alpha = 2.54%</strong></p>
+        <p>Questo conferma che l'acido benzoico e un acido debole: solo il 2.54% si dissocia!</p>
+    </div>
+
+    <div class="step">
+        <div class="step-title">Verifica dell'approssimazione</div>
+        <p>Controlliamo che la nostra approssimazione fosse corretta: x/Ca = 2.54 x 10<sup>-3</sup> / 0.10 = 2.54%</p>
+        <p>Poiche 2.54% < 5%, l'approssimazione era valida.</p>
+    </div>
+
+    <div class="risultato">
+        pH = 2.60 | Grado di dissociazione = 2.54%
+    </div>
+</div>
+
+<!-- ESERCIZIO 2 -->
+<div class="esempio-esame">
+    <div class="titolo">ESERCIZIO 2: Grammi di acido acetico per un dato pH (problema inverso)</div>
+
+    <div class="domanda">
+    <strong>Testo:</strong> Calcolare quanti grammi di acido acetico sono necessari per preparare 2.5 litri di soluzione acquosa a pH 3.2.<br>
+    Dati: Ka = 1.8 x 10<sup>-5</sup>, MM(CH<sub>3</sub>COOH) = 60 g/mol
+    </div>
+
+    <h4>Analisi del problema</h4>
+    <p>Questo e un problema "al contrario" rispetto al solito. Invece di calcolare il pH da una concentrazione nota, partiamo dal pH e dobbiamo risalire alla concentrazione (e poi alla massa) dell'acido.</p>
+
+    <div class="step">
+        <div class="step-title">Passo 1: Dal pH alla concentrazione di H<sup>+</sup></div>
+        <p>Il pH ci dice quanto e acida la soluzione. La definizione di pH e:</p>
+        <p style="text-align: center;">pH = -log[H<sup>+</sup>]</p>
+        <p>Se vogliamo trovare [H<sup>+</sup>] partendo dal pH, dobbiamo invertire questa formula:</p>
+        <p style="text-align: center;">[H<sup>+</sup>] = 10<sup>-pH</sup> = 10<sup>-3.2</sup></p>
+        <p>Per calcolare 10<sup>-3.2</sup>, scomponiamo l'esponente:</p>
+        <p>10<sup>-3.2</sup> = 10<sup>-3</sup> x 10<sup>-0.2</sup> = 0.001 x 0.631 = <strong>6.31 x 10<sup>-4</sup> M</strong></p>
+    </div>
+
+    <div class="step">
+        <div class="step-title">Passo 2: Dalla [H<sup>+</sup>] alla concentrazione iniziale dell'acido</div>
+        <p>L'acido acetico e un acido debole. All'equilibrio, vale:</p>
+        <p style="text-align: center;">Ka = [H<sup>+</sup>][A<sup>-</sup>] / [HA] = x<sup>2</sup> / (Ca - x)</p>
+        <p>Dove x = [H<sup>+</sup>] = 6.31 x 10<sup>-4</sup> M (lo abbiamo appena calcolato!)</p>
+        <p>Risolviamo per Ca:</p>
+        <p>Ka x (Ca - x) = x<sup>2</sup></p>
+        <p>Ka x Ca - Ka x x = x<sup>2</sup></p>
+        <p>Ca = (x<sup>2</sup> + Ka x x) / Ka = x<sup>2</sup>/Ka + x</p>
+        <p>Sostituendo i valori:</p>
+        <p>Ca = (6.31 x 10<sup>-4</sup>)<sup>2</sup> / (1.8 x 10<sup>-5</sup>) + 6.31 x 10<sup>-4</sup></p>
+        <p>Ca = (3.98 x 10<sup>-7</sup>) / (1.8 x 10<sup>-5</sup>) + 6.31 x 10<sup>-4</sup></p>
+        <p>Ca = 0.0221 + 0.000631 = <strong>0.0227 M</strong></p>
+    </div>
+
+    <div class="step">
+        <div class="step-title">Passo 3: Calcoliamo le moli di acido acetico</div>
+        <p>Ora che conosciamo la concentrazione necessaria, calcoliamo le moli:</p>
+        <p>n = Ca x V = 0.0227 mol/L x 2.5 L = <strong>0.0568 mol</strong></p>
+    </div>
+
+    <div class="step">
+        <div class="step-title">Passo 4: Convertiamo in grammi</div>
+        <p>m = n x MM = 0.0568 mol x 60 g/mol = <strong>3.41 g</strong></p>
+    </div>
+
+    <div class="nota">
+        <strong>Verifica del risultato:</strong> Possiamo controllare ricalcolando il pH dalla concentrazione trovata. Con Ca = 0.0227 M e Ka = 1.8 x 10<sup>-5</sup>:<br>
+        [H<sup>+</sup>] = sqrt(1.8 x 10<sup>-5</sup> x 0.0227) = sqrt(4.09 x 10<sup>-7</sup>) = 6.4 x 10<sup>-4</sup> M<br>
+        pH = -log(6.4 x 10<sup>-4</sup>) = 3.19 ≈ 3.2. Il risultato e confermato!
+    </div>
+
+    <div class="risultato">
+        Massa di acido acetico necessaria = 3.41 g
+    </div>
+</div>
+
+<!-- ESERCIZIO 3 -->
+<div class="esempio-esame">
+    <div class="titolo">ESERCIZIO 3: Preparare una soluzione di ammoniaca a pH 9.2</div>
+
+    <div class="domanda">
+    <strong>Testo:</strong> Calcolare quanti grammi e quanti mL misurati a c.n. di ammoniaca (NH<sub>3</sub>) sono necessari per preparare 0.5 L di soluzione acquosa a pH 9.2.<br>
+    Dati: Kb(NH<sub>3</sub>) = 1.8 x 10<sup>-5</sup>, MM(NH<sub>3</sub>) = 17 g/mol
+    </div>
+
+    <h4>Introduzione: cosa ci viene chiesto?</h4>
+    <p>L'ammoniaca e una <strong>base debole</strong>. In acqua reagisce cosi:</p>
+    <p style="text-align: center;">NH<sub>3</sub> + H<sub>2</sub>O &#8652; NH<sub>4</sub><sup>+</sup> + OH<sup>-</sup></p>
+    <p>Il pH richiesto (9.2) e basico (maggiore di 7), il che ha senso per una base. Dobbiamo lavorare "al contrario" rispetto al solito: partire dal pH e trovare quanta ammoniaca serve.</p>
+
+    <div class="step">
+        <div class="step-title">Passo 1: Dal pH a [OH<sup>-</sup>]</div>
+        <p>Poiche l'ammoniaca e una base, ci conviene ragionare in termini di pOH e [OH<sup>-</sup>].</p>
+        <p>pOH = 14 - pH = 14 - 9.2 = <strong>4.8</strong></p>
+        <p>[OH<sup>-</sup>] = 10<sup>-pOH</sup> = 10<sup>-4.8</sup></p>
+        <p>Per calcolare 10<sup>-4.8</sup>: 10<sup>-4.8</sup> = 10<sup>-5</sup> x 10<sup>0.2</sup> = 10<sup>-5</sup> x 1.585 = <strong>1.58 x 10<sup>-5</sup> M</strong></p>
+        <p>Cosa significa questo numero? In ogni litro di soluzione ci sono 1.58 x 10<sup>-5</sup> moli di ioni OH<sup>-</sup>.</p>
+    </div>
+
+    <div class="step">
+        <div class="step-title">Passo 2: Da [OH<sup>-</sup>] alla concentrazione iniziale di NH<sub>3</sub></div>
+        <p>L'espressione di Kb e:</p>
+        <p style="text-align: center;">Kb = [NH<sub>4</sub><sup>+</sup>][OH<sup>-</sup>] / [NH<sub>3</sub>]</p>
+        <p><strong>Ragionamento chiave:</strong> Quando NH<sub>3</sub> reagisce con acqua, per ogni molecola di NH<sub>3</sub> che reagisce si forma UNA molecola di NH<sub>4</sub><sup>+</sup> e UNO ione OH<sup>-</sup>. Quindi all'equilibrio:</p>
+        <p>[NH<sub>4</sub><sup>+</sup>] = [OH<sup>-</sup>] = 1.58 x 10<sup>-5</sup> M</p>
+        <p>Chiamiamo "Cb" la concentrazione INIZIALE di NH<sub>3</sub>. Usando la formula inversa:</p>
+        <p>Cb = x<sup>2</sup>/Kb + x (dove x = [OH<sup>-</sup>])</p>
+        <p>Cb = (1.58 x 10<sup>-5</sup>)<sup>2</sup> / (1.8 x 10<sup>-5</sup>) + 1.58 x 10<sup>-5</sup></p>
+        <p>Cb = (2.50 x 10<sup>-10</sup>) / (1.8 x 10<sup>-5</sup>) + 1.58 x 10<sup>-5</sup></p>
+        <p>Cb = 1.39 x 10<sup>-5</sup> + 1.58 x 10<sup>-5</sup> = <strong>2.97 x 10<sup>-5</sup> M</strong></p>
+    </div>
+
+    <div class="nota">
+        <strong>Nota importante:</strong> In questo caso NON possiamo trascurare la quantita di NH<sub>3</sub> che reagisce (1.58 x 10<sup>-5</sup>), perche e dello stesso ordine di grandezza della concentrazione totale! Quando il pH e vicino a pKb, il grado di dissociazione non e trascurabile.
+    </div>
+
+    <div class="step">
+        <div class="step-title">Passo 3: Calcoliamo le moli di NH<sub>3</sub></div>
+        <p>n = Cb x V = 2.97 x 10<sup>-5</sup> mol/L x 0.5 L = <strong>1.485 x 10<sup>-5</sup> mol</strong></p>
+    </div>
+
+    <div class="step">
+        <div class="step-title">Passo 4: Calcoliamo i grammi</div>
+        <p>m = n x MM = 1.485 x 10<sup>-5</sup> mol x 17 g/mol = <strong>2.52 x 10<sup>-4</sup> g = 0.252 mg</strong></p>
+    </div>
+
+    <div class="step">
+        <div class="step-title">Passo 5: Calcoliamo il volume a c.n.</div>
+        <p>L'ammoniaca a temperatura ambiente e un gas. A condizioni normali (0C, 1 atm), 1 mole di qualsiasi gas ideale occupa 22.4 L.</p>
+        <p>V = n x 22.4 L/mol = 1.485 x 10<sup>-5</sup> mol x 22.4 L/mol = 3.33 x 10<sup>-4</sup> L = <strong>0.33 mL</strong></p>
+    </div>
+
+    <div class="concetto">
+        <strong>Ha senso questo risultato?</strong><br>
+        Stiamo preparando una soluzione con pH 9.2, che e solo leggermente basico. Quindi servono pochissime molecole di OH<sup>-</sup>, e di conseguenza pochissima ammoniaca. I valori molto piccoli (frazioni di milligrammo, frazioni di millilitro) hanno perfettamente senso!
+    </div>
+
+    <div class="risultato">
+        Massa di NH<sub>3</sub> = 0.25 mg | Volume a c.n. = 0.33 mL
+    </div>
+</div>
+
+<!-- ESERCIZIO 4 -->
+<div class="esempio-esame">
+    <div class="titolo">ESERCIZIO 4: Reazione acido-base che forma un tampone</div>
+
+    <div class="domanda">
+    <strong>Testo:</strong> A 50 mL di una soluzione di idrossido di magnesio Mg(OH)<sub>2</sub> 0.35 M si aggiungono 100 mL di una soluzione di acido formico HCOOH 0.6 M. Calcolare il pH della soluzione risultante.<br>
+    Dati: Ka(HCOOH) = 1.8 x 10<sup>-4</sup>
+    </div>
+
+    <h4>Analisi del problema</h4>
+    <p>Abbiamo un <strong>acido debole</strong> (acido formico) e una <strong>base forte</strong> (idrossido di magnesio). Quando si mescolano, avverra una reazione di neutralizzazione. La domanda chiave e: cosa rimane dopo la reazione?</p>
+
+    <div class="step">
+        <div class="step-title">Passo 1: Calcoliamo le moli iniziali</div>
+        <p><strong>Moli di Mg(OH)<sub>2</sub>:</strong></p>
+        <p>n = C x V = 0.35 mol/L x 0.050 L = <strong>0.0175 mol</strong></p>
+        <p><strong>Attenzione:</strong> Mg(OH)<sub>2</sub> e una base <strong>diprotica</strong>, cioe libera 2 ioni OH<sup>-</sup> per ogni molecola:</p>
+        <p style="text-align: center;">Mg(OH)<sub>2</sub> --> Mg<sup>2+</sup> + 2OH<sup>-</sup></p>
+        <p>Quindi le moli di OH<sup>-</sup> sono il doppio:</p>
+        <p>n(OH<sup>-</sup>) = 2 x 0.0175 mol = <strong>0.035 mol</strong></p>
+        <p><strong>Moli di HCOOH:</strong></p>
+        <p>n = C x V = 0.6 mol/L x 0.100 L = <strong>0.060 mol</strong></p>
+    </div>
+
+    <div class="step">
+        <div class="step-title">Passo 2: Scriviamo la reazione di neutralizzazione</div>
+        <p>La reazione tra acido formico e ioni ossidrile e:</p>
+        <p style="text-align: center;">HCOOH + OH<sup>-</sup> --> HCOO<sup>-</sup> + H<sub>2</sub>O</p>
+        <p>Questa reazione avviene in rapporto <strong>1:1</strong> tra acido e OH<sup>-</sup>.</p>
+    </div>
+
+    <div class="step">
+        <div class="step-title">Passo 3: Determiniamo cosa rimane dopo la reazione</div>
+        <p>Confrontiamo le moli:</p>
+        <ul>
+            <li>Moli di HCOOH iniziali: 0.060 mol</li>
+            <li>Moli di OH<sup>-</sup> disponibili: 0.035 mol</li>
+        </ul>
+        <p>Gli OH<sup>-</sup> sono il <strong>reagente limitante</strong> (0.035 < 0.060). Reagiranno completamente con l'acido formico.</p>
+        <p><strong>Dopo la reazione:</strong></p>
+        <ul>
+            <li>HCOOH rimasto: 0.060 - 0.035 = <strong>0.025 mol</strong></li>
+            <li>HCOO<sup>-</sup> formato: <strong>0.035 mol</strong></li>
+            <li>OH<sup>-</sup> rimasto: 0 mol</li>
+        </ul>
+    </div>
+
+    <div class="concetto">
+        <strong>Abbiamo creato un TAMPONE!</strong><br>
+        Dopo la reazione ci troviamo con una miscela di:<br>
+        - Acido debole: HCOOH (0.025 mol)<br>
+        - Base coniugata: HCOO<sup>-</sup> (0.035 mol)<br><br>
+        Questa e esattamente la definizione di soluzione tampone! Possiamo usare l'equazione di Henderson-Hasselbalch.
+    </div>
+
+    <div class="step">
+        <div class="step-title">Passo 4: Calcoliamo il pH con Henderson-Hasselbalch</div>
+        <p>Prima calcoliamo il pKa:</p>
+        <p>pKa = -log(1.8 x 10<sup>-4</sup>) = -log(1.8) - log(10<sup>-4</sup>) = -0.255 + 4 = <strong>3.74</strong></p>
+        <p>Ora applichiamo Henderson-Hasselbalch. Poiche il volume e lo stesso per entrambe le specie, possiamo usare direttamente il rapporto delle moli:</p>
+        <p>pH = pKa + log(n<sub>base</sub>/n<sub>acido</sub>) = 3.74 + log(0.035/0.025)</p>
+        <p>Calcoliamo il rapporto: 0.035/0.025 = 1.4</p>
+        <p>log(1.4) = 0.146</p>
+        <p>pH = 3.74 + 0.146 = <strong>3.89</strong></p>
+    </div>
+
+    <div class="concetto">
+        <strong>Interpretazione del risultato:</strong><br>
+        Il pH (3.89) e leggermente superiore al pKa (3.74). Questo ha senso perche abbiamo piu base coniugata (0.035 mol) che acido (0.025 mol). Quando [A<sup>-</sup>] > [HA], il rapporto e maggiore di 1, il logaritmo e positivo, e quindi pH > pKa.<br><br>
+        La soluzione rimane comunque acida (pH < 7) perche siamo nell'intorno del pKa di un acido debole.
+    </div>
+
+    <div class="risultato">
+        pH = 3.89 (soluzione tampone acida)
+    </div>
+</div>
+
+<!-- ESERCIZIO 5 -->
+<div class="esempio-esame">
+    <div class="titolo">ESERCIZIO 5: Miscela acido forte + base forte con eccesso</div>
+
+    <div class="domanda">
+    <strong>Testo:</strong> A 50 mL di una soluzione di idrossido di sodio (NaOH) 0.35 M si aggiungono 100 mL di una soluzione di acido bromidrico (HBr) 0.6 M. Calcolare il pH della soluzione risultante.
+    </div>
+
+    <h4>Analisi del problema</h4>
+    <p>Abbiamo due soluzioni che vengono mescolate:</p>
+    <ul>
+        <li><strong>NaOH</strong> (idrossido di sodio) - una <strong>BASE FORTE</strong></li>
+        <li><strong>HBr</strong> (acido bromidrico) - un <strong>ACIDO FORTE</strong></li>
+    </ul>
+    <p>Quando un acido forte incontra una base forte, avviene una reazione di neutralizzazione:</p>
+    <p style="text-align: center;">H<sup>+</sup> + OH<sup>-</sup> --> H<sub>2</sub>O</p>
+    <p>La domanda chiave e: <strong>chi e in eccesso?</strong></p>
+
+    <div class="step">
+        <div class="step-title">Passo 1: Calcoliamo le moli di NaOH</div>
+        <p>n(NaOH) = C x V = 0.35 mol/L x 0.050 L = <strong>0.0175 mol di OH<sup>-</sup></strong></p>
+        <p>(NaOH e monoprotico, quindi 1 mol NaOH = 1 mol OH<sup>-</sup>)</p>
+    </div>
+
+    <div class="step">
+        <div class="step-title">Passo 2: Calcoliamo le moli di HBr</div>
+        <p>n(HBr) = C x V = 0.6 mol/L x 0.100 L = <strong>0.060 mol di H<sup>+</sup></strong></p>
+        <p>(HBr e un acido forte monoprotico)</p>
+    </div>
+
+    <div class="step">
+        <div class="step-title">Passo 3: Chi e in eccesso?</div>
+        <p>Confrontiamo le moli:</p>
+        <ul>
+            <li>Moli di OH<sup>-</sup> (dalla base): 0.0175 mol</li>
+            <li>Moli di H<sup>+</sup> (dall'acido): 0.060 mol</li>
+        </ul>
+        <p>La reazione e 1:1. Dato che 0.060 > 0.0175, <strong>L'ACIDO E' IN ECCESSO!</strong></p>
+        <p>Tutte le 0.0175 moli di OH<sup>-</sup> reagiranno con 0.0175 moli di H<sup>+</sup>.</p>
+        <p>Moli di H<sup>+</sup> in eccesso = 0.060 - 0.0175 = <strong>0.0425 mol</strong></p>
+    </div>
+
+    <div class="step">
+        <div class="step-title">Passo 4: Calcoliamo [H<sup>+</sup>] nel volume totale</div>
+        <p><strong>Attenzione!</strong> Questo e un passaggio che molti studenti dimenticano. Le moli di H<sup>+</sup> in eccesso sono disperse in un volume TOTALE che e la somma dei due volumi mescolati.</p>
+        <p>V<sub>tot</sub> = 50 mL + 100 mL = 150 mL = 0.150 L</p>
+        <p>[H<sup>+</sup>] = n(H<sup>+</sup> eccesso) / V<sub>tot</sub> = 0.0425 mol / 0.150 L = <strong>0.283 M</strong></p>
+    </div>
+
+    <div class="step">
+        <div class="step-title">Passo 5: Calcoliamo il pH</div>
+        <p>pH = -log[H<sup>+</sup>] = -log(0.283)</p>
+        <p>log(0.283) = log(2.83 x 10<sup>-1</sup>) = log(2.83) + log(10<sup>-1</sup>) = 0.452 - 1 = -0.548</p>
+        <p>pH = -(-0.548) = <strong>0.55</strong></p>
+    </div>
+
+    <div class="concetto">
+        <strong>Ha senso questo risultato?</strong><br>
+        Un pH cosi basso (0.55) indica una soluzione molto acida. Questo ha perfettamente senso perche abbiamo aggiunto molto piu acido che base! L'eccesso di H<sup>+</sup> e grande (0.0425 mol), e la concentrazione finale (0.283 M) e piuttosto alta.
+    </div>
+
+    <div class="risultato">
+        pH = 0.55 (soluzione fortemente acida)
+    </div>
+</div>
+
+<!-- ESERCIZIO 6 -->
+<div class="esempio-esame">
+    <div class="titolo">ESERCIZIO 6: pH con grande eccesso di acido forte</div>
+
+    <div class="domanda">
+    <strong>Testo:</strong> Un grammo di carbonato di calcio (CaCO<sub>3</sub>) viene aggiunto a 1 litro di una soluzione di HCl 1.45 M. Calcolare il pH della soluzione finale.<br>
+    Dati: MM(CaCO<sub>3</sub>) = 100 g/mol<br>
+    Reazione: CaCO<sub>3</sub> + 2HCl --> CaCl<sub>2</sub> + H<sub>2</sub>O + CO<sub>2</sub>
+    </div>
+
+    <h4>Analisi del problema</h4>
+    <p>Il carbonato di calcio reagisce con l'acido cloridrico. Dalla reazione data, vediamo che servono 2 moli di HCl per ogni mole di CaCO<sub>3</sub>. Dobbiamo capire chi e in eccesso.</p>
+
+    <div class="step">
+        <div class="step-title">Passo 1: Calcoliamo le moli di CaCO<sub>3</sub></div>
+        <p>n(CaCO<sub>3</sub>) = m / MM = 1 g / 100 g/mol = <strong>0.01 mol</strong></p>
+    </div>
+
+    <div class="step">
+        <div class="step-title">Passo 2: Calcoliamo le moli di HCl</div>
+        <p>n(HCl) = C x V = 1.45 mol/L x 1 L = <strong>1.45 mol</strong></p>
+    </div>
+
+    <div class="step">
+        <div class="step-title">Passo 3: Stechiometria - quante moli di HCl servono?</div>
+        <p>Dalla reazione bilanciata: 1 mol CaCO<sub>3</sub> reagisce con 2 mol HCl</p>
+        <p>Quindi per reagire con 0.01 mol di CaCO<sub>3</sub> servono:</p>
+        <p>n(HCl)<sub>necessarie</sub> = 2 x 0.01 = <strong>0.02 mol</strong></p>
+        <p>Abbiamo 1.45 mol di HCl ma ne servono solo 0.02. <strong>L'HCl e in grande eccesso!</strong></p>
+    </div>
+
+    <div class="step">
+        <div class="step-title">Passo 4: Calcoliamo l'HCl in eccesso</div>
+        <p>n(HCl)<sub>eccesso</sub> = 1.45 - 0.02 = <strong>1.43 mol</strong></p>
+        <p>Praticamente tutto l'acido che avevamo! (Abbiamo consumato solo l'1.4% dell'acido iniziale)</p>
+    </div>
+
+    <div class="step">
+        <div class="step-title">Passo 5: Calcoliamo [H<sup>+</sup>]</div>
+        <p>HCl e un acido forte, si dissocia completamente:</p>
+        <p>[H<sup>+</sup>] = n(HCl)<sub>eccesso</sub> / V = 1.43 mol / 1 L = <strong>1.43 M</strong></p>
+    </div>
+
+    <div class="step">
+        <div class="step-title">Passo 6: Calcoliamo il pH</div>
+        <p>pH = -log(1.43) = -0.155 = <strong>-0.16</strong></p>
+    </div>
+
+    <div class="concetto">
+        <strong>Un pH negativo? E possibile?</strong><br>
+        Si, e assolutamente possibile e corretto! Un pH negativo significa semplicemente che [H<sup>+</sup>] > 1 M.<br>
+        - pH = 0 corrisponde a [H<sup>+</sup>] = 1 M<br>
+        - pH < 0 corrisponde a [H<sup>+</sup>] > 1 M<br><br>
+        Nel nostro caso, [H<sup>+</sup>] = 1.43 M, quindi il pH e negativo. Questa e una soluzione estremamente acida!
+    </div>
+
+    <div class="risultato">
+        pH = -0.16 (soluzione estremamente acida - pH negativo!)
+    </div>
+</div>
+
+<!-- ESERCIZIO 7 -->
+<div class="esempio-esame">
+    <div class="titolo">ESERCIZIO 7: pH prima e dopo l'aggiunta di base forte (tampone)</div>
+
+    <div class="domanda">
+    <strong>Testo:</strong> A 100 mL di una soluzione acquosa di acido acetico 0.10 M (CH<sub>3</sub>COOH, Ka = 1.8 x 10<sup>-5</sup>) vengono aggiunti 0.24 g di NaOH. Calcolare il pH della soluzione prima e dopo l'aggiunta.<br>
+    Dati: MM(NaOH) = 40 g/mol
+    </div>
+
+    <h4>PARTE A: pH PRIMA dell'aggiunta</h4>
+    <p>Prima dell'aggiunta abbiamo semplicemente una soluzione di acido debole.</p>
+
+    <div class="step">
+        <div class="step-title">Verifichiamo l'approssimazione</div>
+        <p>Ca/Ka = 0.10 / 1.8 x 10<sup>-5</sup> = 5556 >> 100</p>
+        <p>L'approssimazione e valida!</p>
+    </div>
+
+    <div class="step">
+        <div class="step-title">Calcoliamo [H<sup>+</sup>] e pH</div>
+        <p>[H<sup>+</sup>] = sqrt(Ka x Ca) = sqrt(1.8 x 10<sup>-5</sup> x 0.10) = sqrt(1.8 x 10<sup>-6</sup>) = <strong>1.34 x 10<sup>-3</sup> M</strong></p>
+        <p>pH = -log(1.34 x 10<sup>-3</sup>) = <strong>2.87</strong></p>
+    </div>
+
+    <h4>PARTE B: pH DOPO l'aggiunta</h4>
+
+    <div class="step">
+        <div class="step-title">Passo 1: Calcoliamo le moli</div>
+        <p><strong>Moli di CH<sub>3</sub>COOH:</strong></p>
+        <p>n = C x V = 0.10 mol/L x 0.100 L = <strong>0.010 mol = 10 mmol</strong></p>
+        <p><strong>Moli di NaOH:</strong></p>
+        <p>n = m / MM = 0.24 g / 40 g/mol = <strong>0.006 mol = 6 mmol</strong></p>
+    </div>
+
+    <div class="step">
+        <div class="step-title">Passo 2: Reazione di neutralizzazione</div>
+        <p>NaOH e una base forte che reagisce con l'acido acetico:</p>
+        <p style="text-align: center;">CH<sub>3</sub>COOH + OH<sup>-</sup> --> CH<sub>3</sub>COO<sup>-</sup> + H<sub>2</sub>O</p>
+        <p>Questa reazione e <strong>quantitativa</strong> (va a completamento).</p>
+    </div>
+
+    <div class="step">
+        <div class="step-title">Passo 3: Bilancio delle moli</div>
+        <p>NaOH e il reagente limitante (6 mmol < 10 mmol)</p>
+        <p><strong>Dopo la reazione:</strong></p>
+        <ul>
+            <li>CH<sub>3</sub>COOH rimasto: 10 - 6 = <strong>4 mmol</strong></li>
+            <li>CH<sub>3</sub>COO<sup>-</sup> formato: <strong>6 mmol</strong></li>
+        </ul>
+    </div>
+
+    <div class="concetto">
+        <strong>Abbiamo creato un TAMPONE!</strong><br>
+        Dopo la reazione abbiamo sia acido debole (4 mmol) che base coniugata (6 mmol). Questa e una soluzione tampone!
+    </div>
+
+    <div class="step">
+        <div class="step-title">Passo 4: Henderson-Hasselbalch</div>
+        <p>pKa = -log(1.8 x 10<sup>-5</sup>) = 4.74</p>
+        <p>pH = pKa + log(n<sub>base</sub>/n<sub>acido</sub>) = 4.74 + log(6/4) = 4.74 + log(1.5) = 4.74 + 0.18 = <strong>4.92</strong></p>
+    </div>
+
+    <div class="concetto">
+        <strong>Cosa e successo?</strong><br>
+        Il pH e aumentato da 2.87 a 4.92 (un aumento di oltre 2 unita). L'NaOH ha neutralizzato parte dell'acido acetico, riducendo [H<sup>+</sup>]. Il pH risultante (4.92) e vicino al pKa (4.74), tipico di un buon tampone.
+    </div>
+
+    <div class="risultato">
+        pH PRIMA = 2.87 | pH DOPO = 4.92 (tampone)
+    </div>
+</div>
+
+<!-- ESERCIZIO 8 -->
+<div class="esempio-esame">
+    <div class="titolo">ESERCIZIO 8: Acido debole con aggiunta di sale (tampone a rapporto 1:1)</div>
+
+    <div class="domanda">
+    <strong>Testo:</strong> Calcolare il pH di una soluzione di acido benzoico 0.10 M (Ka = 6.45 x 10<sup>-5</sup>). A 500 mL di questa soluzione si aggiungono 0.050 moli di benzoato di sodio. Calcolare il nuovo pH.
+    </div>
+
+    <h4>PARTE A: pH iniziale</h4>
+    <p>Questo l'abbiamo gia calcolato nell'Esercizio 1: <strong>pH = 2.60</strong></p>
+
+    <h4>PARTE B: pH dopo l'aggiunta del sale</h4>
+
+    <div class="step">
+        <div class="step-title">Passo 1: Calcoliamo le moli di acido</div>
+        <p>n(acido benzoico) = C x V = 0.10 M x 0.500 L = <strong>0.050 mol</strong></p>
+        <p>n(benzoato) = <strong>0.050 mol</strong> (ci viene dato dal problema)</p>
+    </div>
+
+    <div class="step">
+        <div class="step-title">Passo 2: Henderson-Hasselbalch</div>
+        <p>pKa = -log(6.45 x 10<sup>-5</sup>) = 4.19</p>
+        <p>pH = pKa + log(n<sub>base</sub>/n<sub>acido</sub>) = 4.19 + log(0.050/0.050)</p>
+        <p>pH = 4.19 + log(1) = 4.19 + 0 = <strong>4.19</strong></p>
+    </div>
+
+    <div class="concetto">
+        <strong>Caso speciale: quando le moli sono uguali!</strong><br>
+        Quando n<sub>acido</sub> = n<sub>base</sub>, il rapporto e 1 e log(1) = 0.<br>
+        Quindi <strong>pH = pKa</strong>!<br><br>
+        Questa e la condizione di <strong>massima capacita tamponante</strong>: il tampone resiste al meglio alle variazioni di pH quando l'acido e la base coniugata sono in quantita uguali.
+    </div>
+
+    <div class="risultato">
+        pH iniziale = 2.60 | pH con tampone = 4.19 = pKa
+    </div>
+</div>
+
+<!-- SEZIONE 9: ERRORI -->
+<h2>9. Errori Comuni da Evitare</h2>
+
+<div class="attenzione">
+    <strong>ERRORI DA EVITARE:</strong>
+
+    <h4>1. Confondere acidi/basi forti e deboli</h4>
+    <ul>
+        <li>Per acidi FORTI (HCl, HNO<sub>3</sub>, H<sub>2</sub>SO<sub>4</sub>...): [H<sup>+</sup>] = Ca direttamente, NON usare Ka!</li>
+        <li>Per acidi DEBOLI: devi usare Ka e risolvere l'equilibrio</li>
+        <li>Se il problema ti da Ka, l'acido e DEBOLE</li>
+    </ul>
+
+    <h4>2. Dimenticare il volume totale nelle miscele</h4>
+    <ul>
+        <li>Quando mescoli due soluzioni, il volume totale aumenta!</li>
+        <li>[H<sup>+</sup>] finale = moli in eccesso / V<sub>totale</sub>, NON / V<sub>iniziale</sub></li>
+    </ul>
+
+    <h4>3. Errori con basi diprotiche</h4>
+    <ul>
+        <li>Mg(OH)<sub>2</sub>, Ca(OH)<sub>2</sub>, Ba(OH)<sub>2</sub> liberano <strong>2 OH<sup>-</sup></strong> per molecola</li>
+        <li>[OH<sup>-</sup>] = 2 x Cb, NON Cb</li>
+        <li>n(OH<sup>-</sup>) = 2 x n(base)</li>
+    </ul>
+
+    <h4>4. Non riconoscere un tampone</h4>
+    <ul>
+        <li>Se dopo una reazione rimangono SIA acido debole SIA base coniugata --> usa Henderson-Hasselbalch</li>
+        <li>Se uno dei due e completamente esaurito --> NON hai un tampone</li>
+    </ul>
+
+    <h4>5. Usare l'approssimazione quando non e valida</h4>
+    <ul>
+        <li>Verifica SEMPRE che Ca/Ka > 100 prima di usare [H<sup>+</sup>] = sqrt(Ka x Ca)</li>
+        <li>Se il grado di dissociazione supera il 5%, devi usare l'equazione completa</li>
+    </ul>
+
+    <h4>6. Confondere pH e pOH per le basi</h4>
+    <ul>
+        <li>Per le basi calcoli PRIMA pOH, POI pH = 14 - pOH</li>
+        <li>Non applicare direttamente le formule degli acidi!</li>
+    </ul>
+
+    <h4>7. Dimenticare le unita di misura</h4>
+    <ul>
+        <li>Il volume deve essere in <strong>LITRI</strong> per calcolare le moli: n = C x V</li>
+        <li>Le concentrazioni sono in mol/L (M)</li>
+        <li>Converti sempre mL in L dividendo per 1000</li>
+    </ul>
+</div>
+
+<!-- SEZIONE 10: RIEPILOGO -->
+<h2>10. Riepilogo Formule</h2>
+
+<div class="riepilogo">
+    <h3>Formule Fondamentali</h3>
+
+    <table>
+        <tr>
+            <th>Formula</th>
+            <th>Quando usarla</th>
+        </tr>
+        <tr>
+            <td><strong>pH = -log[H<sup>+</sup>]</strong></td>
+            <td>Definizione di pH</td>
+        </tr>
+        <tr>
+            <td><strong>[H<sup>+</sup>] = 10<sup>-pH</sup></strong></td>
+            <td>Da pH a concentrazione di H<sup>+</sup></td>
+        </tr>
+        <tr>
+            <td><strong>pH + pOH = 14</strong></td>
+            <td>Relazione fondamentale (a 25C)</td>
+        </tr>
+        <tr>
+            <td><strong>K<sub>w</sub> = [H<sup>+</sup>][OH<sup>-</sup>] = 10<sup>-14</sup></strong></td>
+            <td>Prodotto ionico dell'acqua</td>
+        </tr>
+        <tr>
+            <td><strong>Ka = [H<sup>+</sup>][A<sup>-</sup>]/[HA]</strong></td>
+            <td>Costante di acidita</td>
+        </tr>
+        <tr>
+            <td><strong>Ka x Kb = K<sub>w</sub></strong></td>
+            <td>Relazione tra Ka e Kb coniugati</td>
+        </tr>
+        <tr>
+            <td><strong>[H<sup>+</sup>] = sqrt(Ka x Ca)</strong></td>
+            <td>Acido debole (se Ca/Ka > 100)</td>
+        </tr>
+        <tr>
+            <td><strong>Ca = x<sup>2</sup>/Ka + x</strong></td>
+            <td>Problema inverso (da pH a concentrazione)</td>
+        </tr>
+        <tr>
+            <td><strong>pH = pKa + log([A<sup>-</sup>]/[HA])</strong></td>
+            <td>Henderson-Hasselbalch (tamponi)</td>
+        </tr>
+        <tr>
+            <td><strong>Ki = K<sub>w</sub>/Ka</strong></td>
+            <td>Costante di idrolisi</td>
+        </tr>
+    </table>
+
+    <h3>Costanti da ricordare</h3>
+    <ul>
+        <li>K<sub>w</sub> = 10<sup>-14</sup> (a 25C)</li>
+        <li>Ka(CH<sub>3</sub>COOH) = 1.8 x 10<sup>-5</sup> (pKa = 4.74)</li>
+        <li>Kb(NH<sub>3</sub>) = 1.8 x 10<sup>-5</sup> (pKb = 4.74)</li>
+        <li>Volume molare a c.n. = 22.4 L/mol (0C, 1 atm)</li>
+    </ul>
+
+    <h3>Schema decisionale rapido</h3>
+    <ol>
+        <li><strong>Acido/base forte?</strong> --> [H<sup>+</sup>] = Ca (o [OH<sup>-</sup>] = Cb x n° di OH)</li>
+        <li><strong>Acido/base debole solo?</strong> --> Usa Ka o Kb con equilibrio</li>
+        <li><strong>Miscela che forma tampone?</strong> --> Henderson-Hasselbalch</li>
+        <li><strong>Miscela con eccesso?</strong> --> Calcola moli in eccesso / V<sub>tot</sub></li>
+        <li><strong>Sale in acqua?</strong> --> Valuta idrolisi</li>
+    </ol>
+</div>
+
+</body>
+</html>

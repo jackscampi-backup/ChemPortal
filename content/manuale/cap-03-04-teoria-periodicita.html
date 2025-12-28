@@ -1,0 +1,1275 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Capitolo 03-04 - Teoria Atomica e Periodicita</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 2cm;
+        }
+        body {
+            font-family: Georgia, serif;
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            line-height: 1.8;
+            color: #333;
+        }
+        h1 {
+            color: #1a5276;
+            border-bottom: 4px solid #2980b9;
+            padding-bottom: 15px;
+            font-size: 2em;
+        }
+        h2 {
+            color: #2471a3;
+            margin-top: 40px;
+            border-left: 4px solid #3498db;
+            padding-left: 15px;
+            page-break-after: avoid;
+        }
+        h3 {
+            color: #1e8449;
+            margin-top: 25px;
+        }
+        h4 {
+            color: #7d3c98;
+            margin-top: 20px;
+        }
+        .indice {
+            background: #eaf2f8;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .indice ul {
+            columns: 2;
+            list-style-type: none;
+            padding-left: 0;
+        }
+        .indice li {
+            margin: 5px 0;
+        }
+        .indice a {
+            color: #2471a3;
+            text-decoration: none;
+        }
+        .prerequisiti {
+            background: #fef9e7;
+            padding: 15px;
+            border-left: 4px solid #f39c12;
+            margin: 20px 0;
+        }
+        .definizione {
+            background: #e8f6f3;
+            padding: 15px;
+            border-left: 4px solid #1abc9c;
+            margin: 15px 0;
+        }
+        .formula-box {
+            background: #fdebd0;
+            padding: 20px;
+            border: 2px solid #e67e22;
+            border-radius: 8px;
+            margin: 20px 0;
+            text-align: center;
+            font-size: 1.2em;
+        }
+        .formula-box .nome {
+            font-weight: bold;
+            color: #d35400;
+            margin-bottom: 10px;
+        }
+        .formula-box .formula {
+            font-size: 1.3em;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+        }
+        .formula-box .quando {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 10px;
+            text-align: left;
+        }
+        .formula-box .unita {
+            font-size: 0.85em;
+            color: #555;
+            text-align: left;
+            margin-top: 10px;
+            background: #fff;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .esempio-esame {
+            background: #e8f4fd;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+            border: 2px solid #3498db;
+        }
+        .esempio-esame .titolo {
+            font-weight: bold;
+            color: #2980b9;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+        .attenzione {
+            background: #fdedec;
+            padding: 15px;
+            border-left: 4px solid #e74c3c;
+            margin: 15px 0;
+        }
+        .riepilogo {
+            background: #d5f5e3;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 30px 0;
+        }
+        .procedura {
+            background: #fff;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        .procedura ol {
+            margin: 0;
+            padding-left: 20px;
+        }
+        .procedura li {
+            margin: 8px 0;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #bdc3c7;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background: #3498db;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        sub { font-size: 0.75em; }
+        sup { font-size: 0.75em; }
+        .step {
+            background: #f0f8ff;
+            padding: 10px 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border-left: 3px solid #3498db;
+        }
+        .risultato {
+            background: #d4edda;
+            padding: 15px;
+            border-radius: 5px;
+            border: 2px solid #28a745;
+            text-align: center;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+        .nota {
+            background: #fff3cd;
+            padding: 10px 15px;
+            border-left: 4px solid #ffc107;
+            margin: 15px 0;
+            font-style: italic;
+        }
+        .costanti-box {
+            background: #f8f9fa;
+            padding: 15px;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        .concetto {
+            background: #e8f4f8;
+            border: 1px solid #3498db;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        .concetto-title {
+            font-weight: bold;
+            color: #2980b9;
+            margin-bottom: 8px;
+        }
+        .analogia {
+            background: #f3e5f5;
+            border-left: 4px solid #9c27b0;
+            padding: 15px;
+            margin: 15px 0;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Capitolo 03-04: Teoria Atomica e Periodicita</h1>
+
+<div class="indice">
+    <strong>INDICE DEL CAPITOLO</strong>
+    <ul>
+        <li>1. Prerequisiti</li>
+        <li>2. Natura della luce</li>
+        <li>3. Effetto fotoelettrico</li>
+        <li>4. Modello atomico di Bohr</li>
+        <li>5. Numeri quantici</li>
+        <li>6. Configurazioni elettroniche</li>
+        <li>7. Proprieta periodiche</li>
+        <li>8. Esercizi d'esame svolti</li>
+        <li>9. Errori comuni</li>
+        <li>10. Riepilogo formule</li>
+    </ul>
+</div>
+
+<div class="prerequisiti">
+    <strong>PREREQUISITI</strong>
+    <ul>
+        <li>Conoscere la struttura base dell'atomo (protoni, neutroni, elettroni)</li>
+        <li>Sapere cos'e il numero atomico Z e il numero di massa A</li>
+        <li>Operazioni con potenze di 10</li>
+        <li>Concetto di energia e sue unita di misura (J, eV)</li>
+    </ul>
+</div>
+
+<!-- SEZIONE 1: NATURA DELLA LUCE -->
+<h2>1. La Natura della Luce</h2>
+
+<p>Prima di capire la struttura dell'atomo, dobbiamo capire la luce. Perche? Perche tutto cio che sappiamo sugli atomi deriva dall'analisi della luce che emettono o assorbono.</p>
+
+<p>La luce e un'<strong>onda elettromagnetica</strong>, cioe una forma di energia che si propaga nello spazio. Come tutte le onde, ha due caratteristiche fondamentali:</p>
+
+<div class="definizione">
+    <strong>Lunghezza d'onda (lambda):</strong> la distanza tra due creste consecutive dell'onda. Si misura in metri (m) o nanometri (nm). 1 nm = 10<sup>-9</sup> m.
+    <br><br>
+    <strong>Frequenza (nu):</strong> il numero di oscillazioni complete al secondo. Si misura in Hertz (Hz), dove 1 Hz = 1 s<sup>-1</sup>.
+</div>
+
+<p>Queste due grandezze sono legate dalla velocita della luce:</p>
+
+<div class="formula-box">
+    <div class="nome">Relazione lunghezza d'onda - frequenza</div>
+    <div class="formula">c = lambda x nu</div>
+    <div class="quando">
+        <strong>QUANDO USARLA:</strong> Ogni volta che devi convertire tra lunghezza d'onda e frequenza.
+    </div>
+    <div class="unita">
+        <strong>Unita di misura:</strong><br>
+        - c = 3,00 x 10<sup>8</sup> m/s (velocita della luce, costante)<br>
+        - lambda in metri (m)<br>
+        - nu in Hertz (Hz = s<sup>-1</sup>)
+    </div>
+</div>
+
+<p>Questa relazione ci dice qualcosa di importante: <strong>lunghezza d'onda e frequenza sono inversamente proporzionali</strong>. Se una aumenta, l'altra diminuisce, perche il loro prodotto deve sempre essere uguale a c.</p>
+
+<!-- SEZIONE 2: ENERGIA DEL FOTONE -->
+<h2>2. L'Energia del Fotone</h2>
+
+<p>Max Planck nel 1900 fece una scoperta rivoluzionaria: l'energia non viene scambiata in modo continuo, ma in "pacchetti" discreti chiamati <strong>quanti</strong>. Einstein applico questa idea alla luce, proponendo che la luce stessa fosse composta da "particelle di energia" chiamate <strong>fotoni</strong>.</p>
+
+<div class="formula-box">
+    <div class="nome">Energia di un fotone</div>
+    <div class="formula">E = h x nu</div>
+    <div class="quando">
+        <strong>QUANDO USARLA:</strong> Calcolare l'energia associata a una radiazione di data frequenza.
+    </div>
+    <div class="unita">
+        <strong>Unita di misura:</strong><br>
+        - E in Joule (J)<br>
+        - h = 6,626 x 10<sup>-34</sup> J x s (costante di Planck)<br>
+        - nu in Hz
+    </div>
+</div>
+
+<p>Combinando con c = lambda x nu, possiamo anche scrivere:</p>
+
+<div class="formula-box">
+    <div class="nome">Energia in funzione della lunghezza d'onda</div>
+    <div class="formula">E = h x c / lambda</div>
+    <div class="quando">
+        <strong>QUANDO USARLA:</strong> Quando conosci la lunghezza d'onda invece della frequenza.
+    </div>
+</div>
+
+<p>Da queste formule capiamo che:</p>
+<ul>
+    <li>Maggiore frequenza = maggiore energia (luce blu/viola)</li>
+    <li>Minore frequenza = minore energia (luce rossa/infrarossa)</li>
+    <li>L'energia e <strong>direttamente proporzionale</strong> alla frequenza</li>
+    <li>L'energia e <strong>inversamente proporzionale</strong> alla lunghezza d'onda</li>
+</ul>
+
+<!-- SEZIONE 3: EFFETTO FOTOELETTRICO -->
+<h2>3. L'Effetto Fotoelettrico</h2>
+
+<p>L'effetto fotoelettrico e un fenomeno che Einstein spiego nel 1905 (vincendo il Nobel per questo). Quando la luce colpisce una superficie metallica, puo "strappare" elettroni dal metallo. Ma non tutte le luci funzionano!</p>
+
+<div class="concetto">
+    <div class="concetto-title">Il concetto chiave</div>
+    <p>Ogni metallo ha una <strong>frequenza di soglia</strong> (nu<sub>0</sub>). Se la luce ha frequenza minore di nu<sub>0</sub>, non vengono emessi elettroni, non importa quanto sia intensa la luce. Se la frequenza e maggiore di nu<sub>0</sub>, gli elettroni vengono emessi e l'energia in eccesso diventa energia cinetica dell'elettrone.</p>
+</div>
+
+<div class="formula-box">
+    <div class="nome">Equazione dell'effetto fotoelettrico</div>
+    <div class="formula">E<sub>fotone</sub> = W + E<sub>cinetica</sub></div>
+    <div class="formula">h x nu = h x nu<sub>0</sub> + (1/2) x m x v<sup>2</sup></div>
+    <div class="quando">
+        <strong>QUANDO USARLA:</strong><br>
+        - Verificare se una radiazione puo causare emissione di elettroni<br>
+        - Calcolare l'energia cinetica degli elettroni emessi<br>
+        - Calcolare il lavoro di estrazione di un metallo
+    </div>
+    <div class="unita">
+        <strong>Grandezze:</strong><br>
+        - W = h x nu<sub>0</sub> = lavoro di estrazione (energia minima per estrarre un elettrone)<br>
+        - nu<sub>0</sub> = frequenza di soglia<br>
+        - E<sub>cinetica</sub> = energia cinetica dell'elettrone emesso
+    </div>
+</div>
+
+<div class="procedura">
+    <strong>PROCEDURA per problemi sull'effetto fotoelettrico:</strong>
+    <ol>
+        <li><strong>Identifica i dati:</strong> frequenza di soglia nu<sub>0</sub>, lunghezza d'onda della radiazione incidente lambda</li>
+        <li><strong>Converti se necessario:</strong> se hai lambda, calcola nu = c / lambda</li>
+        <li><strong>Confronta:</strong> se nu < nu<sub>0</sub>, NON c'e emissione</li>
+        <li><strong>Se nu > nu<sub>0</sub>:</strong> calcola E<sub>cinetica</sub> = h x nu - h x nu<sub>0</sub></li>
+    </ol>
+</div>
+
+<!-- SEZIONE 4: MODELLO DI BOHR -->
+<h2>4. Il Modello Atomico di Bohr</h2>
+
+<p>Nel 1913, Niels Bohr propose un modello per l'atomo di idrogeno basato su tre postulati fondamentali:</p>
+
+<div class="definizione">
+    <strong>I Postulato:</strong> L'elettrone si muove in orbite circolari attorno al nucleo.
+    <br><br>
+    <strong>II Postulato:</strong> Sono permesse solo quelle orbite in cui il momento angolare dell'elettrone e un multiplo intero di h/(2 x pi). Quando l'elettrone si trova in queste orbite, l'atomo non emette energia.
+    <br><br>
+    <strong>III Postulato:</strong> L'atomo puo assorbire o emettere energia solo quando l'elettrone passa da un'orbita all'altra.
+</div>
+
+<p>Da questi postulati, Bohr derivo formule per calcolare l'energia degli elettroni nei vari livelli:</p>
+
+<div class="formula-box">
+    <div class="nome">Energia dei livelli nell'atomo di idrogeno</div>
+    <div class="formula">E<sub>n</sub> = -E<sub>0</sub> / n<sup>2</sup></div>
+    <div class="quando">
+        <strong>QUANDO USARLA:</strong> Calcolare l'energia di un elettrone in un dato livello n.
+    </div>
+    <div class="unita">
+        <strong>Valori:</strong><br>
+        - E<sub>0</sub> = 2,179 x 10<sup>-18</sup> J = 13,6 eV (energia dello stato fondamentale)<br>
+        - n = numero quantico principale (1, 2, 3, ...)<br>
+        - Il segno negativo indica che l'elettrone e "legato" al nucleo
+    </div>
+</div>
+
+<p>Per atomi con piu di un elettrone, dobbiamo tenere conto dell'<strong>effetto schermo</strong>: gli elettroni interni "nascondono" parte della carica del nucleo agli elettroni esterni. Si introduce quindi la <strong>carica nucleare efficace</strong> Z<sub>eff</sub>:</p>
+
+<div class="formula-box">
+    <div class="nome">Energia con carica nucleare efficace (Regole di Slater)</div>
+    <div class="formula">E = -13,6 eV x (Z<sub>eff</sub>)<sup>2</sup> / n<sup>2</sup></div>
+    <div class="quando">
+        <strong>QUANDO USARLA:</strong> Calcolare potenziali di ionizzazione quando ti viene data Z<sub>eff</sub>.
+    </div>
+</div>
+
+<div class="formula-box">
+    <div class="nome">Formula di Rydberg (transizioni elettroniche)</div>
+    <div class="formula">1/lambda = R<sub>H</sub> x (1/n<sub>1</sub><sup>2</sup> - 1/n<sub>2</sub><sup>2</sup>)</div>
+    <div class="quando">
+        <strong>QUANDO USARLA:</strong> Calcolare la lunghezza d'onda della luce emessa o assorbita in una transizione.
+    </div>
+    <div class="unita">
+        <strong>Valori:</strong><br>
+        - R<sub>H</sub> = 1,097 x 10<sup>7</sup> m<sup>-1</sup> (costante di Rydberg)<br>
+        - n<sub>1</sub> = livello finale, n<sub>2</sub> = livello iniziale (per emissione, n<sub>2</sub> > n<sub>1</sub>)
+    </div>
+</div>
+
+<!-- SEZIONE 5: NUMERI QUANTICI -->
+<h2>5. I Numeri Quantici</h2>
+
+<p>Ogni elettrone in un atomo e descritto da <strong>quattro numeri quantici</strong>, che sono come un "indirizzo" univoco per ogni elettrone.</p>
+
+<table>
+    <tr>
+        <th>Numero Quantico</th>
+        <th>Simbolo</th>
+        <th>Valori Permessi</th>
+        <th>Cosa Descrive</th>
+    </tr>
+    <tr>
+        <td>Principale</td>
+        <td>n</td>
+        <td>1, 2, 3, 4, ...</td>
+        <td>Livello energetico (dimensione dell'orbitale)</td>
+    </tr>
+    <tr>
+        <td>Secondario (azimutale)</td>
+        <td>l</td>
+        <td>0, 1, 2, ... fino a (n-1)</td>
+        <td>Forma dell'orbitale (s, p, d, f)</td>
+    </tr>
+    <tr>
+        <td>Magnetico</td>
+        <td>m<sub>l</sub></td>
+        <td>da -l a +l</td>
+        <td>Orientazione nello spazio</td>
+    </tr>
+    <tr>
+        <td>Spin</td>
+        <td>m<sub>s</sub></td>
+        <td>+1/2 o -1/2</td>
+        <td>Rotazione dell'elettrone sul proprio asse</td>
+    </tr>
+</table>
+
+<p>La corrispondenza tra il valore di l e il tipo di orbitale e:</p>
+<ul>
+    <li>l = 0 --> orbitale <strong>s</strong> (sferico)</li>
+    <li>l = 1 --> orbitale <strong>p</strong> (a forma di 8, 3 orientazioni)</li>
+    <li>l = 2 --> orbitale <strong>d</strong> (forme complesse, 5 orientazioni)</li>
+    <li>l = 3 --> orbitale <strong>f</strong> (7 orientazioni)</li>
+</ul>
+
+<div class="concetto">
+    <div class="concetto-title">Principio di Esclusione di Pauli</div>
+    <p>In un atomo <strong>non possono esistere due elettroni con gli stessi quattro numeri quantici</strong>. Questo significa che in ogni orbitale (definito da n, l, m<sub>l</sub>) possono stare al massimo 2 elettroni, con spin opposti (+1/2 e -1/2).</p>
+</div>
+
+<!-- SEZIONE 6: CONFIGURAZIONI ELETTRONICHE -->
+<h2>6. Configurazioni Elettroniche</h2>
+
+<p>La <strong>configurazione elettronica</strong> descrive come gli elettroni sono distribuiti nei vari orbitali di un atomo. Per scriverla, seguiamo tre regole:</p>
+
+<div class="procedura">
+    <strong>Regole per scrivere le configurazioni elettroniche:</strong>
+    <ol>
+        <li><strong>Principio di Aufbau:</strong> Gli elettroni occupano prima gli orbitali a energia piu bassa</li>
+        <li><strong>Principio di Pauli:</strong> Massimo 2 elettroni per orbitale, con spin opposti</li>
+        <li><strong>Regola di Hund:</strong> Gli elettroni occupano singolarmente orbitali degeneri (stessa energia) prima di appaiarsi</li>
+    </ol>
+</div>
+
+<p>L'<strong>ordine di riempimento</strong> degli orbitali segue questo schema:</p>
+
+<p style="text-align: center; font-size: 1.1em;">
+1s --> 2s --> 2p --> 3s --> 3p --> 4s --> 3d --> 4p --> 5s --> 4d --> 5p --> 6s --> 4f --> 5d --> 6p --> 7s --> 5f --> 6d --> 7p
+</p>
+
+<div class="nota">
+    <strong>Attenzione alle eccezioni!</strong> Alcuni elementi di transizione hanno configurazioni "anomale" per raggiungere configurazioni d<sup>5</sup> o d<sup>10</sup> piu stabili:
+    <br>- Cromo (Cr): [Ar] 4s<sup>1</sup> 3d<sup>5</sup> (invece di 4s<sup>2</sup> 3d<sup>4</sup>)
+    <br>- Rame (Cu): [Ar] 4s<sup>1</sup> 3d<sup>10</sup> (invece di 4s<sup>2</sup> 3d<sup>9</sup>)
+</div>
+
+<h3>Esempi di configurazioni elettroniche</h3>
+
+<table>
+    <tr>
+        <th>Elemento</th>
+        <th>Z</th>
+        <th>Configurazione completa</th>
+        <th>Configurazione abbreviata</th>
+    </tr>
+    <tr>
+        <td>Idrogeno (H)</td>
+        <td>1</td>
+        <td>1s<sup>1</sup></td>
+        <td>1s<sup>1</sup></td>
+    </tr>
+    <tr>
+        <td>Carbonio (C)</td>
+        <td>6</td>
+        <td>1s<sup>2</sup> 2s<sup>2</sup> 2p<sup>2</sup></td>
+        <td>[He] 2s<sup>2</sup> 2p<sup>2</sup></td>
+    </tr>
+    <tr>
+        <td>Sodio (Na)</td>
+        <td>11</td>
+        <td>1s<sup>2</sup> 2s<sup>2</sup> 2p<sup>6</sup> 3s<sup>1</sup></td>
+        <td>[Ne] 3s<sup>1</sup></td>
+    </tr>
+    <tr>
+        <td>Cloro (Cl)</td>
+        <td>17</td>
+        <td>1s<sup>2</sup> 2s<sup>2</sup> 2p<sup>6</sup> 3s<sup>2</sup> 3p<sup>5</sup></td>
+        <td>[Ne] 3s<sup>2</sup> 3p<sup>5</sup></td>
+    </tr>
+    <tr>
+        <td>Ferro (Fe)</td>
+        <td>26</td>
+        <td>1s<sup>2</sup> 2s<sup>2</sup> 2p<sup>6</sup> 3s<sup>2</sup> 3p<sup>6</sup> 4s<sup>2</sup> 3d<sup>6</sup></td>
+        <td>[Ar] 4s<sup>2</sup> 3d<sup>6</sup></td>
+    </tr>
+</table>
+
+<!-- SEZIONE 7: PROPRIETA PERIODICHE -->
+<h2>7. Proprieta Periodiche</h2>
+
+<h3>7.1 Raggio Atomico</h3>
+
+<p>Il raggio atomico e la "dimensione" dell'atomo. Dipende da due fattori principali:</p>
+<ul>
+    <li><strong>Numero di livelli energetici:</strong> piu livelli = elettroni piu lontani dal nucleo = atomo piu grande</li>
+    <li><strong>Carica nucleare efficace:</strong> piu protoni "tirano" gli elettroni verso il nucleo = atomo piu piccolo</li>
+</ul>
+
+<div class="concetto">
+    <div class="concetto-title">Andamenti nella tavola periodica</div>
+    <p><strong>Lungo un PERIODO (da sinistra a destra):</strong> il raggio atomico DIMINUISCE. Aumenta Z, gli elettroni sono nello stesso livello, la nuvola elettronica viene "compressa".</p>
+    <p><strong>Lungo un GRUPPO (dall'alto in basso):</strong> il raggio atomico AUMENTA. Si aggiungono nuovi livelli energetici, gli elettroni esterni sono sempre piu lontani.</p>
+</div>
+
+<h3>7.2 Raggio Ionico</h3>
+
+<p>Quando un atomo perde o acquista elettroni, la sua dimensione cambia:</p>
+<ul>
+    <li><strong>Cationi (ioni positivi):</strong> perdono elettroni, il raggio DIMINUISCE rispetto all'atomo neutro</li>
+    <li><strong>Anioni (ioni negativi):</strong> acquistano elettroni, il raggio AUMENTA rispetto all'atomo neutro</li>
+</ul>
+
+<h3>7.3 Ioni Isoelettronici</h3>
+
+<div class="definizione">
+    <strong>Ioni isoelettronici:</strong> specie chimiche che hanno lo <strong>stesso numero di elettroni</strong>, quindi la stessa configurazione elettronica, ma un diverso numero di protoni.
+</div>
+
+<p>Questa e una tipologia di esercizio molto frequente all'esame! Per ordinare ioni isoelettronici in base alle dimensioni, la regola e semplice:</p>
+
+<div class="concetto">
+    <div class="concetto-title">Regola d'oro per ioni isoelettronici</div>
+    <p><strong>A parita di elettroni, maggiore e il numero di protoni (Z), minore e il raggio ionico.</strong></p>
+    <p>Perche? Piu protoni nel nucleo significa maggiore attrazione sugli elettroni, che vengono "tirati" piu vicino al nucleo.</p>
+</div>
+
+<h3>7.4 Potenziale di Ionizzazione</h3>
+
+<div class="definizione">
+    <strong>Potenziale di ionizzazione (I):</strong> energia necessaria per rimuovere l'elettrone piu esterno da un atomo neutro gassoso.
+    <br><br>
+    X(g) --> X<sup>+</sup>(g) + e<sup>-</sup>
+</div>
+
+<div class="concetto">
+    <div class="concetto-title">Andamenti nella tavola periodica</div>
+    <p><strong>Lungo un PERIODO:</strong> il potenziale di ionizzazione AUMENTA (da sinistra a destra). Gli elettroni sono piu vicini al nucleo e piu difficili da rimuovere.</p>
+    <p><strong>Lungo un GRUPPO:</strong> il potenziale di ionizzazione DIMINUISCE (dall'alto al basso). Gli elettroni esterni sono piu lontani dal nucleo.</p>
+    <p><strong>Massimi:</strong> Gas nobili (configurazione stabile)</p>
+    <p><strong>Minimi:</strong> Metalli alcalini (un solo elettrone da rimuovere per raggiungere configurazione stabile)</p>
+</div>
+
+<h3>7.5 Affinita Elettronica</h3>
+
+<div class="definizione">
+    <strong>Affinita elettronica (A.E.):</strong> energia scambiata quando un atomo neutro gassoso acquista un elettrone.
+    <br><br>
+    X(g) + e<sup>-</sup> --> X<sup>-</sup>(g)
+</div>
+
+<p>L'affinita elettronica e generalmente piu alta per gli alogeni (che vogliono acquistare un elettrone per completare l'ottetto) e piu bassa (o negativa) per i gas nobili (che hanno gia una configurazione stabile).</p>
+
+<h3>7.6 Elettronegativita</h3>
+
+<div class="definizione">
+    <strong>Elettronegativita (chi):</strong> capacita di un atomo di attrarre verso di se gli elettroni di un legame chimico.
+</div>
+
+<p>L'elemento piu elettronegativo e il <strong>Fluoro</strong> (chi = 4,0 nella scala di Pauling). L'elettronegativita aumenta verso l'alto e verso destra nella tavola periodica (escludendo i gas nobili).</p>
+
+<!-- SEZIONE 8: ESERCIZI D'ESAME -->
+<h2>8. Esercizi d'Esame Svolti</h2>
+
+<!-- ESERCIZIO 1: EFFETTO FOTOELETTRICO -->
+<div class="esempio-esame">
+    <div class="titolo">ESERCIZIO 1: Effetto Fotoelettrico</div>
+
+    <p><strong>Testo:</strong> La frequenza di soglia del cesio e 5,18 x 10<sup>14</sup> s<sup>-1</sup>.
+    <br>a) Determinare se un raggio di luce arancio (lambda = 620 nm) sara sufficiente a provocare emissione di elettroni.
+    <br>b) Calcolare l'energia degli elettroni emessi se il metallo viene colpito da radiazione con lambda = 200 nm.
+    <br>Dati: h = 6,626 x 10<sup>-34</sup> J x s, c = 3,00 x 10<sup>8</sup> m/s</p>
+
+    <h4>Capire il problema</h4>
+    <p>Questo e un classico problema sull'effetto fotoelettrico. Dobbiamo ricordare il concetto fondamentale: <strong>un fotone puo estrarre un elettrone solo se la sua frequenza e maggiore della frequenza di soglia del metallo</strong>. Se la frequenza e inferiore, non importa quanti fotoni arrivano: non ci sara emissione di elettroni.</p>
+
+    <h4>Parte a) - Luce arancio (lambda = 620 nm)</h4>
+
+    <div class="step">
+        <strong>Passo 1:</strong> Convertiamo la lunghezza d'onda in frequenza
+        <p>Prima di tutto, dobbiamo convertire i nanometri in metri:
+        <br>lambda = 620 nm = 620 x 10<sup>-9</sup> m = 6,20 x 10<sup>-7</sup> m</p>
+        <p>Ora usiamo la relazione c = lambda x nu per trovare la frequenza:
+        <br>nu = c / lambda = (3,00 x 10<sup>8</sup> m/s) / (6,20 x 10<sup>-7</sup> m) = <strong>4,84 x 10<sup>14</sup> Hz</strong></p>
+    </div>
+
+    <div class="step">
+        <strong>Passo 2:</strong> Confrontiamo con la frequenza di soglia
+        <p>Frequenza della luce arancio: nu = 4,84 x 10<sup>14</sup> Hz
+        <br>Frequenza di soglia del cesio: nu<sub>0</sub> = 5,18 x 10<sup>14</sup> Hz</p>
+        <p>Notiamo che: <strong>nu < nu<sub>0</sub></strong></p>
+        <p>La frequenza della luce arancio e MINORE della frequenza di soglia. Questo significa che i fotoni della luce arancio non hanno abbastanza energia per superare il "muro" del lavoro di estrazione.</p>
+    </div>
+
+    <div class="risultato">
+        <strong>Risposta a):</strong> NO, la luce arancio NON provoca emissione di elettroni perche la sua frequenza (4,84 x 10<sup>14</sup> Hz) e minore della frequenza di soglia (5,18 x 10<sup>14</sup> Hz).
+    </div>
+
+    <h4>Parte b) - Radiazione UV (lambda = 200 nm)</h4>
+
+    <div class="step">
+        <strong>Passo 1:</strong> Calcoliamo la frequenza della radiazione UV
+        <p>lambda = 200 nm = 2,00 x 10<sup>-7</sup> m
+        <br>nu = c / lambda = (3,00 x 10<sup>8</sup>) / (2,00 x 10<sup>-7</sup>) = <strong>1,50 x 10<sup>15</sup> Hz</strong></p>
+    </div>
+
+    <div class="step">
+        <strong>Passo 2:</strong> Verifichiamo che ci sia emissione
+        <p>nu = 1,50 x 10<sup>15</sup> Hz > nu<sub>0</sub> = 5,18 x 10<sup>14</sup> Hz</p>
+        <p>Si! La frequenza e maggiore della soglia, quindi ci sara emissione di elettroni.</p>
+    </div>
+
+    <div class="step">
+        <strong>Passo 3:</strong> Calcoliamo l'energia del fotone incidente
+        <p>E<sub>fotone</sub> = h x nu = (6,626 x 10<sup>-34</sup>) x (1,50 x 10<sup>15</sup>) = <strong>9,94 x 10<sup>-19</sup> J</strong></p>
+    </div>
+
+    <div class="step">
+        <strong>Passo 4:</strong> Calcoliamo il lavoro di estrazione
+        <p>W = h x nu<sub>0</sub> = (6,626 x 10<sup>-34</sup>) x (5,18 x 10<sup>14</sup>) = <strong>3,43 x 10<sup>-19</sup> J</strong></p>
+    </div>
+
+    <div class="step">
+        <strong>Passo 5:</strong> Calcoliamo l'energia cinetica degli elettroni
+        <p>L'equazione dell'effetto fotoelettrico ci dice che l'energia del fotone si divide in:
+        <br>- Lavoro di estrazione (energia "spesa" per liberare l'elettrone)
+        <br>- Energia cinetica (energia "avanzata" che l'elettrone porta via)</p>
+        <p>E<sub>cinetica</sub> = E<sub>fotone</sub> - W = 9,94 x 10<sup>-19</sup> - 3,43 x 10<sup>-19</sup> = <strong>6,51 x 10<sup>-19</sup> J</strong></p>
+    </div>
+
+    <div class="risultato">
+        <strong>Risposta b):</strong> L'energia cinetica degli elettroni emessi e <strong>E<sub>c</sub> = 6,51 x 10<sup>-19</sup> J</strong>
+    </div>
+</div>
+
+<!-- ESERCIZIO 2: IONI ISOELETTRONICI -->
+<div class="esempio-esame">
+    <div class="titolo">ESERCIZIO 2: Ordinamento di Ioni Isoelettronici</div>
+
+    <p><strong>Testo:</strong> Mettete in ordine di dimensioni crescenti i seguenti ioni isoelettronici: S<sup>2-</sup>, Sc<sup>3+</sup>, Ca<sup>2+</sup>, P<sup>3-</sup>. Motivare.</p>
+
+    <h4>Capire cosa sono gli ioni isoelettronici</h4>
+
+    <p>Prima di tutto, fermiamoci a capire cosa significa "isoelettronici". La parola viene dal greco: "iso" significa "uguale" e "elettronici" si riferisce agli elettroni. Quindi, <strong>ioni isoelettronici sono ioni che hanno lo stesso numero totale di elettroni</strong>, anche se appartengono a elementi diversi.</p>
+
+    <div class="step">
+        <strong>Passo 1:</strong> Verifichiamo che siano davvero isoelettronici
+        <p>Per ogni ione, calcoliamo il numero di elettroni partendo dal numero atomico Z:</p>
+        <ul>
+            <li><strong>P<sup>3-</sup></strong>: Z(P) = 15. L'atomo neutro ha 15 elettroni. Guadagnando 3 elettroni: 15 + 3 = <strong>18 elettroni</strong></li>
+            <li><strong>S<sup>2-</sup></strong>: Z(S) = 16. L'atomo neutro ha 16 elettroni. Guadagnando 2 elettroni: 16 + 2 = <strong>18 elettroni</strong></li>
+            <li><strong>Ca<sup>2+</sup></strong>: Z(Ca) = 20. L'atomo neutro ha 20 elettroni. Perdendo 2 elettroni: 20 - 2 = <strong>18 elettroni</strong></li>
+            <li><strong>Sc<sup>3+</sup></strong>: Z(Sc) = 21. L'atomo neutro ha 21 elettroni. Perdendo 3 elettroni: 21 - 3 = <strong>18 elettroni</strong></li>
+        </ul>
+        <p>Perfetto! Tutti e quattro gli ioni hanno 18 elettroni, la stessa configurazione dell'Argon (Ar): 1s<sup>2</sup> 2s<sup>2</sup> 2p<sup>6</sup> 3s<sup>2</sup> 3p<sup>6</sup></p>
+    </div>
+
+    <h4>Capire cosa determina la dimensione</h4>
+
+    <div class="analogia">
+        <strong>Analogia utile:</strong> Immagina gli elettroni come una nuvola di palloncini legati a un peso centrale (il nucleo). Se il peso e pesante (tanti protoni), i palloncini vengono tirati verso il centro e la nuvola e compatta. Se il peso e leggero (pochi protoni), i palloncini possono espandersi di piu.
+    </div>
+
+    <p>Se tutti gli ioni hanno lo stesso numero di elettroni (18), cosa li rende diversi? Il <strong>numero di protoni nel nucleo</strong>! Piu protoni ci sono, piu forte e l'attrazione sugli elettroni, e quindi piu piccolo sara lo ione.</p>
+
+    <div class="step">
+        <strong>Passo 2:</strong> Organizziamo i dati
+        <table>
+            <tr>
+                <th>Ione</th>
+                <th>Numero di protoni (Z)</th>
+                <th>Numero di elettroni</th>
+            </tr>
+            <tr>
+                <td>P<sup>3-</sup></td>
+                <td>15</td>
+                <td>18</td>
+            </tr>
+            <tr>
+                <td>S<sup>2-</sup></td>
+                <td>16</td>
+                <td>18</td>
+            </tr>
+            <tr>
+                <td>Ca<sup>2+</sup></td>
+                <td>20</td>
+                <td>18</td>
+            </tr>
+            <tr>
+                <td>Sc<sup>3+</sup></td>
+                <td>21</td>
+                <td>18</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="step">
+        <strong>Passo 3:</strong> Applichiamo il ragionamento
+        <ul>
+            <li><strong>P<sup>3-</sup></strong> ha solo 15 protoni per "tenere a bada" 18 elettroni. I protoni sono in minoranza: il nucleo non riesce ad attrarre molto gli elettroni, che si espandono. Questo ione sara il <strong>piu grande</strong>.</li>
+            <li><strong>S<sup>2-</sup></strong> ha 16 protoni per 18 elettroni. Un po' meglio del fosforo, ma ancora i protoni sono meno degli elettroni.</li>
+            <li><strong>Ca<sup>2+</sup></strong> ha 20 protoni per 18 elettroni. Ora i protoni sono piu degli elettroni! Il nucleo riesce ad attirare la nuvola elettronica con forza.</li>
+            <li><strong>Sc<sup>3+</sup></strong> ha 21 protoni per 18 elettroni. Ancora piu protoni, ancora piu attrazione! Questo ione sara il <strong>piu piccolo</strong>.</li>
+        </ul>
+    </div>
+
+    <div class="risultato">
+        <strong>RISPOSTA:</strong> Ordine di dimensioni CRESCENTI (dal piu piccolo al piu grande):
+        <br><br>
+        <span style="font-size: 1.3em;">Sc<sup>3+</sup> < Ca<sup>2+</sup> < S<sup>2-</sup> < P<sup>3-</sup></span>
+        <br><br>
+        <strong>Motivazione:</strong> A parita di elettroni (tutti con 18 e<sup>-</sup>), maggiore e Z, minore e il raggio ionico.
+    </div>
+</div>
+
+<!-- ESERCIZIO 3: CONFIGURAZIONI E RAGGI IONICI -->
+<div class="esempio-esame">
+    <div class="titolo">ESERCIZIO 3: Configurazioni Elettroniche e Confronto Raggi Ionici</div>
+
+    <p><strong>Testo:</strong> Scrivere le configurazioni elettroniche complete di: Cl<sup>-</sup>, Br<sup>-</sup>, Mg<sup>+</sup>, Mg<sup>2+</sup>. Quali tra le coppie a) Mg<sup>+</sup>/Mg<sup>2+</sup> b) Cl<sup>-</sup>/Br<sup>-</sup> e lo ione a raggio minore? Motivare.</p>
+
+    <h4>Parte 1: Configurazioni elettroniche</h4>
+
+    <p>Per scrivere la configurazione di uno ione, partiamo dall'atomo neutro e poi aggiungiamo o togliamo elettroni.</p>
+
+    <div class="step">
+        <strong>Cl<sup>-</sup> (Cloro con carica -1):</strong>
+        <p>Il cloro ha Z = 17, quindi l'atomo neutro ha 17 elettroni.
+        <br>Cl<sup>-</sup> ha guadagnato 1 elettrone, quindi ha 17 + 1 = 18 elettroni.
+        <br><strong>Configurazione:</strong> 1s<sup>2</sup> 2s<sup>2</sup> 2p<sup>6</sup> 3s<sup>2</sup> 3p<sup>6</sup> (isoelettronico con Ar)</p>
+    </div>
+
+    <div class="step">
+        <strong>Br<sup>-</sup> (Bromo con carica -1):</strong>
+        <p>Il bromo ha Z = 35, quindi l'atomo neutro ha 35 elettroni.
+        <br>Br<sup>-</sup> ha guadagnato 1 elettrone, quindi ha 35 + 1 = 36 elettroni.
+        <br><strong>Configurazione:</strong> 1s<sup>2</sup> 2s<sup>2</sup> 2p<sup>6</sup> 3s<sup>2</sup> 3p<sup>6</sup> 4s<sup>2</sup> 3d<sup>10</sup> 4p<sup>6</sup> (isoelettronico con Kr)</p>
+    </div>
+
+    <div class="step">
+        <strong>Mg<sup>+</sup> (Magnesio con carica +1):</strong>
+        <p>Il magnesio ha Z = 12, quindi l'atomo neutro ha 12 elettroni.
+        <br>Mg<sup>+</sup> ha perso 1 elettrone, quindi ha 12 - 1 = 11 elettroni.
+        <br><strong>Configurazione:</strong> 1s<sup>2</sup> 2s<sup>2</sup> 2p<sup>6</sup> 3s<sup>1</sup></p>
+    </div>
+
+    <div class="step">
+        <strong>Mg<sup>2+</sup> (Magnesio con carica +2):</strong>
+        <p>Mg<sup>2+</sup> ha perso 2 elettroni, quindi ha 12 - 2 = 10 elettroni.
+        <br><strong>Configurazione:</strong> 1s<sup>2</sup> 2s<sup>2</sup> 2p<sup>6</sup> (isoelettronico con Ne)</p>
+    </div>
+
+    <h4>Parte 2a: Confronto Mg<sup>+</sup> vs Mg<sup>2+</sup></h4>
+
+    <p>Entrambi gli ioni derivano dallo stesso elemento, quindi hanno <strong>lo stesso numero di protoni</strong> (Z = 12). Cosa cambia? Il numero di elettroni!</p>
+    <ul>
+        <li>Mg<sup>+</sup> ha 11 elettroni</li>
+        <li>Mg<sup>2+</sup> ha 10 elettroni</li>
+    </ul>
+
+    <p>Con lo stesso numero di protoni ma meno elettroni, ogni elettrone rimanente "sente" una maggiore attrazione dal nucleo. Inoltre, Mg<sup>2+</sup> ha perso l'intero livello 3s, quindi gli elettroni rimasti sono tutti nel secondo livello, piu vicino al nucleo.</p>
+
+    <div class="risultato">
+        <strong>Risposta a):</strong> <strong>Mg<sup>2+</sup></strong> ha raggio MINORE.
+        <br>Motivazione: A parita di protoni, meno elettroni = raggio minore (maggiore attrazione nucleare per elettrone).
+    </div>
+
+    <h4>Parte 2b: Confronto Cl<sup>-</sup> vs Br<sup>-</sup></h4>
+
+    <p>Qui non siamo in una serie isoelettronica (hanno numeri diversi di elettroni). Dobbiamo ragionare sulla posizione nella tavola periodica:</p>
+    <ul>
+        <li>Cl<sup>-</sup> e nel 3 periodo (elettroni fino a n = 3)</li>
+        <li>Br<sup>-</sup> e nel 4 periodo (elettroni fino a n = 4)</li>
+    </ul>
+
+    <p>Scendendo lungo un gruppo, si aggiungono livelli energetici. Gli elettroni piu esterni di Br<sup>-</sup> sono nel quarto livello, piu lontano dal nucleo rispetto al terzo livello di Cl<sup>-</sup>.</p>
+
+    <div class="risultato">
+        <strong>Risposta b):</strong> <strong>Cl<sup>-</sup></strong> ha raggio MINORE.
+        <br>Motivazione: Scendendo nel gruppo, il raggio ionico aumenta perche si aggiungono livelli energetici.
+    </div>
+</div>
+
+<!-- ESERCIZIO 4: POTENZIALE DI IONIZZAZIONE -->
+<div class="esempio-esame">
+    <div class="titolo">ESERCIZIO 4: Potenziale di Ionizzazione</div>
+
+    <p><strong>Testo:</strong> Indicare quali elementi della tavola periodica presentano il maggior potenziale di ionizzazione. Motivare.</p>
+
+    <h4>Cos'e il potenziale di ionizzazione?</h4>
+
+    <p>Prima di rispondere, assicuriamoci di capire bene cosa sia il <strong>potenziale di ionizzazione</strong> (chiamato anche <strong>energia di prima ionizzazione</strong>).</p>
+
+    <p>E l'energia minima necessaria per rimuovere l'elettrone piu esterno da un atomo neutro allo stato gassoso:</p>
+
+    <p style="text-align: center;">X(g) --> X<sup>+</sup>(g) + e<sup>-</sup></p>
+
+    <h4>Da cosa dipende?</h4>
+
+    <p>Il potenziale di ionizzazione dipende da due fattori principali:</p>
+
+    <ol>
+        <li><strong>Carica nucleare efficace (Z<sub>eff</sub>):</strong> piu e alta, piu l'elettrone e attratto dal nucleo, piu energia serve per rimuoverlo.</li>
+        <li><strong>Distanza dell'elettrone dal nucleo:</strong> piu l'elettrone e lontano, piu e facile rimuoverlo (forza elettrostatica diminuisce con la distanza).</li>
+    </ol>
+
+    <h4>Andamenti nella tavola periodica</h4>
+
+    <p><strong>Lungo un PERIODO (da sinistra a destra):</strong></p>
+    <ul>
+        <li>Z aumenta (piu protoni)</li>
+        <li>Gli elettroni sono aggiunti nello stesso livello</li>
+        <li>Z<sub>eff</sub> aumenta, il raggio diminuisce</li>
+        <li>Risultato: il potenziale di ionizzazione <strong>AUMENTA</strong></li>
+    </ul>
+
+    <p><strong>Lungo un GRUPPO (dall'alto in basso):</strong></p>
+    <ul>
+        <li>Si aggiungono nuovi livelli energetici</li>
+        <li>Gli elettroni esterni sono sempre piu lontani</li>
+        <li>L'effetto schermo aumenta</li>
+        <li>Risultato: il potenziale di ionizzazione <strong>DIMINUISCE</strong></li>
+    </ul>
+
+    <h4>Conclusione</h4>
+
+    <p>Combinando i due andamenti, gli elementi con il maggior potenziale di ionizzazione si trovano:</p>
+    <ul>
+        <li>In <strong>alto</strong> nella tavola periodica (pochi livelli, elettroni vicini)</li>
+        <li>A <strong>destra</strong> nella tavola periodica (alta Z<sub>eff</sub>)</li>
+    </ul>
+
+    <div class="risultato">
+        <strong>RISPOSTA:</strong> Gli elementi con il maggior potenziale di ionizzazione sono i <strong>GAS NOBILI</strong>, in particolare:
+        <br><br>
+        - <strong>Elio (He)</strong>: 2372 kJ/mol (il piu alto in assoluto!)
+        <br>- <strong>Neon (Ne)</strong>: 2081 kJ/mol
+        <br>- <strong>Argon (Ar)</strong>: 1521 kJ/mol
+        <br><br>
+        Escludendo i gas nobili, l'elemento con il piu alto P.I. e il <strong>Fluoro (F)</strong> con 1681 kJ/mol.
+        <br><br>
+        <strong>Motivazione:</strong> I gas nobili hanno configurazioni elettroniche complete e stabili (ottetto), quindi rimuovere un elettrone significa rompere questa stabilita, il che richiede molta energia.
+    </div>
+</div>
+
+<!-- ESERCIZIO 5: POTENZIALE DI IONIZZAZIONE CON Zeff -->
+<div class="esempio-esame">
+    <div class="titolo">ESERCIZIO 5: Calcolo del Potenziale di Ionizzazione con Z<sub>eff</sub></div>
+
+    <p><strong>Testo:</strong> Stimare il potenziale di prima ionizzazione del Litio, in Joule, sapendo che Z<sub>eff</sub> per l'elettrone 2s vale 1,28.</p>
+
+    <h4>Cosa ci viene chiesto?</h4>
+
+    <p>Dobbiamo calcolare l'energia necessaria per "strappare" l'elettrone piu esterno dall'atomo di Litio neutro. In pratica, stiamo descrivendo questa reazione:</p>
+
+    <p style="text-align: center;">Li(g) --> Li<sup>+</sup>(g) + e<sup>-</sup></p>
+
+    <h4>Che formula usiamo?</h4>
+
+    <p>Utilizziamo una formula derivata dal modello di Bohr, ma modificata per tenere conto dell'effetto schermo degli altri elettroni:</p>
+
+    <p style="text-align: center; font-size: 1.1em;"><strong>E = -13,6 eV x (Z<sub>eff</sub>)<sup>2</sup> / n<sup>2</sup></strong></p>
+
+    <p>Dove:</p>
+    <ul>
+        <li><strong>E</strong> = energia dell'elettrone (negativa perche l'elettrone e "legato" al nucleo)</li>
+        <li><strong>13,6 eV</strong> = energia di ionizzazione dell'idrogeno</li>
+        <li><strong>Z<sub>eff</sub></strong> = carica nucleare efficace</li>
+        <li><strong>n</strong> = numero quantico principale</li>
+    </ul>
+
+    <h4>Raccogliamo i dati</h4>
+
+    <div class="step">
+        <strong>Dati forniti:</strong>
+        <ul>
+            <li>Z<sub>eff</sub> = 1,28</li>
+            <li>13,6 eV = 2,18 x 10<sup>-18</sup> J</li>
+        </ul>
+        <strong>Da determinare:</strong> n = ?
+    </div>
+
+    <h4>Perche n = 2?</h4>
+
+    <p>Il Litio (Li) ha numero atomico Z = 3, quindi ha 3 elettroni. La sua configurazione elettronica e:</p>
+
+    <p style="text-align: center;"><strong>Li: 1s<sup>2</sup> 2s<sup>1</sup></strong></p>
+
+    <p>Questo significa che 2 elettroni sono nel livello n = 1 (orbitale 1s) e 1 elettrone e nel livello n = 2 (orbitale 2s). L'elettrone da rimuovere nella ionizzazione e proprio l'elettrone 2s, quindi <strong>n = 2</strong>.</p>
+
+    <div class="nota">
+        <strong>Perche Z<sub>eff</sub> = 1,28 e non 3?</strong>
+        <br>Il Litio ha 3 protoni nel nucleo (Z = 3), ma l'elettrone 2s non "sente" tutta questa carica. Perche? Perche i due elettroni 1s <strong>schermano</strong> parzialmente il nucleo! E come se formassero una "nuvola" che nasconde parte della carica positiva. L'elettrone 2s quindi vede solo una carica efficace di circa 1,28 invece di 3.
+    </div>
+
+    <h4>Calcoliamo</h4>
+
+    <div class="step">
+        <strong>Passo 1:</strong> Calcoliamo (Z<sub>eff</sub>)<sup>2</sup>
+        <br>(1,28)<sup>2</sup> = 1,6384
+    </div>
+
+    <div class="step">
+        <strong>Passo 2:</strong> Calcoliamo n<sup>2</sup>
+        <br>(2)<sup>2</sup> = 4
+    </div>
+
+    <div class="step">
+        <strong>Passo 3:</strong> Calcoliamo il rapporto
+        <br>(Z<sub>eff</sub>)<sup>2</sup> / n<sup>2</sup> = 1,6384 / 4 = 0,4096
+    </div>
+
+    <div class="step">
+        <strong>Passo 4:</strong> Calcoliamo E in Joule
+        <br>E = -2,18 x 10<sup>-18</sup> J x 0,4096 = <strong>-8,93 x 10<sup>-19</sup> J</strong>
+    </div>
+
+    <h4>Il potenziale di ionizzazione</h4>
+
+    <p>L'energia che abbiamo calcolato e <strong>negativa</strong> perche rappresenta l'energia dell'elettrone legato al nucleo. Il potenziale di ionizzazione invece e l'energia che dobbiamo <strong>fornire</strong> per liberare l'elettrone, quindi e il <strong>valore assoluto</strong>:</p>
+
+    <div class="risultato">
+        <strong>RISPOSTA:</strong> Il potenziale di prima ionizzazione del Litio e:
+        <br><br>
+        <span style="font-size: 1.3em;">I = 8,9 x 10<sup>-19</sup> J</span>
+        <br><br>
+        (oppure circa 5,6 eV)
+        <br><br>
+        <em>Verifica: il valore sperimentale e 5,39 eV (8,64 x 10<sup>-19</sup> J), molto vicino al nostro risultato!</em>
+    </div>
+</div>
+
+<!-- ESERCIZIO 6: ALTRO ESEMPIO ISOELETTRONICI -->
+<div class="esempio-esame">
+    <div class="titolo">ESERCIZIO 6: Serie Isoelettronica con il Neon</div>
+
+    <p><strong>Testo:</strong> Ordinare i seguenti ioni in ordine di raggio ionico crescente: Na<sup>+</sup>, F<sup>-</sup>, O<sup>2-</sup>, Mg<sup>2+</sup>, N<sup>3-</sup>. Tutti questi ioni sono isoelettronici con il Neon.</p>
+
+    <h4>Verifichiamo che siano isoelettronici</h4>
+
+    <p>Il Neon ha Z = 10, quindi ha 10 elettroni. Verifichiamo:</p>
+
+    <table>
+        <tr>
+            <th>Ione</th>
+            <th>Z (protoni)</th>
+            <th>Elettroni</th>
+            <th>Calcolo</th>
+        </tr>
+        <tr>
+            <td>N<sup>3-</sup></td>
+            <td>7</td>
+            <td>10</td>
+            <td>7 + 3 = 10</td>
+        </tr>
+        <tr>
+            <td>O<sup>2-</sup></td>
+            <td>8</td>
+            <td>10</td>
+            <td>8 + 2 = 10</td>
+        </tr>
+        <tr>
+            <td>F<sup>-</sup></td>
+            <td>9</td>
+            <td>10</td>
+            <td>9 + 1 = 10</td>
+        </tr>
+        <tr>
+            <td>Na<sup>+</sup></td>
+            <td>11</td>
+            <td>10</td>
+            <td>11 - 1 = 10</td>
+        </tr>
+        <tr>
+            <td>Mg<sup>2+</sup></td>
+            <td>12</td>
+            <td>10</td>
+            <td>12 - 2 = 10</td>
+        </tr>
+    </table>
+
+    <p>Tutti hanno 10 elettroni. Perfetto!</p>
+
+    <h4>Applichiamo la regola</h4>
+
+    <p>Sappiamo che per ioni isoelettronici: <strong>maggiore Z = minore raggio</strong>.</p>
+
+    <p>Ordiniamo per Z crescente:</p>
+    <p style="text-align: center;">N (Z=7) < O (Z=8) < F (Z=9) < Na (Z=11) < Mg (Z=12)</p>
+
+    <p>Quindi l'ordine dei raggi sara l'inverso (piu Z = piu piccolo):</p>
+
+    <div class="risultato">
+        <strong>RISPOSTA:</strong> Ordine di raggio ionico CRESCENTE:
+        <br><br>
+        <span style="font-size: 1.2em;">Mg<sup>2+</sup> < Na<sup>+</sup> < F<sup>-</sup> < O<sup>2-</sup> < N<sup>3-</sup></span>
+        <br><br>
+        (dal piu piccolo al piu grande)
+    </div>
+</div>
+
+<!-- ESERCIZIO 7: NUMERI QUANTICI -->
+<div class="esempio-esame">
+    <div class="titolo">ESERCIZIO 7: Numeri Quantici</div>
+
+    <p><strong>Testo:</strong> Per un elettrone in un orbitale 3d, indicare tutti i possibili valori dei numeri quantici n, l, m<sub>l</sub> e m<sub>s</sub>.</p>
+
+    <h4>Analizziamo la notazione "3d"</h4>
+
+    <p>La notazione "3d" ci dice due cose:</p>
+    <ul>
+        <li><strong>3</strong> = numero quantico principale n</li>
+        <li><strong>d</strong> = tipo di orbitale, che corrisponde a l = 2</li>
+    </ul>
+
+    <div class="step">
+        <strong>n = 3</strong> (dato dalla notazione)
+    </div>
+
+    <div class="step">
+        <strong>l = 2</strong> (perche d corrisponde a l = 2)
+        <br>Ricorda: s --> l = 0, p --> l = 1, d --> l = 2, f --> l = 3
+    </div>
+
+    <div class="step">
+        <strong>m<sub>l</sub></strong> puo assumere tutti i valori interi da -l a +l:
+        <br>m<sub>l</sub> = -2, -1, 0, +1, +2
+        <br>(sono 5 valori, corrispondenti ai 5 orbitali d)
+    </div>
+
+    <div class="step">
+        <strong>m<sub>s</sub></strong> puo essere solo +1/2 o -1/2 (spin up o spin down)
+    </div>
+
+    <div class="risultato">
+        <strong>RISPOSTA:</strong>
+        <br><br>
+        - n = 3
+        <br>- l = 2
+        <br>- m<sub>l</sub> = -2, -1, 0, +1, +2 (5 valori possibili)
+        <br>- m<sub>s</sub> = +1/2 o -1/2
+        <br><br>
+        In totale, ci sono 5 x 2 = 10 stati quantici possibili per gli elettroni 3d.
+    </div>
+</div>
+
+<!-- ESERCIZIO 8: CONFIGURAZIONE E PARAMAGNETISMO -->
+<div class="esempio-esame">
+    <div class="titolo">ESERCIZIO 8: Configurazione Elettronica e Paramagnetismo</div>
+
+    <p><strong>Testo:</strong> Scrivere la configurazione elettronica dello ione Fe<sup>2+</sup> e determinare se e paramagnetico o diamagnetico.</p>
+
+    <h4>Configurazione dell'atomo neutro</h4>
+
+    <p>Il ferro ha Z = 26. Seguendo l'ordine di riempimento:</p>
+    <p style="text-align: center;">Fe: [Ar] 4s<sup>2</sup> 3d<sup>6</sup></p>
+
+    <h4>Configurazione dello ione Fe<sup>2+</sup></h4>
+
+    <p>Fe<sup>2+</sup> ha perso 2 elettroni. Ma da dove?</p>
+
+    <div class="nota">
+        <strong>Regola importante:</strong> Quando un metallo di transizione perde elettroni, li perde prima dal livello 4s, poi dal 3d. Questo perche, anche se il 4s si riempie prima del 3d, negli ioni il 4s ha energia maggiore del 3d.
+    </div>
+
+    <p>Quindi Fe<sup>2+</sup> perde i 2 elettroni dal 4s:</p>
+    <p style="text-align: center;">Fe<sup>2+</sup>: [Ar] 3d<sup>6</sup></p>
+
+    <h4>Paramagnetismo o diamagnetismo?</h4>
+
+    <p>Un atomo o ione e:</p>
+    <ul>
+        <li><strong>Paramagnetico</strong> se ha elettroni spaiati (attratti da un campo magnetico)</li>
+        <li><strong>Diamagnetico</strong> se tutti gli elettroni sono appaiati (leggermente respinto da un campo magnetico)</li>
+    </ul>
+
+    <p>Disegniamo la distribuzione degli elettroni nei 5 orbitali 3d, seguendo la regola di Hund:</p>
+
+    <p style="text-align: center; font-family: monospace;">
+    3d: [up][up][up][up][up down]
+    <br>     |   |   |   |    |
+    <br>    dxy dxz dyz dx2-y2 dz2
+    </p>
+
+    <p>Con 6 elettroni nei 5 orbitali d, abbiamo 4 elettroni spaiati e 1 coppia.</p>
+
+    <div class="risultato">
+        <strong>RISPOSTA:</strong>
+        <br><br>
+        - Configurazione Fe<sup>2+</sup>: [Ar] 3d<sup>6</sup>
+        <br><br>
+        - Fe<sup>2+</sup> e <strong>PARAMAGNETICO</strong> perche ha 4 elettroni spaiati.
+    </div>
+</div>
+
+<!-- SEZIONE 9: ERRORI COMUNI -->
+<h2>9. Errori Comuni da Evitare</h2>
+
+<div class="attenzione">
+    <strong>ERRORI DA EVITARE:</strong>
+
+    <h4>1. Nelle conversioni di unita</h4>
+    <ul>
+        <li>Dimenticare di convertire nm in m (1 nm = 10<sup>-9</sup> m)</li>
+        <li>Confondere Hz con s (1 Hz = 1 s<sup>-1</sup>)</li>
+        <li>Dimenticare la conversione eV --> J (1 eV = 1,602 x 10<sup>-19</sup> J)</li>
+    </ul>
+
+    <h4>2. Nell'effetto fotoelettrico</h4>
+    <ul>
+        <li>Pensare che aumentando l'intensita della luce si possano estrarre elettroni anche sotto soglia (SBAGLIATO! Conta solo la frequenza)</li>
+        <li>Confondere frequenza di soglia con lavoro di estrazione (W = h x nu<sub>0</sub>)</li>
+    </ul>
+
+    <h4>3. Negli ioni isoelettronici</h4>
+    <ul>
+        <li>Dimenticare che gli ANIONI hanno PIU elettroni dell'atomo neutro</li>
+        <li>Dimenticare che i CATIONI hanno MENO elettroni dell'atomo neutro</li>
+        <li>Invertire la regola: maggiore Z = MINORE raggio (non maggiore!)</li>
+    </ul>
+
+    <h4>4. Nelle configurazioni elettroniche</h4>
+    <ul>
+        <li>Dimenticare le eccezioni di Cr e Cu</li>
+        <li>Per gli ioni dei metalli di transizione: gli elettroni si perdono PRIMA dal 4s, POI dal 3d</li>
+        <li>Confondere l'ordine di riempimento (4s prima di 3d) con l'ordine energetico negli ioni</li>
+    </ul>
+
+    <h4>5. Nei numeri quantici</h4>
+    <ul>
+        <li>Dimenticare che l va da 0 a (n-1), non da 1 a n</li>
+        <li>Dimenticare che m<sub>l</sub> include anche lo zero</li>
+    </ul>
+</div>
+
+<!-- SEZIONE 10: RIEPILOGO FORMULE -->
+<h2>10. Riepilogo Formule</h2>
+
+<div class="riepilogo">
+    <h3>Costanti da Ricordare</h3>
+    <table>
+        <tr>
+            <th>Costante</th>
+            <th>Simbolo</th>
+            <th>Valore</th>
+        </tr>
+        <tr>
+            <td>Velocita della luce</td>
+            <td>c</td>
+            <td>3,00 x 10<sup>8</sup> m/s</td>
+        </tr>
+        <tr>
+            <td>Costante di Planck</td>
+            <td>h</td>
+            <td>6,626 x 10<sup>-34</sup> J x s</td>
+        </tr>
+        <tr>
+            <td>Costante di Rydberg</td>
+            <td>R<sub>H</sub></td>
+            <td>1,097 x 10<sup>7</sup> m<sup>-1</sup></td>
+        </tr>
+        <tr>
+            <td>Energia stato fondamentale H</td>
+            <td>E<sub>0</sub></td>
+            <td>2,179 x 10<sup>-18</sup> J = 13,6 eV</td>
+        </tr>
+        <tr>
+            <td>Raggio di Bohr</td>
+            <td>a<sub>0</sub></td>
+            <td>0,53 Angstrom</td>
+        </tr>
+    </table>
+
+    <h3>Formule Principali</h3>
+
+    <table>
+        <tr>
+            <th>Formula</th>
+            <th>Quando usarla</th>
+        </tr>
+        <tr>
+            <td>c = lambda x nu</td>
+            <td>Convertire tra lunghezza d'onda e frequenza</td>
+        </tr>
+        <tr>
+            <td>E = h x nu</td>
+            <td>Energia di un fotone</td>
+        </tr>
+        <tr>
+            <td>E = h x c / lambda</td>
+            <td>Energia dalla lunghezza d'onda</td>
+        </tr>
+        <tr>
+            <td>h x nu = W + E<sub>cinetica</sub></td>
+            <td>Effetto fotoelettrico</td>
+        </tr>
+        <tr>
+            <td>E<sub>n</sub> = -E<sub>0</sub> / n<sup>2</sup></td>
+            <td>Energia livelli di Bohr (H)</td>
+        </tr>
+        <tr>
+            <td>E = -13,6 eV x Z<sub>eff</sub><sup>2</sup> / n<sup>2</sup></td>
+            <td>Energia con schermo (potenziale ionizzazione)</td>
+        </tr>
+        <tr>
+            <td>1/lambda = R<sub>H</sub> x (1/n<sub>1</sub><sup>2</sup> - 1/n<sub>2</sub><sup>2</sup>)</td>
+            <td>Formula di Rydberg (transizioni)</td>
+        </tr>
+    </table>
+
+    <h3>Regole per Ioni Isoelettronici</h3>
+    <p><strong>A parita di elettroni, maggiore e Z (numero di protoni), MINORE e il raggio ionico.</strong></p>
+
+    <h3>Andamenti Periodici (da ricordare)</h3>
+    <table>
+        <tr>
+            <th>Proprieta</th>
+            <th>Lungo il periodo (-->)</th>
+            <th>Lungo il gruppo (giù)</th>
+        </tr>
+        <tr>
+            <td>Raggio atomico</td>
+            <td>Diminuisce</td>
+            <td>Aumenta</td>
+        </tr>
+        <tr>
+            <td>Potenziale di ionizzazione</td>
+            <td>Aumenta</td>
+            <td>Diminuisce</td>
+        </tr>
+        <tr>
+            <td>Elettronegativita</td>
+            <td>Aumenta</td>
+            <td>Diminuisce</td>
+        </tr>
+        <tr>
+            <td>Affinita elettronica</td>
+            <td>Aumenta (circa)</td>
+            <td>Diminuisce</td>
+        </tr>
+    </table>
+</div>
+
+</body>
+</html>

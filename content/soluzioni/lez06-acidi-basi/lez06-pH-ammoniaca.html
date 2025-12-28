@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Esame 10 - Quesito 6: pH e Ammoniaca</title>
+    <style>
+        body { font-family: Georgia, serif; max-width: 800px; margin: 40px auto; padding: 20px; line-height: 1.8; }
+        h1 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+        h2 { color: #2980b9; margin-top: 30px; }
+        .question { background: #ecf0f1; padding: 15px; border-left: 4px solid #3498db; margin: 20px 0; }
+        .result { background: #d5f5e3; padding: 15px; border-left: 4px solid #27ae60; margin: 20px 0; font-weight: bold; }
+        .formula { background: #fdebd0; padding: 10px; margin: 10px 0; font-family: monospace; }
+        .step { background: #fff; border: 1px solid #ddd; padding: 15px; margin: 15px 0; border-radius: 5px; }
+        .step-title { color: #e74c3c; font-weight: bold; margin-bottom: 10px; }
+        .note { background: #e8f4f8; padding: 12px; border-left: 4px solid #17a2b8; margin: 15px 0; font-style: italic; }
+    
+    .done-buttons {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+    .mark-btn {
+        padding: 12px 24px;
+        font-size: 1em;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .mark-done {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        color: white;
+    }
+    .mark-done:hover, .mark-done.selected {
+        background: linear-gradient(135deg, #1e7e34, #17a085);
+        transform: scale(1.05);
+    }
+    .mark-review {
+        background: linear-gradient(135deg, #ffc107, #fd7e14);
+        color: white;
+    }
+    .mark-review:hover, .mark-review.selected {
+        background: linear-gradient(135deg, #d39e00, #dc6502);
+        transform: scale(1.05);
+    }
+    .mark-reset {
+        background: #6c757d;
+        color: white;
+    }
+    .mark-reset:hover {
+        background: #545b62;
+    }
+    .mark-btn.selected {
+        box-shadow: 0 0 0 3px rgba(0,0,0,0.2);
+    }
+</style>
+
+<style>
+    .quiz-container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px;
+        padding-bottom: 120px;
+    }
+    .question-section {
+        background: linear-gradient(135deg, #e8f4f8 0%, #d4edda 100%);
+        border: 2px solid #17a2b8;
+        border-radius: 10px;
+        padding: 25px;
+        margin-bottom: 20px;
+    }
+    .question-section h2 {
+        color: #0c5460;
+        margin-top: 0;
+        margin-bottom: 15px;
+    }
+    .show-next-btn {
+        display: block;
+        width: 100%;
+        padding: 15px 30px;
+        font-size: 1.1em;
+        font-weight: bold;
+        color: white;
+        background: linear-gradient(135deg, #007bff, #0056b3);
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        margin: 15px 0;
+        transition: all 0.3s ease;
+    }
+    .show-next-btn:hover {
+        background: linear-gradient(135deg, #0056b3, #004094);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 123, 255, 0.4);
+    }
+    .show-all-btn {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        margin-top: 10px;
+    }
+    .show-all-btn:hover {
+        background: linear-gradient(135deg, #218838, #1db385);
+        box-shadow: 0 4px 12px rgba(40, 167, 69, 0.4);
+    }
+    .step-container {
+        display: none;
+        animation: fadeIn 0.5s ease;
+        margin-bottom: 20px;
+        border: 1px solid #dee2e6;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    .step-container.visible {
+        display: block;
+    }
+    .step-header {
+        background: linear-gradient(135deg, #6c757d, #495057);
+        color: white;
+        padding: 12px 20px;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+    }
+    .step-number-badge {
+        background: white;
+        color: #495057;
+        border-radius: 50%;
+        width: 28px;
+        height: 28px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 12px;
+        font-weight: bold;
+    }
+    .step-content {
+        padding: 20px;
+        background: white;
+    }
+    .progress-bar {
+        background: #e9ecef;
+        border-radius: 10px;
+        height: 8px;
+        margin: 15px 0;
+        overflow: hidden;
+    }
+    .progress-fill {
+        background: linear-gradient(90deg, #28a745, #20c997);
+        height: 100%;
+        border-radius: 10px;
+        transition: width 0.5s ease;
+    }
+    .progress-text {
+        text-align: center;
+        color: #6c757d;
+        font-size: 0.9em;
+        margin-bottom: 15px;
+    }
+    .controls {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: white;
+        padding: 15px 20px;
+        border-top: 2px solid #dee2e6;
+        box-shadow: 0 -4px 12px rgba(0,0,0,0.1);
+        z-index: 1000;
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+    }
+    .quiz-container {
+        padding-bottom: 100px;
+    }
+    .show-next-btn {
+        width: auto;
+        margin: 0;
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .final-answer {
+        background: #d4edda;
+        border: 2px solid #28a745;
+        border-radius: 10px;
+        padding: 20px;
+        margin-top: 20px;
+    }
+    .final-answer h3 {
+        color: #155724;
+        margin-top: 0;
+    }
+
+    .done-buttons {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+    .mark-btn {
+        padding: 12px 24px;
+        font-size: 1em;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .mark-done {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        color: white;
+    }
+    .mark-done:hover, .mark-done.selected {
+        background: linear-gradient(135deg, #1e7e34, #17a085);
+        transform: scale(1.05);
+    }
+    .mark-review {
+        background: linear-gradient(135deg, #ffc107, #fd7e14);
+        color: white;
+    }
+    .mark-review:hover, .mark-review.selected {
+        background: linear-gradient(135deg, #d39e00, #dc6502);
+        transform: scale(1.05);
+    }
+    .mark-reset {
+        background: #6c757d;
+        color: white;
+    }
+    .mark-reset:hover {
+        background: #545b62;
+    }
+    .mark-btn.selected {
+        box-shadow: 0 0 0 3px rgba(0,0,0,0.2);
+    }
+</style>
+</head>
+<body>
+<div class="quiz-container">
+    <h1>Quesito 6: Preparazione di una soluzione di ammoniaca a pH 9,2</h1>
+
+    <div class="question-section">
+        <h2>Testo dell'esercizio</h2>
+        <p>Risolvi l'esercizio seguente.</p>
+    </div>
+
+    <div class="progress-text" id="progress-text">Passaggio 0 di 8</div>
+    <div class="progress-bar">
+        <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+    </div>
+
+    <div class="controls">
+        <button id="next-btn" class="show-next-btn" onclick="showNextStep()">
+            ▶ Prossimo passaggio
+        </button>
+        <button id="all-btn" class="show-next-btn show-all-btn" onclick="showAllSteps()">
+            ⏩ Mostra tutto
+        </button>
+        <div id="done-buttons" class="done-buttons" style="display: none;">
+            <button id="mark-done" class="mark-btn mark-done" onclick="markExercise('done')">
+                ✓ Fatto
+            </button>
+            <button id="mark-review" class="mark-btn mark-review" onclick="markExercise('review')">
+                ⚠ Da rivedere
+            </button>
+            <button class="mark-btn mark-reset" onclick="resetExercise()">
+                ↺ Ricomincia
+            </button>
+            <button class="mark-btn" style="background: #17a2b8;" onclick="closeExercise()">
+                ✕ Chiudi
+            </button>
+        </div>
+    </div>
+
+    <div id="steps-wrapper">
+        
+        <div id="step-0" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">1</span>
+                Introduzione: Cosa ci viene chiesto?
+            </div>
+            <div class="step-content">
+                <h1>Quesito 6: Preparazione di una soluzione di ammoniaca a pH 9,2</h1>
+
+<div class="question">
+<strong>TESTO DEL QUESITO:</strong><br><br>
+Calcolare quanti grammi e quanti mL misurati a c.n. di ammoniaca (NH3) sono necessari per preparare 0,5 L di soluzione acquosa a pH 9,2.<br><br>
+<strong>Dati:</strong> Kb(NH3) = 1,8 x 10^-5, MM(NH3) = 17 g/mol
+</div><h2>Introduzione: Cosa ci viene chiesto?</h2>
+
+<p>Questo esercizio ci chiede di calcolare quanto ammoniaca (NH3) dobbiamo usare per ottenere una soluzione con un certo pH. L'ammoniaca e' una <strong>base debole</strong>, quindi il pH sara' basico (maggiore di 7), e infatti il pH richiesto e' 9,2.</p>
+
+<p>Prima di tutto, fermiamoci un attimo a capire cosa succede quando sciogliamo NH3 in acqua. L'ammoniaca reagisce con l'acqua secondo questa reazione:</p>
+
+<div class="formula">
+NH3 + H2O ⇌ NH4+ + OH-
+</div>
+
+<p>Questa reazione e' un equilibrio, e la costante di equilibrio e' proprio Kb, che ci dice "quanto" la base reagisce con l'acqua per formare ioni OH-. Piu' grande e' Kb, piu' la base e' "forte" (cioe' reagisce di piu'). Nel nostro caso Kb = 1,8 x 10^-5 e' un numero piccolo, quindi l'ammoniaca e' una base debole.</p>
+            </div>
+        </div>
+        
+        <div id="step-1" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">2</span>
+                Step 1: Da pH a concentrazione di OH-
+            </div>
+            <div class="step-content">
+                <h2>Step 1: Da pH a concentrazione di OH-</h2>
+
+<div class="step">
+<div class="step-title">Perche' facciamo questo passaggio?</div>
+
+<p>Il pH ci dice la concentrazione di ioni H+ nella soluzione. Ma a noi serve sapere quanti ioni OH- ci sono, perche' l'ammoniaca produce OH- (e' una base!). Per passare da pH a [OH-] usiamo due relazioni fondamentali:</p>
+
+<div class="formula">
+pH + pOH = 14 (a 25 gradi C)
+</div>
+
+<div class="formula">
+pOH = -log[OH-]
+</div>
+
+<p><strong>Calcoliamo il pOH:</strong></p>
+<div class="formula">
+pOH = 14 - pH = 14 - 9,2 = 4,8
+</div>
+
+<p><strong>Ora calcoliamo [OH-]:</strong></p>
+<p>Se pOH = -log[OH-], allora [OH-] = 10^(-pOH)</p>
+
+<div class="formula">
+[OH-] = 10^(-4,8) = 1,58 x 10^-5 M
+</div>
+
+<p>Cosa significa questo numero? Significa che in ogni litro di soluzione ci sono 1,58 x 10^-5 moli di ioni OH-. Questo valore e' piuttosto piccolo, il che ha senso perche' pH 9,2 e' solo moderatamente basico.</p>
+</div>
+            </div>
+        </div>
+        
+        <div id="step-2" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">3</span>
+                Step 2: Usare Kb per trovare la concentrazione ini...
+            </div>
+            <div class="step-content">
+                <h2>Step 2: Usare Kb per trovare la concentrazione iniziale di NH3</h2>
+
+<div class="step">
+<div class="step-title">Perche' facciamo questo passaggio?</div>
+
+<p>Ora che sappiamo quanti OH- ci sono all'equilibrio, possiamo usare l'espressione di Kb per risalire a quanta ammoniaca abbiamo messo inizialmente. La costante Kb e' definita cosi':</p>
+
+<div class="formula">
+Kb = [NH4+] x [OH-] / [NH3]
+</div>
+
+<p><strong>Ragionamento chiave:</strong> Quando NH3 reagisce con acqua, per ogni molecola di NH3 che reagisce, si forma UNA molecola di NH4+ e UNO ione OH-. Quindi all'equilibrio:</p>
+
+<div class="formula">
+[NH4+] = [OH-] = 1,58 x 10^-5 M
+</div>
+
+<p>Chiamiamo "C" la concentrazione INIZIALE di NH3 (quella che dobbiamo trovare). All'equilibrio, la concentrazione di NH3 sara':</p>
+
+<div class="formula">
+[NH3]equilibrio = C - [OH-] = C - 1,58 x 10^-5
+</div>
+
+<p>Sostituiamo nell'espressione di Kb:</p>
+
+<div class="formula">
+1,8 x 10^-5 = (1,58 x 10^-5) x (1,58 x 10^-5) / (C - 1,58 x 10^-5)
+</div>
+
+<p>Calcoliamo il numeratore:</p>
+<div class="formula">
+(1,58 x 10^-5)^2 = 2,496 x 10^-10
+</div>
+
+<p>Quindi:</p>
+<div class="formula">
+1,8 x 10^-5 = 2,496 x 10^-10 / (C - 1,58 x 10^-5)
+</div>
+
+<p>Risolviamo per C:</p>
+<div class="formula">
+C - 1,58 x 10^-5 = 2,496 x 10^-10 / 1,8 x 10^-5 = 1,387 x 10^-5
+</div>
+
+<div class="formula">
+C = 1,387 x 10^-5 + 1,58 x 10^-5 = 2,97 x 10^-5 M
+</div>
+
+<div class="note">
+<strong>Nota importante:</strong> In questo caso NON possiamo trascurare la quantita' di NH3 che reagisce (1,58 x 10^-5), perche' e' dello stesso ordine di grandezza della concentrazione totale! Quando il pH e' vicino a pKb, il grado di dissociazione non e' trascurabile.
+</div>
+</div>
+            </div>
+        </div>
+        
+        <div id="step-3" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">4</span>
+                Step 3: Calcolare le moli di NH3 necessarie
+            </div>
+            <div class="step-content">
+                <h2>Step 3: Calcolare le moli di NH3 necessarie</h2>
+
+<div class="step">
+<div class="step-title">Perche' facciamo questo passaggio?</div>
+
+<p>Ora che conosciamo la concentrazione (mol/L), e conosciamo il volume della soluzione (0,5 L), possiamo calcolare le moli totali di NH3 necessarie.</p>
+
+<div class="formula">
+moli = concentrazione x volume
+</div>
+
+<div class="formula">
+n(NH3) = 2,97 x 10^-5 mol/L x 0,5 L = 1,485 x 10^-5 mol
+</div>
+
+<p>Questo e' un numero molto piccolo di moli! Ha senso, perche' vogliamo solo un pH moderatamente basico (9,2).</p>
+</div>
+            </div>
+        </div>
+        
+        <div id="step-4" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">5</span>
+                Step 4: Calcolare i grammi di NH3
+            </div>
+            <div class="step-content">
+                <h2>Step 4: Calcolare i grammi di NH3</h2>
+
+<div class="step">
+<div class="step-title">Perche' facciamo questo passaggio?</div>
+
+<p>Per passare da moli a grammi, usiamo la massa molare (MM). La formula e':</p>
+
+<div class="formula">
+massa = moli x massa molare
+</div>
+
+<div class="formula">
+m(NH3) = 1,485 x 10^-5 mol x 17 g/mol = 2,52 x 10^-4 g = 0,252 mg
+</div>
+
+<div class="result">
+RISULTATO 1: Massa di NH3 necessaria = 2,52 x 10^-4 g (circa 0,25 mg)
+</div>
+</div>
+            </div>
+        </div>
+        
+        <div id="step-5" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">6</span>
+                Step 5: Calcolare il volume a condizioni normali (...
+            </div>
+            <div class="step-content">
+                <h2>Step 5: Calcolare il volume a condizioni normali (c.n.)</h2>
+
+<div class="step">
+<div class="step-title">Perche' facciamo questo passaggio?</div>
+
+<p>L'ammoniaca a temperatura ambiente e' un gas. La domanda ci chiede il volume di questo gas "a condizioni normali", che significa:</p>
+<ul>
+<li>Temperatura: 0 gradi C (273 K)</li>
+<li>Pressione: 1 atm</li>
+</ul>
+
+<p>A queste condizioni, sappiamo che <strong>1 mole di qualsiasi gas ideale occupa 22,4 litri</strong>. Questa e' una relazione fondamentale da ricordare!</p>
+
+<div class="formula">
+Volume a c.n. = moli x 22,4 L/mol
+</div>
+
+<div class="formula">
+V(NH3) = 1,485 x 10^-5 mol x 22,4 L/mol = 3,33 x 10^-4 L
+</div>
+
+<p>Convertiamo in millilitri (1 L = 1000 mL):</p>
+
+<div class="formula">
+V(NH3) = 3,33 x 10^-4 L x 1000 mL/L = 0,333 mL
+</div>
+
+<div class="result">
+RISULTATO 2: Volume di NH3 a c.n. = 0,333 mL (circa 0,33 mL)
+</div>
+</div>
+            </div>
+        </div>
+        
+        <div id="step-6" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">7</span>
+                Riepilogo finale
+            </div>
+            <div class="step-content">
+                <h2>Riepilogo finale</h2>
+
+<div class="result">
+Per preparare 0,5 L di soluzione acquosa di ammoniaca a pH 9,2 sono necessari:<br><br>
+- <strong>Massa:</strong> 2,52 x 10^-4 g (0,252 mg) di NH3<br>
+- <strong>Volume a c.n.:</strong> 0,333 mL di NH3 gassosa
+</div>
+            </div>
+        </div>
+        
+        <div id="step-7" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">8</span>
+                Verifica del risultato
+            </div>
+            <div class="step-content">
+                <h2>Verifica del risultato</h2>
+
+<p>Ha senso questo risultato? Vediamo:</p>
+<ul>
+<li>Stiamo preparando una soluzione con pH 9,2, che e' solo leggermente basico (ricorda che pH 7 e' neutro, pH 14 e' molto basico)</li>
+<li>Quindi servono pochissime molecole di OH-, e di conseguenza pochissima ammoniaca</li>
+<li>I valori molto piccoli (frazioni di milligrammo, frazioni di millilitro) hanno senso!</li>
+</ul>
+
+<div class="note">
+<strong>Consiglio per l'esame:</strong> Negli esercizi con basi deboli, parti sempre dal pH, calcola pOH, poi [OH-], e infine usa Kb per risalire alla concentrazione iniziale. E' lo stesso schema che useresti con acidi deboli, ma "al contrario"!
+</div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+<script>
+    let currentStep = 0;
+    let totalSteps = 0;
+
+    document.addEventListener('DOMContentLoaded', function() {
+        totalSteps = document.querySelectorAll('.step-container').length;
+        updateProgress();
+        updateButtons();
+    });
+
+    function showNextStep() {
+        if (currentStep < totalSteps) {
+            const step = document.getElementById('step-' + currentStep);
+            if (step) {
+                step.classList.add('visible');
+                step.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                currentStep++;
+                updateProgress();
+                updateButtons();
+
+                if (window.parent !== window) {
+                    window.parent.postMessage({type: 'stepShown', step: currentStep, total: totalSteps}, '*');
+                }
+            }
+        }
+    }
+
+    function showAllSteps() {
+        document.querySelectorAll('.step-container').forEach(function(step) {
+            step.classList.add('visible');
+        });
+        currentStep = totalSteps;
+        updateProgress();
+        updateButtons();
+
+        if (window.parent !== window) {
+            window.parent.postMessage({type: 'allStepsShown'}, '*');
+        }
+    }
+
+    function hideAllSteps() {
+        document.querySelectorAll('.step-container').forEach(function(step) {
+            step.classList.remove('visible');
+        });
+        currentStep = 0;
+        updateProgress();
+        updateButtons();
+    }
+
+    function updateProgress() {
+        const pct = totalSteps > 0 ? (currentStep / totalSteps) * 100 : 0;
+        const fill = document.getElementById('progress-fill');
+        const text = document.getElementById('progress-text');
+        if (fill) fill.style.width = pct + '%';
+        if (text) text.textContent = 'Passaggio ' + currentStep + ' di ' + totalSteps;
+    }
+
+    function updateButtons() {
+        const nextBtn = document.getElementById('next-btn');
+        const allBtn = document.getElementById('all-btn');
+        const doneButtons = document.getElementById('done-buttons');
+
+        if (currentStep >= totalSteps) {
+            if (nextBtn) nextBtn.style.display = 'none';
+            if (allBtn) allBtn.style.display = 'none';
+            if (doneButtons) doneButtons.style.display = 'flex';
+        } else {
+            if (nextBtn) nextBtn.style.display = 'block';
+            if (allBtn) allBtn.style.display = 'block';
+            if (doneButtons) doneButtons.style.display = 'none';
+        }
+    }
+
+    function markExercise(status) {
+        // Salva in localStorage
+        const exerciseId = window.location.pathname.split('/').pop().replace('.html', '');
+        let progress = JSON.parse(localStorage.getItem('chemportal_progress') || '{}');
+        if (!progress.exercises) progress.exercises = {};
+        progress.exercises[exerciseId] = status;
+        localStorage.setItem('chemportal_progress', JSON.stringify(progress));
+
+        // Feedback visivo
+        const btn = status === 'done' ? document.getElementById('mark-done') : document.getElementById('mark-review');
+        const otherBtn = status === 'done' ? document.getElementById('mark-review') : document.getElementById('mark-done');
+
+        btn.classList.add('selected');
+        otherBtn.classList.remove('selected');
+
+        // Notifica parent
+        if (window.parent !== window) {
+            window.parent.postMessage({type: 'exerciseMarked', status: status, id: exerciseId}, '*');
+        }
+    }
+
+    function resetExercise() {
+        hideAllSteps();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Messaggi dal parent
+    window.addEventListener('message', function(e) {
+        if (e.data.type === 'showNext') showNextStep();
+        else if (e.data.type === 'showAll') showAllSteps();
+        else if (e.data.type === 'hideAll') hideAllSteps();
+    });
+
+    function closeExercise() {
+        if (window.parent !== window) {
+            // Siamo in iframe, chiedi al parent di chiudere
+            window.parent.postMessage({type: 'closeModal'}, '*');
+        } else {
+            // Standalone: torna alla pagina esercizi
+            const path = window.location.pathname;
+            if (path.includes('/content/soluzioni/')) {
+                window.location.href = '../../esercizi.html';
+            } else {
+                window.history.back();
+            }
+        }
+    }
+</script>
+</body>
+</html>

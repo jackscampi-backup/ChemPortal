@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Esame 10-1 - Equilibrio chimico SO2Cl2</title>
+    <style>
+        body { font-family: Georgia, serif; max-width: 800px; margin: 40px auto; padding: 20px; line-height: 1.8; }
+        h1 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+        h2 { color: #2980b9; margin-top: 30px; }
+        .question { background: #ecf0f1; padding: 15px; border-left: 4px solid #3498db; margin: 20px 0; }
+        .result { background: #d5f5e3; padding: 15px; border-left: 4px solid #27ae60; margin: 20px 0; font-weight: bold; }
+        .formula { background: #fdebd0; padding: 10px; margin: 10px 0; font-family: monospace; }
+        .step { background: #ebf5fb; padding: 15px; margin: 15px 0; border-radius: 5px; }
+        table { border-collapse: collapse; width: 100%; margin: 20px 0; }
+        th, td { border: 1px solid #bdc3c7; padding: 12px; text-align: center; }
+        th { background: #3498db; color: white; }
+        .ice-table td { font-size: 1.1em; }
+        .highlight { color: #e74c3c; font-weight: bold; }
+    
+    .done-buttons {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+    .mark-btn {
+        padding: 12px 24px;
+        font-size: 1em;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .mark-done {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        color: white;
+    }
+    .mark-done:hover, .mark-done.selected {
+        background: linear-gradient(135deg, #1e7e34, #17a085);
+        transform: scale(1.05);
+    }
+    .mark-review {
+        background: linear-gradient(135deg, #ffc107, #fd7e14);
+        color: white;
+    }
+    .mark-review:hover, .mark-review.selected {
+        background: linear-gradient(135deg, #d39e00, #dc6502);
+        transform: scale(1.05);
+    }
+    .mark-reset {
+        background: #6c757d;
+        color: white;
+    }
+    .mark-reset:hover {
+        background: #545b62;
+    }
+    .mark-btn.selected {
+        box-shadow: 0 0 0 3px rgba(0,0,0,0.2);
+    }
+</style>
+
+<style>
+    .quiz-container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px;
+        padding-bottom: 120px;
+    }
+    .question-section {
+        background: linear-gradient(135deg, #e8f4f8 0%, #d4edda 100%);
+        border: 2px solid #17a2b8;
+        border-radius: 10px;
+        padding: 25px;
+        margin-bottom: 20px;
+    }
+    .question-section h2 {
+        color: #0c5460;
+        margin-top: 0;
+        margin-bottom: 15px;
+    }
+    .show-next-btn {
+        display: block;
+        width: 100%;
+        padding: 15px 30px;
+        font-size: 1.1em;
+        font-weight: bold;
+        color: white;
+        background: linear-gradient(135deg, #007bff, #0056b3);
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        margin: 15px 0;
+        transition: all 0.3s ease;
+    }
+    .show-next-btn:hover {
+        background: linear-gradient(135deg, #0056b3, #004094);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 123, 255, 0.4);
+    }
+    .show-all-btn {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        margin-top: 10px;
+    }
+    .show-all-btn:hover {
+        background: linear-gradient(135deg, #218838, #1db385);
+        box-shadow: 0 4px 12px rgba(40, 167, 69, 0.4);
+    }
+    .step-container {
+        display: none;
+        animation: fadeIn 0.5s ease;
+        margin-bottom: 20px;
+        border: 1px solid #dee2e6;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    .step-container.visible {
+        display: block;
+    }
+    .step-header {
+        background: linear-gradient(135deg, #6c757d, #495057);
+        color: white;
+        padding: 12px 20px;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+    }
+    .step-number-badge {
+        background: white;
+        color: #495057;
+        border-radius: 50%;
+        width: 28px;
+        height: 28px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 12px;
+        font-weight: bold;
+    }
+    .step-content {
+        padding: 20px;
+        background: white;
+    }
+    .progress-bar {
+        background: #e9ecef;
+        border-radius: 10px;
+        height: 8px;
+        margin: 15px 0;
+        overflow: hidden;
+    }
+    .progress-fill {
+        background: linear-gradient(90deg, #28a745, #20c997);
+        height: 100%;
+        border-radius: 10px;
+        transition: width 0.5s ease;
+    }
+    .progress-text {
+        text-align: center;
+        color: #6c757d;
+        font-size: 0.9em;
+        margin-bottom: 15px;
+    }
+    .controls {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: white;
+        padding: 15px 20px;
+        border-top: 2px solid #dee2e6;
+        box-shadow: 0 -4px 12px rgba(0,0,0,0.1);
+        z-index: 1000;
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+    }
+    .quiz-container {
+        padding-bottom: 100px;
+    }
+    .show-next-btn {
+        width: auto;
+        margin: 0;
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .final-answer {
+        background: #d4edda;
+        border: 2px solid #28a745;
+        border-radius: 10px;
+        padding: 20px;
+        margin-top: 20px;
+    }
+    .final-answer h3 {
+        color: #155724;
+        margin-top: 0;
+    }
+
+    .done-buttons {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+    .mark-btn {
+        padding: 12px 24px;
+        font-size: 1em;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .mark-done {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        color: white;
+    }
+    .mark-done:hover, .mark-done.selected {
+        background: linear-gradient(135deg, #1e7e34, #17a085);
+        transform: scale(1.05);
+    }
+    .mark-review {
+        background: linear-gradient(135deg, #ffc107, #fd7e14);
+        color: white;
+    }
+    .mark-review:hover, .mark-review.selected {
+        background: linear-gradient(135deg, #d39e00, #dc6502);
+        transform: scale(1.05);
+    }
+    .mark-reset {
+        background: #6c757d;
+        color: white;
+    }
+    .mark-reset:hover {
+        background: #545b62;
+    }
+    .mark-btn.selected {
+        box-shadow: 0 0 0 3px rgba(0,0,0,0.2);
+    }
+</style>
+</head>
+<body>
+<div class="quiz-container">
+    <h1>Equilibrio Chimico - Decomposizione del Cloruro di Solforile</h1>
+
+    <div class="question-section">
+        <h2>Testo dell'esercizio</h2>
+        <p>Risolvi l'esercizio seguente.</p>
+    </div>
+
+    <div class="progress-text" id="progress-text">Passaggio 0 di 11</div>
+    <div class="progress-bar">
+        <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+    </div>
+
+    <div class="controls">
+        <button id="next-btn" class="show-next-btn" onclick="showNextStep()">
+            ▶ Prossimo passaggio
+        </button>
+        <button id="all-btn" class="show-next-btn show-all-btn" onclick="showAllSteps()">
+            ⏩ Mostra tutto
+        </button>
+        <div id="done-buttons" class="done-buttons" style="display: none;">
+            <button id="mark-done" class="mark-btn mark-done" onclick="markExercise('done')">
+                ✓ Fatto
+            </button>
+            <button id="mark-review" class="mark-btn mark-review" onclick="markExercise('review')">
+                ⚠ Da rivedere
+            </button>
+            <button class="mark-btn mark-reset" onclick="resetExercise()">
+                ↺ Ricomincia
+            </button>
+            <button class="mark-btn" style="background: #17a2b8;" onclick="closeExercise()">
+                ✕ Chiudi
+            </button>
+        </div>
+    </div>
+
+    <div id="steps-wrapper">
+        
+        <div id="step-0" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">1</span>
+                Cosa ci viene chiesto?
+            </div>
+            <div class="step-content">
+                <h1>Equilibrio Chimico - Decomposizione del Cloruro di Solforile</h1>
+
+<div class="question">
+<strong>QUESITO 7:</strong><br>
+10 grammi di SO<sub>2</sub>Cl<sub>2</sub> gassoso si caricano in un reattore vuoto da 1 L che si riscalda fino a 370 K. Sapendo che la K<sub>eq</sub> della reazione di decomposizione del cloruro di solforile a SO<sub>2</sub> e Cl<sub>2</sub> a quella temperatura vale 2,4 atm, calcolare la composizione della miscela all'equilibrio.
+<br><br>
+<strong>Reazione:</strong> SO<sub>2</sub>Cl<sub>2</sub>(g) ⇌ SO<sub>2</sub>(g) + Cl<sub>2</sub>(g)
+</div><h2>Cosa ci viene chiesto?</h2>
+
+<p>Questo esercizio ci chiede di determinare <strong>quante moli</strong> (o che pressioni parziali) di ciascuna sostanza sono presenti quando la reazione raggiunge l'equilibrio. All'inizio abbiamo solo SO<sub>2</sub>Cl<sub>2</sub>, ma questo composto si decompone parzialmente in SO<sub>2</sub> e Cl<sub>2</sub>. Dobbiamo capire <strong>quanto</strong> si decompone.</p>
+            </div>
+        </div>
+        
+        <div id="step-1" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">2</span>
+                STEP 1: Calcolo delle moli iniziali di SO2Cl2
+            </div>
+            <div class="step-content">
+                <h2>STEP 1: Calcolo delle moli iniziali di SO<sub>2</sub>Cl<sub>2</sub></h2>
+
+<div class="step">
+<p>Prima di tutto, dobbiamo sapere quante moli di cloruro di solforile abbiamo all'inizio. Per fare questo, usiamo la formula fondamentale:</p>
+
+<div class="formula">
+n = massa / massa molare = m / MM
+</div>
+
+<p><strong>Calcoliamo la massa molare di SO<sub>2</sub>Cl<sub>2</sub>:</strong></p>
+<ul>
+    <li>S (zolfo): 32 g/mol</li>
+    <li>O (ossigeno): 16 g/mol × 2 = 32 g/mol</li>
+    <li>Cl (cloro): 35,5 g/mol × 2 = 71 g/mol</li>
+</ul>
+
+<p><strong>MM(SO<sub>2</sub>Cl<sub>2</sub>) = 32 + 32 + 71 = 135 g/mol</strong></p>
+
+<p>Quindi le moli iniziali sono:</p>
+
+<div class="formula">
+n = 10 g / 135 g/mol = 0,0741 mol
+</div>
+
+<p>Arrotondiamo a <strong>n<sub>0</sub> = 0,074 mol</strong> (o 7,4 × 10<sup>-2</sup> mol).</p>
+</div>
+            </div>
+        </div>
+        
+        <div id="step-2" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">3</span>
+                STEP 2: Calcolo della pressione iniziale
+            </div>
+            <div class="step-content">
+                <h2>STEP 2: Calcolo della pressione iniziale</h2>
+
+<div class="step">
+<p>Poiche la costante di equilibrio ci e data in atmosfere (K<sub>p</sub> = 2,4 atm), dobbiamo lavorare con le <strong>pressioni parziali</strong>. Usiamo l'equazione dei gas ideali per trovare la pressione iniziale del SO<sub>2</sub>Cl<sub>2</sub>:</p>
+
+<div class="formula">
+PV = nRT  →  P = nRT/V
+</div>
+
+<p>Dove:</p>
+<ul>
+    <li>n = 0,074 mol</li>
+    <li>R = 0,0821 L·atm/(mol·K)</li>
+    <li>T = 370 K</li>
+    <li>V = 1 L</li>
+</ul>
+
+<div class="formula">
+P<sub>0</sub> = (0,074 mol × 0,0821 L·atm/mol·K × 370 K) / 1 L
+</div>
+
+<div class="formula">
+P<sub>0</sub> = 2,25 atm
+</div>
+
+<p>Quindi, all'inizio, la pressione del SO<sub>2</sub>Cl<sub>2</sub> e di circa <strong>2,25 atm</strong>.</p>
+</div>
+            </div>
+        </div>
+        
+        <div id="step-3" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">4</span>
+                STEP 3: Impostiamo la tabella ICE
+            </div>
+            <div class="step-content">
+                <h2>STEP 3: Impostiamo la tabella ICE</h2>
+
+<div class="step">
+<p>La tabella ICE (Initial - Change - Equilibrium) e lo strumento fondamentale per risolvere problemi di equilibrio. Ci permette di tenere traccia di come cambiano le quantita durante la reazione.</p>
+
+<p>Chiamiamo <strong>"x"</strong> la variazione di pressione del SO<sub>2</sub>Cl<sub>2</sub> che si decompone. Dalla stechiometria della reazione (1:1:1), per ogni mole di SO<sub>2</sub>Cl<sub>2</sub> che si decompone, si forma 1 mole di SO<sub>2</sub> e 1 mole di Cl<sub>2</sub>.</p>
+
+<table class="ice-table">
+    <tr>
+        <th>Specie</th>
+        <th>SO<sub>2</sub>Cl<sub>2</sub></th>
+        <th>SO<sub>2</sub></th>
+        <th>Cl<sub>2</sub></th>
+    </tr>
+    <tr>
+        <td><strong>Iniziale (I)</strong></td>
+        <td>2,25 atm</td>
+        <td>0</td>
+        <td>0</td>
+    </tr>
+    <tr>
+        <td><strong>Variazione (C)</strong></td>
+        <td>-x</td>
+        <td>+x</td>
+        <td>+x</td>
+    </tr>
+    <tr>
+        <td><strong>Equilibrio (E)</strong></td>
+        <td>(2,25 - x) atm</td>
+        <td>x atm</td>
+        <td>x atm</td>
+    </tr>
+</table>
+
+<p><strong>Nota importante:</strong> Il segno negativo per SO<sub>2</sub>Cl<sub>2</sub> indica che questa sostanza si consuma (e un reagente che si decompone). I segni positivi per SO<sub>2</sub> e Cl<sub>2</sub> indicano che si formano (sono i prodotti).</p>
+</div>
+            </div>
+        </div>
+        
+        <div id="step-4" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">5</span>
+                STEP 4: Scriviamo l'espressione di Kp
+            </div>
+            <div class="step-content">
+                <h2>STEP 4: Scriviamo l'espressione di K<sub>p</sub></h2>
+
+<div class="step">
+<p>Per una reazione in fase gassosa, la costante di equilibrio K<sub>p</sub> si scrive come il rapporto tra il prodotto delle pressioni parziali dei prodotti e il prodotto delle pressioni parziali dei reagenti, ciascuna elevata al proprio coefficiente stechiometrico:</p>
+
+<div class="formula">
+K<sub>p</sub> = P(SO<sub>2</sub>) × P(Cl<sub>2</sub>) / P(SO<sub>2</sub>Cl<sub>2</sub>)
+</div>
+
+<p>Sostituendo i valori all'equilibrio dalla tabella ICE:</p>
+
+<div class="formula">
+2,4 = (x)(x) / (2,25 - x)
+</div>
+
+<div class="formula">
+2,4 = x<sup>2</sup> / (2,25 - x)
+</div>
+</div>
+            </div>
+        </div>
+        
+        <div id="step-5" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">6</span>
+                STEP 5: Risolviamo l'equazione di secondo grado
+            </div>
+            <div class="step-content">
+                <h2>STEP 5: Risolviamo l'equazione di secondo grado</h2>
+
+<div class="step">
+<p>Moltiplichiamo entrambi i membri per (2,25 - x):</p>
+
+<div class="formula">
+2,4 × (2,25 - x) = x<sup>2</sup>
+</div>
+
+<div class="formula">
+5,4 - 2,4x = x<sup>2</sup>
+</div>
+
+<p>Riarrangiamo in forma standard (ax<sup>2</sup> + bx + c = 0):</p>
+
+<div class="formula">
+x<sup>2</sup> + 2,4x - 5,4 = 0
+</div>
+
+<p>Applichiamo la formula risolutiva delle equazioni di secondo grado:</p>
+
+<div class="formula">
+x = [-b ± √(b<sup>2</sup> - 4ac)] / 2a
+</div>
+
+<p>Con a = 1, b = 2,4, c = -5,4:</p>
+
+<div class="formula">
+x = [-2,4 ± √(5,76 + 21,6)] / 2
+</div>
+
+<div class="formula">
+x = [-2,4 ± √27,36] / 2
+</div>
+
+<div class="formula">
+x = [-2,4 ± 5,23] / 2
+</div>
+
+<p>Le due soluzioni sono:</p>
+<ul>
+    <li>x<sub>1</sub> = (-2,4 + 5,23) / 2 = 2,83 / 2 = <strong>1,42 atm</strong></li>
+    <li>x<sub>2</sub> = (-2,4 - 5,23) / 2 = -7,63 / 2 = -3,81 atm (negativo, impossibile)</li>
+</ul>
+
+<p><strong>Accettiamo solo x = 1,42 atm</strong> perche una pressione non puo essere negativa!</p>
+
+<p><em>Verifica fisica:</em> x = 1,42 atm e minore di 2,25 atm (pressione iniziale), quindi ha senso: non puo decomporsi piu SO<sub>2</sub>Cl<sub>2</sub> di quanto ne avevamo all'inizio!</p>
+</div>
+            </div>
+        </div>
+        
+        <div id="step-6" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">7</span>
+                STEP 6: Calcoliamo le pressioni parziali all'equil...
+            </div>
+            <div class="step-content">
+                <h2>STEP 6: Calcoliamo le pressioni parziali all'equilibrio</h2>
+
+<div class="step">
+<p>Ora sostituiamo x = 1,42 atm nella tabella ICE per trovare le pressioni all'equilibrio:</p>
+
+<table class="ice-table">
+    <tr>
+        <th>Specie</th>
+        <th>Pressione all'equilibrio</th>
+    </tr>
+    <tr>
+        <td><strong>P(SO<sub>2</sub>Cl<sub>2</sub>)</strong></td>
+        <td>2,25 - 1,42 = <span class="highlight">0,83 atm</span></td>
+    </tr>
+    <tr>
+        <td><strong>P(SO<sub>2</sub>)</strong></td>
+        <td><span class="highlight">1,42 atm</span></td>
+    </tr>
+    <tr>
+        <td><strong>P(Cl<sub>2</sub>)</strong></td>
+        <td><span class="highlight">1,42 atm</span></td>
+    </tr>
+</table>
+
+<p><strong>Pressione totale all'equilibrio:</strong> P<sub>tot</sub> = 0,83 + 1,42 + 1,42 = <strong>3,67 atm</strong></p>
+</div>
+            </div>
+        </div>
+        
+        <div id="step-7" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">8</span>
+                STEP 7: Calcoliamo le moli all'equilibrio (composi...
+            </div>
+            <div class="step-content">
+                <h2>STEP 7: Calcoliamo le moli all'equilibrio (composizione)</h2>
+
+<div class="step">
+<p>Per trovare le moli, usiamo di nuovo PV = nRT, quindi n = PV/RT:</p>
+
+<div class="formula">
+n = P × V / (R × T) = P × 1 L / (0,0821 × 370) = P / 30,38
+</div>
+
+<table>
+    <tr>
+        <th>Specie</th>
+        <th>Pressione (atm)</th>
+        <th>Moli all'equilibrio</th>
+    </tr>
+    <tr>
+        <td><strong>SO<sub>2</sub>Cl<sub>2</sub></strong></td>
+        <td>0,83</td>
+        <td>0,83 / 30,38 = <strong>0,027 mol</strong></td>
+    </tr>
+    <tr>
+        <td><strong>SO<sub>2</sub></strong></td>
+        <td>1,42</td>
+        <td>1,42 / 30,38 = <strong>0,047 mol</strong></td>
+    </tr>
+    <tr>
+        <td><strong>Cl<sub>2</sub></strong></td>
+        <td>1,42</td>
+        <td>1,42 / 30,38 = <strong>0,047 mol</strong></td>
+    </tr>
+</table>
+
+<p><strong>Verifica:</strong> Moli totali = 0,027 + 0,047 + 0,047 = 0,121 mol</p>
+<p>Questo e maggiore delle moli iniziali (0,074 mol) perche la reazione produce 2 moli di prodotti per ogni mole di reagente consumata!</p>
+</div>
+            </div>
+        </div>
+        
+        <div id="step-8" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">9</span>
+                Verifica del risultato
+            </div>
+            <div class="step-content">
+                <h2>Verifica del risultato</h2>
+
+<div class="step">
+<p>Controlliamo che i nostri risultati siano corretti sostituendo nella K<sub>p</sub>:</p>
+
+<div class="formula">
+K<sub>p</sub> = P(SO<sub>2</sub>) × P(Cl<sub>2</sub>) / P(SO<sub>2</sub>Cl<sub>2</sub>) = (1,42 × 1,42) / 0,83 = 2,02 / 0,83 = 2,43 atm
+</div>
+
+<p>Il valore ottenuto (2,43 atm) e molto vicino al valore dato (2,4 atm). La piccola differenza e dovuta agli arrotondamenti fatti durante i calcoli.</p>
+</div>
+
+<div class="result">
+            </div>
+        </div>
+        
+        <div id="step-9" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">10</span>
+                RISPOSTA FINALE - Composizione all'equilibrio:
+            </div>
+            <div class="step-content">
+                <h2>RISPOSTA FINALE - Composizione all'equilibrio:</h2>
+
+<p><strong>In termini di pressioni parziali:</strong></p>
+<ul>
+    <li>P(SO<sub>2</sub>Cl<sub>2</sub>) = <strong>0,83 atm</strong></li>
+    <li>P(SO<sub>2</sub>) = <strong>1,42 atm</strong></li>
+    <li>P(Cl<sub>2</sub>) = <strong>1,42 atm</strong></li>
+</ul>
+
+<p><strong>In termini di moli:</strong></p>
+<ul>
+    <li>n(SO<sub>2</sub>Cl<sub>2</sub>) = <strong>0,027 mol</strong></li>
+    <li>n(SO<sub>2</sub>) = <strong>0,047 mol</strong></li>
+    <li>n(Cl<sub>2</sub>) = <strong>0,047 mol</strong></li>
+</ul>
+
+<p><strong>Grado di dissociazione:</strong> alfa = 0,047 / 0,074 = 0,64 = <strong>64%</strong></p>
+<p>Circa il 64% del SO<sub>2</sub>Cl<sub>2</sub> iniziale si e decomposto all'equilibrio.</p>
+</div>
+            </div>
+        </div>
+        
+        <div id="step-10" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">11</span>
+                Cosa abbiamo imparato?
+            </div>
+            <div class="step-content">
+                <h2>Cosa abbiamo imparato?</h2>
+
+<p>Questo esercizio ci insegna che:</p>
+<ol>
+    <li>Quando K<sub>p</sub> e data in atm, conviene lavorare direttamente con le pressioni parziali</li>
+    <li>La tabella ICE e fondamentale per organizzare i dati</li>
+    <li>Le soluzioni negative delle equazioni di secondo grado vanno sempre scartate perche non hanno significato fisico</li>
+    <li>E sempre buona pratica verificare il risultato sostituendo nella K<sub>p</sub></li>
+</ol>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+<script>
+    let currentStep = 0;
+    let totalSteps = 0;
+
+    document.addEventListener('DOMContentLoaded', function() {
+        totalSteps = document.querySelectorAll('.step-container').length;
+        updateProgress();
+        updateButtons();
+    });
+
+    function showNextStep() {
+        if (currentStep < totalSteps) {
+            const step = document.getElementById('step-' + currentStep);
+            if (step) {
+                step.classList.add('visible');
+                step.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                currentStep++;
+                updateProgress();
+                updateButtons();
+
+                if (window.parent !== window) {
+                    window.parent.postMessage({type: 'stepShown', step: currentStep, total: totalSteps}, '*');
+                }
+            }
+        }
+    }
+
+    function showAllSteps() {
+        document.querySelectorAll('.step-container').forEach(function(step) {
+            step.classList.add('visible');
+        });
+        currentStep = totalSteps;
+        updateProgress();
+        updateButtons();
+
+        if (window.parent !== window) {
+            window.parent.postMessage({type: 'allStepsShown'}, '*');
+        }
+    }
+
+    function hideAllSteps() {
+        document.querySelectorAll('.step-container').forEach(function(step) {
+            step.classList.remove('visible');
+        });
+        currentStep = 0;
+        updateProgress();
+        updateButtons();
+    }
+
+    function updateProgress() {
+        const pct = totalSteps > 0 ? (currentStep / totalSteps) * 100 : 0;
+        const fill = document.getElementById('progress-fill');
+        const text = document.getElementById('progress-text');
+        if (fill) fill.style.width = pct + '%';
+        if (text) text.textContent = 'Passaggio ' + currentStep + ' di ' + totalSteps;
+    }
+
+    function updateButtons() {
+        const nextBtn = document.getElementById('next-btn');
+        const allBtn = document.getElementById('all-btn');
+        const doneButtons = document.getElementById('done-buttons');
+
+        if (currentStep >= totalSteps) {
+            if (nextBtn) nextBtn.style.display = 'none';
+            if (allBtn) allBtn.style.display = 'none';
+            if (doneButtons) doneButtons.style.display = 'flex';
+        } else {
+            if (nextBtn) nextBtn.style.display = 'block';
+            if (allBtn) allBtn.style.display = 'block';
+            if (doneButtons) doneButtons.style.display = 'none';
+        }
+    }
+
+    function markExercise(status) {
+        // Salva in localStorage
+        const exerciseId = window.location.pathname.split('/').pop().replace('.html', '');
+        let progress = JSON.parse(localStorage.getItem('chemportal_progress') || '{}');
+        if (!progress.exercises) progress.exercises = {};
+        progress.exercises[exerciseId] = status;
+        localStorage.setItem('chemportal_progress', JSON.stringify(progress));
+
+        // Feedback visivo
+        const btn = status === 'done' ? document.getElementById('mark-done') : document.getElementById('mark-review');
+        const otherBtn = status === 'done' ? document.getElementById('mark-review') : document.getElementById('mark-done');
+
+        btn.classList.add('selected');
+        otherBtn.classList.remove('selected');
+
+        // Notifica parent
+        if (window.parent !== window) {
+            window.parent.postMessage({type: 'exerciseMarked', status: status, id: exerciseId}, '*');
+        }
+    }
+
+    function resetExercise() {
+        hideAllSteps();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Messaggi dal parent
+    window.addEventListener('message', function(e) {
+        if (e.data.type === 'showNext') showNextStep();
+        else if (e.data.type === 'showAll') showAllSteps();
+        else if (e.data.type === 'hideAll') hideAllSteps();
+    });
+
+    function closeExercise() {
+        if (window.parent !== window) {
+            // Siamo in iframe, chiedi al parent di chiudere
+            window.parent.postMessage({type: 'closeModal'}, '*');
+        } else {
+            // Standalone: torna alla pagina esercizi
+            const path = window.location.pathname;
+            if (path.includes('/content/soluzioni/')) {
+                window.location.href = '../../esercizi.html';
+            } else {
+                window.history.back();
+            }
+        }
+    }
+</script>
+</body>
+</html>

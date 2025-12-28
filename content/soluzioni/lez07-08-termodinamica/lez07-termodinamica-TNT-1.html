@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Esame 9 - Esercizio 1 - Termodinamica TNT</title>
+    <style>
+        body { font-family: Georgia, serif; max-width: 800px; margin: 40px auto; padding: 20px; line-height: 1.8; }
+        h1 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+        h2 { color: #2980b9; margin-top: 30px; }
+        h3 { color: #16a085; margin-top: 25px; }
+        .question { background: #ecf0f1; padding: 15px; border-left: 4px solid #3498db; margin: 20px 0; }
+        .result { background: #d5f5e3; padding: 15px; border-left: 4px solid #27ae60; margin: 20px 0; font-weight: bold; }
+        .formula { background: #fdebd0; padding: 10px; margin: 10px 0; font-family: monospace; }
+        .step { background: #ebf5fb; padding: 12px; margin: 15px 0; border-radius: 5px; }
+        .warning { background: #fdedec; padding: 12px; margin: 15px 0; border-left: 4px solid #e74c3c; }
+        table { border-collapse: collapse; width: 100%; margin: 20px 0; }
+        th, td { border: 1px solid #bdc3c7; padding: 10px; text-align: left; }
+        th { background: #3498db; color: white; }
+        .concept { background: #f5eef8; padding: 12px; margin: 15px 0; border-left: 4px solid #9b59b6; }
+    
+    .done-buttons {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+    .mark-btn {
+        padding: 12px 24px;
+        font-size: 1em;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .mark-done {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        color: white;
+    }
+    .mark-done:hover, .mark-done.selected {
+        background: linear-gradient(135deg, #1e7e34, #17a085);
+        transform: scale(1.05);
+    }
+    .mark-review {
+        background: linear-gradient(135deg, #ffc107, #fd7e14);
+        color: white;
+    }
+    .mark-review:hover, .mark-review.selected {
+        background: linear-gradient(135deg, #d39e00, #dc6502);
+        transform: scale(1.05);
+    }
+    .mark-reset {
+        background: #6c757d;
+        color: white;
+    }
+    .mark-reset:hover {
+        background: #545b62;
+    }
+    .mark-btn.selected {
+        box-shadow: 0 0 0 3px rgba(0,0,0,0.2);
+    }
+</style>
+
+<style>
+    .quiz-container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px;
+        padding-bottom: 120px;
+    }
+    .question-section {
+        background: linear-gradient(135deg, #e8f4f8 0%, #d4edda 100%);
+        border: 2px solid #17a2b8;
+        border-radius: 10px;
+        padding: 25px;
+        margin-bottom: 20px;
+    }
+    .question-section h2 {
+        color: #0c5460;
+        margin-top: 0;
+        margin-bottom: 15px;
+    }
+    .show-next-btn {
+        display: block;
+        width: 100%;
+        padding: 15px 30px;
+        font-size: 1.1em;
+        font-weight: bold;
+        color: white;
+        background: linear-gradient(135deg, #007bff, #0056b3);
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        margin: 15px 0;
+        transition: all 0.3s ease;
+    }
+    .show-next-btn:hover {
+        background: linear-gradient(135deg, #0056b3, #004094);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 123, 255, 0.4);
+    }
+    .show-all-btn {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        margin-top: 10px;
+    }
+    .show-all-btn:hover {
+        background: linear-gradient(135deg, #218838, #1db385);
+        box-shadow: 0 4px 12px rgba(40, 167, 69, 0.4);
+    }
+    .step-container {
+        display: none;
+        animation: fadeIn 0.5s ease;
+        margin-bottom: 20px;
+        border: 1px solid #dee2e6;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    .step-container.visible {
+        display: block;
+    }
+    .step-header {
+        background: linear-gradient(135deg, #6c757d, #495057);
+        color: white;
+        padding: 12px 20px;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+    }
+    .step-number-badge {
+        background: white;
+        color: #495057;
+        border-radius: 50%;
+        width: 28px;
+        height: 28px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 12px;
+        font-weight: bold;
+    }
+    .step-content {
+        padding: 20px;
+        background: white;
+    }
+    .progress-bar {
+        background: #e9ecef;
+        border-radius: 10px;
+        height: 8px;
+        margin: 15px 0;
+        overflow: hidden;
+    }
+    .progress-fill {
+        background: linear-gradient(90deg, #28a745, #20c997);
+        height: 100%;
+        border-radius: 10px;
+        transition: width 0.5s ease;
+    }
+    .progress-text {
+        text-align: center;
+        color: #6c757d;
+        font-size: 0.9em;
+        margin-bottom: 15px;
+    }
+    .controls {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: white;
+        padding: 15px 20px;
+        border-top: 2px solid #dee2e6;
+        box-shadow: 0 -4px 12px rgba(0,0,0,0.1);
+        z-index: 1000;
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+    }
+    .quiz-container {
+        padding-bottom: 100px;
+    }
+    .show-next-btn {
+        width: auto;
+        margin: 0;
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .final-answer {
+        background: #d4edda;
+        border: 2px solid #28a745;
+        border-radius: 10px;
+        padding: 20px;
+        margin-top: 20px;
+    }
+    .final-answer h3 {
+        color: #155724;
+        margin-top: 0;
+    }
+
+    .done-buttons {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+    .mark-btn {
+        padding: 12px 24px;
+        font-size: 1em;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .mark-done {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        color: white;
+    }
+    .mark-done:hover, .mark-done.selected {
+        background: linear-gradient(135deg, #1e7e34, #17a085);
+        transform: scale(1.05);
+    }
+    .mark-review {
+        background: linear-gradient(135deg, #ffc107, #fd7e14);
+        color: white;
+    }
+    .mark-review:hover, .mark-review.selected {
+        background: linear-gradient(135deg, #d39e00, #dc6502);
+        transform: scale(1.05);
+    }
+    .mark-reset {
+        background: #6c757d;
+        color: white;
+    }
+    .mark-reset:hover {
+        background: #545b62;
+    }
+    .mark-btn.selected {
+        box-shadow: 0 0 0 3px rgba(0,0,0,0.2);
+    }
+</style>
+</head>
+<body>
+<div class="quiz-container">
+    <h1>Esame 9 - Esercizio 1: Decomposizione del TNT</h1>
+
+    <div class="question-section">
+        <h2>Testo dell'esercizio</h2>
+        <p>Risolvi l'esercizio seguente.</p>
+    </div>
+
+    <div class="progress-text" id="progress-text">Passaggio 0 di 6</div>
+    <div class="progress-bar">
+        <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+    </div>
+
+    <div class="controls">
+        <button id="next-btn" class="show-next-btn" onclick="showNextStep()">
+            ▶ Prossimo passaggio
+        </button>
+        <button id="all-btn" class="show-next-btn show-all-btn" onclick="showAllSteps()">
+            ⏩ Mostra tutto
+        </button>
+        <div id="done-buttons" class="done-buttons" style="display: none;">
+            <button id="mark-done" class="mark-btn mark-done" onclick="markExercise('done')">
+                ✓ Fatto
+            </button>
+            <button id="mark-review" class="mark-btn mark-review" onclick="markExercise('review')">
+                ⚠ Da rivedere
+            </button>
+            <button class="mark-btn mark-reset" onclick="resetExercise()">
+                ↺ Ricomincia
+            </button>
+            <button class="mark-btn" style="background: #17a2b8;" onclick="closeExercise()">
+                ✕ Chiudi
+            </button>
+        </div>
+    </div>
+
+    <div id="steps-wrapper">
+        
+        <div id="step-0" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">1</span>
+                Introduzione: Di cosa stiamo parlando?
+            </div>
+            <div class="step-content">
+                <h1>Esame 9 - Esercizio 1: Decomposizione del TNT</h1>
+
+<div class="question">
+<strong>TESTO DEL QUESITO:</strong><br><br>
+Il TNT (C<sub>7</sub>H<sub>5</sub>N<sub>3</sub>O<sub>6</sub>(s)) ha DeltaH°f = -66.17 kJ/mol e si decompone secondo la reazione:<br><br>
+<strong>C<sub>7</sub>H<sub>5</sub>N<sub>3</sub>O<sub>6</sub>(s) --> 3/2 N<sub>2</sub>(g) + 5/2 H<sub>2</sub>O(g) + 7/2 CO(g) + 7/2 C(grafite)</strong><br><br>
+a) Calcolare quanto calore si libera dalla decomposizione a pressione costante di 1 kg di tritolo.<br>
+b) Calcolare la quantita d'acqua prodotta (g) dalla decomposizione di 1 kg di TNT.<br>
+c) Calcolare il lavoro compiuto considerando la temperatura all'atto della decomposizione pari a 3000°C.<br><br>
+<strong>Dati:</strong> DeltaH°f H<sub>2</sub>O(g) = -241.8 kJ/mol, DeltaH°f CO(g) = -110.5 kJ/mol<br>
+MM(TNT) = 227.13 g/mol, MM(H<sub>2</sub>O) = 18 g/mol
+</div><h2>Introduzione: Di cosa stiamo parlando?</h2>
+
+<p>Questo e un classico esercizio di <strong>termochimica</strong>, cioe quella parte della termodinamica che si occupa degli scambi di calore nelle reazioni chimiche. Il TNT (trinitrotoluene) e un esplosivo famoso, e qui ci viene chiesto di studiare la sua decomposizione.</p>
+
+<div class="concept">
+<strong>Concetto chiave:</strong> Quando una sostanza esplode, libera energia (calore) perche si trasforma in prodotti piu stabili. L'energia totale dell'universo rimane costante (primo principio della termodinamica), ma viene redistribuita: l'energia chimica immagazzinata nei legami del TNT viene rilasciata come calore e lavoro di espansione dei gas.
+</div>
+            </div>
+        </div>
+        
+        <div id="step-1" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">2</span>
+                Raccolta dati
+            </div>
+            <div class="step-content">
+                <h2>Raccolta dati</h2>
+
+<p>Prima di iniziare qualsiasi calcolo, organizziamo tutti i dati che ci servono:</p>
+
+<table>
+<tr><th>Grandezza</th><th>Valore</th><th>Significato</th></tr>
+<tr><td>DeltaH°f TNT</td><td>-66.17 kJ/mol</td><td>Entalpia di formazione del TNT</td></tr>
+<tr><td>DeltaH°f H<sub>2</sub>O(g)</td><td>-241.8 kJ/mol</td><td>Entalpia di formazione dell'acqua vapore</td></tr>
+<tr><td>DeltaH°f CO(g)</td><td>-110.5 kJ/mol</td><td>Entalpia di formazione del monossido di carbonio</td></tr>
+<tr><td>DeltaH°f N<sub>2</sub>(g)</td><td>0 kJ/mol</td><td>Elemento nel suo stato standard</td></tr>
+<tr><td>DeltaH°f C(grafite)</td><td>0 kJ/mol</td><td>Elemento nel suo stato standard</td></tr>
+<tr><td>MM TNT</td><td>227.13 g/mol</td><td>Massa molare del TNT</td></tr>
+<tr><td>MM H<sub>2</sub>O</td><td>18 g/mol</td><td>Massa molare dell'acqua</td></tr>
+<tr><td>Massa TNT</td><td>1 kg = 1000 g</td><td>Quantita che esplode</td></tr>
+<tr><td>T decomposizione</td><td>3000°C = 3273 K</td><td>Temperatura dell'esplosione</td></tr>
+<tr><td>R</td><td>8.314 J/(mol·K)</td><td>Costante universale dei gas</td></tr>
+</table>
+
+<div class="warning">
+<strong>Attenzione!</strong> L'azoto molecolare N<sub>2</sub> e il carbonio grafite sono <strong>elementi nel loro stato standard</strong>, quindi la loro entalpia di formazione e ZERO per definizione. Questo e un punto fondamentale che molti studenti dimenticano!
+</div>
+
+<hr>
+            </div>
+        </div>
+        
+        <div id="step-2" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">3</span>
+                PARTE A: Calcolo del calore liberato
+            </div>
+            <div class="step-content">
+                <h2>PARTE A: Calcolo del calore liberato</h2>
+
+<h3>Passo 1: Calcoliamo le moli di TNT</h3>
+
+<p>Prima di tutto, dobbiamo sapere quante moli di TNT stiamo facendo esplodere. Perche? Perche tutte le grandezze termodinamiche (come l'entalpia) sono espresse <strong>per mole</strong>.</p>
+
+<div class="step">
+<strong>Ragionamento:</strong> Abbiamo 1000 g di TNT. Ogni mole di TNT pesa 227.13 g. Quante moli abbiamo?
+</div>
+
+<div class="formula">
+n(TNT) = massa / massa molare = 1000 g / 227.13 g/mol = <strong>4.403 mol</strong>
+</div>
+
+<p>Bene! Abbiamo circa 4.4 moli di TNT. Ora dobbiamo calcolare quanto calore viene liberato quando UNA mole di TNT si decompone, e poi moltiplicheremo per 4.403.</p>
+
+<h3>Passo 2: Calcoliamo DeltaH di reazione (per 1 mole di TNT)</h3>
+
+<div class="concept">
+<strong>La Legge di Hess</strong><br>
+Per calcolare l'entalpia di una reazione, usiamo la formula:<br><br>
+<strong>DeltaH°reazione = Somma[DeltaH°f prodotti] - Somma[DeltaH°f reagenti]</strong><br><br>
+In parole semplici: prendiamo l'entalpia "contenuta" nei prodotti e sottraiamo quella "contenuta" nei reagenti. La differenza e l'energia che viene liberata (se negativa) o assorbita (se positiva).
+</div>
+
+<p>Scriviamo la reazione e identifichiamo i coefficienti:</p>
+
+<div class="formula">
+C<sub>7</sub>H<sub>5</sub>N<sub>3</sub>O<sub>6</sub>(s) --> 3/2 N<sub>2</sub>(g) + 5/2 H<sub>2</sub>O(g) + 7/2 CO(g) + 7/2 C(grafite)
+</div>
+
+<p><strong>Prodotti e loro coefficienti:</strong></p>
+<ul>
+<li>3/2 mol di N<sub>2</sub> con DeltaH°f = 0</li>
+<li>5/2 mol di H<sub>2</sub>O(g) con DeltaH°f = -241.8 kJ/mol</li>
+<li>7/2 mol di CO(g) con DeltaH°f = -110.5 kJ/mol</li>
+<li>7/2 mol di C(grafite) con DeltaH°f = 0</li>
+</ul>
+
+<p><strong>Reagente:</strong></p>
+<ul>
+<li>1 mol di TNT con DeltaH°f = -66.17 kJ/mol</li>
+</ul>
+
+<div class="step">
+<strong>Calcoliamo la somma per i prodotti:</strong><br><br>
+Somma prodotti = (3/2 x 0) + (5/2 x (-241.8)) + (7/2 x (-110.5)) + (7/2 x 0)<br><br>
+Somma prodotti = 0 + (2.5 x (-241.8)) + (3.5 x (-110.5)) + 0<br><br>
+Somma prodotti = -604.5 + (-386.75) = <strong>-991.25 kJ</strong>
+</div>
+
+<div class="step">
+<strong>Calcoliamo la somma per i reagenti:</strong><br><br>
+Somma reagenti = 1 x (-66.17) = <strong>-66.17 kJ</strong>
+</div>
+
+<div class="step">
+<strong>DeltaH di reazione:</strong><br><br>
+DeltaH°reaz = Prodotti - Reagenti = -991.25 - (-66.17) = -991.25 + 66.17 = <strong>-925.08 kJ/mol</strong>
+</div>
+
+<p>Cosa significa questo numero? Il segno <strong>negativo</strong> ci dice che la reazione e <strong>esotermica</strong>: libera calore. Ogni mole di TNT che esplode rilascia 925.08 kJ di energia. Ha senso! Un esplosivo DEVE liberare energia, altrimenti non sarebbe un esplosivo!</p>
+
+<h3>Passo 3: Calcoliamo il calore totale per 1 kg di TNT</h3>
+
+<p>Ora moltiplichiamo per il numero di moli che abbiamo:</p>
+
+<div class="formula">
+Q = n x DeltaH°reaz = 4.403 mol x (-925.08 kJ/mol) = <strong>-4073 kJ</strong>
+</div>
+
+<div class="result">
+<strong>RISPOSTA A:</strong> La decomposizione di 1 kg di TNT libera <strong>4073 kJ</strong> di calore (circa 4.07 MJ).<br>
+Il segno negativo indica che il calore ESCE dal sistema (reazione esotermica).
+</div>
+
+<p>Per darti un'idea: 4073 kJ sono circa l'energia contenuta in 100 g di cioccolato, ma rilasciata in una frazione di secondo!</p>
+
+<hr>
+            </div>
+        </div>
+        
+        <div id="step-3" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">4</span>
+                PARTE B: Quantita di acqua prodotta
+            </div>
+            <div class="step-content">
+                <h2>PARTE B: Quantita di acqua prodotta</h2>
+
+<h3>Passo 1: Analisi stechiometrica</h3>
+
+<p>Guardiamo la reazione: per ogni mole di TNT che si decompone, si formano <strong>5/2 = 2.5 moli</strong> di acqua.</p>
+
+<div class="step">
+<strong>Rapporto stechiometrico:</strong><br>
+1 mol TNT : 5/2 mol H<sub>2</sub>O = 1 : 2.5
+</div>
+
+<h3>Passo 2: Calcoliamo le moli di acqua</h3>
+
+<p>Abbiamo 4.403 mol di TNT. Quante moli di acqua si formano?</p>
+
+<div class="formula">
+n(H<sub>2</sub>O) = n(TNT) x (5/2) = 4.403 x 2.5 = <strong>11.01 mol</strong>
+</div>
+
+<h3>Passo 3: Convertiamo in grammi</h3>
+
+<p>Ogni mole di acqua pesa 18 g:</p>
+
+<div class="formula">
+m(H<sub>2</sub>O) = n x MM = 11.01 mol x 18 g/mol = <strong>198.2 g</strong>
+</div>
+
+<div class="result">
+<strong>RISPOSTA B:</strong> Dalla decomposizione di 1 kg di TNT si producono <strong>198.2 g di acqua</strong> (sotto forma di vapore).
+</div>
+
+<p>Nota: l'acqua si forma come vapore (gas) perche la temperatura dell'esplosione (3000°C) e enormemente superiore al punto di ebollizione dell'acqua!</p>
+
+<hr>
+            </div>
+        </div>
+        
+        <div id="step-4" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">5</span>
+                PARTE C: Calcolo del lavoro
+            </div>
+            <div class="step-content">
+                <h2>PARTE C: Calcolo del lavoro</h2>
+
+<h3>Concetto fondamentale: Cos'e il lavoro in termodinamica?</h3>
+
+<div class="concept">
+<strong>Lavoro di espansione:</strong><br>
+Quando una reazione produce gas a pressione costante, questi gas devono "farsi spazio" spingendo l'atmosfera. Questo richiede lavoro! Il lavoro compiuto DAL sistema CONTRO l'ambiente esterno e:<br><br>
+<strong>W = -P x DeltaV</strong> (convenzione: lavoro negativo = fatto dal sistema)<br><br>
+Per i gas ideali, a pressione costante: <strong>W = -Delta(n) x R x T</strong><br><br>
+dove Delta(n) = moli di gas prodotte - moli di gas reagenti
+</div>
+
+<h3>Passo 1: Calcoliamo Delta(n) per 1 mole di TNT</h3>
+
+<p>Contiamo le moli di gas nella reazione:</p>
+
+<p><strong>Prodotti gassosi:</strong></p>
+<ul>
+<li>N<sub>2</sub>(g): 3/2 mol</li>
+<li>H<sub>2</sub>O(g): 5/2 mol</li>
+<li>CO(g): 7/2 mol</li>
+</ul>
+
+<p><strong>Totale prodotti gassosi:</strong> 3/2 + 5/2 + 7/2 = 15/2 = <strong>7.5 mol di gas</strong></p>
+
+<p><strong>Reagenti gassosi:</strong> Il TNT e un SOLIDO, quindi <strong>0 mol di gas</strong></p>
+
+<p><strong>Nota:</strong> Il carbonio grafite e un solido, quindi non lo contiamo tra i gas.</p>
+
+<div class="formula">
+Delta(n) per 1 mol TNT = 7.5 - 0 = <strong>7.5 mol di gas</strong>
+</div>
+
+<h3>Passo 2: Calcoliamo Delta(n) totale per 4.403 mol di TNT</h3>
+
+<div class="formula">
+Delta(n) totale = 4.403 mol TNT x 7.5 mol gas/mol TNT = <strong>33.02 mol di gas</strong>
+</div>
+
+<h3>Passo 3: Convertiamo la temperatura in Kelvin</h3>
+
+<div class="formula">
+T = 3000°C + 273 = <strong>3273 K</strong>
+</div>
+
+<h3>Passo 4: Calcoliamo il lavoro</h3>
+
+<p>Usiamo la formula W = Delta(n) x R x T:</p>
+
+<div class="formula">
+W = Delta(n) x R x T = 33.02 mol x 8.314 J/(mol·K) x 3273 K
+</div>
+
+<div class="formula">
+W = 33.02 x 8.314 x 3273 = <strong>898,300 J = 898.3 kJ</strong>
+</div>
+
+<div class="result">
+<strong>RISPOSTA C:</strong> Il lavoro compiuto dal sistema (espansione dei gas) e <strong>W = 898.3 kJ</strong> (circa 898 kJ).<br><br>
+Questo lavoro e POSITIVO perche il sistema (i gas prodotti) compie lavoro espandendosi contro l'atmosfera.
+</div>
+
+<hr>
+            </div>
+        </div>
+        
+        <div id="step-5" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">6</span>
+                Riepilogo finale
+            </div>
+            <div class="step-content">
+                <h2>Riepilogo finale</h2>
+
+<table>
+<tr><th>Domanda</th><th>Risposta</th></tr>
+<tr><td>a) Calore liberato da 1 kg di TNT</td><td><strong>4073 kJ</strong> (reazione esotermica)</td></tr>
+<tr><td>b) Acqua prodotta</td><td><strong>198.2 g</strong> (come vapore)</td></tr>
+<tr><td>c) Lavoro di espansione a 3000°C</td><td><strong>898.3 kJ</strong></td></tr>
+</table>
+
+<div class="concept">
+<strong>Osservazione interessante:</strong><br>
+Del calore totale liberato (4073 kJ), circa 898 kJ vengono "spesi" per compiere lavoro di espansione. La differenza (circa 3175 kJ) viene dissipata come calore che scalda l'ambiente circostante (aria, detriti, etc.). Questa e l'applicazione diretta del primo principio della termodinamica: DeltaU = Q + W.
+</div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+<script>
+    let currentStep = 0;
+    let totalSteps = 0;
+
+    document.addEventListener('DOMContentLoaded', function() {
+        totalSteps = document.querySelectorAll('.step-container').length;
+        updateProgress();
+        updateButtons();
+    });
+
+    function showNextStep() {
+        if (currentStep < totalSteps) {
+            const step = document.getElementById('step-' + currentStep);
+            if (step) {
+                step.classList.add('visible');
+                step.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                currentStep++;
+                updateProgress();
+                updateButtons();
+
+                if (window.parent !== window) {
+                    window.parent.postMessage({type: 'stepShown', step: currentStep, total: totalSteps}, '*');
+                }
+            }
+        }
+    }
+
+    function showAllSteps() {
+        document.querySelectorAll('.step-container').forEach(function(step) {
+            step.classList.add('visible');
+        });
+        currentStep = totalSteps;
+        updateProgress();
+        updateButtons();
+
+        if (window.parent !== window) {
+            window.parent.postMessage({type: 'allStepsShown'}, '*');
+        }
+    }
+
+    function hideAllSteps() {
+        document.querySelectorAll('.step-container').forEach(function(step) {
+            step.classList.remove('visible');
+        });
+        currentStep = 0;
+        updateProgress();
+        updateButtons();
+    }
+
+    function updateProgress() {
+        const pct = totalSteps > 0 ? (currentStep / totalSteps) * 100 : 0;
+        const fill = document.getElementById('progress-fill');
+        const text = document.getElementById('progress-text');
+        if (fill) fill.style.width = pct + '%';
+        if (text) text.textContent = 'Passaggio ' + currentStep + ' di ' + totalSteps;
+    }
+
+    function updateButtons() {
+        const nextBtn = document.getElementById('next-btn');
+        const allBtn = document.getElementById('all-btn');
+        const doneButtons = document.getElementById('done-buttons');
+
+        if (currentStep >= totalSteps) {
+            if (nextBtn) nextBtn.style.display = 'none';
+            if (allBtn) allBtn.style.display = 'none';
+            if (doneButtons) doneButtons.style.display = 'flex';
+        } else {
+            if (nextBtn) nextBtn.style.display = 'block';
+            if (allBtn) allBtn.style.display = 'block';
+            if (doneButtons) doneButtons.style.display = 'none';
+        }
+    }
+
+    function markExercise(status) {
+        // Salva in localStorage
+        const exerciseId = window.location.pathname.split('/').pop().replace('.html', '');
+        let progress = JSON.parse(localStorage.getItem('chemportal_progress') || '{}');
+        if (!progress.exercises) progress.exercises = {};
+        progress.exercises[exerciseId] = status;
+        localStorage.setItem('chemportal_progress', JSON.stringify(progress));
+
+        // Feedback visivo
+        const btn = status === 'done' ? document.getElementById('mark-done') : document.getElementById('mark-review');
+        const otherBtn = status === 'done' ? document.getElementById('mark-review') : document.getElementById('mark-done');
+
+        btn.classList.add('selected');
+        otherBtn.classList.remove('selected');
+
+        // Notifica parent
+        if (window.parent !== window) {
+            window.parent.postMessage({type: 'exerciseMarked', status: status, id: exerciseId}, '*');
+        }
+    }
+
+    function resetExercise() {
+        hideAllSteps();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Messaggi dal parent
+    window.addEventListener('message', function(e) {
+        if (e.data.type === 'showNext') showNextStep();
+        else if (e.data.type === 'showAll') showAllSteps();
+        else if (e.data.type === 'hideAll') hideAllSteps();
+    });
+
+    function closeExercise() {
+        if (window.parent !== window) {
+            // Siamo in iframe, chiedi al parent di chiudere
+            window.parent.postMessage({type: 'closeModal'}, '*');
+        } else {
+            // Standalone: torna alla pagina esercizi
+            const path = window.location.pathname;
+            if (path.includes('/content/soluzioni/')) {
+                window.location.href = '../../esercizi.html';
+            } else {
+                window.history.back();
+            }
+        }
+    }
+</script>
+</body>
+</html>

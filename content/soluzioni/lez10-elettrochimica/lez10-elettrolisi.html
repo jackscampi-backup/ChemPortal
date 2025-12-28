@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Esame 1-2 - Esercizio 6 - Elettrolisi</title>
+    <style>
+        body { font-family: Georgia, serif; max-width: 800px; margin: 40px auto; padding: 20px; line-height: 1.8; color: #333; }
+        h2 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+        h3 { color: #2980b9; margin-top: 30px; }
+        h4 { color: #27ae60; margin-top: 25px; }
+        .result { background-color: #e8f5e9; padding: 15px; border-radius: 5px; border-left: 4px solid #4caf50; margin: 20px 0; }
+        .domanda { background: #f8f9fa; border-left: 4px solid #3498db; padding: 15px 20px; margin: 20px 0; font-style: italic; }
+        sub { font-size: 0.8em; vertical-align: sub; }
+        sup { font-size: 0.8em; vertical-align: super; }
+        hr { margin: 30px 0; border: none; border-top: 1px solid #ddd; }
+        .important { background-color: #fff3e0; padding: 15px; border-radius: 5px; border-left: 4px solid #ff9800; margin: 20px 0; }
+        .step { background-color: #e3f2fd; padding: 10px 15px; border-radius: 5px; margin: 10px 0; }
+        .formula { font-size: 1.1em; text-align: center; padding: 15px; background: #f5f5f5; border-radius: 5px; margin: 15px 0; }
+        table { border-collapse: collapse; width: 100%; margin: 20px 0; }
+        th, td { border: 1px solid #ddd; padding: 12px; text-align: center; }
+        th { background-color: #3498db; color: white; }
+    
+    .done-buttons {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+    .mark-btn {
+        padding: 12px 24px;
+        font-size: 1em;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .mark-done {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        color: white;
+    }
+    .mark-done:hover, .mark-done.selected {
+        background: linear-gradient(135deg, #1e7e34, #17a085);
+        transform: scale(1.05);
+    }
+    .mark-review {
+        background: linear-gradient(135deg, #ffc107, #fd7e14);
+        color: white;
+    }
+    .mark-review:hover, .mark-review.selected {
+        background: linear-gradient(135deg, #d39e00, #dc6502);
+        transform: scale(1.05);
+    }
+    .mark-reset {
+        background: #6c757d;
+        color: white;
+    }
+    .mark-reset:hover {
+        background: #545b62;
+    }
+    .mark-btn.selected {
+        box-shadow: 0 0 0 3px rgba(0,0,0,0.2);
+    }
+</style>
+
+<style>
+    .quiz-container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px;
+        padding-bottom: 120px;
+    }
+    .question-section {
+        background: linear-gradient(135deg, #e8f4f8 0%, #d4edda 100%);
+        border: 2px solid #17a2b8;
+        border-radius: 10px;
+        padding: 25px;
+        margin-bottom: 20px;
+    }
+    .question-section h2 {
+        color: #0c5460;
+        margin-top: 0;
+        margin-bottom: 15px;
+    }
+    .show-next-btn {
+        display: block;
+        width: 100%;
+        padding: 15px 30px;
+        font-size: 1.1em;
+        font-weight: bold;
+        color: white;
+        background: linear-gradient(135deg, #007bff, #0056b3);
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        margin: 15px 0;
+        transition: all 0.3s ease;
+    }
+    .show-next-btn:hover {
+        background: linear-gradient(135deg, #0056b3, #004094);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 123, 255, 0.4);
+    }
+    .show-all-btn {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        margin-top: 10px;
+    }
+    .show-all-btn:hover {
+        background: linear-gradient(135deg, #218838, #1db385);
+        box-shadow: 0 4px 12px rgba(40, 167, 69, 0.4);
+    }
+    .step-container {
+        display: none;
+        animation: fadeIn 0.5s ease;
+        margin-bottom: 20px;
+        border: 1px solid #dee2e6;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    .step-container.visible {
+        display: block;
+    }
+    .step-header {
+        background: linear-gradient(135deg, #6c757d, #495057);
+        color: white;
+        padding: 12px 20px;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+    }
+    .step-number-badge {
+        background: white;
+        color: #495057;
+        border-radius: 50%;
+        width: 28px;
+        height: 28px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 12px;
+        font-weight: bold;
+    }
+    .step-content {
+        padding: 20px;
+        background: white;
+    }
+    .progress-bar {
+        background: #e9ecef;
+        border-radius: 10px;
+        height: 8px;
+        margin: 15px 0;
+        overflow: hidden;
+    }
+    .progress-fill {
+        background: linear-gradient(90deg, #28a745, #20c997);
+        height: 100%;
+        border-radius: 10px;
+        transition: width 0.5s ease;
+    }
+    .progress-text {
+        text-align: center;
+        color: #6c757d;
+        font-size: 0.9em;
+        margin-bottom: 15px;
+    }
+    .controls {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: white;
+        padding: 15px 20px;
+        border-top: 2px solid #dee2e6;
+        box-shadow: 0 -4px 12px rgba(0,0,0,0.1);
+        z-index: 1000;
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+    }
+    .quiz-container {
+        padding-bottom: 100px;
+    }
+    .show-next-btn {
+        width: auto;
+        margin: 0;
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .final-answer {
+        background: #d4edda;
+        border: 2px solid #28a745;
+        border-radius: 10px;
+        padding: 20px;
+        margin-top: 20px;
+    }
+    .final-answer h3 {
+        color: #155724;
+        margin-top: 0;
+    }
+
+    .done-buttons {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+    .mark-btn {
+        padding: 12px 24px;
+        font-size: 1em;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .mark-done {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        color: white;
+    }
+    .mark-done:hover, .mark-done.selected {
+        background: linear-gradient(135deg, #1e7e34, #17a085);
+        transform: scale(1.05);
+    }
+    .mark-review {
+        background: linear-gradient(135deg, #ffc107, #fd7e14);
+        color: white;
+    }
+    .mark-review:hover, .mark-review.selected {
+        background: linear-gradient(135deg, #d39e00, #dc6502);
+        transform: scale(1.05);
+    }
+    .mark-reset {
+        background: #6c757d;
+        color: white;
+    }
+    .mark-reset:hover {
+        background: #545b62;
+    }
+    .mark-btn.selected {
+        box-shadow: 0 0 0 3px rgba(0,0,0,0.2);
+    }
+</style>
+</head>
+<body>
+<div class="quiz-container">
+    <h1>Esercizio</h1>
+
+    <div class="question-section">
+        <h2>Testo dell'esercizio</h2>
+        <p>Risolvi l'esercizio seguente.</p>
+    </div>
+
+    <div class="progress-text" id="progress-text">Passaggio 0 di 7</div>
+    <div class="progress-bar">
+        <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+    </div>
+
+    <div class="controls">
+        <button id="next-btn" class="show-next-btn" onclick="showNextStep()">
+            ▶ Prossimo passaggio
+        </button>
+        <button id="all-btn" class="show-next-btn show-all-btn" onclick="showAllSteps()">
+            ⏩ Mostra tutto
+        </button>
+        <div id="done-buttons" class="done-buttons" style="display: none;">
+            <button id="mark-done" class="mark-btn mark-done" onclick="markExercise('done')">
+                ✓ Fatto
+            </button>
+            <button id="mark-review" class="mark-btn mark-review" onclick="markExercise('review')">
+                ⚠ Da rivedere
+            </button>
+            <button class="mark-btn mark-reset" onclick="resetExercise()">
+                ↺ Ricomincia
+            </button>
+            <button class="mark-btn" style="background: #17a2b8;" onclick="closeExercise()">
+                ✕ Chiudi
+            </button>
+        </div>
+    </div>
+
+    <div id="steps-wrapper">
+        
+        <div id="step-0" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">1</span>
+                Elettrolisi di una Soluzione di Solfato di Sodio
+            </div>
+            <div class="step-content">
+                <h3>Elettrolisi di una Soluzione di Solfato di Sodio</h3>
+
+<div class="domanda">
+<strong>Testo della domanda:</strong><br>
+Indicare i prodotti che si scaricano agli elettrodi per elettrolisi di una soluzione di solfato di sodio. Motivare.
+</div>
+
+<hr>
+            </div>
+        </div>
+        
+        <div id="step-1" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">2</span>
+                Che cos'è l'elettrolisi?
+            </div>
+            <div class="step-content">
+                <h3>Che cos'è l'elettrolisi?</h3>
+
+<p>L'<strong>elettrolisi</strong> è un processo elettrochimico in cui si usa energia elettrica per forzare una reazione chimica non spontanea. Durante l'elettrolisi:</p>
+
+<ul>
+    <li>Al <strong>catodo</strong> (polo negativo) avviene una <strong>riduzione</strong>: le specie acquistano elettroni</li>
+    <li>All'<strong>anodo</strong> (polo positivo) avviene un'<strong>ossidazione</strong>: le specie cedono elettroni</li>
+</ul>
+            </div>
+        </div>
+        
+        <div id="step-2" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">3</span>
+                Analisi del sistema: cosa c'è in soluzione?
+            </div>
+            <div class="step-content">
+                <h3>Analisi del sistema: cosa c'è in soluzione?</h3>
+
+<p>Il solfato di sodio (Na<sub>2</sub>SO<sub>4</sub>) è un <strong>sale solubile</strong> che in acqua si dissocia completamente:</p>
+
+<div class="formula">
+Na<sub>2</sub>SO<sub>4</sub> → 2Na<sup>+</sup> + SO<sub>4</sub><sup>2-</sup>
+</div>
+
+<p>Inoltre, essendo in soluzione acquosa, abbiamo anche le molecole di <strong>H<sub>2</sub>O</strong>.</p>
+
+<p>Quindi in soluzione sono presenti:</p>
+<ul>
+    <li><strong>Cationi:</strong> Na<sup>+</sup> e H<sub>2</sub>O (che può cedere H<sup>+</sup>)</li>
+    <li><strong>Anioni:</strong> SO<sub>4</sub><sup>2-</sup> e H<sub>2</sub>O (che può cedere OH<sup>-</sup>)</li>
+</ul>
+            </div>
+        </div>
+        
+        <div id="step-3" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">4</span>
+                Cosa succede al CATODO? (riduzione)
+            </div>
+            <div class="step-content">
+                <h3>Cosa succede al CATODO? (riduzione)</h3>
+
+<p>Al catodo arrivano i cationi e le specie che possono essere ridotte. Le possibilità sono:</p>
+
+<h4>Opzione 1: Riduzione del sodio</h4>
+<div class="formula">
+Na<sup>+</sup> + e<sup>-</sup> → Na(s) &nbsp;&nbsp;&nbsp; E° = -2.71 V
+</div>
+
+<h4>Opzione 2: Riduzione dell'acqua</h4>
+<div class="formula">
+2H<sub>2</sub>O + 2e<sup>-</sup> → H<sub>2</sub>(g) + 2OH<sup>-</sup> &nbsp;&nbsp;&nbsp; E° = -0.83 V
+</div>
+
+<p><strong>Quale reazione avviene?</strong></p>
+
+<p>In elettrolisi, la specie che si riduce per prima è quella con il <strong>potenziale di riduzione più alto</strong> (o meno negativo), perché richiede meno energia.</p>
+
+<p>Confrontando i potenziali:</p>
+<ul>
+    <li>E°(Na<sup>+</sup>/Na) = -2.71 V (molto negativo)</li>
+    <li>E°(H<sub>2</sub>O/H<sub>2</sub>) = -0.83 V (meno negativo)</li>
+</ul>
+
+<p>L'acqua ha un potenziale di riduzione meno negativo, quindi è <strong>più facile da ridurre</strong> del sodio.</p>
+
+<div class="important">
+<strong>Perché il sodio non si deposita?</strong><br>
+Il sodio è un metallo alcalino con un potenziale di riduzione estremamente negativo. Per ridurre Na<sup>+</sup> a Na metallico servirebbe applicare una tensione così elevata che l'acqua verrebbe ridotta molto prima. Inoltre, anche se si formasse Na metallico, reagirebbe immediatamente con l'acqua in modo violento: 2Na + 2H<sub>2</sub>O → 2NaOH + H<sub>2</sub>
+</div>
+
+<div class="result">
+<strong>Al CATODO si scarica:</strong><br><br>
+<strong>Idrogeno gassoso (H<sub>2</sub>)</strong><br><br>
+Semireazione: 2H<sub>2</sub>O + 2e<sup>-</sup> → H<sub>2</sub>(g) + 2OH<sup>-</sup>
+</div>
+
+<hr>
+            </div>
+        </div>
+        
+        <div id="step-4" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">5</span>
+                Cosa succede all'ANODO? (ossidazione)
+            </div>
+            <div class="step-content">
+                <h3>Cosa succede all'ANODO? (ossidazione)</h3>
+
+<p>All'anodo arrivano gli anioni e le specie che possono essere ossidate. Le possibilità sono:</p>
+
+<h4>Opzione 1: Ossidazione del solfato</h4>
+<div class="formula">
+2SO<sub>4</sub><sup>2-</sup> → S<sub>2</sub>O<sub>8</sub><sup>2-</sup> + 2e<sup>-</sup> &nbsp;&nbsp;&nbsp; E° = +2.01 V
+</div>
+
+<p>(Formazione di persolfato, reazione che richiede un potenziale molto alto)</p>
+
+<h4>Opzione 2: Ossidazione dell'acqua</h4>
+<div class="formula">
+2H<sub>2</sub>O → O<sub>2</sub>(g) + 4H<sup>+</sup> + 4e<sup>-</sup> &nbsp;&nbsp;&nbsp; E° = +1.23 V
+</div>
+
+<p><strong>Quale reazione avviene?</strong></p>
+
+<p>In elettrolisi, la specie che si ossida per prima è quella con il <strong>potenziale di ossidazione più alto</strong>, ovvero quella con il potenziale di riduzione più basso.</p>
+
+<p>Confrontando i potenziali:</p>
+<ul>
+    <li>E°(S<sub>2</sub>O<sub>8</sub><sup>2-</sup>/SO<sub>4</sub><sup>2-</sup>) = +2.01 V</li>
+    <li>E°(O<sub>2</sub>/H<sub>2</sub>O) = +1.23 V</li>
+</ul>
+
+<p>L'acqua ha un potenziale di ossidazione più favorevole (richiede meno energia per essere ossidata), quindi viene ossidata prima del solfato.</p>
+
+<div class="important">
+<strong>Perché il solfato non si ossida?</strong><br>
+Lo ione solfato (SO<sub>4</sub><sup>2-</sup>) ha già lo zolfo al suo massimo stato di ossidazione (+6). Per ossidarlo ulteriormente (formando persolfato), servirebbero condizioni molto drastiche e potenziali elevati. L'ossidazione dell'acqua è termodinamicamente e cineticamente molto più favorevole.
+</div>
+
+<div class="result">
+<strong>All'ANODO si scarica:</strong><br><br>
+<strong>Ossigeno gassoso (O<sub>2</sub>)</strong><br><br>
+Semireazione: 2H<sub>2</sub>O → O<sub>2</sub>(g) + 4H<sup>+</sup> + 4e<sup>-</sup>
+</div>
+
+<hr>
+            </div>
+        </div>
+        
+        <div id="step-5" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">6</span>
+                Reazione globale dell'elettrolisi
+            </div>
+            <div class="step-content">
+                <h3>Reazione globale dell'elettrolisi</h3>
+
+<p>Combinando le due semireazioni (bilanciando gli elettroni):</p>
+
+<div class="step">
+<strong>Catodo (× 2):</strong> 4H<sub>2</sub>O + 4e<sup>-</sup> → 2H<sub>2</sub>(g) + 4OH<sup>-</sup><br>
+<strong>Anodo:</strong> 2H<sub>2</sub>O → O<sub>2</sub>(g) + 4H<sup>+</sup> + 4e<sup>-</sup>
+</div>
+
+<p>Sommando:</p>
+
+<div class="formula">
+6H<sub>2</sub>O → 2H<sub>2</sub>(g) + O<sub>2</sub>(g) + 4H<sup>+</sup> + 4OH<sup>-</sup>
+</div>
+
+<p>Dato che H<sup>+</sup> + OH<sup>-</sup> → H<sub>2</sub>O:</p>
+
+<div class="formula">
+6H<sub>2</sub>O → 2H<sub>2</sub>(g) + O<sub>2</sub>(g) + 4H<sub>2</sub>O
+</div>
+
+<p>Semplificando:</p>
+
+<div class="formula">
+<strong>2H<sub>2</sub>O → 2H<sub>2</sub>(g) + O<sub>2</sub>(g)</strong>
+</div>
+            </div>
+        </div>
+        
+        <div id="step-6" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">7</span>
+                Conclusione
+            </div>
+            <div class="step-content">
+                <h3>Conclusione</h3>
+
+<p>L'elettrolisi di una soluzione di solfato di sodio produce essenzialmente l'<strong>elettrolisi dell'acqua</strong>:</p>
+
+<ul>
+    <li>Il solfato di sodio funge solo da <strong>elettrolita</strong>, aumentando la conducibilità della soluzione</li>
+    <li>Gli ioni Na<sup>+</sup> e SO<sub>4</sub><sup>2-</sup> <strong>non partecipano alle reazioni elettrodiche</strong></li>
+    <li>Sono solo "spettatori" che permettono il passaggio di corrente</li>
+</ul>
+
+<div class="result">
+<strong>Riepilogo finale:</strong><br><br>
+<table>
+    <tr>
+        <th>Elettrodo</th>
+        <th>Processo</th>
+        <th>Prodotto</th>
+    </tr>
+    <tr>
+        <td><strong>Catodo</strong> (polo -)</td>
+        <td>Riduzione di H<sub>2</sub>O</td>
+        <td><strong>H<sub>2</sub> (gas)</strong></td>
+    </tr>
+    <tr>
+        <td><strong>Anodo</strong> (polo +)</td>
+        <td>Ossidazione di H<sub>2</sub>O</td>
+        <td><strong>O<sub>2</sub> (gas)</strong></td>
+    </tr>
+</table>
+<br>
+<strong>Motivazione:</strong> Sia Na<sup>+</sup> che SO<sub>4</sub><sup>2-</sup> hanno potenziali di scarica meno favorevoli rispetto all'acqua, quindi è l'acqua a essere elettrolizzata.
+</div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+<script>
+    let currentStep = 0;
+    let totalSteps = 0;
+
+    document.addEventListener('DOMContentLoaded', function() {
+        totalSteps = document.querySelectorAll('.step-container').length;
+        updateProgress();
+        updateButtons();
+    });
+
+    function showNextStep() {
+        if (currentStep < totalSteps) {
+            const step = document.getElementById('step-' + currentStep);
+            if (step) {
+                step.classList.add('visible');
+                step.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                currentStep++;
+                updateProgress();
+                updateButtons();
+
+                if (window.parent !== window) {
+                    window.parent.postMessage({type: 'stepShown', step: currentStep, total: totalSteps}, '*');
+                }
+            }
+        }
+    }
+
+    function showAllSteps() {
+        document.querySelectorAll('.step-container').forEach(function(step) {
+            step.classList.add('visible');
+        });
+        currentStep = totalSteps;
+        updateProgress();
+        updateButtons();
+
+        if (window.parent !== window) {
+            window.parent.postMessage({type: 'allStepsShown'}, '*');
+        }
+    }
+
+    function hideAllSteps() {
+        document.querySelectorAll('.step-container').forEach(function(step) {
+            step.classList.remove('visible');
+        });
+        currentStep = 0;
+        updateProgress();
+        updateButtons();
+    }
+
+    function updateProgress() {
+        const pct = totalSteps > 0 ? (currentStep / totalSteps) * 100 : 0;
+        const fill = document.getElementById('progress-fill');
+        const text = document.getElementById('progress-text');
+        if (fill) fill.style.width = pct + '%';
+        if (text) text.textContent = 'Passaggio ' + currentStep + ' di ' + totalSteps;
+    }
+
+    function updateButtons() {
+        const nextBtn = document.getElementById('next-btn');
+        const allBtn = document.getElementById('all-btn');
+        const doneButtons = document.getElementById('done-buttons');
+
+        if (currentStep >= totalSteps) {
+            if (nextBtn) nextBtn.style.display = 'none';
+            if (allBtn) allBtn.style.display = 'none';
+            if (doneButtons) doneButtons.style.display = 'flex';
+        } else {
+            if (nextBtn) nextBtn.style.display = 'block';
+            if (allBtn) allBtn.style.display = 'block';
+            if (doneButtons) doneButtons.style.display = 'none';
+        }
+    }
+
+    function markExercise(status) {
+        // Salva in localStorage
+        const exerciseId = window.location.pathname.split('/').pop().replace('.html', '');
+        let progress = JSON.parse(localStorage.getItem('chemportal_progress') || '{}');
+        if (!progress.exercises) progress.exercises = {};
+        progress.exercises[exerciseId] = status;
+        localStorage.setItem('chemportal_progress', JSON.stringify(progress));
+
+        // Feedback visivo
+        const btn = status === 'done' ? document.getElementById('mark-done') : document.getElementById('mark-review');
+        const otherBtn = status === 'done' ? document.getElementById('mark-review') : document.getElementById('mark-done');
+
+        btn.classList.add('selected');
+        otherBtn.classList.remove('selected');
+
+        // Notifica parent
+        if (window.parent !== window) {
+            window.parent.postMessage({type: 'exerciseMarked', status: status, id: exerciseId}, '*');
+        }
+    }
+
+    function resetExercise() {
+        hideAllSteps();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Messaggi dal parent
+    window.addEventListener('message', function(e) {
+        if (e.data.type === 'showNext') showNextStep();
+        else if (e.data.type === 'showAll') showAllSteps();
+        else if (e.data.type === 'hideAll') hideAllSteps();
+    });
+
+    function closeExercise() {
+        if (window.parent !== window) {
+            // Siamo in iframe, chiedi al parent di chiudere
+            window.parent.postMessage({type: 'closeModal'}, '*');
+        } else {
+            // Standalone: torna alla pagina esercizi
+            const path = window.location.pathname;
+            if (path.includes('/content/soluzioni/')) {
+                window.location.href = '../../esercizi.html';
+            } else {
+                window.history.back();
+            }
+        }
+    }
+</script>
+</body>
+</html>

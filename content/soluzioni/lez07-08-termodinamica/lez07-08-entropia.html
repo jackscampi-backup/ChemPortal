@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Esame 1-2 - Esercizio 5 - Entropia di Formazione</title>
+    <style>
+        body { font-family: Georgia, serif; max-width: 800px; margin: 40px auto; padding: 20px; line-height: 1.8; color: #333; }
+        h2 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+        h3 { color: #2980b9; margin-top: 30px; }
+        h4 { color: #27ae60; margin-top: 25px; }
+        .result { background-color: #e8f5e9; padding: 15px; border-radius: 5px; border-left: 4px solid #4caf50; margin: 20px 0; }
+        .domanda { background: #f8f9fa; border-left: 4px solid #3498db; padding: 15px 20px; margin: 20px 0; font-style: italic; }
+        sub { font-size: 0.8em; vertical-align: sub; }
+        sup { font-size: 0.8em; vertical-align: super; }
+        hr { margin: 30px 0; border: none; border-top: 1px solid #ddd; }
+        .important { background-color: #fff3e0; padding: 15px; border-radius: 5px; border-left: 4px solid #ff9800; margin: 20px 0; }
+        .step { background-color: #e3f2fd; padding: 10px 15px; border-radius: 5px; margin: 10px 0; }
+        .formula { font-size: 1.1em; text-align: center; padding: 15px; background: #f5f5f5; border-radius: 5px; margin: 15px 0; }
+    
+    .done-buttons {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+    .mark-btn {
+        padding: 12px 24px;
+        font-size: 1em;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .mark-done {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        color: white;
+    }
+    .mark-done:hover, .mark-done.selected {
+        background: linear-gradient(135deg, #1e7e34, #17a085);
+        transform: scale(1.05);
+    }
+    .mark-review {
+        background: linear-gradient(135deg, #ffc107, #fd7e14);
+        color: white;
+    }
+    .mark-review:hover, .mark-review.selected {
+        background: linear-gradient(135deg, #d39e00, #dc6502);
+        transform: scale(1.05);
+    }
+    .mark-reset {
+        background: #6c757d;
+        color: white;
+    }
+    .mark-reset:hover {
+        background: #545b62;
+    }
+    .mark-btn.selected {
+        box-shadow: 0 0 0 3px rgba(0,0,0,0.2);
+    }
+</style>
+
+<style>
+    .quiz-container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px;
+        padding-bottom: 120px;
+    }
+    .question-section {
+        background: linear-gradient(135deg, #e8f4f8 0%, #d4edda 100%);
+        border: 2px solid #17a2b8;
+        border-radius: 10px;
+        padding: 25px;
+        margin-bottom: 20px;
+    }
+    .question-section h2 {
+        color: #0c5460;
+        margin-top: 0;
+        margin-bottom: 15px;
+    }
+    .show-next-btn {
+        display: block;
+        width: 100%;
+        padding: 15px 30px;
+        font-size: 1.1em;
+        font-weight: bold;
+        color: white;
+        background: linear-gradient(135deg, #007bff, #0056b3);
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        margin: 15px 0;
+        transition: all 0.3s ease;
+    }
+    .show-next-btn:hover {
+        background: linear-gradient(135deg, #0056b3, #004094);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 123, 255, 0.4);
+    }
+    .show-all-btn {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        margin-top: 10px;
+    }
+    .show-all-btn:hover {
+        background: linear-gradient(135deg, #218838, #1db385);
+        box-shadow: 0 4px 12px rgba(40, 167, 69, 0.4);
+    }
+    .step-container {
+        display: none;
+        animation: fadeIn 0.5s ease;
+        margin-bottom: 20px;
+        border: 1px solid #dee2e6;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    .step-container.visible {
+        display: block;
+    }
+    .step-header {
+        background: linear-gradient(135deg, #6c757d, #495057);
+        color: white;
+        padding: 12px 20px;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+    }
+    .step-number-badge {
+        background: white;
+        color: #495057;
+        border-radius: 50%;
+        width: 28px;
+        height: 28px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 12px;
+        font-weight: bold;
+    }
+    .step-content {
+        padding: 20px;
+        background: white;
+    }
+    .progress-bar {
+        background: #e9ecef;
+        border-radius: 10px;
+        height: 8px;
+        margin: 15px 0;
+        overflow: hidden;
+    }
+    .progress-fill {
+        background: linear-gradient(90deg, #28a745, #20c997);
+        height: 100%;
+        border-radius: 10px;
+        transition: width 0.5s ease;
+    }
+    .progress-text {
+        text-align: center;
+        color: #6c757d;
+        font-size: 0.9em;
+        margin-bottom: 15px;
+    }
+    .controls {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: white;
+        padding: 15px 20px;
+        border-top: 2px solid #dee2e6;
+        box-shadow: 0 -4px 12px rgba(0,0,0,0.1);
+        z-index: 1000;
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+    }
+    .quiz-container {
+        padding-bottom: 100px;
+    }
+    .show-next-btn {
+        width: auto;
+        margin: 0;
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .final-answer {
+        background: #d4edda;
+        border: 2px solid #28a745;
+        border-radius: 10px;
+        padding: 20px;
+        margin-top: 20px;
+    }
+    .final-answer h3 {
+        color: #155724;
+        margin-top: 0;
+    }
+
+    .done-buttons {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+    .mark-btn {
+        padding: 12px 24px;
+        font-size: 1em;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .mark-done {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        color: white;
+    }
+    .mark-done:hover, .mark-done.selected {
+        background: linear-gradient(135deg, #1e7e34, #17a085);
+        transform: scale(1.05);
+    }
+    .mark-review {
+        background: linear-gradient(135deg, #ffc107, #fd7e14);
+        color: white;
+    }
+    .mark-review:hover, .mark-review.selected {
+        background: linear-gradient(135deg, #d39e00, #dc6502);
+        transform: scale(1.05);
+    }
+    .mark-reset {
+        background: #6c757d;
+        color: white;
+    }
+    .mark-reset:hover {
+        background: #545b62;
+    }
+    .mark-btn.selected {
+        box-shadow: 0 0 0 3px rgba(0,0,0,0.2);
+    }
+</style>
+</head>
+<body>
+<div class="quiz-container">
+    <h1>Esercizio</h1>
+
+    <div class="question-section">
+        <h2>Testo dell'esercizio</h2>
+        <p>Risolvi l'esercizio seguente.</p>
+    </div>
+
+    <div class="progress-text" id="progress-text">Passaggio 0 di 6</div>
+    <div class="progress-bar">
+        <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+    </div>
+
+    <div class="controls">
+        <button id="next-btn" class="show-next-btn" onclick="showNextStep()">
+            ▶ Prossimo passaggio
+        </button>
+        <button id="all-btn" class="show-next-btn show-all-btn" onclick="showAllSteps()">
+            ⏩ Mostra tutto
+        </button>
+        <div id="done-buttons" class="done-buttons" style="display: none;">
+            <button id="mark-done" class="mark-btn mark-done" onclick="markExercise('done')">
+                ✓ Fatto
+            </button>
+            <button id="mark-review" class="mark-btn mark-review" onclick="markExercise('review')">
+                ⚠ Da rivedere
+            </button>
+            <button class="mark-btn mark-reset" onclick="resetExercise()">
+                ↺ Ricomincia
+            </button>
+            <button class="mark-btn" style="background: #17a2b8;" onclick="closeExercise()">
+                ✕ Chiudi
+            </button>
+        </div>
+    </div>
+
+    <div id="steps-wrapper">
+        
+        <div id="step-0" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">1</span>
+                Entropia Standard di Formazione
+            </div>
+            <div class="step-content">
+                <h3>Entropia Standard di Formazione</h3>
+
+<div class="domanda">
+<strong>Testo della domanda:</strong><br>
+Calcolare l'entropia standard di formazione dell'ossido di calcio. Commentare il valore ottenuto.
+</div>
+
+<hr>
+            </div>
+        </div>
+        
+        <div id="step-1" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">2</span>
+                Che cos'è l'entropia standard di formazione?
+            </div>
+            <div class="step-content">
+                <h3>Che cos'è l'entropia standard di formazione?</h3>
+
+<p>Prima di procedere con il calcolo, chiariamo cosa ci viene chiesto.</p>
+
+<p>L'<strong>entropia standard di formazione</strong> (spesso indicata come ΔS°<sub>f</sub>) di un composto è la variazione di entropia che si verifica quando <strong>una mole</strong> di quel composto viene formata a partire dagli <strong>elementi costituenti</strong> nelle loro <strong>forme stabili standard</strong> (a 25°C e 1 atm).</p>
+
+<p>Per l'ossido di calcio (CaO), la reazione di formazione è:</p>
+
+<div class="formula">
+<strong>Ca(s) + 1/2 O<sub>2</sub>(g) → CaO(s)</strong>
+</div>
+
+<p>Questa reazione ci dice che partiamo da:</p>
+<ul>
+    <li>Calcio metallico allo stato solido (la sua forma stabile a condizioni standard)</li>
+    <li>Ossigeno molecolare allo stato gassoso (la sua forma stabile a condizioni standard)</li>
+</ul>
+
+<p>E produciamo ossido di calcio solido.</p>
+            </div>
+        </div>
+        
+        <div id="step-2" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">3</span>
+                Dati forniti
+            </div>
+            <div class="step-content">
+                <h3>Dati forniti</h3>
+
+<p>I valori di entropia molare standard S° a 25°C sono:</p>
+
+<ul>
+    <li>S°(Ca, s) = 41.4 J/(mol·K)</li>
+    <li>S°(O<sub>2</sub>, g) = 205.0 J/(mol·K)</li>
+    <li>S°(CaO, s) = 39.7 J/(mol·K)</li>
+</ul>
+            </div>
+        </div>
+        
+        <div id="step-3" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">4</span>
+                Calcolo dell'entropia di reazione
+            </div>
+            <div class="step-content">
+                <h3>Calcolo dell'entropia di reazione</h3>
+
+<p>La variazione di entropia di una reazione si calcola come la differenza tra l'entropia dei prodotti e l'entropia dei reagenti:</p>
+
+<div class="formula">
+<strong>ΔS°<sub>reazione</sub> = Σ S°(prodotti) - Σ S°(reagenti)</strong>
+</div>
+
+<p>Questa formula è analoga alla legge di Hess per l'entalpia, ma applicata all'entropia.</p>
+
+<h4>Passo 1: Identificare i contributi entropici</h4>
+
+<p><strong>Prodotti:</strong></p>
+<ul>
+    <li>1 mol di CaO(s): contributo = 1 × 39.7 = 39.7 J/K</li>
+</ul>
+
+<p><strong>Reagenti:</strong></p>
+<ul>
+    <li>1 mol di Ca(s): contributo = 1 × 41.4 = 41.4 J/K</li>
+    <li>1/2 mol di O<sub>2</sub>(g): contributo = 0.5 × 205.0 = 102.5 J/K</li>
+</ul>
+
+<h4>Passo 2: Calcolare la variazione di entropia</h4>
+
+<div class="formula">
+ΔS°<sub>f</sub> = S°(CaO) - [S°(Ca) + 1/2 × S°(O<sub>2</sub>)]
+</div>
+
+<div class="formula">
+ΔS°<sub>f</sub> = 39.7 - [41.4 + 0.5 × 205.0]
+</div>
+
+<div class="formula">
+ΔS°<sub>f</sub> = 39.7 - [41.4 + 102.5]
+</div>
+
+<div class="formula">
+ΔS°<sub>f</sub> = 39.7 - 143.9
+</div>
+
+<div class="formula">
+ΔS°<sub>f</sub> = <strong>-104.2 J/(mol·K)</strong>
+</div>
+
+<div class="result">
+<strong>Risultato:</strong><br><br>
+L'entropia standard di formazione dell'ossido di calcio è:<br><br>
+<span style="font-size: 1.3em;"><strong>ΔS°<sub>f</sub>(CaO) = -104.2 J/(mol·K)</strong></span>
+</div>
+
+<hr>
+            </div>
+        </div>
+        
+        <div id="step-4" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">5</span>
+                Commento del valore ottenuto
+            </div>
+            <div class="step-content">
+                <h3>Commento del valore ottenuto</h3>
+
+<p>Il valore di entropia di formazione è <strong>negativo</strong>. Questo significa che nella formazione di CaO, il sistema diventa <strong>più ordinato</strong> (l'entropia diminuisce).</p>
+
+<h4>Perché l'entropia diminuisce?</h4>
+
+<p>Per capire questo risultato, dobbiamo analizzare cosa succede durante la reazione a livello molecolare:</p>
+
+<p><strong>1. Scompare una sostanza gassosa</strong></p>
+
+<p>Nei reagenti abbiamo 1/2 mole di O<sub>2</sub> gassoso, che ha un'entropia molto alta (205.0 J/(mol·K)). I gas hanno entropia elevata perché le molecole:</p>
+<ul>
+    <li>Sono molto distanti tra loro</li>
+    <li>Si muovono liberamente in tutte le direzioni</li>
+    <li>Occupano tutto il volume disponibile</li>
+    <li>Hanno molti gradi di libertà (traslazionali, rotazionali, vibrazionali)</li>
+</ul>
+
+<p><strong>2. Si forma un solido cristallino</strong></p>
+
+<p>Il prodotto CaO è un solido ionico con struttura cristallina ordinata (tipo NaCl). In un cristallo:</p>
+<ul>
+    <li>Gli ioni sono fissi nelle loro posizioni reticolari</li>
+    <li>Possono solo vibrare attorno alle posizioni di equilibrio</li>
+    <li>Il grado di disordine è molto basso</li>
+</ul>
+
+<p><strong>3. Bilancio complessivo</strong></p>
+
+<p>Stiamo "congelando" delle molecole di gas (molto disordinate) in una struttura cristallina rigida (molto ordinata). Questo è un processo che <strong>riduce il disordine</strong> del sistema, quindi l'entropia diminuisce.</p>
+
+<div class="important">
+<strong>Regola generale:</strong><br>
+Quando una reazione chimica coinvolge la scomparsa di moli di gas (reagenti gassosi che diventano solidi o liquidi), l'entropia di reazione è generalmente <strong>negativa</strong>.<br><br>
+Viceversa, quando una reazione produce gas (solidi o liquidi che si trasformano in gas), l'entropia di reazione è generalmente <strong>positiva</strong>.
+</div>
+
+<h4>La reazione è spontanea nonostante ΔS negativo?</h4>
+
+<p>Potrebbe sorgere una domanda: se l'entropia diminuisce, come può la formazione di CaO essere spontanea?</p>
+
+<p>La risposta sta nell'<strong>equazione di Gibbs</strong>:</p>
+
+<div class="formula">
+ΔG = ΔH - TΔS
+</div>
+
+<p>Una reazione è spontanea quando ΔG < 0. La formazione di CaO è altamente esotermica (ΔH°<sub>f</sub> = -635 kJ/mol), quindi:</p>
+
+<ul>
+    <li>Il termine ΔH è molto negativo (-635 kJ/mol)</li>
+    <li>Il termine -TΔS è positivo (perché ΔS è negativo)</li>
+    <li>A temperatura ambiente: -TΔS = -298 × (-0.1042 kJ/mol·K) ≈ +31 kJ/mol</li>
+</ul>
+
+<p>Quindi:</p>
+<div class="formula">
+ΔG ≈ -635 + 31 = -604 kJ/mol
+</div>
+
+<p>Il contributo entalpico (esotermico) è così grande che supera ampiamente la penalità entropica, rendendo la reazione <strong>fortemente spontanea</strong>.</p>
+            </div>
+        </div>
+        
+        <div id="step-5" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">6</span>
+                Riepilogo concettuale
+            </div>
+            <div class="step-content">
+                <h3>Riepilogo concettuale</h3>
+
+<div class="step">
+<strong>Punti chiave da ricordare:</strong><br>
+<ol>
+    <li>L'entropia standard di formazione si calcola come: ΔS°<sub>f</sub> = S°(prodotto) - Σ S°(reagenti)</li>
+    <li>I valori di S° degli elementi nelle forme standard NON sono zero (a differenza di ΔH°<sub>f</sub>)</li>
+    <li>I gas hanno entropia molto maggiore dei solidi e liquidi</li>
+    <li>Reazioni che "consumano" gas tendono ad avere ΔS negativo</li>
+    <li>Un ΔS negativo non implica che la reazione sia non spontanea: dipende dal bilancio con ΔH</li>
+</ol>
+</div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+<script>
+    let currentStep = 0;
+    let totalSteps = 0;
+
+    document.addEventListener('DOMContentLoaded', function() {
+        totalSteps = document.querySelectorAll('.step-container').length;
+        updateProgress();
+        updateButtons();
+    });
+
+    function showNextStep() {
+        if (currentStep < totalSteps) {
+            const step = document.getElementById('step-' + currentStep);
+            if (step) {
+                step.classList.add('visible');
+                step.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                currentStep++;
+                updateProgress();
+                updateButtons();
+
+                if (window.parent !== window) {
+                    window.parent.postMessage({type: 'stepShown', step: currentStep, total: totalSteps}, '*');
+                }
+            }
+        }
+    }
+
+    function showAllSteps() {
+        document.querySelectorAll('.step-container').forEach(function(step) {
+            step.classList.add('visible');
+        });
+        currentStep = totalSteps;
+        updateProgress();
+        updateButtons();
+
+        if (window.parent !== window) {
+            window.parent.postMessage({type: 'allStepsShown'}, '*');
+        }
+    }
+
+    function hideAllSteps() {
+        document.querySelectorAll('.step-container').forEach(function(step) {
+            step.classList.remove('visible');
+        });
+        currentStep = 0;
+        updateProgress();
+        updateButtons();
+    }
+
+    function updateProgress() {
+        const pct = totalSteps > 0 ? (currentStep / totalSteps) * 100 : 0;
+        const fill = document.getElementById('progress-fill');
+        const text = document.getElementById('progress-text');
+        if (fill) fill.style.width = pct + '%';
+        if (text) text.textContent = 'Passaggio ' + currentStep + ' di ' + totalSteps;
+    }
+
+    function updateButtons() {
+        const nextBtn = document.getElementById('next-btn');
+        const allBtn = document.getElementById('all-btn');
+        const doneButtons = document.getElementById('done-buttons');
+
+        if (currentStep >= totalSteps) {
+            if (nextBtn) nextBtn.style.display = 'none';
+            if (allBtn) allBtn.style.display = 'none';
+            if (doneButtons) doneButtons.style.display = 'flex';
+        } else {
+            if (nextBtn) nextBtn.style.display = 'block';
+            if (allBtn) allBtn.style.display = 'block';
+            if (doneButtons) doneButtons.style.display = 'none';
+        }
+    }
+
+    function markExercise(status) {
+        // Salva in localStorage
+        const exerciseId = window.location.pathname.split('/').pop().replace('.html', '');
+        let progress = JSON.parse(localStorage.getItem('chemportal_progress') || '{}');
+        if (!progress.exercises) progress.exercises = {};
+        progress.exercises[exerciseId] = status;
+        localStorage.setItem('chemportal_progress', JSON.stringify(progress));
+
+        // Feedback visivo
+        const btn = status === 'done' ? document.getElementById('mark-done') : document.getElementById('mark-review');
+        const otherBtn = status === 'done' ? document.getElementById('mark-review') : document.getElementById('mark-done');
+
+        btn.classList.add('selected');
+        otherBtn.classList.remove('selected');
+
+        // Notifica parent
+        if (window.parent !== window) {
+            window.parent.postMessage({type: 'exerciseMarked', status: status, id: exerciseId}, '*');
+        }
+    }
+
+    function resetExercise() {
+        hideAllSteps();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Messaggi dal parent
+    window.addEventListener('message', function(e) {
+        if (e.data.type === 'showNext') showNextStep();
+        else if (e.data.type === 'showAll') showAllSteps();
+        else if (e.data.type === 'hideAll') hideAllSteps();
+    });
+
+    function closeExercise() {
+        if (window.parent !== window) {
+            // Siamo in iframe, chiedi al parent di chiudere
+            window.parent.postMessage({type: 'closeModal'}, '*');
+        } else {
+            // Standalone: torna alla pagina esercizi
+            const path = window.location.pathname;
+            if (path.includes('/content/soluzioni/')) {
+                window.location.href = '../../esercizi.html';
+            } else {
+                window.history.back();
+            }
+        }
+    }
+</script>
+</body>
+</html>

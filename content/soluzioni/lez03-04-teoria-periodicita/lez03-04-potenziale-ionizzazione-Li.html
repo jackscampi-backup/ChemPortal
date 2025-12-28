@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Esame 8-1 - Potenziale di Ionizzazione del Litio</title>
+    <style>
+        body { font-family: Georgia, serif; max-width: 800px; margin: 40px auto; padding: 20px; line-height: 1.8; }
+        h1 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+        h2 { color: #2980b9; margin-top: 30px; }
+        .question { background: #ecf0f1; padding: 15px; border-left: 4px solid #3498db; margin: 20px 0; }
+        .result { background: #d5f5e3; padding: 15px; border-left: 4px solid #27ae60; margin: 20px 0; font-weight: bold; }
+        .formula { background: #fdebd0; padding: 10px; margin: 10px 0; font-family: monospace; }
+        .step { background: #fff; padding: 15px; margin: 15px 0; border-left: 3px solid #9b59b6; }
+        .note { background: #fef9e7; padding: 12px; margin: 15px 0; border-left: 3px solid #f39c12; font-style: italic; }
+    
+    .done-buttons {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+    .mark-btn {
+        padding: 12px 24px;
+        font-size: 1em;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .mark-done {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        color: white;
+    }
+    .mark-done:hover, .mark-done.selected {
+        background: linear-gradient(135deg, #1e7e34, #17a085);
+        transform: scale(1.05);
+    }
+    .mark-review {
+        background: linear-gradient(135deg, #ffc107, #fd7e14);
+        color: white;
+    }
+    .mark-review:hover, .mark-review.selected {
+        background: linear-gradient(135deg, #d39e00, #dc6502);
+        transform: scale(1.05);
+    }
+    .mark-reset {
+        background: #6c757d;
+        color: white;
+    }
+    .mark-reset:hover {
+        background: #545b62;
+    }
+    .mark-btn.selected {
+        box-shadow: 0 0 0 3px rgba(0,0,0,0.2);
+    }
+</style>
+
+<style>
+    .quiz-container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px;
+        padding-bottom: 120px;
+    }
+    .question-section {
+        background: linear-gradient(135deg, #e8f4f8 0%, #d4edda 100%);
+        border: 2px solid #17a2b8;
+        border-radius: 10px;
+        padding: 25px;
+        margin-bottom: 20px;
+    }
+    .question-section h2 {
+        color: #0c5460;
+        margin-top: 0;
+        margin-bottom: 15px;
+    }
+    .show-next-btn {
+        display: block;
+        width: 100%;
+        padding: 15px 30px;
+        font-size: 1.1em;
+        font-weight: bold;
+        color: white;
+        background: linear-gradient(135deg, #007bff, #0056b3);
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        margin: 15px 0;
+        transition: all 0.3s ease;
+    }
+    .show-next-btn:hover {
+        background: linear-gradient(135deg, #0056b3, #004094);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 123, 255, 0.4);
+    }
+    .show-all-btn {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        margin-top: 10px;
+    }
+    .show-all-btn:hover {
+        background: linear-gradient(135deg, #218838, #1db385);
+        box-shadow: 0 4px 12px rgba(40, 167, 69, 0.4);
+    }
+    .step-container {
+        display: none;
+        animation: fadeIn 0.5s ease;
+        margin-bottom: 20px;
+        border: 1px solid #dee2e6;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    .step-container.visible {
+        display: block;
+    }
+    .step-header {
+        background: linear-gradient(135deg, #6c757d, #495057);
+        color: white;
+        padding: 12px 20px;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+    }
+    .step-number-badge {
+        background: white;
+        color: #495057;
+        border-radius: 50%;
+        width: 28px;
+        height: 28px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 12px;
+        font-weight: bold;
+    }
+    .step-content {
+        padding: 20px;
+        background: white;
+    }
+    .progress-bar {
+        background: #e9ecef;
+        border-radius: 10px;
+        height: 8px;
+        margin: 15px 0;
+        overflow: hidden;
+    }
+    .progress-fill {
+        background: linear-gradient(90deg, #28a745, #20c997);
+        height: 100%;
+        border-radius: 10px;
+        transition: width 0.5s ease;
+    }
+    .progress-text {
+        text-align: center;
+        color: #6c757d;
+        font-size: 0.9em;
+        margin-bottom: 15px;
+    }
+    .controls {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: white;
+        padding: 15px 20px;
+        border-top: 2px solid #dee2e6;
+        box-shadow: 0 -4px 12px rgba(0,0,0,0.1);
+        z-index: 1000;
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+    }
+    .quiz-container {
+        padding-bottom: 100px;
+    }
+    .show-next-btn {
+        width: auto;
+        margin: 0;
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .final-answer {
+        background: #d4edda;
+        border: 2px solid #28a745;
+        border-radius: 10px;
+        padding: 20px;
+        margin-top: 20px;
+    }
+    .final-answer h3 {
+        color: #155724;
+        margin-top: 0;
+    }
+
+    .done-buttons {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+    .mark-btn {
+        padding: 12px 24px;
+        font-size: 1em;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .mark-done {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        color: white;
+    }
+    .mark-done:hover, .mark-done.selected {
+        background: linear-gradient(135deg, #1e7e34, #17a085);
+        transform: scale(1.05);
+    }
+    .mark-review {
+        background: linear-gradient(135deg, #ffc107, #fd7e14);
+        color: white;
+    }
+    .mark-review:hover, .mark-review.selected {
+        background: linear-gradient(135deg, #d39e00, #dc6502);
+        transform: scale(1.05);
+    }
+    .mark-reset {
+        background: #6c757d;
+        color: white;
+    }
+    .mark-reset:hover {
+        background: #545b62;
+    }
+    .mark-btn.selected {
+        box-shadow: 0 0 0 3px rgba(0,0,0,0.2);
+    }
+</style>
+</head>
+<body>
+<div class="quiz-container">
+    <h1>Potenziale di Prima Ionizzazione del Litio</h1>
+
+    <div class="question-section">
+        <h2>Testo dell'esercizio</h2>
+        <p>Risolvi l'esercizio seguente.</p>
+    </div>
+
+    <div class="progress-text" id="progress-text">Passaggio 0 di 9</div>
+    <div class="progress-bar">
+        <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+    </div>
+
+    <div class="controls">
+        <button id="next-btn" class="show-next-btn" onclick="showNextStep()">
+            ▶ Prossimo passaggio
+        </button>
+        <button id="all-btn" class="show-next-btn show-all-btn" onclick="showAllSteps()">
+            ⏩ Mostra tutto
+        </button>
+        <div id="done-buttons" class="done-buttons" style="display: none;">
+            <button id="mark-done" class="mark-btn mark-done" onclick="markExercise('done')">
+                ✓ Fatto
+            </button>
+            <button id="mark-review" class="mark-btn mark-review" onclick="markExercise('review')">
+                ⚠ Da rivedere
+            </button>
+            <button class="mark-btn mark-reset" onclick="resetExercise()">
+                ↺ Ricomincia
+            </button>
+            <button class="mark-btn" style="background: #17a2b8;" onclick="closeExercise()">
+                ✕ Chiudi
+            </button>
+        </div>
+    </div>
+
+    <div id="steps-wrapper">
+        
+        <div id="step-0" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">1</span>
+                Cosa ci viene chiesto?
+            </div>
+            <div class="step-content">
+                <h1>Potenziale di Prima Ionizzazione del Litio</h1>
+
+<div class="question">
+<strong>QUESITO 7:</strong><br>
+Stimare il potenziale di prima ionizzazione del Litio, in Joule, sapendo che Z<sub>eff</sub> per l'elettrone 2s vale 1,28.
+</div><h2>Cosa ci viene chiesto?</h2>
+
+<p>Dobbiamo calcolare l'<strong>energia di prima ionizzazione</strong> del Litio, cioe l'energia necessaria per "strappare" l'elettrone piu esterno dall'atomo di Litio neutro.</p>
+
+<p>In pratica, stiamo descrivendo questo processo:</p>
+
+<div class="formula">
+Li (gas) --> Li<sup>+</sup> (gas) + e<sup>-</sup>
+</div>
+
+<p>L'energia richiesta per fare questo e proprio il <strong>potenziale di ionizzazione</strong>.</p>
+            </div>
+        </div>
+        
+        <div id="step-1" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">2</span>
+                Che formula usiamo?
+            </div>
+            <div class="step-content">
+                <h2>Che formula usiamo?</h2>
+
+<p>Utilizziamo una formula derivata dal modello di Bohr, ma modificata per tenere conto dell'<strong>effetto di schermo</strong> degli altri elettroni. Questa modifica si chiama <strong>regole di Slater</strong>.</p>
+
+<p>La formula e:</p>
+
+<div class="formula">
+E = -13,6 eV x (Z<sub>eff</sub>)<sup>2</sup> / n<sup>2</sup>
+</div>
+
+<p>Dove:</p>
+<ul>
+    <li><strong>E</strong> = energia dell'elettrone (sara negativa perche l'elettrone e "legato" al nucleo)</li>
+    <li><strong>13,6 eV</strong> = energia di ionizzazione dell'idrogeno (una costante fondamentale)</li>
+    <li><strong>Z<sub>eff</sub></strong> = carica nucleare effettiva (quanto il nucleo "tira" l'elettrone, tenendo conto dello schermo degli altri elettroni)</li>
+    <li><strong>n</strong> = numero quantico principale (indica su quale "livello" si trova l'elettrone)</li>
+</ul>
+            </div>
+        </div>
+        
+        <div id="step-2" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">3</span>
+                Raccogliamo i dati
+            </div>
+            <div class="step-content">
+                <h2>Raccogliamo i dati</h2>
+
+<div class="step">
+<p><strong>Dati forniti dal problema:</strong></p>
+<ul>
+    <li>Z<sub>eff</sub> = 1,28 (ci viene dato direttamente)</li>
+    <li>13,6 eV = 2,18 x 10<sup>-18</sup> J (fattore di conversione)</li>
+</ul>
+
+<p><strong>Dati che dobbiamo ricavare:</strong></p>
+<ul>
+    <li>n = ? (numero quantico principale dell'elettrone da rimuovere)</li>
+</ul>
+</div>
+            </div>
+        </div>
+        
+        <div id="step-3" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">4</span>
+                Qual e il valore di n?
+            </div>
+            <div class="step-content">
+                <h2>Qual e il valore di n?</h2>
+
+<p>Ora, perche n = 2? Ragioniamo insieme.</p>
+
+<p>Il Litio (Li) ha numero atomico Z = 3, quindi ha 3 elettroni. La sua configurazione elettronica e:</p>
+
+<div class="formula">
+Li: 1s<sup>2</sup> 2s<sup>1</sup>
+</div>
+
+<p>Questo significa che:</p>
+<ul>
+    <li>2 elettroni sono nel livello n = 1 (orbitale 1s)</li>
+    <li>1 elettrone e nel livello n = 2 (orbitale 2s)</li>
+</ul>
+
+<p>L'elettrone piu esterno (quello che viene rimosso nella ionizzazione) e proprio l'elettrone <strong>2s</strong>, che si trova nel secondo livello energetico.</p>
+
+<p>Quindi: <strong>n = 2</strong></p>
+            </div>
+        </div>
+        
+        <div id="step-4" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">5</span>
+                Perche Zeff = 1,28 e non 3?
+            </div>
+            <div class="step-content">
+                <h2>Perche Z<sub>eff</sub> = 1,28 e non 3?</h2>
+
+<div class="note">
+<p>Fermati un attimo a capire questo concetto fondamentale!</p>
+<p>Il Litio ha 3 protoni nel nucleo (Z = 3), ma l'elettrone 2s non "sente" tutta questa carica. Perche? Perche i due elettroni 1s <strong>schermano</strong> parzialmente il nucleo!</p>
+<p>E come se i due elettroni interni formassero una "nuvola" che nasconde parte della carica positiva del nucleo. L'elettrone 2s quindi vede solo una carica effettiva di circa 1,28 invece di 3.</p>
+</div>
+            </div>
+        </div>
+        
+        <div id="step-5" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">6</span>
+                Calcoliamo l'energia
+            </div>
+            <div class="step-content">
+                <h2>Calcoliamo l'energia</h2>
+
+<p>Ora abbiamo tutti i dati. Sostituiamo nella formula:</p>
+
+<div class="formula">
+E = -13,6 eV x (Z<sub>eff</sub>)<sup>2</sup> / n<sup>2</sup>
+</div>
+
+<div class="step">
+<p><strong>Passo 1:</strong> Calcoliamo (Z<sub>eff</sub>)<sup>2</sup></p>
+<p>(1,28)<sup>2</sup> = 1,28 x 1,28 = <strong>1,6384</strong></p>
+</div>
+
+<div class="step">
+<p><strong>Passo 2:</strong> Calcoliamo n<sup>2</sup></p>
+<p>(2)<sup>2</sup> = <strong>4</strong></p>
+</div>
+
+<div class="step">
+<p><strong>Passo 3:</strong> Calcoliamo il rapporto (Z<sub>eff</sub>)<sup>2</sup> / n<sup>2</sup></p>
+<p>1,6384 / 4 = <strong>0,4096</strong></p>
+</div>
+
+<div class="step">
+<p><strong>Passo 4:</strong> Calcoliamo E in eV</p>
+<p>E = -13,6 eV x 0,4096 = <strong>-5,57 eV</strong></p>
+</div>
+
+<p>Il segno negativo indica che l'elettrone e legato al nucleo (ha energia negativa rispetto all'elettrone libero).</p>
+            </div>
+        </div>
+        
+        <div id="step-6" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">7</span>
+                Convertiamo in Joule
+            </div>
+            <div class="step-content">
+                <h2>Convertiamo in Joule</h2>
+
+<p>Il problema chiede la risposta in Joule, non in eV. Usiamo il fattore di conversione:</p>
+
+<div class="formula">
+13,6 eV = 2,18 x 10<sup>-18</sup> J
+</div>
+
+<p>Possiamo ricalcolare direttamente in Joule:</p>
+
+<div class="step">
+<p>E = -2,18 x 10<sup>-18</sup> J x 0,4096</p>
+<p>E = <strong>-8,93 x 10<sup>-19</sup> J</strong></p>
+</div>
+            </div>
+        </div>
+        
+        <div id="step-7" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">8</span>
+                Il potenziale di ionizzazione
+            </div>
+            <div class="step-content">
+                <h2>Il potenziale di ionizzazione</h2>
+
+<p>Attenzione! L'energia che abbiamo calcolato e <strong>negativa</strong> perche rappresenta l'energia dell'elettrone legato al nucleo.</p>
+
+<p>Il <strong>potenziale di ionizzazione</strong> invece e l'energia che dobbiamo <strong>fornire</strong> per liberare l'elettrone. E quindi il <strong>valore assoluto</strong> dell'energia:</p>
+
+<div class="formula">
+I = |E| = |-8,93 x 10<sup>-19</sup> J| = 8,93 x 10<sup>-19</sup> J
+</div>
+
+<div class="result">
+<p>RISPOSTA FINALE:</p>
+<p>Il potenziale di prima ionizzazione del Litio e:</p>
+<p style="font-size: 1.3em; text-align: center;">I = 8,9 x 10<sup>-19</sup> J</p>
+<p style="font-size: 0.9em;">(oppure circa 5,6 eV)</p>
+</div>
+            </div>
+        </div>
+        
+        <div id="step-8" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">9</span>
+                Verifica del risultato
+            </div>
+            <div class="step-content">
+                <h2>Verifica del risultato</h2>
+
+<p>Il valore sperimentale del potenziale di ionizzazione del Litio e 5,39 eV (circa 8,64 x 10<sup>-19</sup> J). Il nostro risultato di 5,57 eV e molto vicino! La piccola differenza e dovuta al fatto che le regole di Slater sono un'approssimazione.</p>
+
+<div class="note">
+<p><strong>Cosa abbiamo imparato?</strong></p>
+<ul>
+    <li>Il potenziale di ionizzazione si calcola con la formula di Bohr modificata con Z<sub>eff</sub></li>
+    <li>Z<sub>eff</sub> tiene conto dell'effetto di schermo degli elettroni interni</li>
+    <li>L'energia e negativa (elettrone legato), il potenziale di ionizzazione e positivo (energia da fornire)</li>
+    <li>Per il Li, l'elettrone da rimuovere e il 2s (quindi n = 2)</li>
+</ul>
+</div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+<script>
+    let currentStep = 0;
+    let totalSteps = 0;
+
+    document.addEventListener('DOMContentLoaded', function() {
+        totalSteps = document.querySelectorAll('.step-container').length;
+        updateProgress();
+        updateButtons();
+    });
+
+    function showNextStep() {
+        if (currentStep < totalSteps) {
+            const step = document.getElementById('step-' + currentStep);
+            if (step) {
+                step.classList.add('visible');
+                step.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                currentStep++;
+                updateProgress();
+                updateButtons();
+
+                if (window.parent !== window) {
+                    window.parent.postMessage({type: 'stepShown', step: currentStep, total: totalSteps}, '*');
+                }
+            }
+        }
+    }
+
+    function showAllSteps() {
+        document.querySelectorAll('.step-container').forEach(function(step) {
+            step.classList.add('visible');
+        });
+        currentStep = totalSteps;
+        updateProgress();
+        updateButtons();
+
+        if (window.parent !== window) {
+            window.parent.postMessage({type: 'allStepsShown'}, '*');
+        }
+    }
+
+    function hideAllSteps() {
+        document.querySelectorAll('.step-container').forEach(function(step) {
+            step.classList.remove('visible');
+        });
+        currentStep = 0;
+        updateProgress();
+        updateButtons();
+    }
+
+    function updateProgress() {
+        const pct = totalSteps > 0 ? (currentStep / totalSteps) * 100 : 0;
+        const fill = document.getElementById('progress-fill');
+        const text = document.getElementById('progress-text');
+        if (fill) fill.style.width = pct + '%';
+        if (text) text.textContent = 'Passaggio ' + currentStep + ' di ' + totalSteps;
+    }
+
+    function updateButtons() {
+        const nextBtn = document.getElementById('next-btn');
+        const allBtn = document.getElementById('all-btn');
+        const doneButtons = document.getElementById('done-buttons');
+
+        if (currentStep >= totalSteps) {
+            if (nextBtn) nextBtn.style.display = 'none';
+            if (allBtn) allBtn.style.display = 'none';
+            if (doneButtons) doneButtons.style.display = 'flex';
+        } else {
+            if (nextBtn) nextBtn.style.display = 'block';
+            if (allBtn) allBtn.style.display = 'block';
+            if (doneButtons) doneButtons.style.display = 'none';
+        }
+    }
+
+    function markExercise(status) {
+        // Salva in localStorage
+        const exerciseId = window.location.pathname.split('/').pop().replace('.html', '');
+        let progress = JSON.parse(localStorage.getItem('chemportal_progress') || '{}');
+        if (!progress.exercises) progress.exercises = {};
+        progress.exercises[exerciseId] = status;
+        localStorage.setItem('chemportal_progress', JSON.stringify(progress));
+
+        // Feedback visivo
+        const btn = status === 'done' ? document.getElementById('mark-done') : document.getElementById('mark-review');
+        const otherBtn = status === 'done' ? document.getElementById('mark-review') : document.getElementById('mark-done');
+
+        btn.classList.add('selected');
+        otherBtn.classList.remove('selected');
+
+        // Notifica parent
+        if (window.parent !== window) {
+            window.parent.postMessage({type: 'exerciseMarked', status: status, id: exerciseId}, '*');
+        }
+    }
+
+    function resetExercise() {
+        hideAllSteps();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Messaggi dal parent
+    window.addEventListener('message', function(e) {
+        if (e.data.type === 'showNext') showNextStep();
+        else if (e.data.type === 'showAll') showAllSteps();
+        else if (e.data.type === 'hideAll') hideAllSteps();
+    });
+
+    function closeExercise() {
+        if (window.parent !== window) {
+            // Siamo in iframe, chiedi al parent di chiudere
+            window.parent.postMessage({type: 'closeModal'}, '*');
+        } else {
+            // Standalone: torna alla pagina esercizi
+            const path = window.location.pathname;
+            if (path.includes('/content/soluzioni/')) {
+                window.location.href = '../../esercizi.html';
+            } else {
+                window.history.back();
+            }
+        }
+    }
+</script>
+</body>
+</html>

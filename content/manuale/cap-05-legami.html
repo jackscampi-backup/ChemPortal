@@ -1,0 +1,1379 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Capitolo 5 - Legami Chimici, Strutture di Lewis e Geometria Molecolare</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 2cm;
+        }
+        body {
+            font-family: Georgia, serif;
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            line-height: 1.8;
+            color: #333;
+        }
+        h1 {
+            color: #1a5276;
+            border-bottom: 4px solid #2980b9;
+            padding-bottom: 15px;
+            font-size: 2em;
+        }
+        h2 {
+            color: #2471a3;
+            margin-top: 40px;
+            border-left: 4px solid #3498db;
+            padding-left: 15px;
+            page-break-after: avoid;
+        }
+        h3 {
+            color: #1e8449;
+            margin-top: 25px;
+        }
+        h4 {
+            color: #7d3c98;
+            margin-top: 20px;
+        }
+        .indice {
+            background: #eaf2f8;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .indice ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        .indice li {
+            margin: 5px 0;
+        }
+        .indice a {
+            color: #2471a3;
+            text-decoration: none;
+        }
+        .prerequisiti {
+            background: #fef9e7;
+            padding: 15px;
+            border-left: 4px solid #f39c12;
+            margin: 20px 0;
+        }
+        .definizione {
+            background: #e8f6f3;
+            padding: 15px;
+            border-left: 4px solid #1abc9c;
+            margin: 15px 0;
+        }
+        .formula-box {
+            background: #fdebd0;
+            padding: 20px;
+            border: 2px solid #e67e22;
+            border-radius: 8px;
+            margin: 20px 0;
+            text-align: center;
+            font-size: 1.2em;
+        }
+        .formula-box .nome {
+            font-weight: bold;
+            color: #d35400;
+            margin-bottom: 10px;
+        }
+        .formula-box .formula {
+            font-size: 1.3em;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+        }
+        .formula-box .quando {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 10px;
+            text-align: left;
+        }
+        .formula-box .unita {
+            font-size: 0.85em;
+            color: #555;
+            text-align: left;
+            margin-top: 10px;
+            background: #fff;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .esempio-esame {
+            background: #e8f4fd;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+            border: 2px solid #3498db;
+        }
+        .esempio-esame .titolo {
+            font-weight: bold;
+            color: #2980b9;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+        .attenzione {
+            background: #fdedec;
+            padding: 15px;
+            border-left: 4px solid #e74c3c;
+            margin: 15px 0;
+        }
+        .riepilogo {
+            background: #d5f5e3;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 30px 0;
+        }
+        .procedura {
+            background: #fff;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        .procedura ol {
+            margin: 0;
+            padding-left: 20px;
+        }
+        .procedura li {
+            margin: 8px 0;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #bdc3c7;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background: #3498db;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        sub { font-size: 0.75em; }
+        sup { font-size: 0.75em; }
+        .step {
+            background: #f0f8ff;
+            padding: 10px 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border-left: 3px solid #3498db;
+        }
+        .risultato {
+            background: #d4edda;
+            padding: 15px;
+            border-radius: 5px;
+            border: 2px solid #28a745;
+            text-align: center;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+        .nota {
+            background: #fff3cd;
+            padding: 10px 15px;
+            border-left: 4px solid #ffc107;
+            margin: 15px 0;
+            font-style: italic;
+        }
+        .lewis-box {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 15px 20px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 12pt;
+            white-space: pre;
+            line-height: 1.4;
+            margin: 15px 0;
+            overflow-x: auto;
+        }
+        .molecola-section {
+            background: #fefefe;
+            border: 2px solid #3498db;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 25px 0;
+        }
+        .concetto {
+            background: #e7f3ff;
+            border-left: 4px solid #007bff;
+            padding: 10px 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Capitolo 5: Legami Chimici, Strutture di Lewis e Geometria Molecolare</h1>
+
+<div class="indice">
+<strong>INDICE DEL CAPITOLO</strong>
+<ul>
+    <li>1. Prerequisiti</li>
+    <li>2. I Tipi di Legame Chimico</li>
+    <li>3. Come Costruire le Strutture di Lewis - Procedura Passo per Passo</li>
+    <li>4. La Teoria VSEPR e la Geometria Molecolare</li>
+    <li>5. L'Ibridizzazione degli Orbitali</li>
+    <li>6. Polarita delle Molecole</li>
+    <li>7. Risonanza e Strutture Limite</li>
+    <li>8. Eccezioni alla Regola dell'Ottetto</li>
+    <li>9. Paramagnetismo e Diamagnetismo (Teoria MO)</li>
+    <li>10. Esercizi Tipo Esame con Soluzioni Discorsive</li>
+    <li>11. Errori Comuni da Evitare</li>
+    <li>12. Riepilogo Formule e Tabelle</li>
+</ul>
+</div>
+
+<div class="prerequisiti">
+<strong>PREREQUISITI</strong>
+<p>Prima di affrontare questo capitolo, dovresti gia conoscere:</p>
+<ul>
+    <li>La configurazione elettronica degli atomi (capitolo 3-4)</li>
+    <li>Il concetto di elettroni di valenza</li>
+    <li>La tavola periodica e i gruppi principali</li>
+    <li>Il concetto di elettronegativita</li>
+</ul>
+</div>
+
+<!-- ==================== SEZIONE 1: TIPI DI LEGAME ==================== -->
+
+<h2>1. I Tipi di Legame Chimico</h2>
+
+<p>Prima di tuffarci nelle strutture di Lewis, fermiamoci un attimo a capire <strong>perche</strong> gli atomi si legano tra loro. Gli atomi formano legami per raggiungere una configurazione elettronica piu stabile, tipicamente quella del gas nobile piu vicino (con 8 elettroni nel guscio esterno - la famosa <strong>regola dell'ottetto</strong>).</p>
+
+<p>Esistono tre tipi fondamentali di legame chimico:</p>
+
+<h3>1.1 Legame Ionico</h3>
+
+<div class="definizione">
+<strong>Definizione:</strong> Il legame ionico si forma quando un atomo <strong>trasferisce completamente</strong> uno o piu elettroni a un altro atomo. Si crea cosi un catione (ione positivo) e un anione (ione negativo) che si attraggono elettrostaticamente.
+</div>
+
+<p>Il legame ionico si forma tipicamente tra:</p>
+<ul>
+    <li><strong>Metalli</strong> (che perdono facilmente elettroni) e</li>
+    <li><strong>Non-metalli</strong> (che acquistano facilmente elettroni)</li>
+</ul>
+
+<p><strong>Come riconoscerlo:</strong> La differenza di elettronegativita tra i due atomi e molto grande (tipicamente maggiore di 1,7-2,0).</p>
+
+<p><strong>Esempio:</strong> Nel cloruro di sodio (NaCl), il sodio (metallo alcalino) cede il suo unico elettrone di valenza al cloro (alogeno), formando Na<sup>+</sup> e Cl<sup>-</sup>.</p>
+
+<div class="nota">
+<strong>Importante per l'esame:</strong> Quando ti chiedono la struttura di Lewis di un composto ionico come BaCl<sub>2</sub> o KClO<sub>4</sub>, devi analizzare separatamente il catione e l'anione. Per il catione metallico (come K<sup>+</sup> o Ba<sup>2+</sup>) non c'e struttura di Lewis da disegnare (ha perso tutti gli elettroni di valenza). Per l'anione poliatomico (come ClO<sub>4</sub><sup>-</sup>) devi disegnare la struttura di Lewis.
+</div>
+
+<h3>1.2 Legame Covalente</h3>
+
+<div class="definizione">
+<strong>Definizione:</strong> Il legame covalente si forma quando due atomi <strong>condividono</strong> una o piu coppie di elettroni. Questo tipo di legame si forma tipicamente tra non-metalli.
+</div>
+
+<p>Il legame covalente puo essere:</p>
+<ul>
+    <li><strong>Puro (apolare):</strong> quando gli elettroni sono condivisi equamente (atomi uguali, es. O<sub>2</sub>, N<sub>2</sub>)</li>
+    <li><strong>Polare:</strong> quando gli elettroni sono attratti maggiormente da uno dei due atomi (quello piu elettronegativo)</li>
+</ul>
+
+<h3>1.3 Legame Metallico</h3>
+
+<p>Nel legame metallico, gli elettroni di valenza sono delocalizzati e formano un "mare di elettroni" che circonda i cationi metallici. Questo tipo di legame non viene chiesto nelle strutture di Lewis.</p>
+
+<!-- ==================== SEZIONE 2: PROCEDURA LEWIS ==================== -->
+
+<h2>2. Come Costruire le Strutture di Lewis - Procedura Passo per Passo</h2>
+
+<p>Questa e la parte piu importante del capitolo. All'esame ti verra chiesto di disegnare strutture di Lewis per varie molecole. Segui SEMPRE questa procedura sistematica:</p>
+
+<div class="procedura">
+<strong>PROCEDURA PER COSTRUIRE UNA STRUTTURA DI LEWIS</strong>
+<ol>
+    <li><strong>Conta gli elettroni di valenza totali</strong>
+        <ul>
+            <li>Gruppo 1: 1 elettrone | Gruppo 2: 2 elettroni</li>
+            <li>Gruppo 13: 3 elettroni | Gruppo 14: 4 elettroni</li>
+            <li>Gruppo 15: 5 elettroni | Gruppo 16: 6 elettroni</li>
+            <li>Gruppo 17: 7 elettroni</li>
+            <li>Se c'e una carica negativa, AGGIUNGI elettroni</li>
+            <li>Se c'e una carica positiva, SOTTRAI elettroni</li>
+        </ul>
+    </li>
+    <li><strong>Identifica l'atomo centrale</strong>
+        <ul>
+            <li>E' l'atomo meno elettronegativo (di solito)</li>
+            <li>L'idrogeno non e MAI l'atomo centrale</li>
+            <li>Il fluoro non e MAI l'atomo centrale</li>
+        </ul>
+    </li>
+    <li><strong>Collega gli atomi periferici all'atomo centrale con legami singoli</strong>
+        <ul>
+            <li>Ogni legame usa 2 elettroni</li>
+        </ul>
+    </li>
+    <li><strong>Completa l'ottetto degli atomi periferici</strong>
+        <ul>
+            <li>Distribuisci gli elettroni rimanenti come coppie solitarie</li>
+            <li>L'idrogeno ha bisogno solo di 2 elettroni</li>
+        </ul>
+    </li>
+    <li><strong>Verifica l'ottetto dell'atomo centrale</strong>
+        <ul>
+            <li>Se mancano elettroni, forma doppi o tripli legami</li>
+            <li>Sposta coppie solitarie dagli atomi periferici</li>
+        </ul>
+    </li>
+    <li><strong>Calcola le cariche formali (se necessario)</strong></li>
+</ol>
+</div>
+
+<div class="formula-box">
+<div class="nome">CARICA FORMALE</div>
+<div class="formula">C<sub>formale</sub> = e<sub>valenza</sub> - e<sub>legame</sub> - e<sub>non legame</sub></div>
+<div class="quando">
+<strong>Quando usarla:</strong> Per verificare quale struttura di risonanza e piu stabile, o per assegnare cariche agli atomi in molecole/ioni.
+<br><br>
+<strong>Regole:</strong>
+<ul>
+    <li>La somma delle cariche formali deve essere uguale alla carica totale della molecola/ione</li>
+    <li>Le strutture con cariche formali ridotte sono preferibili</li>
+    <li>La carica formale negativa deve stare sull'atomo piu elettronegativo</li>
+</ul>
+</div>
+</div>
+
+<!-- ==================== SEZIONE 3: VSEPR ==================== -->
+
+<h2>3. La Teoria VSEPR e la Geometria Molecolare</h2>
+
+<p>Una volta disegnata la struttura di Lewis, come determiniamo la forma tridimensionale della molecola? Qui entra in gioco la teoria <strong>VSEPR</strong> (Valence Shell Electron Pair Repulsion - Repulsione delle Coppie Elettroniche del Guscio di Valenza).</p>
+
+<div class="definizione">
+<strong>Principio fondamentale della VSEPR:</strong> Le coppie elettroniche (sia di legame che solitarie) attorno all'atomo centrale si dispongono nello spazio in modo da <strong>minimizzare la repulsione reciproca</strong>, cioe stando il piu lontano possibile le une dalle altre.
+</div>
+
+<p>La procedura e semplice:</p>
+<ol>
+    <li>Conta i <strong>domini elettronici</strong> attorno all'atomo centrale</li>
+    <li>Un dominio elettronico puo essere:
+        <ul>
+            <li>Un legame singolo (conta come 1)</li>
+            <li>Un legame doppio (conta come 1)</li>
+            <li>Un legame triplo (conta come 1)</li>
+            <li>Una coppia solitaria (conta come 1)</li>
+        </ul>
+    </li>
+    <li>Usa la notazione AX<sub>m</sub>E<sub>n</sub> dove:
+        <ul>
+            <li>A = atomo centrale</li>
+            <li>X = numero di atomi legati</li>
+            <li>E = numero di coppie solitarie</li>
+        </ul>
+    </li>
+</ol>
+
+<h3>3.1 Tabella delle Geometrie VSEPR</h3>
+
+<p>Questa tabella e FONDAMENTALE per l'esame. Memorizzala!</p>
+
+<table>
+    <tr>
+        <th>Ibridazione</th>
+        <th>Domini</th>
+        <th>Tipo</th>
+        <th>Angolo</th>
+        <th>Geometria</th>
+    </tr>
+    <tr>
+        <td>sp</td>
+        <td>2</td>
+        <td>AX<sub>2</sub></td>
+        <td>180°</td>
+        <td>Lineare</td>
+    </tr>
+    <tr>
+        <td rowspan="2">sp<sup>2</sup></td>
+        <td rowspan="2">3</td>
+        <td>AX<sub>3</sub></td>
+        <td>120°</td>
+        <td>Trigonale planare</td>
+    </tr>
+    <tr>
+        <td>AX<sub>2</sub>E</td>
+        <td>&lt;120°</td>
+        <td>Angolare (piegata)</td>
+    </tr>
+    <tr>
+        <td rowspan="3">sp<sup>3</sup></td>
+        <td rowspan="3">4</td>
+        <td>AX<sub>4</sub></td>
+        <td>109,5°</td>
+        <td>Tetraedrica</td>
+    </tr>
+    <tr>
+        <td>AX<sub>3</sub>E</td>
+        <td>107,5°</td>
+        <td>Piramidale trigonale</td>
+    </tr>
+    <tr>
+        <td>AX<sub>2</sub>E<sub>2</sub></td>
+        <td>104,5°</td>
+        <td>Angolare (piegata)</td>
+    </tr>
+    <tr>
+        <td rowspan="4">sp<sup>3</sup>d</td>
+        <td rowspan="4">5</td>
+        <td>AX<sub>5</sub></td>
+        <td>90°; 120°</td>
+        <td>Bipiramidale trigonale</td>
+    </tr>
+    <tr>
+        <td>AX<sub>4</sub>E</td>
+        <td>90°; 120°</td>
+        <td>Tetraedrica irregolare (altalena)</td>
+    </tr>
+    <tr>
+        <td>AX<sub>3</sub>E<sub>2</sub></td>
+        <td>90°</td>
+        <td>Piana a T</td>
+    </tr>
+    <tr>
+        <td>AX<sub>2</sub>E<sub>3</sub></td>
+        <td>180°</td>
+        <td>Lineare</td>
+    </tr>
+    <tr>
+        <td rowspan="3">sp<sup>3</sup>d<sup>2</sup></td>
+        <td rowspan="3">6</td>
+        <td>AX<sub>6</sub></td>
+        <td>90°</td>
+        <td>Ottaedrica</td>
+    </tr>
+    <tr>
+        <td>AX<sub>5</sub>E</td>
+        <td>&lt;90°</td>
+        <td>Piramidale quadrata</td>
+    </tr>
+    <tr>
+        <td>AX<sub>4</sub>E<sub>2</sub></td>
+        <td>90°</td>
+        <td>Quadrata planare</td>
+    </tr>
+</table>
+
+<div class="concetto">
+<strong>Attenzione alla differenza:</strong>
+<ul>
+    <li><strong>Geometria elettronica:</strong> considera TUTTI i domini elettronici (legami + coppie solitarie)</li>
+    <li><strong>Geometria molecolare:</strong> considera solo gli ATOMI (ignora le coppie solitarie)</li>
+</ul>
+Esempio: l'acqua (H<sub>2</sub>O) ha geometria elettronica tetraedrica (4 domini: 2 legami + 2 coppie solitarie), ma geometria molecolare angolare (vediamo solo i 2 idrogeni).
+</div>
+
+<!-- ==================== SEZIONE 4: IBRIDIZZAZIONE ==================== -->
+
+<h2>4. L'Ibridizzazione degli Orbitali</h2>
+
+<p>L'ibridizzazione e il "mescolamento" degli orbitali atomici per formare nuovi orbitali ibridi equivalenti, adatti a formare legami.</p>
+
+<div class="formula-box">
+<div class="nome">REGOLA FONDAMENTALE</div>
+<div class="formula">N° domini elettronici = N° orbitali ibridi</div>
+<div class="quando">
+<ul>
+    <li>2 domini = sp (lineare)</li>
+    <li>3 domini = sp<sup>2</sup> (trigonale planare)</li>
+    <li>4 domini = sp<sup>3</sup> (tetraedrica)</li>
+    <li>5 domini = sp<sup>3</sup>d (bipiramidale trigonale)</li>
+    <li>6 domini = sp<sup>3</sup>d<sup>2</sup> (ottaedrica)</li>
+</ul>
+</div>
+</div>
+
+<p>Quindi la procedura e semplice: conta i domini elettronici attorno all'atomo centrale, e automaticamente sai l'ibridizzazione!</p>
+
+<!-- ==================== SEZIONE 5: POLARITA ==================== -->
+
+<h2>5. Polarita delle Molecole</h2>
+
+<p>Una molecola e polare se ha un momento dipolare netto diverso da zero. Per determinare la polarita:</p>
+
+<div class="procedura">
+<strong>COME DETERMINARE LA POLARITA</strong>
+<ol>
+    <li>Verifica se i legami sono polari (atomi diversi = legami polari)</li>
+    <li>Considera la geometria molecolare</li>
+    <li>Se la molecola e simmetrica, i dipoli si annullano = molecola APOLARE</li>
+    <li>Se la molecola e asimmetrica, i dipoli NON si annullano = molecola POLARE</li>
+</ol>
+</div>
+
+<p><strong>Esempi:</strong></p>
+<ul>
+    <li><strong>CO<sub>2</sub>:</strong> ha legami C=O polari, ma geometria lineare simmetrica. I dipoli si annullano = molecola APOLARE</li>
+    <li><strong>H<sub>2</sub>O:</strong> ha legami O-H polari e geometria angolare (asimmetrica). I dipoli NON si annullano = molecola POLARE</li>
+    <li><strong>BeCl<sub>2</sub>:</strong> ha legami Be-Cl polari, ma geometria lineare simmetrica = molecola APOLARE</li>
+</ul>
+
+<!-- ==================== SEZIONE 6: RISONANZA ==================== -->
+
+<h2>6. Risonanza e Strutture Limite</h2>
+
+<p>Alcune molecole non possono essere rappresentate correttamente da un'unica struttura di Lewis. In questi casi, scriviamo piu <strong>strutture di risonanza</strong> (o strutture limite).</p>
+
+<div class="definizione">
+<strong>Risonanza:</strong> La struttura reale della molecola e un <strong>ibrido di risonanza</strong>, cioe una "media" di tutte le strutture limite. Gli elettroni sono delocalizzati su piu atomi.
+</div>
+
+<p><strong>Regole per valutare le strutture di risonanza:</strong></p>
+<ol>
+    <li>Cariche formali ridotte sono preferibili</li>
+    <li>Sfavorire le strutture con cariche uguali su atomi adiacenti</li>
+    <li>La carica formale piu negativa deve stare sull'atomo piu elettronegativo</li>
+</ol>
+
+<p><strong>Esempio classico: l'ozono (O<sub>3</sub>)</strong></p>
+<p>Nell'ozono, il doppio legame puo essere posizionato su entrambi i lati:</p>
+
+<div class="lewis-box">
+Struttura limite 1:          Struttura limite 2:
+
+    :O = O - O:                  :O - O = O:
+        :   :                         :   :
+
+La struttura reale e un ibrido: entrambi i legami O-O
+hanno carattere intermedio (ordine di legame = 1,5)
+</div>
+
+<!-- ==================== SEZIONE 7: ECCEZIONI OTTETTO ==================== -->
+
+<h2>7. Eccezioni alla Regola dell'Ottetto</h2>
+
+<p>Non tutti gli atomi seguono la regola dell'ottetto. Ecco le eccezioni piu importanti:</p>
+
+<h3>7.1 Molecole con meno di 8 elettroni (ipovalenti)</h3>
+
+<p>Alcuni elementi del secondo periodo possono essere stabili con meno di 8 elettroni:</p>
+<ul>
+    <li><strong>Berillio (Be):</strong> stabile con 4 elettroni (es. BeCl<sub>2</sub>)</li>
+    <li><strong>Boro (B):</strong> stabile con 6 elettroni (es. BF<sub>3</sub>)</li>
+</ul>
+
+<h3>7.2 Espansione dell'ottetto (ipervalenti)</h3>
+
+<p>Gli elementi dal terzo periodo in poi possono avere piu di 8 elettroni, perche hanno orbitali d disponibili:</p>
+<ul>
+    <li><strong>Fosforo (P):</strong> puo avere 10 elettroni (es. PCl<sub>5</sub>)</li>
+    <li><strong>Zolfo (S):</strong> puo avere 10 o 12 elettroni (es. SF<sub>6</sub>, H<sub>2</sub>SO<sub>4</sub>)</li>
+    <li><strong>Cloro (Cl), Bromo (Br), Iodio (I):</strong> possono espandere l'ottetto</li>
+</ul>
+
+<div class="nota">
+<strong>Attenzione:</strong> Solo gli elementi del TERZO periodo e oltre possono espandere l'ottetto! Il carbonio, l'azoto e l'ossigeno (secondo periodo) rispettano SEMPRE l'ottetto.
+</div>
+
+<!-- ==================== SEZIONE 8: PARAMAGNETISMO ==================== -->
+
+<h2>8. Paramagnetismo e Diamagnetismo</h2>
+
+<p>Questo argomento esce spesso all'esame, specialmente per la molecola O<sub>2</sub>.</p>
+
+<div class="definizione">
+<strong>Paramagnetico:</strong> Una specie e paramagnetica quando ha <strong>elettroni spaiati</strong> (singoli in un orbitale). Queste sostanze sono attratte da un campo magnetico.
+<br><br>
+<strong>Diamagnetico:</strong> Una specie e diamagnetica quando ha <strong>tutti gli elettroni accoppiati</strong>. Queste sostanze sono debolmente respinte da un campo magnetico.
+</div>
+
+<p>Per determinare il comportamento magnetico di molecole biatomiche omonucleari (come O<sub>2</sub>, N<sub>2</sub>), dobbiamo usare la <strong>Teoria degli Orbitali Molecolari (MO)</strong>.</p>
+
+<h3>8.1 Schema degli Orbitali Molecolari per O<sub>2</sub></h3>
+
+<p>Per l'ossigeno, l'ordine energetico degli orbitali molecolari e:</p>
+
+<div class="lewis-box">
+sigma(1s) < sigma*(1s) < sigma(2s) < sigma*(2s) < sigma(2p) < pi(2px) = pi(2py) < pi*(2px) = pi*(2py) < sigma*(2p)
+</div>
+
+<p>L'ossigeno molecolare (O<sub>2</sub>) ha 16 elettroni. Quando li distribuiamo negli orbitali molecolari, gli ultimi 2 elettroni vanno negli orbitali pi* antileganti, che sono <strong>degeneri</strong> (stessa energia).</p>
+
+<p>Per la <strong>regola di Hund</strong>, i due elettroni si dispongono uno per orbitale con spin paralleli, invece di accoppiarsi. Quindi O<sub>2</sub> ha <strong>2 elettroni spaiati</strong> ed e <strong>paramagnetico</strong>.</p>
+
+<div class="formula-box">
+<div class="nome">ORDINE DI LEGAME</div>
+<div class="formula">Ordine di legame = (e<sup>-</sup> leganti - e<sup>-</sup> antileganti) / 2</div>
+<div class="quando">
+Per O<sub>2</sub>: (10 - 6) / 2 = 2 (doppio legame)<br>
+Per O<sub>2</sub><sup>-</sup>: (10 - 7) / 2 = 1,5<br>
+Per O<sub>2</sub><sup>2-</sup>: (10 - 8) / 2 = 1 (legame singolo)
+</div>
+</div>
+
+<!-- ==================== SEZIONE 9: ESERCIZI ==================== -->
+
+<h2>9. Esercizi Tipo Esame con Soluzioni Discorsive</h2>
+
+<p>Ora vediamo come applicare tutto cio che abbiamo imparato in esercizi reali d'esame. Seguiro lo stesso stile discorsivo che dovresti usare quando risolvi i problemi.</p>
+
+<!-- ==================== ESERCIZIO 1: O3 ==================== -->
+
+<div class="esempio-esame">
+<div class="titolo">ESERCIZIO 1: Ozono (O<sub>3</sub>)</div>
+
+<p><strong>Testo:</strong> Disegnare la struttura di Lewis dell'ozono (O<sub>3</sub>), indicando l'ibridizzazione dell'atomo centrale e la geometria molecolare.</p>
+
+<h4>Passo 1: Conteggio degli elettroni di valenza</h4>
+
+<p>L'ossigeno appartiene al gruppo 16, quindi ha <strong>6 elettroni di valenza</strong>. Siccome abbiamo 3 atomi di ossigeno:</p>
+
+<div class="step">
+Elettroni totali = 3 x 6 = <strong>18 elettroni</strong> = 9 coppie elettroniche
+</div>
+
+<h4>Passo 2: Identificazione dell'atomo centrale e scheletro</h4>
+
+<p>Nell'ozono, tutti gli atomi sono uguali, quindi scegliamo arbitrariamente un ossigeno come centrale. Colleghiamo i due ossigeni terminali a quello centrale con legami singoli:</p>
+
+<div class="step">
+O - O - O (scheletro iniziale)
+<br>
+Elettroni usati nei legami: 2 x 2 = 4 elettroni
+<br>
+Elettroni rimanenti: 18 - 4 = 14 elettroni (7 coppie)
+</div>
+
+<h4>Passo 3: Distribuzione degli elettroni rimanenti</h4>
+
+<p>Completiamo prima l'ottetto degli ossigeni terminali. Ciascuno riceve 3 coppie solitarie (6 elettroni):</p>
+
+<div class="step">
+Elettroni per ossigeni terminali: 2 x 6 = 12 elettroni
+<br>
+Elettroni rimanenti per l'ossigeno centrale: 14 - 12 = 2 elettroni = 1 coppia solitaria
+</div>
+
+<h4>Passo 4: Verifica dell'ottetto</h4>
+
+<p>Verifichiamo l'ossigeno centrale: 2 legami singoli (4 elettroni) + 1 coppia solitaria (2 elettroni) = 6 elettroni. <strong>Non ha l'ottetto completo!</strong></p>
+
+<p>Dobbiamo formare un doppio legame. Spostiamo una coppia solitaria da uno degli ossigeni terminali per creare un doppio legame:</p>
+
+<div class="lewis-box">
+Struttura limite 1:          Struttura limite 2:
+
+    :O = O - O:                  :O - O = O:
+        :   :                         :   :
+
+dove ogni : rappresenta una coppia solitaria
+</div>
+
+<h4>Passo 5: Determinazione della geometria</h4>
+
+<p>L'ossigeno centrale ha:</p>
+<ul>
+    <li>2 domini di legame (un doppio legame e un singolo legame contano ciascuno come 1 dominio)</li>
+    <li>1 coppia solitaria</li>
+</ul>
+
+<p><strong>Totale: 3 domini</strong> = Geometria elettronica <strong>trigonale planare</strong></p>
+
+<p>Ma attenzione! La geometria molecolare (che considera solo gli atomi) e <strong>angolare</strong>, perche vediamo solo i due ossigeni terminali.</p>
+
+<div class="step">
+Notazione VSEPR: <strong>AX<sub>2</sub>E</strong>
+</div>
+
+<h4>Passo 6: Ibridizzazione</h4>
+
+<p>Con 3 domini elettronici, l'ibridizzazione e <strong>sp<sup>2</sup></strong>.</p>
+
+<div class="risultato">
+<strong>RISULTATO:</strong><br>
+Struttura di Lewis: presenta risonanza (2 strutture limite)<br>
+Ibridizzazione: sp<sup>2</sup><br>
+Geometria: Angolare (piegata)<br>
+Angolo: circa 117° (leggermente inferiore a 120° per la repulsione della coppia solitaria)
+</div>
+</div>
+
+<!-- ==================== ESERCIZIO 2: H2SO4 ==================== -->
+
+<div class="esempio-esame">
+<div class="titolo">ESERCIZIO 2: Acido Solforico (H<sub>2</sub>SO<sub>4</sub>)</div>
+
+<p><strong>Testo:</strong> Disegnare la struttura di Lewis dell'acido solforico, indicando nome secondo la nomenclatura tradizionale, ibridizzazione e geometria molecolare.</p>
+
+<h4>Nome tradizionale</h4>
+<p>L'H<sub>2</sub>SO<sub>4</sub> e chiamato <strong>acido solforico</strong>. Lo zolfo ha numero di ossidazione +6 (il suo massimo), e nella nomenclatura tradizionale degli ossiacidi, quando l'elemento centrale e nel suo stato di ossidazione piu alto, si usa il suffisso "-ico".</p>
+
+<h4>Passo 1: Conteggio degli elettroni di valenza</h4>
+
+<div class="step">
+S (gruppo 16): 6 elettroni<br>
+O (gruppo 16): 4 x 6 = 24 elettroni<br>
+H (gruppo 1): 2 x 1 = 2 elettroni<br>
+<strong>Totale: 6 + 24 + 2 = 32 elettroni</strong> = 16 coppie
+</div>
+
+<h4>Passo 2: Struttura</h4>
+
+<p>Lo zolfo e l'atomo centrale (meno elettronegativo degli ossigeni). La struttura dell'acido solforico prevede:</p>
+<ul>
+    <li>2 ossigeni legati solo allo zolfo con doppio legame (S=O)</li>
+    <li>2 ossigeni legati allo zolfo con legame singolo e che portano ciascuno un idrogeno (gruppi -OH)</li>
+</ul>
+
+<div class="lewis-box">
+            O
+            ||
+     HO - S - OH
+            ||
+            O
+
+Ogni O terminale (doppio legame) ha 2 coppie solitarie
+Ogni O dei gruppi OH ha 2 coppie solitarie
+</div>
+
+<div class="concetto">
+<strong>Nota importante:</strong> Lo zolfo in H<sub>2</sub>SO<sub>4</sub> <strong>espande l'ottetto</strong>, avendo 6 coppie di elettroni attorno a se (2 doppi legami + 2 singoli legami = 12 elettroni). Questo e possibile perche lo zolfo appartiene al terzo periodo e puo utilizzare orbitali d.
+</div>
+
+<h4>Passo 3: Geometria</h4>
+
+<p>Lo zolfo centrale ha 4 domini di legame (2 doppi + 2 singoli = 4 direzioni) e 0 coppie solitarie.</p>
+
+<div class="step">
+Notazione VSEPR: <strong>AX<sub>4</sub></strong>
+</div>
+
+<div class="risultato">
+<strong>RISULTATO:</strong><br>
+Nome tradizionale: Acido solforico<br>
+Ibridizzazione S: sp<sup>3</sup><br>
+Geometria: Tetraedrica<br>
+Angoli: circa 109,5°
+</div>
+</div>
+
+<!-- ==================== ESERCIZIO 3: BrF3 ==================== -->
+
+<div class="esempio-esame">
+<div class="titolo">ESERCIZIO 3: Trifluoruro di Bromo (BrF<sub>3</sub>)</div>
+
+<p><strong>Testo:</strong> Per BrF<sub>3</sub>, descrivere la struttura di Lewis, tipologia di legami, geometria molecolare e polarita.</p>
+
+<h4>Passo 1: Conteggio degli elettroni di valenza</h4>
+
+<div class="step">
+Br (gruppo 17): 7 elettroni<br>
+F (gruppo 17): 3 x 7 = 21 elettroni<br>
+<strong>Totale: 7 + 21 = 28 elettroni</strong> = 14 coppie
+</div>
+
+<h4>Passo 2: Identificazione dell'atomo centrale</h4>
+
+<p>Il bromo e l'atomo centrale perche e <strong>meno elettronegativo</strong> del fluoro. Il fluoro e l'elemento piu elettronegativo della tavola periodica e non puo MAI essere l'atomo centrale.</p>
+
+<h4>Passo 3: Costruzione della struttura</h4>
+
+<p>Colleghiamo i 3 fluori al bromo con legami singoli:</p>
+
+<div class="step">
+Elettroni usati nei legami: 3 x 2 = 6 elettroni<br>
+Elettroni rimanenti: 28 - 6 = 22 elettroni
+</div>
+
+<p>Completiamo l'ottetto dei fluori: ciascuno riceve 3 coppie solitarie (6 elettroni):</p>
+
+<div class="step">
+Elettroni per i fluori: 3 x 6 = 18 elettroni<br>
+Elettroni rimanenti per il bromo: 22 - 18 = 4 elettroni = <strong>2 coppie solitarie</strong>
+</div>
+
+<div class="attenzione">
+<strong>Attenzione!</strong> Il bromo ha 10 elettroni attorno a se (6 nei legami + 4 nelle coppie solitarie). Questo e un'<strong>espansione dell'ottetto</strong>, possibile perche il bromo appartiene al quarto periodo e ha orbitali d disponibili.
+</div>
+
+<div class="lewis-box">
+         :F:
+          |
+    :F - Br - F:    con 2 coppie solitarie sul Br
+         ::
+         ::
+</div>
+
+<h4>Passo 4: Geometria</h4>
+
+<p>Il bromo ha:</p>
+<ul>
+    <li>3 coppie di legame (X = 3)</li>
+    <li>2 coppie solitarie (E = 2)</li>
+</ul>
+
+<p><strong>Totale: 5 domini</strong> = Geometria elettronica <strong>bipiramidale trigonale</strong></p>
+
+<p>Le 2 coppie solitarie si posizionano nelle posizioni equatoriali (dove hanno piu spazio, a 120° tra loro). I 3 fluori occupano le altre posizioni.</p>
+
+<div class="step">
+Notazione VSEPR: <strong>AX<sub>3</sub>E<sub>2</sub></strong>
+</div>
+
+<p>La geometria molecolare risultante e a forma di <strong>T (T-shape)</strong>.</p>
+
+<h4>Passo 5: Polarita</h4>
+
+<p>I legami Br-F sono covalenti polari (F e molto piu elettronegativo di Br). La geometria a T e asimmetrica, quindi i momenti di dipolo NON si annullano.</p>
+
+<div class="risultato">
+<strong>RISULTATO:</strong><br>
+Tipo di legami: Covalenti polari<br>
+Ibridizzazione Br: sp<sup>3</sup>d<br>
+Geometria: T-shape (a T)<br>
+Angoli: circa 86° e 175° (compressi rispetto ai teorici 90° e 180°)<br>
+Polarita: Molecola <strong>polare</strong>
+</div>
+</div>
+
+<!-- ==================== ESERCIZIO 4: BaCl2 ==================== -->
+
+<div class="esempio-esame">
+<div class="titolo">ESERCIZIO 4: Cloruro di Bario (BaCl<sub>2</sub>)</div>
+
+<p><strong>Testo:</strong> Per BaCl<sub>2</sub>, descrivere la struttura di Lewis, tipologia di legami e tipo di solido.</p>
+
+<h4>Riconoscimento del tipo di composto</h4>
+
+<p><strong>Fermati qui!</strong> Prima di disegnare qualsiasi struttura di Lewis, dobbiamo chiederci: che tipo di composto e questo?</p>
+
+<ul>
+    <li><strong>Bario (Ba):</strong> E' un METALLO alcalino-terroso (gruppo 2). Ha 2 elettroni di valenza che perde facilmente.</li>
+    <li><strong>Cloro (Cl):</strong> E' un NON-METALLO alogeno (gruppo 17). Ha 7 elettroni di valenza e tende ad acquistarne 1.</li>
+</ul>
+
+<div class="concetto">
+<strong>Questo e un composto IONICO!</strong> Il bario trasferisce completamente i suoi 2 elettroni ai 2 atomi di cloro. Non c'e condivisione di elettroni, quindi non ha senso parlare di struttura di Lewis molecolare!
+</div>
+
+<h4>Formazione degli ioni</h4>
+
+<div class="step">
+<strong>Bario:</strong> Ba --> Ba<sup>2+</sup> + 2e<sup>-</sup> (perde 2 elettroni)<br>
+<strong>Cloro:</strong> Cl + e<sup>-</sup> --> Cl<sup>-</sup> (ogni cloro acquista 1 elettrone)
+</div>
+
+<h4>Struttura di Lewis degli ioni</h4>
+
+<div class="lewis-box">
+Ione bario Ba2+:
+                    2+
+    [Ba]    (ha perso entrambi gli elettroni
+             di valenza, guscio vuoto)
+
+
+Ione cloruro Cl-:
+                    -
+    [:Cl:]    (ha 8 elettroni di valenza,
+               ottetto completo, 4 coppie solitarie)
+</div>
+
+<h4>Geometria</h4>
+
+<p>Per i composti ionici <strong>non si parla di "geometria molecolare"</strong> nel senso classico, perche non esistono molecole discrete. Il BaCl<sub>2</sub> forma un <strong>reticolo cristallino ionico</strong> dove ogni ione Ba<sup>2+</sup> e circondato da ioni Cl<sup>-</sup> e viceversa.</p>
+
+<div class="risultato">
+<strong>RISULTATO:</strong><br>
+Tipo di composto: Ionico<br>
+Ioni: Ba<sup>2+</sup> e Cl<sup>-</sup><br>
+Legami: Ionici (attrazione elettrostatica)<br>
+Geometria molecolare: Non applicabile (reticolo cristallino)<br>
+Tipo di solido: Solido ionico (punto di fusione: 962°C)
+</div>
+</div>
+
+<!-- ==================== ESERCIZIO 5: CO2 ==================== -->
+
+<div class="esempio-esame">
+<div class="titolo">ESERCIZIO 5: Anidride Carbonica (CO<sub>2</sub>)</div>
+
+<p><strong>Testo:</strong> Disegnare la struttura di Lewis della CO<sub>2</sub>, indicando ibridizzazione e geometria.</p>
+
+<h4>Passo 1: Conteggio degli elettroni di valenza</h4>
+
+<div class="step">
+C (gruppo 14): 4 elettroni<br>
+O (gruppo 16): 2 x 6 = 12 elettroni<br>
+<strong>Totale: 4 + 12 = 16 elettroni</strong> = 8 coppie
+</div>
+
+<h4>Passo 2: Costruzione della struttura</h4>
+
+<p>Il carbonio e l'atomo centrale (meno elettronegativo). Colleghiamo i 2 ossigeni al carbonio con legami singoli inizialmente:</p>
+
+<div class="step">
+O - C - O (scheletro iniziale)<br>
+Elettroni usati: 4<br>
+Rimanenti: 12 elettroni
+</div>
+
+<p>Completiamo l'ottetto degli ossigeni con 3 coppie ciascuno: 12 elettroni usati. Ma ora il carbonio ha solo 4 elettroni!</p>
+
+<p><strong>Soluzione:</strong> Dobbiamo formare <strong>doppi legami</strong>. Spostiamo una coppia da ciascun ossigeno per formare doppi legami:</p>
+
+<div class="lewis-box">
+    O = C = O
+
+    con 2 doppietti solitari su ogni O
+</div>
+
+<h4>Passo 3: Verifica</h4>
+<ul>
+    <li><strong>Carbonio:</strong> 4 legami (2 doppi) = 8 elettroni. Ottetto OK!</li>
+    <li><strong>Ogni ossigeno:</strong> 2 legami (doppio) + 2 coppie solitarie = 8 elettroni. Ottetto OK!</li>
+</ul>
+
+<h4>Passo 4: Geometria</h4>
+
+<p>Il carbonio ha 2 domini elettronici (2 doppi legami = 2 direzioni).</p>
+
+<div class="risultato">
+<strong>RISULTATO:</strong><br>
+Ibridizzazione C: sp<br>
+Geometria: Lineare<br>
+Angolo: 180°<br>
+Polarita: Molecola <strong>apolare</strong> (i dipoli si annullano per simmetria)
+</div>
+</div>
+
+<!-- ==================== ESERCIZIO 6: HCO3- ==================== -->
+
+<div class="esempio-esame">
+<div class="titolo">ESERCIZIO 6: Ione Bicarbonato (HCO<sub>3</sub><sup>-</sup>)</div>
+
+<p><strong>Testo:</strong> Disegnare la struttura di Lewis dello ione bicarbonato, indicando nome, ibridizzazione e geometria.</p>
+
+<h4>Nome</h4>
+<p>Lo ione HCO<sub>3</sub><sup>-</sup> e chiamato <strong>ione bicarbonato</strong> (nomenclatura tradizionale) o <strong>ione idrogenocarbonato</strong> (nomenclatura IUPAC). E' l'anione che si forma quando l'acido carbonico (H<sub>2</sub>CO<sub>3</sub>) perde un solo protone H<sup>+</sup>.</p>
+
+<h4>Passo 1: Conteggio degli elettroni di valenza</h4>
+
+<div class="step">
+H: 1 elettrone<br>
+C (gruppo 14): 4 elettroni<br>
+O (gruppo 16): 3 x 6 = 18 elettroni<br>
+Carica negativa: +1 elettrone<br>
+<strong>Totale: 1 + 4 + 18 + 1 = 24 elettroni</strong> = 12 coppie
+</div>
+
+<h4>Passo 2: Costruzione della struttura</h4>
+
+<p>Il carbonio e l'atomo centrale. L'idrogeno si lega a uno degli ossigeni (formando il gruppo -OH). Gli altri due ossigeni si legano direttamente al carbonio.</p>
+
+<div class="lewis-box">
+              -
+         [:O:]
+           |
+     H-O - C
+           ||
+         [:O:]
+
+oppure in forma compatta:
+
+        O(-)
+        |
+   H-O-C
+        ||
+        O
+</div>
+
+<h4>Passo 3: Risonanza</h4>
+
+<p>Esiste risonanza tra i due ossigeni non legati all'idrogeno. Il doppio legame puo essere "spostato" tra questi due ossigeni:</p>
+
+<div class="lewis-box">
+Struttura limite 1:        Struttura limite 2:
+
+      O(-)                       O
+      |                          ||
+ H-O-C                      H-O-C
+      ||                         |
+      O                          O(-)
+</div>
+
+<h4>Passo 4: Geometria</h4>
+
+<p>Il carbonio centrale ha 3 domini elettronici (3 legami: uno verso O=, uno verso O<sup>-</sup>, uno verso O-H) e 0 coppie solitarie.</p>
+
+<div class="risultato">
+<strong>RISULTATO:</strong><br>
+Nome: Ione bicarbonato (o idrogenocarbonato)<br>
+Struttura: AX<sub>3</sub> con risonanza<br>
+Ibridizzazione C: sp<sup>2</sup><br>
+Geometria: Trigonale planare<br>
+Angoli: circa 120°
+</div>
+</div>
+
+<!-- ==================== ESERCIZIO 7: BeCl2 ==================== -->
+
+<div class="esempio-esame">
+<div class="titolo">ESERCIZIO 7: Cloruro di Berillio (BeCl<sub>2</sub>)</div>
+
+<p><strong>Testo:</strong> Disegnare la struttura di Lewis del cloruro di berillio, indicando ibridizzazione, geometria e polarita.</p>
+
+<h4>Nota importante</h4>
+<p>Nonostante il berillio sia un metallo, il BeCl<sub>2</sub> ha carattere prevalentemente <strong>covalente</strong> a causa della piccola dimensione e dell'alta densita di carica del Be<sup>2+</sup>. Per questo motivo possiamo disegnare una struttura di Lewis molecolare.</p>
+
+<h4>Passo 1: Conteggio degli elettroni di valenza</h4>
+
+<div class="step">
+Be (gruppo 2): 2 elettroni<br>
+Cl (gruppo 17): 2 x 7 = 14 elettroni<br>
+<strong>Totale: 2 + 14 = 16 elettroni</strong> = 8 coppie
+</div>
+
+<h4>Passo 2: Costruzione della struttura</h4>
+
+<p>Il berillio e l'atomo centrale. Colleghiamo i 2 clori al berillio con legami singoli:</p>
+
+<div class="step">
+Elettroni usati: 4<br>
+Rimanenti: 12 elettroni
+</div>
+
+<p>Completiamo l'ottetto dei clori: 3 coppie ciascuno = 12 elettroni. Non rimane nulla per il berillio!</p>
+
+<div class="attenzione">
+<strong>Eccezione all'ottetto!</strong> Il berillio ha solo 4 elettroni attorno a se (2 legami singoli). E' uno degli elementi che possono essere stabili con meno di 8 elettroni. Si dice che il berillio e "deficiente di elettroni".
+</div>
+
+<div class="lewis-box">
+  ::        ::
+  Cl - Be - Cl
+  ::        ::
+
+dove ogni Cl ha 3 coppie solitarie
+</div>
+
+<h4>Passo 3: Geometria e polarita</h4>
+
+<p>Il berillio ha 2 domini elettronici (2 legami) e 0 coppie solitarie.</p>
+
+<p><strong>Polarita:</strong> I legami Be-Cl sono polari, ma la molecola e <strong>apolare</strong> perche i due dipoli sono uguali e opposti e si annullano grazie alla geometria lineare.</p>
+
+<div class="risultato">
+<strong>RISULTATO:</strong><br>
+Struttura: AX<sub>2</sub><br>
+Ibridizzazione Be: sp<br>
+Geometria: Lineare<br>
+Angolo: 180°<br>
+Polarita: Molecola <strong>apolare</strong><br>
+Eccezione all'ottetto: Be ha solo 4 elettroni
+</div>
+</div>
+
+<!-- ==================== ESERCIZIO 8: PARAMAGNETISMO O2 ==================== -->
+
+<div class="esempio-esame">
+<div class="titolo">ESERCIZIO 8: Paramagnetismo di O<sub>2</sub>, O<sub>2</sub><sup>-</sup>, O<sub>2</sub><sup>2-</sup></div>
+
+<p><strong>Testo:</strong> Precisare se le specie O<sub>2</sub>, O<sub>2</sub><sup>-</sup> (ione superossido), O<sub>2</sub><sup>2-</sup> (ione perossido) sono diamagnetiche o paramagnetiche. Motivare la risposta.</p>
+
+<h4>Passo 1: Contare gli elettroni totali</h4>
+
+<p>L'ossigeno ha numero atomico 8, quindi ogni atomo ha 8 elettroni.</p>
+
+<div class="step">
+<strong>O<sub>2</sub>:</strong> 8 + 8 = 16 elettroni<br>
+<strong>O<sub>2</sub><sup>-</sup>:</strong> 16 + 1 = 17 elettroni (ha acquistato un elettrone)<br>
+<strong>O<sub>2</sub><sup>2-</sup>:</strong> 16 + 2 = 18 elettroni (ha acquistato due elettroni)
+</div>
+
+<h4>Passo 2: Distribuzione negli orbitali molecolari</h4>
+
+<p>Per O<sub>2</sub>, i primi 14 elettroni riempiono tutti gli orbitali fino a pi(2py). Rimangono 2 elettroni da sistemare negli orbitali antileganti pi*.</p>
+
+<p>Poiche pi*(2px) e pi*(2py) hanno la <strong>stessa energia</strong> (sono degeneri), per la regola di Hund i due elettroni si dispongono <strong>uno per orbitale, con spin paralleli</strong>.</p>
+
+<div class="lewis-box">
+O2 - 16 elettroni:
+
+pi*(2px): (up) = 1 elettrone SPAIATO
+pi*(2py): (up) = 1 elettrone SPAIATO
+
+O2 ha 2 elettroni spaiati --> PARAMAGNETICO
+</div>
+
+<div class="lewis-box">
+O2^- - 17 elettroni:
+
+pi*(2px): (up)(down) = 2 elettroni ACCOPPIATI
+pi*(2py): (up) = 1 elettrone SPAIATO
+
+O2^- ha 1 elettrone spaiato --> PARAMAGNETICO
+</div>
+
+<div class="lewis-box">
+O2^2- - 18 elettroni:
+
+pi*(2px): (up)(down) = 2 elettroni ACCOPPIATI
+pi*(2py): (up)(down) = 2 elettroni ACCOPPIATI
+
+O2^2- ha 0 elettroni spaiati --> DIAMAGNETICO
+</div>
+
+<div class="risultato">
+<strong>RISULTATO:</strong><br>
+<strong>O<sub>2</sub>:</strong> PARAMAGNETICO (2 elettroni spaiati)<br>
+<strong>O<sub>2</sub><sup>-</sup>:</strong> PARAMAGNETICO (1 elettrone spaiato)<br>
+<strong>O<sub>2</sub><sup>2-</sup>:</strong> DIAMAGNETICO (0 elettroni spaiati)
+</div>
+</div>
+
+<!-- ==================== SEZIONE 10: ERRORI COMUNI ==================== -->
+
+<h2>10. Errori Comuni da Evitare</h2>
+
+<div class="attenzione">
+<strong>ERRORI DA EVITARE:</strong>
+
+<h4>1. Nel conteggio degli elettroni</h4>
+<ul>
+    <li>Dimenticare di aggiungere elettroni per le cariche negative</li>
+    <li>Dimenticare di sottrarre elettroni per le cariche positive</li>
+    <li>Confondere il numero di elettroni di valenza con il numero atomico</li>
+</ul>
+
+<h4>2. Nella scelta dell'atomo centrale</h4>
+<ul>
+    <li>Mettere l'idrogeno al centro (NON e mai possibile!)</li>
+    <li>Mettere il fluoro al centro (il F e sempre terminale)</li>
+    <li>Non riconoscere i composti ionici (metallo + non-metallo = ionico)</li>
+</ul>
+
+<h4>3. Nel conteggio dei domini elettronici</h4>
+<ul>
+    <li>Contare i doppi legami come 2 domini (contano come 1!)</li>
+    <li>Contare i tripli legami come 3 domini (contano come 1!)</li>
+    <li>Dimenticare le coppie solitarie sull'atomo centrale</li>
+</ul>
+
+<h4>4. Nella geometria</h4>
+<ul>
+    <li>Confondere geometria elettronica e geometria molecolare</li>
+    <li>Dimenticare che le coppie solitarie "contano" per la geometria elettronica ma non per quella molecolare</li>
+</ul>
+
+<h4>5. Nell'ottetto</h4>
+<ul>
+    <li>Pensare che tutti gli atomi debbano avere 8 elettroni</li>
+    <li>Dimenticare che Be e B possono avere meno di 8 elettroni</li>
+    <li>Dimenticare che S, P, Cl (3° periodo e oltre) possono espandere l'ottetto</li>
+    <li>Tentare di espandere l'ottetto per C, N, O (2° periodo - impossibile!)</li>
+</ul>
+</div>
+
+<!-- ==================== SEZIONE 11: RIEPILOGO ==================== -->
+
+<h2>11. Riepilogo Formule e Tabelle</h2>
+
+<div class="riepilogo">
+<strong>RIEPILOGO DELLE FORMULE</strong>
+
+<p><strong>1. Carica formale:</strong></p>
+<p style="text-align: center; font-family: monospace; font-size: 1.2em;">
+C<sub>formale</sub> = e<sub>valenza</sub> - e<sub>legame</sub> - e<sub>non legame</sub>
+</p>
+
+<p><strong>2. Ordine di legame (teoria MO):</strong></p>
+<p style="text-align: center; font-family: monospace; font-size: 1.2em;">
+Ordine di legame = (e<sup>-</sup> leganti - e<sup>-</sup> antileganti) / 2
+</p>
+
+<p><strong>3. Elettroni di valenza per gruppo:</strong></p>
+<table>
+    <tr>
+        <th>Gruppo</th>
+        <th>1</th>
+        <th>2</th>
+        <th>13</th>
+        <th>14</th>
+        <th>15</th>
+        <th>16</th>
+        <th>17</th>
+    </tr>
+    <tr>
+        <td>e<sup>-</sup> valenza</td>
+        <td>1</td>
+        <td>2</td>
+        <td>3</td>
+        <td>4</td>
+        <td>5</td>
+        <td>6</td>
+        <td>7</td>
+    </tr>
+</table>
+
+<p><strong>4. Relazione domini - ibridizzazione - geometria:</strong></p>
+<table>
+    <tr>
+        <th>Domini</th>
+        <th>Ibridizzazione</th>
+        <th>Geometria elettronica</th>
+    </tr>
+    <tr>
+        <td>2</td>
+        <td>sp</td>
+        <td>Lineare (180°)</td>
+    </tr>
+    <tr>
+        <td>3</td>
+        <td>sp<sup>2</sup></td>
+        <td>Trigonale planare (120°)</td>
+    </tr>
+    <tr>
+        <td>4</td>
+        <td>sp<sup>3</sup></td>
+        <td>Tetraedrica (109,5°)</td>
+    </tr>
+    <tr>
+        <td>5</td>
+        <td>sp<sup>3</sup>d</td>
+        <td>Bipiramidale trigonale (90°, 120°)</td>
+    </tr>
+    <tr>
+        <td>6</td>
+        <td>sp<sup>3</sup>d<sup>2</sup></td>
+        <td>Ottaedrica (90°)</td>
+    </tr>
+</table>
+
+<p><strong>5. Polarita:</strong></p>
+<ul>
+    <li>Legame polare se atomi diversi con diversa elettronegativita</li>
+    <li>Molecola polare se geometria asimmetrica (dipoli non si annullano)</li>
+    <li>Molecola apolare se geometria simmetrica (dipoli si annullano)</li>
+</ul>
+
+<p><strong>6. Paramagnetismo/Diamagnetismo:</strong></p>
+<ul>
+    <li>Elettroni spaiati presenti = PARAMAGNETICO</li>
+    <li>Tutti elettroni accoppiati = DIAMAGNETICO</li>
+</ul>
+</div>
+
+<h3>Tabella Riassuntiva delle Molecole Piu Comuni</h3>
+
+<table>
+    <tr>
+        <th>Molecola</th>
+        <th>e<sup>-</sup> valenza</th>
+        <th>Notazione</th>
+        <th>Ibridizzazione</th>
+        <th>Geometria</th>
+        <th>Angoli</th>
+    </tr>
+    <tr>
+        <td>CO<sub>2</sub></td>
+        <td>16</td>
+        <td>AX<sub>2</sub></td>
+        <td>sp</td>
+        <td>Lineare</td>
+        <td>180°</td>
+    </tr>
+    <tr>
+        <td>BeCl<sub>2</sub></td>
+        <td>16</td>
+        <td>AX<sub>2</sub></td>
+        <td>sp</td>
+        <td>Lineare</td>
+        <td>180°</td>
+    </tr>
+    <tr>
+        <td>O<sub>3</sub></td>
+        <td>18</td>
+        <td>AX<sub>2</sub>E</td>
+        <td>sp<sup>2</sup></td>
+        <td>Angolare</td>
+        <td>117°</td>
+    </tr>
+    <tr>
+        <td>H<sub>2</sub>CO</td>
+        <td>12</td>
+        <td>AX<sub>3</sub></td>
+        <td>sp<sup>2</sup></td>
+        <td>Trigonale planare</td>
+        <td>120°</td>
+    </tr>
+    <tr>
+        <td>HCO<sub>3</sub><sup>-</sup></td>
+        <td>24</td>
+        <td>AX<sub>3</sub></td>
+        <td>sp<sup>2</sup></td>
+        <td>Trigonale planare</td>
+        <td>120°</td>
+    </tr>
+    <tr>
+        <td>H<sub>2</sub>O</td>
+        <td>8</td>
+        <td>AX<sub>2</sub>E<sub>2</sub></td>
+        <td>sp<sup>3</sup></td>
+        <td>Angolare</td>
+        <td>104,5°</td>
+    </tr>
+    <tr>
+        <td>NH<sub>3</sub></td>
+        <td>8</td>
+        <td>AX<sub>3</sub>E</td>
+        <td>sp<sup>3</sup></td>
+        <td>Piramidale trigonale</td>
+        <td>107,5°</td>
+    </tr>
+    <tr>
+        <td>CH<sub>4</sub></td>
+        <td>8</td>
+        <td>AX<sub>4</sub></td>
+        <td>sp<sup>3</sup></td>
+        <td>Tetraedrica</td>
+        <td>109,5°</td>
+    </tr>
+    <tr>
+        <td>H<sub>2</sub>SO<sub>4</sub></td>
+        <td>32</td>
+        <td>AX<sub>4</sub></td>
+        <td>sp<sup>3</sup></td>
+        <td>Tetraedrica</td>
+        <td>109,5°</td>
+    </tr>
+    <tr>
+        <td>ClO<sub>4</sub><sup>-</sup></td>
+        <td>32</td>
+        <td>AX<sub>4</sub></td>
+        <td>sp<sup>3</sup></td>
+        <td>Tetraedrica</td>
+        <td>109,5°</td>
+    </tr>
+    <tr>
+        <td>BrF<sub>3</sub></td>
+        <td>28</td>
+        <td>AX<sub>3</sub>E<sub>2</sub></td>
+        <td>sp<sup>3</sup>d</td>
+        <td>T-shape</td>
+        <td>86°, 175°</td>
+    </tr>
+    <tr>
+        <td>SF<sub>6</sub></td>
+        <td>48</td>
+        <td>AX<sub>6</sub></td>
+        <td>sp<sup>3</sup>d<sup>2</sup></td>
+        <td>Ottaedrica</td>
+        <td>90°</td>
+    </tr>
+</table>
+
+</body>
+</html>

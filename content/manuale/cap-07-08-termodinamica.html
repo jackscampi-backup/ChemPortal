@@ -1,0 +1,1237 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Capitolo 07-08 - Termodinamica</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 2cm;
+        }
+        body {
+            font-family: Georgia, serif;
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            line-height: 1.8;
+            color: #333;
+        }
+        h1 {
+            color: #1a5276;
+            border-bottom: 4px solid #2980b9;
+            padding-bottom: 15px;
+            font-size: 2em;
+        }
+        h2 {
+            color: #2471a3;
+            margin-top: 40px;
+            border-left: 4px solid #3498db;
+            padding-left: 15px;
+            page-break-after: avoid;
+        }
+        h3 {
+            color: #1e8449;
+            margin-top: 25px;
+        }
+        h4 {
+            color: #7d3c98;
+            margin-top: 20px;
+        }
+        .indice {
+            background: #eaf2f8;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .indice ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        .indice li {
+            margin: 5px 0;
+        }
+        .indice a {
+            color: #2471a3;
+            text-decoration: none;
+        }
+        .prerequisiti {
+            background: #fef9e7;
+            padding: 15px;
+            border-left: 4px solid #f39c12;
+            margin: 20px 0;
+        }
+        .definizione {
+            background: #e8f6f3;
+            padding: 15px;
+            border-left: 4px solid #1abc9c;
+            margin: 15px 0;
+        }
+        .formula-box {
+            background: #fdebd0;
+            padding: 20px;
+            border: 2px solid #e67e22;
+            border-radius: 8px;
+            margin: 20px 0;
+            text-align: center;
+            font-size: 1.2em;
+        }
+        .formula-box .nome {
+            font-weight: bold;
+            color: #d35400;
+            margin-bottom: 10px;
+        }
+        .formula-box .formula {
+            font-size: 1.3em;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+        }
+        .formula-box .quando {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 10px;
+            text-align: left;
+        }
+        .formula-box .unita {
+            font-size: 0.85em;
+            color: #555;
+            text-align: left;
+            margin-top: 10px;
+            background: #fff;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .esempio-esame {
+            background: #e8f4fd;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+            border: 2px solid #3498db;
+        }
+        .esempio-esame .titolo {
+            font-weight: bold;
+            color: #2980b9;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+        .attenzione {
+            background: #fdedec;
+            padding: 15px;
+            border-left: 4px solid #e74c3c;
+            margin: 15px 0;
+        }
+        .riepilogo {
+            background: #d5f5e3;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 30px 0;
+        }
+        .procedura {
+            background: #fff;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        .procedura ol {
+            margin: 0;
+            padding-left: 20px;
+        }
+        .procedura li {
+            margin: 8px 0;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #bdc3c7;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background: #3498db;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        sub { font-size: 0.75em; }
+        sup { font-size: 0.75em; }
+        .step {
+            background: #f0f8ff;
+            padding: 10px 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border-left: 3px solid #3498db;
+        }
+        .risultato {
+            background: #d4edda;
+            padding: 15px;
+            border-radius: 5px;
+            border: 2px solid #28a745;
+            text-align: center;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+        .nota {
+            background: #fff3cd;
+            padding: 10px 15px;
+            border-left: 4px solid #ffc107;
+            margin: 15px 0;
+            font-style: italic;
+        }
+        .concetto {
+            background: #e8f6f3;
+            padding: 15px;
+            border-left: 4px solid #1abc9c;
+            margin: 20px 0;
+        }
+        table.ice {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        table.ice th, table.ice td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: center;
+        }
+        table.ice th {
+            background: #3498db;
+            color: white;
+        }
+        table.ice tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Capitolo 07-08: Termodinamica</h1>
+
+<div class="indice">
+<strong>INDICE</strong>
+<ul>
+    <li>1. Prerequisiti</li>
+    <li>2. Concetti Fondamentali
+        <ul>
+            <li>2.1 Che cos'e la termodinamica?</li>
+            <li>2.2 Il I Principio: conservazione dell'energia</li>
+            <li>2.3 Entalpia (H)</li>
+            <li>2.4 Legge di Hess</li>
+            <li>2.5 Entropia (S)</li>
+            <li>2.6 Energia libera di Gibbs (G)</li>
+            <li>2.7 Equilibrio chimico e costanti K</li>
+        </ul>
+    </li>
+    <li>3. Formule Fondamentali</li>
+    <li>4. Esercizi d'Esame Svolti
+        <ul>
+            <li>4.1 Calorimetria</li>
+            <li>4.2 Legge di Hess</li>
+            <li>4.3 Entropia di reazione</li>
+            <li>4.4 Energia libera e spontaneita</li>
+            <li>4.5 Calcolo di K da DeltaG</li>
+            <li>4.6 Equilibrio chimico con tabella ICE</li>
+            <li>4.7 Lavoro termodinamico</li>
+            <li>4.8 Equazione di Van't Hoff</li>
+        </ul>
+    </li>
+    <li>5. Errori Comuni</li>
+    <li>6. Riepilogo Formule</li>
+</ul>
+</div>
+
+<div class="prerequisiti">
+<strong>PREREQUISITI</strong>
+<p>Prima di affrontare questo capitolo, dovresti conoscere:</p>
+<ul>
+    <li>Calcolo delle moli (n = m / MM)</li>
+    <li>Equazione dei gas ideali (PV = nRT)</li>
+    <li>Conversioni di unita (J, cal, kJ, kcal)</li>
+    <li>Bilanciamento delle reazioni chimiche</li>
+    <li>Logaritmi naturali e in base 10</li>
+</ul>
+</div>
+
+<!-- ============================================ -->
+<!-- SEZIONE 2: CONCETTI FONDAMENTALI -->
+<!-- ============================================ -->
+
+<h2 id="concetti">2. Concetti Fondamentali</h2>
+
+<h3>2.1 Che cos'e la termodinamica?</h3>
+
+<p>La termodinamica e la scienza che studia le <strong>trasformazioni dell'energia</strong>. In chimica, ci interessa principalmente per rispondere a due domande fondamentali:</p>
+
+<ol>
+    <li><strong>Quanta energia</strong> viene assorbita o liberata in una reazione?</li>
+    <li>La reazione avviene <strong>spontaneamente</strong> oppure no?</li>
+</ol>
+
+<p>Attenzione: la termodinamica NON ci dice nulla sulla <strong>velocita</strong> di una reazione. Una reazione puo essere termodinamicamente favorita ma avvenire lentissimamente (come la trasformazione del diamante in grafite). La velocita e oggetto della <em>cinetica chimica</em>.</p>
+
+<div class="definizione">
+<strong>Sistema e ambiente:</strong>
+<ul>
+    <li><strong>Sistema</strong>: la porzione di materia che stiamo studiando (es. il contenuto di una beuta)</li>
+    <li><strong>Ambiente</strong>: tutto cio che circonda il sistema</li>
+    <li><strong>Universo</strong>: sistema + ambiente</li>
+</ul>
+</div>
+
+<h3>2.2 Il I Principio: conservazione dell'energia</h3>
+
+<p>Il primo principio della termodinamica afferma che <strong>l'energia non si crea ne si distrugge</strong>, ma si trasforma. Matematicamente:</p>
+
+<div class="formula-box">
+    <div class="nome">I Principio della Termodinamica</div>
+    <div class="formula">DeltaU = q + w</div>
+    <div class="quando">
+        <strong>Significato:</strong> La variazione di energia interna (DeltaU) di un sistema e uguale al calore (q) assorbito piu il lavoro (w) fatto sul sistema.
+    </div>
+    <div class="unita">
+        <strong>Convenzione dei segni:</strong><br>
+        - q > 0: il sistema assorbe calore dall'ambiente<br>
+        - q < 0: il sistema cede calore all'ambiente<br>
+        - w > 0: lavoro fatto SUL sistema (compressione)<br>
+        - w < 0: lavoro fatto DAL sistema (espansione)
+    </div>
+</div>
+
+<p>Il <strong>lavoro meccanico</strong> di espansione/compressione di un gas a pressione costante si calcola come:</p>
+
+<div class="formula-box">
+    <div class="nome">Lavoro meccanico (P costante)</div>
+    <div class="formula">w = -P x DeltaV</div>
+    <div class="quando">
+        <strong>Quando usarla:</strong> Quando un gas si espande o comprime contro una pressione esterna costante.
+    </div>
+</div>
+
+<h3>2.3 Entalpia (H)</h3>
+
+<p>L'<strong>entalpia</strong> e una funzione di stato che rappresenta il <strong>calore scambiato a pressione costante</strong>. Poiche la maggior parte delle reazioni chimiche avviene a pressione atmosferica (in beute aperte!), l'entalpia e la grandezza piu usata in chimica.</p>
+
+<div class="formula-box">
+    <div class="nome">Variazione di Entalpia</div>
+    <div class="formula">DeltaH = q<sub>p</sub></div>
+    <div class="quando">
+        <strong>Significato:</strong> A pressione costante, la variazione di entalpia equivale al calore scambiato.
+    </div>
+    <div class="unita">
+        <strong>Unita di misura:</strong> kJ/mol oppure kcal/mol<br>
+        <strong>Conversione:</strong> 1 cal = 4,184 J
+    </div>
+</div>
+
+<div class="concetto">
+<strong>Reazioni esotermiche ed endotermiche:</strong>
+<ul>
+    <li><strong>DeltaH < 0</strong>: reazione <strong>esotermica</strong> (libera calore, si scalda)</li>
+    <li><strong>DeltaH > 0</strong>: reazione <strong>endotermica</strong> (assorbe calore, si raffredda)</li>
+</ul>
+<p>Esempio: la combustione del metano ha DeltaH = -890 kJ/mol (esotermica: brucia e scalda!).</p>
+</div>
+
+<p><strong>Entalpia di formazione standard (DeltaH°<sub>f</sub>)</strong>: e l'entalpia della reazione di formazione di 1 mole di sostanza a partire dagli elementi nel loro stato standard (25°C, 1 atm). Per convenzione, DeltaH°<sub>f</sub> degli elementi e zero.</p>
+
+<div class="formula-box">
+    <div class="nome">Entalpia di reazione</div>
+    <div class="formula">DeltaH°<sub>rxn</sub> = Somma(DeltaH°<sub>f</sub> prodotti) - Somma(DeltaH°<sub>f</sub> reagenti)</div>
+    <div class="quando">
+        <strong>Quando usarla:</strong> Per calcolare il calore di una reazione conoscendo le entalpie di formazione dei reagenti e prodotti.
+    </div>
+</div>
+
+<h3>2.4 Legge di Hess</h3>
+
+<p>La <strong>Legge di Hess</strong> e uno strumento potentissimo che deriva dal fatto che l'entalpia e una funzione di stato. Dice che:</p>
+
+<div class="concetto">
+<strong>Legge di Hess:</strong> Il calore di reazione dipende SOLO dallo stato iniziale e finale, e NON dal percorso seguito. Se una reazione puo essere scritta come somma di altre reazioni, il suo DeltaH sara la somma dei DeltaH delle singole reazioni.
+</div>
+
+<div class="procedura">
+<strong>Procedura per applicare la Legge di Hess:</strong>
+<ol>
+    <li>Scrivi la reazione di cui vuoi calcolare il DeltaH</li>
+    <li>Manipola le reazioni date per ottenere quella desiderata:
+        <ul>
+            <li>Se inverti una reazione, cambia segno al DeltaH</li>
+            <li>Se moltiplichi una reazione per un fattore, moltiplica anche il DeltaH</li>
+        </ul>
+    </li>
+    <li>Somma le reazioni manipolate (le specie intermedie si cancellano)</li>
+    <li>Somma i DeltaH corrispondenti</li>
+</ol>
+</div>
+
+<h3>2.5 Entropia (S)</h3>
+
+<p>L'<strong>entropia</strong> e una misura del <strong>disordine</strong> di un sistema, o piu precisamente, del numero di microstati accessibili. Un gas ha piu entropia di un liquido, che ha piu entropia di un solido.</p>
+
+<div class="formula-box">
+    <div class="nome">Variazione di Entropia</div>
+    <div class="formula">DeltaS = q<sub>rev</sub> / T</div>
+    <div class="quando">
+        <strong>Unita di misura:</strong> J/(mol x K)<br>
+        <strong>Nota:</strong> A differenza di DeltaH°<sub>f</sub>, i valori di S° degli elementi NON sono zero!
+    </div>
+</div>
+
+<div class="formula-box">
+    <div class="nome">Entropia di reazione</div>
+    <div class="formula">DeltaS°<sub>rxn</sub> = Somma(S° prodotti) - Somma(S° reagenti)</div>
+    <div class="quando">
+        <strong>Regola pratica:</strong> Se aumenta il numero di moli di gas, DeltaS > 0 (aumenta il disordine).
+    </div>
+</div>
+
+<h3>2.6 Energia libera di Gibbs (G)</h3>
+
+<p>L'<strong>energia libera di Gibbs</strong> e IL criterio di spontaneita per le reazioni a temperatura e pressione costanti. Combina entalpia (tendenza al minimo di energia) e entropia (tendenza al massimo disordine) in un'unica grandezza.</p>
+
+<div class="formula-box">
+    <div class="nome">Energia libera di Gibbs</div>
+    <div class="formula">DeltaG = DeltaH - T x DeltaS</div>
+    <div class="quando">
+        <strong>Criterio di spontaneita:</strong><br>
+        - DeltaG < 0: reazione SPONTANEA<br>
+        - DeltaG = 0: sistema all'EQUILIBRIO<br>
+        - DeltaG > 0: reazione NON spontanea (spontanea in senso inverso)
+    </div>
+</div>
+
+<div class="concetto">
+<strong>Interpretazione fisica:</strong>
+<ul>
+    <li>Il termine <strong>DeltaH</strong> rappresenta la tendenza al minimo di energia (favorisce spontaneita se negativo)</li>
+    <li>Il termine <strong>-T x DeltaS</strong> rappresenta la tendenza al massimo disordine (favorisce spontaneita se DeltaS e positivo)</li>
+</ul>
+<p>La reazione e spontanea quando la combinazione di questi due fattori rende DeltaG negativo.</p>
+</div>
+
+<table>
+    <tr>
+        <th>DeltaH</th>
+        <th>DeltaS</th>
+        <th>DeltaG</th>
+        <th>Spontaneita</th>
+    </tr>
+    <tr>
+        <td>< 0</td>
+        <td>> 0</td>
+        <td>< 0 (sempre)</td>
+        <td>Spontanea a tutte le T</td>
+    </tr>
+    <tr>
+        <td>> 0</td>
+        <td>< 0</td>
+        <td>> 0 (sempre)</td>
+        <td>Mai spontanea</td>
+    </tr>
+    <tr>
+        <td>< 0</td>
+        <td>< 0</td>
+        <td>Dipende da T</td>
+        <td>Spontanea a basse T</td>
+    </tr>
+    <tr>
+        <td>> 0</td>
+        <td>> 0</td>
+        <td>Dipende da T</td>
+        <td>Spontanea ad alte T</td>
+    </tr>
+</table>
+
+<h3>2.7 Equilibrio chimico e costanti K</h3>
+
+<p>All'equilibrio, DeltaG = 0. Questo ci permette di collegare l'energia libera alla costante di equilibrio.</p>
+
+<div class="formula-box">
+    <div class="nome">Relazione tra DeltaG° e K</div>
+    <div class="formula">DeltaG° = -R x T x ln(K)</div>
+    <div class="quando">
+        <strong>Forma alternativa:</strong> K = e<sup>-DeltaG°/(RT)</sup><br>
+        <strong>Valori di R:</strong> 8,314 J/(mol x K) oppure 1,987 cal/(mol x K)
+    </div>
+</div>
+
+<p>Per reazioni in fase gassosa, definiamo due tipi di costanti:</p>
+
+<div class="formula-box">
+    <div class="nome">Costanti di equilibrio</div>
+    <div class="formula">
+        K<sub>p</sub> = (p<sub>C</sub><sup>c</sup> x p<sub>D</sub><sup>d</sup>) / (p<sub>A</sub><sup>a</sup> x p<sub>B</sub><sup>b</sup>)<br><br>
+        K<sub>c</sub> = ([C]<sup>c</sup> x [D]<sup>d</sup>) / ([A]<sup>a</sup> x [B]<sup>b</sup>)
+    </div>
+    <div class="quando">
+        <strong>Relazione tra K<sub>p</sub> e K<sub>c</sub>:</strong> K<sub>p</sub> = K<sub>c</sub> x (RT)<sup>Delta(n)</sup><br>
+        dove Delta(n) = moli gas prodotti - moli gas reagenti
+    </div>
+</div>
+
+<div class="formula-box">
+    <div class="nome">Equazione di Van't Hoff</div>
+    <div class="formula">ln(K<sub>2</sub>/K<sub>1</sub>) = -(DeltaH°/R) x (1/T<sub>2</sub> - 1/T<sub>1</sub>)</div>
+    <div class="quando">
+        <strong>Quando usarla:</strong> Per calcolare come cambia K al variare della temperatura.
+    </div>
+</div>
+
+<!-- ============================================ -->
+<!-- SEZIONE 4: ESERCIZI D'ESAME SVOLTI -->
+<!-- ============================================ -->
+
+<h2 id="esercizi">4. Esercizi d'Esame Svolti</h2>
+
+<p>In questa sezione trovi esercizi tipici dell'esame del Prof. Sebastiano, risolti in modo <strong>discorsivo</strong> con spiegazione di ogni passaggio.</p>
+
+<!-- ESERCIZIO 1: CALORIMETRIA -->
+<div class="esempio-esame">
+<div class="titolo">ESERCIZIO 1: Calorimetria - Calore di combustione</div>
+
+<p><strong>TESTO:</strong> Calcolare il calore di combustione dell'etilene sapendo che 0,1 g di etilene bruciati in una bomba calorimetrica producono un innalzamento di 2°C di un calorimetro avente capacita termica di 600 cal/°C.</p>
+
+<h4>Che cosa ci viene chiesto?</h4>
+
+<p>Questo e un esercizio di <strong>calorimetria</strong>. Una bomba calorimetrica e un dispositivo che misura il calore liberato dalla combustione di una sostanza. Bruciamo una piccola quantita di etilene e misuriamo di quanto aumenta la temperatura. Da questo dato possiamo calcolare il calore di combustione <em>per mole</em>.</p>
+
+<h4>Dati del problema</h4>
+<div class="step">
+<ul>
+    <li>Massa di etilene: m = 0,1 g</li>
+    <li>Variazione di temperatura: DeltaT = 2°C</li>
+    <li>Capacita termica del calorimetro: C = 600 cal/°C</li>
+    <li>Formula dell'etilene: C<sub>2</sub>H<sub>4</sub></li>
+</ul>
+</div>
+
+<h4>Passo 1: Calcolo del calore assorbito dal calorimetro</h4>
+
+<p>La <strong>capacita termica</strong> ci dice quanta energia serve per aumentare la temperatura di 1°C. Se il calorimetro ha capacita termica di 600 cal/°C, significa che per scaldarlo di 1°C servono 600 calorie.</p>
+
+<p>La formula fondamentale della calorimetria e:</p>
+
+<div class="step">
+<p style="text-align:center;"><strong>Q = C x DeltaT</strong></p>
+<p>Sostituiamo i valori:</p>
+<p style="text-align:center;">Q = 600 cal/°C x 2°C = <strong>1200 cal</strong></p>
+</div>
+
+<p><strong>Cosa significa?</strong> Bruciando 0,1 g di etilene, abbiamo liberato 1200 calorie che sono state assorbite dal calorimetro, facendone aumentare la temperatura di 2°C.</p>
+
+<h4>Passo 2: Conversione in kilojoule</h4>
+
+<p>In chimica l'unita standard e il joule, non la caloria. Convertiamo:</p>
+
+<div class="step">
+<p>1 cal = 4,184 J</p>
+<p>Q = 1200 cal x 4,184 J/cal = 5020,8 J = <strong>5,02 kJ</strong></p>
+</div>
+
+<h4>Passo 3: Calcolo delle moli di etilene</h4>
+
+<p>Per trovare il calore di combustione <em>per mole</em>, dobbiamo sapere quante moli di etilene abbiamo bruciato.</p>
+
+<div class="step">
+<p><strong>Massa molare dell'etilene (C<sub>2</sub>H<sub>4</sub>):</strong></p>
+<p>MM = 2 x 12 + 4 x 1 = 24 + 4 = 28 g/mol</p>
+<p><strong>Moli:</strong></p>
+<p>n = m / MM = 0,1 g / 28 g/mol = 0,00357 mol</p>
+</div>
+
+<h4>Passo 4: Calcolo del calore di combustione per mole</h4>
+
+<p>Ora sappiamo che bruciare 0,00357 mol libera 5,02 kJ. Quanto libera 1 mole?</p>
+
+<div class="step">
+<p>DeltaH<sub>comb</sub> = Q / n = 5,02 kJ / 0,00357 mol = <strong>1406 kJ/mol</strong></p>
+</div>
+
+<div class="risultato">
+<strong>RISPOSTA:</strong> Il calore di combustione dell'etilene e circa <strong>1400 kJ/mol</strong>.<br><br>
+Poiche la combustione libera calore (esotermica), il valore con segno e DeltaH<sub>comb</sub> = <strong>-1400 kJ/mol</strong>.
+</div>
+</div>
+
+<!-- ESERCIZIO 2: LEGGE DI HESS -->
+<div class="esempio-esame">
+<div class="titolo">ESERCIZIO 2: Legge di Hess - Calore di formazione dell'acetone</div>
+
+<p><strong>TESTO:</strong> Dati i seguenti calori di combustione molare, calcolare il calore di formazione molare dell'acetone CH<sub>3</sub>COCH<sub>3</sub>.</p>
+<ul>
+    <li>C + O<sub>2</sub> -> CO<sub>2</sub>     DeltaH = -94,45 kcal</li>
+    <li>H<sub>2</sub> + 1/2 O<sub>2</sub> -> H<sub>2</sub>O     DeltaH = -68,37 kcal</li>
+    <li>CH<sub>3</sub>COCH<sub>3</sub> + 4O<sub>2</sub> -> 3CO<sub>2</sub> + 3H<sub>2</sub>O     DeltaH = -426,8 kcal</li>
+</ul>
+
+<h4>Che cosa ci viene chiesto?</h4>
+
+<p>Dobbiamo calcolare il <strong>calore di formazione</strong> dell'acetone, cioe l'entalpia della reazione che forma l'acetone partendo dai suoi elementi:</p>
+
+<p style="text-align:center;"><strong>3C + 3H<sub>2</sub> + 1/2 O<sub>2</sub> -> C<sub>3</sub>H<sub>6</sub>O (acetone)</strong></p>
+
+<p>Questa reazione non e facile da fare direttamente in laboratorio, ma possiamo calcolarla combinando le reazioni date usando la <strong>Legge di Hess</strong>.</p>
+
+<h4>Strategia</h4>
+
+<p>Per applicare la Legge di Hess, dobbiamo manipolare le reazioni date in modo che, sommandole, otteniamo la reazione di formazione dell'acetone.</p>
+
+<div class="concetto">
+<strong>Regole per manipolare le reazioni:</strong>
+<ul>
+    <li>Se <strong>inverti</strong> una reazione, <strong>cambia segno</strong> al DeltaH</li>
+    <li>Se <strong>moltiplichi</strong> una reazione per un fattore, <strong>moltiplica</strong> anche il DeltaH</li>
+</ul>
+</div>
+
+<h4>Passo 1: Analisi delle specie necessarie</h4>
+
+<p>Nella reazione di formazione dell'acetone ci servono:</p>
+<ul>
+    <li>3C (reagente)</li>
+    <li>3H<sub>2</sub> (reagente)</li>
+    <li>1/2 O<sub>2</sub> (reagente)</li>
+    <li>C<sub>3</sub>H<sub>6</sub>O (prodotto)</li>
+</ul>
+
+<h4>Passo 2: Manipolazione delle reazioni</h4>
+
+<div class="step">
+<p><strong>Reazione (1):</strong> Ci serve 3C -> 3CO<sub>2</sub>, quindi moltiplichiamo per 3:</p>
+<p>3C + 3O<sub>2</sub> -> 3CO<sub>2</sub>     DeltaH = 3 x (-94,45) = <strong>-283,35 kcal</strong></p>
+</div>
+
+<div class="step">
+<p><strong>Reazione (2):</strong> Ci serve 3H<sub>2</sub> -> 3H<sub>2</sub>O, quindi moltiplichiamo per 3:</p>
+<p>3H<sub>2</sub> + 3/2 O<sub>2</sub> -> 3H<sub>2</sub>O     DeltaH = 3 x (-68,37) = <strong>-205,11 kcal</strong></p>
+</div>
+
+<div class="step">
+<p><strong>Reazione (3):</strong> L'acetone ci serve come PRODOTTO, ma nella reazione data e un reagente. Invertiamo:</p>
+<p>3CO<sub>2</sub> + 3H<sub>2</sub>O -> CH<sub>3</sub>COCH<sub>3</sub> + 4O<sub>2</sub>     DeltaH = <strong>+426,8 kcal</strong></p>
+</div>
+
+<h4>Passo 3: Sommiamo le reazioni</h4>
+
+<table>
+    <tr>
+        <th>Reazione</th>
+        <th>DeltaH (kcal)</th>
+    </tr>
+    <tr>
+        <td>3C + 3O<sub>2</sub> -> 3CO<sub>2</sub></td>
+        <td>-283,35</td>
+    </tr>
+    <tr>
+        <td>3H<sub>2</sub> + 3/2 O<sub>2</sub> -> 3H<sub>2</sub>O</td>
+        <td>-205,11</td>
+    </tr>
+    <tr>
+        <td>3CO<sub>2</sub> + 3H<sub>2</sub>O -> C<sub>3</sub>H<sub>6</sub>O + 4O<sub>2</sub></td>
+        <td>+426,8</td>
+    </tr>
+    <tr style="background:#d5f5e3;">
+        <td><strong>3C + 3H<sub>2</sub> + 1/2 O<sub>2</sub> -> C<sub>3</sub>H<sub>6</sub>O</strong></td>
+        <td><strong>-61,66</strong></td>
+    </tr>
+</table>
+
+<p><strong>Verifica che le specie si cancellino:</strong></p>
+<ul>
+    <li>CO<sub>2</sub>: 3 prodotte, 3 consumate -> OK, si cancellano</li>
+    <li>H<sub>2</sub>O: 3 prodotte, 3 consumate -> OK, si cancellano</li>
+    <li>O<sub>2</sub>: 3 + 3/2 = 4,5 consumate, 4 prodotte -> ne restano 1/2 come reagente -> OK!</li>
+</ul>
+
+<div class="risultato">
+<strong>RISPOSTA:</strong> Il calore di formazione dell'acetone e DeltaH°<sub>f</sub> = <strong>-61,66 kcal/mol</strong><br><br>
+Il valore negativo indica che la formazione e esotermica: l'acetone e piu stabile dei suoi elementi separati.
+</div>
+</div>
+
+<!-- ESERCIZIO 3: ENTROPIA -->
+<div class="esempio-esame">
+<div class="titolo">ESERCIZIO 3: Calcolo dell'entropia di formazione</div>
+
+<p><strong>TESTO:</strong> Calcolare l'entropia standard di formazione dell'ossido di calcio. Commentare il valore ottenuto.</p>
+<p><strong>Dati:</strong> S°(Ca, s) = 41,4 J/(mol x K); S°(O<sub>2</sub>, g) = 205,0 J/(mol x K); S°(CaO, s) = 39,7 J/(mol x K)</p>
+
+<h4>Che cosa ci viene chiesto?</h4>
+
+<p>L'entropia di formazione e la variazione di entropia quando si forma 1 mole di un composto a partire dagli elementi. Per l'ossido di calcio, la reazione e:</p>
+
+<p style="text-align:center;"><strong>Ca(s) + 1/2 O<sub>2</sub>(g) -> CaO(s)</strong></p>
+
+<h4>Differenza importante rispetto all'entalpia</h4>
+
+<div class="concetto">
+<strong>Attenzione!</strong> A differenza delle entalpie di formazione (che sono ZERO per gli elementi), le <strong>entropie S° degli elementi NON sono zero</strong>. Ogni sostanza ha un valore di entropia assoluto, misurabile sperimentalmente.
+</div>
+
+<h4>Calcolo dell'entropia di reazione</h4>
+
+<p>Usiamo la formula:</p>
+
+<div class="step">
+<p style="text-align:center;"><strong>DeltaS°<sub>f</sub> = Somma(S° prodotti) - Somma(S° reagenti)</strong></p>
+</div>
+
+<div class="step">
+<p><strong>Entropie dei prodotti:</strong></p>
+<p>1 mol di CaO(s): 1 x 39,7 = 39,7 J/K</p>
+</div>
+
+<div class="step">
+<p><strong>Entropie dei reagenti:</strong></p>
+<p>1 mol di Ca(s): 1 x 41,4 = 41,4 J/K</p>
+<p>1/2 mol di O<sub>2</sub>(g): 0,5 x 205,0 = 102,5 J/K</p>
+<p>Totale reagenti: 41,4 + 102,5 = 143,9 J/K</p>
+</div>
+
+<div class="step">
+<p><strong>Variazione di entropia:</strong></p>
+<p>DeltaS°<sub>f</sub> = 39,7 - 143,9 = <strong>-104,2 J/(mol x K)</strong></p>
+</div>
+
+<h4>Commento del risultato</h4>
+
+<p>L'entropia di formazione e <strong>negativa</strong>. Perche? Analizziamo cosa succede:</p>
+
+<ul>
+    <li>Nei reagenti abbiamo 1/2 mole di gas (O<sub>2</sub>), che ha entropia molto alta (i gas sono molto disordinati!)</li>
+    <li>Nei prodotti abbiamo solo un solido cristallino (CaO), molto ordinato</li>
+    <li>Stiamo "congelando" un gas in un solido -> il disordine diminuisce</li>
+</ul>
+
+<div class="concetto">
+<strong>Regola generale:</strong> Quando una reazione "consuma" moli di gas (gas -> solido o liquido), l'entropia di reazione e generalmente <strong>negativa</strong>. Quando una reazione "produce" gas, l'entropia e generalmente <strong>positiva</strong>.
+</div>
+
+<div class="risultato">
+<strong>RISPOSTA:</strong> DeltaS°<sub>f</sub>(CaO) = <strong>-104,2 J/(mol x K)</strong><br><br>
+Il valore negativo indica una diminuzione del disordine: si passa da un gas (molto disordinato) a un solido cristallino (molto ordinato).
+</div>
+</div>
+
+<!-- ESERCIZIO 4: ENERGIA LIBERA E SPONTANEITA -->
+<div class="esempio-esame">
+<div class="titolo">ESERCIZIO 4: Energia libera e spontaneita - Decomposizione del TNT</div>
+
+<p><strong>TESTO:</strong> Il TNT (C<sub>7</sub>H<sub>5</sub>N<sub>3</sub>O<sub>6</sub>(s)) con DeltaH°<sub>f</sub> = -66,17 kJ/mol si decompone secondo:</p>
+<p style="text-align:center;">C<sub>7</sub>H<sub>5</sub>N<sub>3</sub>O<sub>6</sub>(s) -> 3/2 N<sub>2</sub>(g) + 5/2 H<sub>2</sub>O(g) + 7/2 CO(g) + 7/2 C(grafite)</p>
+<p>a) Calcolare il calore liberato dalla decomposizione di 1 kg di TNT.</p>
+<p>b) Calcolare il lavoro compiuto a T = 3000°C.</p>
+<p>c) Il processo e spontaneo?</p>
+<p><strong>Dati:</strong> DeltaH°<sub>f</sub>(H<sub>2</sub>O, g) = -241,8 kJ/mol; DeltaH°<sub>f</sub>(CO, g) = -110,5 kJ/mol; MM(TNT) = 227,13 g/mol</p>
+
+<h4>PARTE A: Calore liberato</h4>
+
+<p>Per calcolare il calore di reazione, usiamo la <strong>Legge di Hess</strong>:</p>
+
+<div class="step">
+<p style="text-align:center;"><strong>DeltaH°<sub>rxn</sub> = Somma(DeltaH°<sub>f</sub> prodotti) - Somma(DeltaH°<sub>f</sub> reagenti)</strong></p>
+</div>
+
+<p><strong>Entalpie dei prodotti:</strong></p>
+<ul>
+    <li>N<sub>2</sub>(g): 3/2 x 0 = 0 kJ (elemento!)</li>
+    <li>H<sub>2</sub>O(g): 5/2 x (-241,8) = -604,5 kJ</li>
+    <li>CO(g): 7/2 x (-110,5) = -386,75 kJ</li>
+    <li>C(grafite): 7/2 x 0 = 0 kJ (elemento!)</li>
+    <li><strong>Totale prodotti: -991,25 kJ</strong></li>
+</ul>
+
+<p><strong>Entalpie dei reagenti:</strong></p>
+<ul>
+    <li>TNT: 1 x (-66,17) = -66,17 kJ</li>
+</ul>
+
+<div class="step">
+<p>DeltaH°<sub>rxn</sub> = (-991,25) - (-66,17) = -991,25 + 66,17 = <strong>-925,08 kJ/mol</strong></p>
+</div>
+
+<p><strong>Calore per 1 kg di TNT:</strong></p>
+
+<div class="step">
+<p>n = 1000 g / 227,13 g/mol = 4,403 mol</p>
+<p>Q = 4,403 mol x (-925,08 kJ/mol) = <strong>-4073 kJ</strong></p>
+</div>
+
+<h4>PARTE B: Lavoro compiuto</h4>
+
+<p>In una reazione a pressione costante, il lavoro di espansione e legato alla variazione del numero di moli di gas:</p>
+
+<div class="step">
+<p style="text-align:center;"><strong>w = -Delta(n<sub>gas</sub>) x R x T</strong></p>
+</div>
+
+<p><strong>Calcolo Delta(n<sub>gas</sub>):</strong></p>
+<ul>
+    <li>Gas nei prodotti: 3/2 + 5/2 + 7/2 = 7,5 mol (C grafite e solido!)</li>
+    <li>Gas nei reagenti: 0 mol (TNT e solido)</li>
+    <li>Delta(n<sub>gas</sub>) = 7,5 - 0 = 7,5 mol</li>
+</ul>
+
+<p><strong>Temperatura in Kelvin:</strong> T = 3000 + 273 = 3273 K</p>
+
+<div class="step">
+<p>Lavoro per 1 mole di TNT:</p>
+<p>w = Delta(n<sub>gas</sub>) x R x T = 7,5 x 8,314 J/(mol x K) x 3273 K = 204080 J/mol = 204 kJ/mol</p>
+<p>Lavoro per 1 kg di TNT:</p>
+<p>W = 4,403 mol x 204 kJ/mol = <strong>898 kJ</strong></p>
+</div>
+
+<h4>PARTE C: Il processo e spontaneo?</h4>
+
+<p>Un processo e spontaneo quando <strong>DeltaG < 0</strong>. Analizziamo i fattori:</p>
+
+<div class="step">
+<p><strong>DeltaH:</strong> = -925 kJ/mol (molto negativo, reazione fortemente esotermica)</p>
+<p><strong>DeltaS:</strong> Partiamo da 1 mole di solido e otteniamo 7,5 moli di gas -> l'entropia aumenta enormemente (DeltaS >> 0)</p>
+</div>
+
+<p>Per DeltaG = DeltaH - T x DeltaS:</p>
+<ul>
+    <li>DeltaH e molto <strong>negativo</strong> -> favorisce spontaneita</li>
+    <li>T x DeltaS e molto <strong>positivo</strong> (DeltaS > 0) -> favorisce spontaneita</li>
+    <li>Quindi: DeltaG = (negativo) - (positivo) = <strong>molto negativo!</strong></li>
+</ul>
+
+<div class="risultato">
+<strong>RISPOSTE:</strong><br><br>
+a) La decomposizione di 1 kg di TNT libera <strong>4073 kJ</strong> di calore.<br><br>
+b) Il lavoro compiuto e <strong>898 kJ</strong>.<br><br>
+c) <strong>SI, il processo e spontaneo</strong>. Entrambi i fattori (DeltaH < 0 e DeltaS > 0) favoriscono la spontaneita, rendendo DeltaG fortemente negativo.<br><br>
+<em>Nota: il TNT e stabile a temperatura ambiente solo perche esiste una barriera di attivazione che impedisce l'innesco spontaneo!</em>
+</div>
+</div>
+
+<!-- ESERCIZIO 5: K DA DELTAG -->
+<div class="esempio-esame">
+<div class="titolo">ESERCIZIO 5: Calcolo di K da DeltaG°</div>
+
+<p><strong>TESTO:</strong> Calcolare la costante di equilibrio a 298 K per la reazione:</p>
+<p style="text-align:center;">N<sub>2</sub>O<sub>4</sub>(g) <=> 2NO<sub>2</sub>(g)</p>
+<p>Dati: DeltaG°<sub>f</sub>(N<sub>2</sub>O<sub>4</sub>, g) = 99,8 kJ/mol; DeltaG°<sub>f</sub>(NO<sub>2</sub>, g) = 51,3 kJ/mol</p>
+<p>Calcolare inoltre la pressione totale all'equilibrio sapendo che P(N<sub>2</sub>O<sub>4</sub>) = 0,50 atm.</p>
+
+<h4>Che cosa ci viene chiesto?</h4>
+
+<p>Dobbiamo collegare l'energia libera di Gibbs alla costante di equilibrio usando la relazione fondamentale:</p>
+
+<div class="step">
+<p style="text-align:center;"><strong>DeltaG° = -R x T x ln(K)</strong></p>
+</div>
+
+<h4>Passo 1: Calcolo di DeltaG° della reazione</h4>
+
+<div class="step">
+<p>DeltaG°<sub>rxn</sub> = Somma(DeltaG°<sub>f</sub> prodotti) - Somma(DeltaG°<sub>f</sub> reagenti)</p>
+<p>DeltaG°<sub>rxn</sub> = [2 x 51,3] - [1 x 99,8]</p>
+<p>DeltaG°<sub>rxn</sub> = 102,6 - 99,8 = <strong>+2,8 kJ/mol = +2800 J/mol</strong></p>
+</div>
+
+<div class="nota">
+<strong>Interpretazione:</strong> Il DeltaG° positivo ci dice che in condizioni standard l'equilibrio e spostato verso i reagenti (N<sub>2</sub>O<sub>4</sub>). Questo significa che K sara minore di 1.
+</div>
+
+<h4>Passo 2: Calcolo della costante K</h4>
+
+<p>Dalla relazione DeltaG° = -RT ln(K), ricaviamo:</p>
+
+<div class="step">
+<p>ln(K) = -DeltaG° / (R x T)</p>
+<p>ln(K) = -2800 J/mol / (8,314 J/(mol x K) x 298 K)</p>
+<p>ln(K) = -2800 / 2477,6 = <strong>-1,13</strong></p>
+<p>K = e<sup>-1,13</sup> = <strong>0,32</strong></p>
+</div>
+
+<p>Verifica: K < 1, coerente con DeltaG° > 0 (equilibrio spostato verso i reagenti).</p>
+
+<h4>Passo 3: Calcolo della pressione totale</h4>
+
+<p>Scriviamo l'espressione di K<sub>p</sub>:</p>
+
+<div class="step">
+<p>K<sub>p</sub> = P(NO<sub>2</sub>)<sup>2</sup> / P(N<sub>2</sub>O<sub>4</sub>)</p>
+<p>0,32 = P(NO<sub>2</sub>)<sup>2</sup> / 0,50</p>
+<p>P(NO<sub>2</sub>)<sup>2</sup> = 0,32 x 0,50 = 0,16</p>
+<p>P(NO<sub>2</sub>) = sqrt(0,16) = <strong>0,40 atm</strong></p>
+</div>
+
+<div class="step">
+<p><strong>Pressione totale:</strong></p>
+<p>P<sub>tot</sub> = P(N<sub>2</sub>O<sub>4</sub>) + P(NO<sub>2</sub>) = 0,50 + 0,40 = <strong>0,90 atm</strong></p>
+</div>
+
+<div class="risultato">
+<strong>RISPOSTE:</strong><br><br>
+- DeltaG° della reazione = <strong>+2,8 kJ/mol</strong><br>
+- Costante di equilibrio K = <strong>0,32</strong><br>
+- Pressione parziale di NO<sub>2</sub> = <strong>0,40 atm</strong><br>
+- Pressione totale all'equilibrio = <strong>0,90 atm</strong>
+</div>
+</div>
+
+<!-- ESERCIZIO 6: TABELLA ICE -->
+<div class="esempio-esame">
+<div class="titolo">ESERCIZIO 6: Equilibrio chimico con tabella ICE</div>
+
+<p><strong>TESTO:</strong> 10 g di SO<sub>2</sub>Cl<sub>2</sub> gassoso si caricano in un reattore vuoto da 1 L a 370 K. Sapendo che K<sub>p</sub> = 2,4 atm per la reazione:</p>
+<p style="text-align:center;">SO<sub>2</sub>Cl<sub>2</sub>(g) <=> SO<sub>2</sub>(g) + Cl<sub>2</sub>(g)</p>
+<p>calcolare la composizione della miscela all'equilibrio.</p>
+<p><strong>Dati:</strong> MM(SO<sub>2</sub>Cl<sub>2</sub>) = 135 g/mol</p>
+
+<h4>Che cosa ci viene chiesto?</h4>
+
+<p>Questo e un classico problema di <strong>equilibrio chimico</strong>. Partiamo da una certa quantita di reagente e dobbiamo calcolare quanto si decompone e qual e la composizione finale.</p>
+
+<h4>La tabella ICE</h4>
+
+<p>La <strong>tabella ICE</strong> (Initial - Change - Equilibrium) e lo strumento fondamentale per risolvere questi problemi. Ci permette di tenere traccia sistematicamente di come cambiano le quantita durante la reazione.</p>
+
+<h4>Passo 1: Calcolo delle moli iniziali</h4>
+
+<div class="step">
+<p>n<sub>iniziali</sub> = m / MM = 10 g / 135 g/mol = <strong>0,074 mol</strong></p>
+</div>
+
+<h4>Passo 2: Calcolo della pressione iniziale</h4>
+
+<p>Poiche K<sub>p</sub> e data in atmosfere, lavoriamo con le pressioni parziali. Usiamo PV = nRT:</p>
+
+<div class="step">
+<p>P<sub>0</sub> = nRT / V = (0,074 mol x 0,0821 L atm/(mol K) x 370 K) / 1 L = <strong>2,25 atm</strong></p>
+</div>
+
+<h4>Passo 3: Costruzione della tabella ICE</h4>
+
+<p>Chiamiamo <strong>x</strong> la pressione parziale di SO<sub>2</sub>Cl<sub>2</sub> che si decompone. Dalla stechiometria (1:1:1), per ogni unita di reagente che si decompone, si forma 1 unita di ciascun prodotto.</p>
+
+<table class="ice">
+    <tr>
+        <th></th>
+        <th>SO<sub>2</sub>Cl<sub>2</sub></th>
+        <th>SO<sub>2</sub></th>
+        <th>Cl<sub>2</sub></th>
+    </tr>
+    <tr>
+        <td><strong>Iniziale (I)</strong></td>
+        <td>2,25 atm</td>
+        <td>0</td>
+        <td>0</td>
+    </tr>
+    <tr>
+        <td><strong>Variazione (C)</strong></td>
+        <td>-x</td>
+        <td>+x</td>
+        <td>+x</td>
+    </tr>
+    <tr>
+        <td><strong>Equilibrio (E)</strong></td>
+        <td>(2,25 - x) atm</td>
+        <td>x atm</td>
+        <td>x atm</td>
+    </tr>
+</table>
+
+<div class="nota">
+<strong>Spiegazione dei segni:</strong> Il segno negativo per SO<sub>2</sub>Cl<sub>2</sub> indica che si consuma (reagente). I segni positivi per SO<sub>2</sub> e Cl<sub>2</sub> indicano che si formano (prodotti).
+</div>
+
+<h4>Passo 4: Risoluzione dell'equazione di equilibrio</h4>
+
+<p>Scriviamo l'espressione di K<sub>p</sub>:</p>
+
+<div class="step">
+<p>K<sub>p</sub> = P(SO<sub>2</sub>) x P(Cl<sub>2</sub>) / P(SO<sub>2</sub>Cl<sub>2</sub>)</p>
+<p>2,4 = x x x / (2,25 - x)</p>
+<p>2,4 = x<sup>2</sup> / (2,25 - x)</p>
+</div>
+
+<p>Moltiplichiamo entrambi i membri per (2,25 - x):</p>
+
+<div class="step">
+<p>2,4 x (2,25 - x) = x<sup>2</sup></p>
+<p>5,4 - 2,4x = x<sup>2</sup></p>
+<p>x<sup>2</sup> + 2,4x - 5,4 = 0</p>
+</div>
+
+<p>Risolviamo con la formula quadratica:</p>
+
+<div class="step">
+<p>x = [-2,4 +/- sqrt(2,4<sup>2</sup> + 4 x 5,4)] / 2</p>
+<p>x = [-2,4 +/- sqrt(5,76 + 21,6)] / 2</p>
+<p>x = [-2,4 +/- sqrt(27,36)] / 2</p>
+<p>x = [-2,4 +/- 5,23] / 2</p>
+</div>
+
+<p>Le due soluzioni sono:</p>
+<ul>
+    <li>x<sub>1</sub> = (-2,4 + 5,23) / 2 = <strong>1,42 atm</strong> (accettabile)</li>
+    <li>x<sub>2</sub> = (-2,4 - 5,23) / 2 = -3,81 atm (negativo, impossibile!)</li>
+</ul>
+
+<h4>Passo 5: Calcolo della composizione all'equilibrio</h4>
+
+<div class="step">
+<p>P(SO<sub>2</sub>Cl<sub>2</sub>) = 2,25 - 1,42 = <strong>0,83 atm</strong></p>
+<p>P(SO<sub>2</sub>) = 1,42 atm</p>
+<p>P(Cl<sub>2</sub>) = 1,42 atm</p>
+</div>
+
+<p><strong>Verifica:</strong> K<sub>p</sub> = (1,42 x 1,42) / 0,83 = 2,43 atm (molto vicino a 2,4!)</p>
+
+<p>Per trovare le moli, usiamo n = PV/RT:</p>
+
+<div class="step">
+<p>n = P x 1 L / (0,0821 x 370) = P / 30,38</p>
+<p>n(SO<sub>2</sub>Cl<sub>2</sub>) = 0,83 / 30,38 = <strong>0,027 mol</strong></p>
+<p>n(SO<sub>2</sub>) = 1,42 / 30,38 = <strong>0,047 mol</strong></p>
+<p>n(Cl<sub>2</sub>) = 1,42 / 30,38 = <strong>0,047 mol</strong></p>
+</div>
+
+<div class="risultato">
+<strong>RISPOSTA - Composizione all'equilibrio:</strong><br><br>
+<strong>Pressioni parziali:</strong><br>
+- P(SO<sub>2</sub>Cl<sub>2</sub>) = 0,83 atm<br>
+- P(SO<sub>2</sub>) = 1,42 atm<br>
+- P(Cl<sub>2</sub>) = 1,42 atm<br><br>
+<strong>Moli:</strong><br>
+- n(SO<sub>2</sub>Cl<sub>2</sub>) = 0,027 mol<br>
+- n(SO<sub>2</sub>) = 0,047 mol<br>
+- n(Cl<sub>2</sub>) = 0,047 mol<br><br>
+<strong>Grado di dissociazione:</strong> alfa = 0,047 / 0,074 = 0,64 = <strong>64%</strong>
+</div>
+</div>
+
+<!-- ESERCIZIO 7: CALORIMETRIA CON PASSAGGI DI STATO -->
+<div class="esempio-esame">
+<div class="titolo">ESERCIZIO 7: Calorimetria con passaggi di stato</div>
+
+<p><strong>TESTO:</strong> Calcolare la quantita di calore necessaria per trasformare 20 g di ghiaccio a 0°C in vapore a 100°C.</p>
+<p><strong>Dati:</strong> L<sub>fusione</sub> = 79 cal/g; L<sub>vaporizzazione</sub> = 540 cal/g; c<sub>acqua</sub> = 1 cal/(g x °C)</p>
+
+<h4>Che cosa succede fisicamente?</h4>
+
+<p>Questa trasformazione avviene in <strong>tre fasi distinte</strong>:</p>
+<ol>
+    <li><strong>FUSIONE</strong> (a 0°C): il ghiaccio diventa acqua liquida - la temperatura resta costante!</li>
+    <li><strong>RISCALDAMENTO</strong>: l'acqua si scalda da 0°C a 100°C</li>
+    <li><strong>VAPORIZZAZIONE</strong> (a 100°C): l'acqua diventa vapore - la temperatura resta costante!</li>
+</ol>
+
+<div class="concetto">
+<strong>Concetto chiave:</strong> Durante i passaggi di stato (fusione, vaporizzazione), la temperatura resta costante! L'energia assorbita serve a rompere i legami tra le molecole, non a scaldarle.
+</div>
+
+<h4>Calcolo per ogni fase</h4>
+
+<div class="step">
+<p><strong>FASE 1 - Fusione del ghiaccio:</strong></p>
+<p>Q<sub>1</sub> = m x L<sub>fusione</sub> = 20 g x 79 cal/g = <strong>1580 cal</strong></p>
+</div>
+
+<div class="step">
+<p><strong>FASE 2 - Riscaldamento dell'acqua:</strong></p>
+<p>Q<sub>2</sub> = m x c x DeltaT = 20 g x 1 cal/(g x °C) x 100°C = <strong>2000 cal</strong></p>
+</div>
+
+<div class="step">
+<p><strong>FASE 3 - Vaporizzazione dell'acqua:</strong></p>
+<p>Q<sub>3</sub> = m x L<sub>vaporizzazione</sub> = 20 g x 540 cal/g = <strong>10800 cal</strong></p>
+</div>
+
+<h4>Somma totale</h4>
+
+<div class="step">
+<p>Q<sub>totale</sub> = Q<sub>1</sub> + Q<sub>2</sub> + Q<sub>3</sub> = 1580 + 2000 + 10800 = <strong>14380 cal</strong></p>
+</div>
+
+<table>
+    <tr>
+        <th>Processo</th>
+        <th>Calore (cal)</th>
+        <th>Percentuale</th>
+    </tr>
+    <tr>
+        <td>Fusione</td>
+        <td>1580</td>
+        <td>11%</td>
+    </tr>
+    <tr>
+        <td>Riscaldamento</td>
+        <td>2000</td>
+        <td>14%</td>
+    </tr>
+    <tr>
+        <td>Vaporizzazione</td>
+        <td>10800</td>
+        <td><strong>75%</strong></td>
+    </tr>
+    <tr style="background:#d5f5e3;">
+        <td><strong>TOTALE</strong></td>
+        <td><strong>14380</strong></td>
+        <td>100%</td>
+    </tr>
+</table>
+
+<div class="risultato">
+<strong>RISPOSTA:</strong> Sono necessarie <strong>14380 cal</strong> (circa 14,4 kcal o 60 kJ).<br><br>
+<em>Osservazione importante: la vaporizzazione richiede il 75% dell'energia totale! Questo spiega perche le ustioni da vapore sono cosi gravi: quando il vapore condensa sulla pelle, rilascia moltissima energia.</em>
+</div>
+</div>
+
+<!-- ESERCIZIO 8: VAN'T HOFF -->
+<div class="esempio-esame">
+<div class="titolo">ESERCIZIO 8: Equazione di Van't Hoff</div>
+
+<p><strong>TESTO:</strong> Per la reazione N<sub>2</sub>(g) + 3H<sub>2</sub>(g) <=> 2NH<sub>3</sub>(g), la costante di equilibrio K<sub>p</sub> = 6,8 x 10<sup>5</sup> a 25°C e DeltaH° = -92 kJ/mol. Calcolare K<sub>p</sub> a 500°C.</p>
+
+<h4>Che cosa ci viene chiesto?</h4>
+
+<p>Dobbiamo calcolare come cambia la costante di equilibrio al variare della temperatura. Per questo usiamo l'<strong>equazione di Van't Hoff</strong>:</p>
+
+<div class="formula-box">
+    <div class="nome">Equazione di Van't Hoff</div>
+    <div class="formula">ln(K<sub>2</sub>/K<sub>1</sub>) = -(DeltaH°/R) x (1/T<sub>2</sub> - 1/T<sub>1</sub>)</div>
+</div>
+
+<h4>Dati del problema</h4>
+
+<div class="step">
+<ul>
+    <li>K<sub>1</sub> = 6,8 x 10<sup>5</sup> a T<sub>1</sub> = 25°C = 298 K</li>
+    <li>T<sub>2</sub> = 500°C = 773 K</li>
+    <li>DeltaH° = -92 kJ/mol = -92000 J/mol</li>
+    <li>R = 8,314 J/(mol x K)</li>
+</ul>
+</div>
+
+<h4>Calcolo</h4>
+
+<div class="step">
+<p>ln(K<sub>2</sub>/K<sub>1</sub>) = -(-92000 / 8,314) x (1/773 - 1/298)</p>
+<p>ln(K<sub>2</sub>/K<sub>1</sub>) = 11066 x (0,00129 - 0,00336)</p>
+<p>ln(K<sub>2</sub>/K<sub>1</sub>) = 11066 x (-0,00207)</p>
+<p>ln(K<sub>2</sub>/K<sub>1</sub>) = <strong>-22,9</strong></p>
+</div>
+
+<div class="step">
+<p>K<sub>2</sub>/K<sub>1</sub> = e<sup>-22,9</sup> = 1,14 x 10<sup>-10</sup></p>
+<p>K<sub>2</sub> = 6,8 x 10<sup>5</sup> x 1,14 x 10<sup>-10</sup> = <strong>7,8 x 10<sup>-5</sup></strong></p>
+</div>
+
+<div class="concetto">
+<strong>Interpretazione:</strong> La costante e diminuita di circa 10 miliardi di volte! Questo ha senso: la reazione e esotermica (DeltaH < 0), quindi il calore e un "prodotto". Aumentando la temperatura, l'equilibrio si sposta verso i reagenti (principio di Le Chatelier) e K diminuisce.
+</div>
+
+<div class="risultato">
+<strong>RISPOSTA:</strong> K<sub>p</sub> a 500°C = <strong>7,8 x 10<sup>-5</sup></strong><br><br>
+La costante diminuisce enormemente perche la reazione e esotermica: aumentando T, l'equilibrio si sposta verso i reagenti.
+</div>
+</div>
+
+<!-- ============================================ -->
+<!-- SEZIONE 5: ERRORI COMUNI -->
+<!-- ============================================ -->
+
+<h2 id="errori">5. Errori Comuni</h2>
+
+<div class="attenzione">
+<strong>ERRORI DA EVITARE</strong>
+
+<h4>1. Confusione tra DeltaH°<sub>f</sub> e S°</h4>
+<ul>
+    <li>DeltaH°<sub>f</sub> degli elementi = 0 (per convenzione)</li>
+    <li>S° degli elementi NON e zero! Ha un valore assoluto</li>
+</ul>
+
+<h4>2. Unita di misura</h4>
+<ul>
+    <li>Nella formula DeltaG° = -RT ln(K), usare R in J/(mol x K) e DeltaG° in J/mol</li>
+    <li>1 cal = 4,184 J (non dimenticare di convertire!)</li>
+    <li>La temperatura deve essere in Kelvin (K = °C + 273)</li>
+</ul>
+
+<h4>3. Convenzione dei segni</h4>
+<ul>
+    <li>DeltaH < 0: esotermica (libera calore)</li>
+    <li>DeltaG < 0: spontanea</li>
+    <li>DeltaS < 0: diminuzione del disordine (non significa NON spontanea!)</li>
+</ul>
+
+<h4>4. Nella tabella ICE</h4>
+<ul>
+    <li>Le variazioni devono rispettare i coefficienti stechiometrici</li>
+    <li>Scartare sempre le soluzioni negative o impossibili</li>
+    <li>Verificare che x non superi la quantita iniziale del reagente</li>
+</ul>
+
+<h4>5. Nella Legge di Hess</h4>
+<ul>
+    <li>Se inverti una reazione, CAMBIA SEGNO al DeltaH</li>
+    <li>Se moltiplichi per un fattore, MOLTIPLICA anche il DeltaH</li>
+</ul>
+
+<h4>6. K<sub>p</sub> vs K<sub>c</sub></h4>
+<ul>
+    <li>K<sub>p</sub> = K<sub>c</sub> SOLO se Delta(n<sub>gas</sub>) = 0</li>
+    <li>Altrimenti usare: K<sub>p</sub> = K<sub>c</sub> x (RT)<sup>Delta(n)</sup></li>
+</ul>
+</div>
+
+<!-- ============================================ -->
+<!-- SEZIONE 6: RIEPILOGO FORMULE -->
+<!-- ============================================ -->
+
+<h2 id="riepilogo">6. Riepilogo Formule</h2>
+
+<div class="riepilogo">
+<strong>FORMULE ESSENZIALI PER L'ESAME</strong>
+
+<h4>Calorimetria</h4>
+<p><strong>Q = C x DeltaT</strong> (capacita termica)</p>
+<p><strong>Q = m x c x DeltaT</strong> (calore specifico)</p>
+<p><strong>Q = m x L</strong> (calori latenti)</p>
+
+<h4>Entalpia</h4>
+<p><strong>DeltaH°<sub>rxn</sub> = Somma(DeltaH°<sub>f</sub> prodotti) - Somma(DeltaH°<sub>f</sub> reagenti)</strong></p>
+<p><strong>q<sub>v</sub> = q<sub>p</sub> - RT x Delta(n<sub>gas</sub>)</strong></p>
+
+<h4>Entropia</h4>
+<p><strong>DeltaS°<sub>rxn</sub> = Somma(S° prodotti) - Somma(S° reagenti)</strong></p>
+
+<h4>Energia libera di Gibbs</h4>
+<p><strong>DeltaG = DeltaH - T x DeltaS</strong></p>
+<p><strong>DeltaG°<sub>rxn</sub> = Somma(DeltaG°<sub>f</sub> prodotti) - Somma(DeltaG°<sub>f</sub> reagenti)</strong></p>
+
+<h4>Equilibrio chimico</h4>
+<p><strong>DeltaG° = -R x T x ln(K)</strong></p>
+<p><strong>K = e<sup>-DeltaG°/(RT)</sup></strong></p>
+<p><strong>K<sub>p</sub> = K<sub>c</sub> x (RT)<sup>Delta(n)</sup></strong></p>
+
+<h4>Equazione di Van't Hoff</h4>
+<p><strong>ln(K<sub>2</sub>/K<sub>1</sub>) = -(DeltaH°/R) x (1/T<sub>2</sub> - 1/T<sub>1</sub>)</strong></p>
+
+<h4>Lavoro</h4>
+<p><strong>w = -P x DeltaV</strong> (a P costante)</p>
+<p><strong>w = -Delta(n<sub>gas</sub>) x R x T</strong> (espansione di gas)</p>
+
+<h4>Costanti utili</h4>
+<ul>
+    <li>R = 8,314 J/(mol x K) = 0,0821 L atm/(mol K) = 1,987 cal/(mol K)</li>
+    <li>1 cal = 4,184 J</li>
+    <li>0°C = 273,15 K</li>
+</ul>
+</div>
+
+<p style="text-align: center; color: #7f8c8d; margin-top: 40px;">---</p>
+<p style="text-align: center; color: #7f8c8d;"><em>Capitolo preparato per l'esame di Chimica Generale del Prof. Sebastiano</em></p>
+
+</body>
+</html>

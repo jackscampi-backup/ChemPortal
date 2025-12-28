@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Esame 7-1 - Ioni Isoelettronici</title>
+    <style>
+        body { font-family: Georgia, serif; max-width: 800px; margin: 40px auto; padding: 20px; line-height: 1.8; }
+        h1 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+        h2 { color: #2980b9; margin-top: 30px; }
+        h3 { color: #7f8c8d; margin-top: 25px; }
+        .question { background: #ecf0f1; padding: 15px; border-left: 4px solid #3498db; margin: 20px 0; }
+        .result { background: #d5f5e3; padding: 15px; border-left: 4px solid #27ae60; margin: 20px 0; font-weight: bold; }
+        .concept { background: #fdebd0; padding: 15px; border-left: 4px solid #f39c12; margin: 20px 0; }
+        .important { background: #fadbd8; padding: 15px; border-left: 4px solid #e74c3c; margin: 20px 0; }
+        table { border-collapse: collapse; width: 100%; margin: 20px 0; }
+        th, td { border: 1px solid #bdc3c7; padding: 12px; text-align: center; }
+        th { background: #3498db; color: white; }
+        tr:nth-child(even) { background: #f8f9fa; }
+        .highlight { background: #fff3cd; padding: 2px 6px; border-radius: 3px; }
+        p { text-align: justify; }
+    
+    .done-buttons {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+    .mark-btn {
+        padding: 12px 24px;
+        font-size: 1em;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .mark-done {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        color: white;
+    }
+    .mark-done:hover, .mark-done.selected {
+        background: linear-gradient(135deg, #1e7e34, #17a085);
+        transform: scale(1.05);
+    }
+    .mark-review {
+        background: linear-gradient(135deg, #ffc107, #fd7e14);
+        color: white;
+    }
+    .mark-review:hover, .mark-review.selected {
+        background: linear-gradient(135deg, #d39e00, #dc6502);
+        transform: scale(1.05);
+    }
+    .mark-reset {
+        background: #6c757d;
+        color: white;
+    }
+    .mark-reset:hover {
+        background: #545b62;
+    }
+    .mark-btn.selected {
+        box-shadow: 0 0 0 3px rgba(0,0,0,0.2);
+    }
+</style>
+
+<style>
+    .quiz-container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px;
+        padding-bottom: 120px;
+    }
+    .question-section {
+        background: linear-gradient(135deg, #e8f4f8 0%, #d4edda 100%);
+        border: 2px solid #17a2b8;
+        border-radius: 10px;
+        padding: 25px;
+        margin-bottom: 20px;
+    }
+    .question-section h2 {
+        color: #0c5460;
+        margin-top: 0;
+        margin-bottom: 15px;
+    }
+    .show-next-btn {
+        display: block;
+        width: 100%;
+        padding: 15px 30px;
+        font-size: 1.1em;
+        font-weight: bold;
+        color: white;
+        background: linear-gradient(135deg, #007bff, #0056b3);
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        margin: 15px 0;
+        transition: all 0.3s ease;
+    }
+    .show-next-btn:hover {
+        background: linear-gradient(135deg, #0056b3, #004094);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 123, 255, 0.4);
+    }
+    .show-all-btn {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        margin-top: 10px;
+    }
+    .show-all-btn:hover {
+        background: linear-gradient(135deg, #218838, #1db385);
+        box-shadow: 0 4px 12px rgba(40, 167, 69, 0.4);
+    }
+    .step-container {
+        display: none;
+        animation: fadeIn 0.5s ease;
+        margin-bottom: 20px;
+        border: 1px solid #dee2e6;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    .step-container.visible {
+        display: block;
+    }
+    .step-header {
+        background: linear-gradient(135deg, #6c757d, #495057);
+        color: white;
+        padding: 12px 20px;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+    }
+    .step-number-badge {
+        background: white;
+        color: #495057;
+        border-radius: 50%;
+        width: 28px;
+        height: 28px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 12px;
+        font-weight: bold;
+    }
+    .step-content {
+        padding: 20px;
+        background: white;
+    }
+    .progress-bar {
+        background: #e9ecef;
+        border-radius: 10px;
+        height: 8px;
+        margin: 15px 0;
+        overflow: hidden;
+    }
+    .progress-fill {
+        background: linear-gradient(90deg, #28a745, #20c997);
+        height: 100%;
+        border-radius: 10px;
+        transition: width 0.5s ease;
+    }
+    .progress-text {
+        text-align: center;
+        color: #6c757d;
+        font-size: 0.9em;
+        margin-bottom: 15px;
+    }
+    .controls {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: white;
+        padding: 15px 20px;
+        border-top: 2px solid #dee2e6;
+        box-shadow: 0 -4px 12px rgba(0,0,0,0.1);
+        z-index: 1000;
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+    }
+    .quiz-container {
+        padding-bottom: 100px;
+    }
+    .show-next-btn {
+        width: auto;
+        margin: 0;
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .final-answer {
+        background: #d4edda;
+        border: 2px solid #28a745;
+        border-radius: 10px;
+        padding: 20px;
+        margin-top: 20px;
+    }
+    .final-answer h3 {
+        color: #155724;
+        margin-top: 0;
+    }
+
+    .done-buttons {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+    .mark-btn {
+        padding: 12px 24px;
+        font-size: 1em;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .mark-done {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        color: white;
+    }
+    .mark-done:hover, .mark-done.selected {
+        background: linear-gradient(135deg, #1e7e34, #17a085);
+        transform: scale(1.05);
+    }
+    .mark-review {
+        background: linear-gradient(135deg, #ffc107, #fd7e14);
+        color: white;
+    }
+    .mark-review:hover, .mark-review.selected {
+        background: linear-gradient(135deg, #d39e00, #dc6502);
+        transform: scale(1.05);
+    }
+    .mark-reset {
+        background: #6c757d;
+        color: white;
+    }
+    .mark-reset:hover {
+        background: #545b62;
+    }
+    .mark-btn.selected {
+        box-shadow: 0 0 0 3px rgba(0,0,0,0.2);
+    }
+</style>
+</head>
+<body>
+<div class="quiz-container">
+    <h1>Esame 7-1 - Ioni Isoelettronici</h1>
+
+    <div class="question-section">
+        <h2>Testo dell'esercizio</h2>
+        <p>Risolvi l'esercizio seguente.</p>
+    </div>
+
+    <div class="progress-text" id="progress-text">Passaggio 0 di 8</div>
+    <div class="progress-bar">
+        <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+    </div>
+
+    <div class="controls">
+        <button id="next-btn" class="show-next-btn" onclick="showNextStep()">
+            ▶ Prossimo passaggio
+        </button>
+        <button id="all-btn" class="show-next-btn show-all-btn" onclick="showAllSteps()">
+            ⏩ Mostra tutto
+        </button>
+        <div id="done-buttons" class="done-buttons" style="display: none;">
+            <button id="mark-done" class="mark-btn mark-done" onclick="markExercise('done')">
+                ✓ Fatto
+            </button>
+            <button id="mark-review" class="mark-btn mark-review" onclick="markExercise('review')">
+                ⚠ Da rivedere
+            </button>
+            <button class="mark-btn mark-reset" onclick="resetExercise()">
+                ↺ Ricomincia
+            </button>
+            <button class="mark-btn" style="background: #17a2b8;" onclick="closeExercise()">
+                ✕ Chiudi
+            </button>
+        </div>
+    </div>
+
+    <div id="steps-wrapper">
+        
+        <div id="step-0" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">1</span>
+                1. Cosa significa "isoelettronici"?
+            </div>
+            <div class="step-content">
+                <h1>Esame 7-1 - Ioni Isoelettronici</h1>
+
+<div class="question">
+    <strong>QUESITO 5:</strong><br>
+    Ordinare secondo dimensioni crescenti i seguenti ioni isoelettronici: S<sup>2-</sup>, Sc<sup>3+</sup>, Ca<sup>2+</sup>, P<sup>3-</sup>.<br>
+    Motivare.
+</div><h2>1. Cosa significa "isoelettronici"?</h2>
+
+<p>
+Prima di tutto, fermiamoci a capire bene cosa vuol dire che degli ioni sono <strong>isoelettronici</strong>. Questa parola deriva dal greco: "iso" significa "uguale" e "elettronici" si riferisce ovviamente agli elettroni.
+</p>
+
+<p>
+Quindi, <strong>ioni isoelettronici sono ioni che possiedono lo stesso numero totale di elettroni</strong>, anche se appartengono a elementi diversi. E' come dire che, dal punto di vista elettronico, "si assomigliano" perche' hanno la stessa nuvola elettronica, la stessa configurazione elettronica.
+</p>
+
+<div class="concept">
+    <strong>Definizione:</strong> Specie chimiche isoelettroniche sono atomi o ioni che hanno lo <strong>stesso numero di elettroni</strong> e quindi la <strong>stessa configurazione elettronica</strong>.
+</div>
+            </div>
+        </div>
+        
+        <div id="step-1" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">2</span>
+                2. Verifichiamo che questi ioni siano davvero isoe...
+            </div>
+            <div class="step-content">
+                <h2>2. Verifichiamo che questi ioni siano davvero isoelettronici</h2>
+
+<p>
+Per verificare che S<sup>2-</sup>, Sc<sup>3+</sup>, Ca<sup>2+</sup> e P<sup>3-</sup> siano isoelettronici, dobbiamo contare quanti elettroni ha ciascuno. Ricorda: il numero atomico Z ci dice quanti protoni (e quindi quanti elettroni nell'atomo neutro) ha un elemento. Quando l'atomo diventa ione, guadagna o perde elettroni.
+</p>
+
+<table>
+    <tr>
+        <th>Ione</th>
+        <th>Elemento</th>
+        <th>Z (protoni)</th>
+        <th>Carica</th>
+        <th>Elettroni</th>
+    </tr>
+    <tr>
+        <td><strong>P<sup>3-</sup></strong></td>
+        <td>Fosforo</td>
+        <td>15</td>
+        <td>-3 (guadagna 3 e<sup>-</sup>)</td>
+        <td>15 + 3 = <strong>18</strong></td>
+    </tr>
+    <tr>
+        <td><strong>S<sup>2-</sup></strong></td>
+        <td>Zolfo</td>
+        <td>16</td>
+        <td>-2 (guadagna 2 e<sup>-</sup>)</td>
+        <td>16 + 2 = <strong>18</strong></td>
+    </tr>
+    <tr>
+        <td><strong>Ca<sup>2+</sup></strong></td>
+        <td>Calcio</td>
+        <td>20</td>
+        <td>+2 (perde 2 e<sup>-</sup>)</td>
+        <td>20 - 2 = <strong>18</strong></td>
+    </tr>
+    <tr>
+        <td><strong>Sc<sup>3+</sup></strong></td>
+        <td>Scandio</td>
+        <td>21</td>
+        <td>+3 (perde 3 e<sup>-</sup>)</td>
+        <td>21 - 3 = <strong>18</strong></td>
+    </tr>
+</table>
+
+<p>
+Perfetto! Tutti e quattro gli ioni hanno esattamente <strong>18 elettroni</strong>. Questo conferma che sono isoelettronici.
+</p>
+            </div>
+        </div>
+        
+        <div id="step-2" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">3</span>
+                3. Quale configurazione elettronica hanno in comun...
+            </div>
+            <div class="step-content">
+                <h2>3. Quale configurazione elettronica hanno in comune?</h2>
+
+<p>
+Avere 18 elettroni significa avere la stessa configurazione elettronica del gas nobile <strong>Argon (Ar)</strong>, che ha appunto Z = 18.
+</p>
+
+<div class="concept">
+    <strong>Configurazione elettronica comune:</strong><br><br>
+    1s<sup>2</sup> 2s<sup>2</sup> 2p<sup>6</sup> 3s<sup>2</sup> 3p<sup>6</sup><br><br>
+    Questa e' la configurazione dell'Argon: tutti gli orbitali fino al 3p sono completamente riempiti. E' una configurazione molto stabile, tipica dei gas nobili.
+</div>
+
+<p>
+Questo e' proprio il motivo per cui questi ioni si formano: gli atomi tendono a guadagnare o perdere elettroni per raggiungere la configurazione stabile di un gas nobile. Il fosforo e lo zolfo (non metalli) guadagnano elettroni per raggiungere la configurazione dell'Argon. Il calcio e lo scandio (metalli) perdono elettroni per lo stesso motivo.
+</p>
+            </div>
+        </div>
+        
+        <div id="step-3" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">4</span>
+                4. Come confrontiamo le dimensioni di ioni isoelet...
+            </div>
+            <div class="step-content">
+                <h2>4. Come confrontiamo le dimensioni di ioni isoelettronici?</h2>
+
+<p>
+Ora arriviamo al punto cruciale: se questi ioni hanno tutti lo stesso numero di elettroni (18), cosa determina la loro dimensione?
+</p>
+
+<p>
+La risposta e': <strong>la carica nucleare</strong>, cioe' il numero di protoni nel nucleo (Z).
+</p>
+
+<div class="important">
+    <strong>Concetto chiave:</strong> In una serie isoelettronica, tutti gli ioni hanno lo stesso numero di elettroni, ma un <strong>numero diverso di protoni</strong> nel nucleo. Piu' protoni ci sono, piu' forte e' l'attrazione tra nucleo ed elettroni, e quindi piu' piccolo e' lo ione.
+</div>
+
+<p>
+Pensa alla nuvola elettronica come a una molla: i protoni nel nucleo "tirano" gli elettroni verso il centro. Se ci sono piu' protoni, la "forza di trazione" e' maggiore e la nuvola elettronica viene "compressa" verso il nucleo, rendendo lo ione piu' piccolo.
+</p>
+
+<h3>La regola da ricordare:</h3>
+
+<p>
+<strong>A parita' di elettroni, piu' protoni ci sono nel nucleo, piu' piccolo e' lo ione.</strong>
+</p>
+
+<p>
+Oppure, detto in modo equivalente:
+</p>
+
+<p>
+<strong>Maggiore e' la carica nucleare (Z), minore e' il raggio ionico.</strong>
+</p>
+            </div>
+        </div>
+        
+        <div id="step-4" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">5</span>
+                5. Applichiamo la regola ai nostri ioni
+            </div>
+            <div class="step-content">
+                <h2>5. Applichiamo la regola ai nostri ioni</h2>
+
+<p>
+Riordiniamo la nostra tabella mettendo in evidenza il numero di protoni:
+</p>
+
+<table>
+    <tr>
+        <th>Ione</th>
+        <th>Numero di protoni (Z)</th>
+        <th>Numero di elettroni</th>
+        <th>Dimensione relativa</th>
+    </tr>
+    <tr>
+        <td><strong>P<sup>3-</sup></strong></td>
+        <td>15</td>
+        <td>18</td>
+        <td>PIU' GRANDE</td>
+    </tr>
+    <tr>
+        <td><strong>S<sup>2-</sup></strong></td>
+        <td>16</td>
+        <td>18</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><strong>Ca<sup>2+</sup></strong></td>
+        <td>20</td>
+        <td>18</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><strong>Sc<sup>3+</sup></strong></td>
+        <td>21</td>
+        <td>18</td>
+        <td>PIU' PICCOLO</td>
+    </tr>
+</table>
+
+<p>
+Analizziamo la situazione:
+</p>
+
+<ul>
+    <li><strong>P<sup>3-</sup></strong> ha solo 15 protoni che devono "tenere a bada" 18 elettroni. L'attrazione e' relativamente debole, quindi gli elettroni si espandono di piu': e' lo ione piu' grande.</li>
+    <li><strong>S<sup>2-</sup></strong> ha 16 protoni per 18 elettroni. Un po' piu' di attrazione rispetto al fosforo, quindi un po' piu' piccolo.</li>
+    <li><strong>Ca<sup>2+</sup></strong> ha 20 protoni per 18 elettroni. Molti piu' protoni che elettroni! L'attrazione e' forte, lo ione e' piccolo.</li>
+    <li><strong>Sc<sup>3+</sup></strong> ha 21 protoni per 18 elettroni. L'attrazione e' fortissima, e' lo ione piu' piccolo di tutti.</li>
+</ul>
+            </div>
+        </div>
+        
+        <div id="step-5" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">6</span>
+                6. Risposta finale
+            </div>
+            <div class="step-content">
+                <h2>6. Risposta finale</h2>
+
+<div class="result">
+    <strong>Ordine per dimensioni CRESCENTI (dal piu' piccolo al piu' grande):</strong><br><br>
+    <span style="font-size: 1.3em;">Sc<sup>3+</sup> &lt; Ca<sup>2+</sup> &lt; S<sup>2-</sup> &lt; P<sup>3-</sup></span><br><br>
+    oppure, equivalentemente:<br><br>
+    <span style="font-size: 1.3em;">raggio(Sc<sup>3+</sup>) &lt; raggio(Ca<sup>2+</sup>) &lt; raggio(S<sup>2-</sup>) &lt; raggio(P<sup>3-</sup>)</span>
+</div>
+            </div>
+        </div>
+        
+        <div id="step-6" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">7</span>
+                7. Valori tipici dei raggi ionici
+            </div>
+            <div class="step-content">
+                <h2>7. Valori tipici dei raggi ionici</h2>
+
+<p>
+Per darti un'idea delle dimensioni reali, ecco i valori approssimativi dei raggi ionici in picometri (pm):
+</p>
+
+<table>
+    <tr>
+        <th>Ione</th>
+        <th>Z (protoni)</th>
+        <th>Raggio ionico (pm)</th>
+    </tr>
+    <tr>
+        <td>Sc<sup>3+</sup></td>
+        <td>21</td>
+        <td>~75</td>
+    </tr>
+    <tr>
+        <td>Ca<sup>2+</sup></td>
+        <td>20</td>
+        <td>~100</td>
+    </tr>
+    <tr>
+        <td>S<sup>2-</sup></td>
+        <td>16</td>
+        <td>~184</td>
+    </tr>
+    <tr>
+        <td>P<sup>3-</sup></td>
+        <td>15</td>
+        <td>~212</td>
+    </tr>
+</table>
+
+<p>
+Nota come gli anioni (ioni negativi) siano molto piu' grandi dei cationi (ioni positivi). Questo ha senso: gli anioni hanno piu' elettroni che protoni, quindi gli elettroni sono meno "trattenuti" e si espandono maggiormente.
+</p>
+            </div>
+        </div>
+        
+        <div id="step-7" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">8</span>
+                8. Riepilogo del ragionamento
+            </div>
+            <div class="step-content">
+                <h2>8. Riepilogo del ragionamento</h2>
+
+<div class="concept">
+    <strong>Schema di ragionamento per ioni isoelettronici:</strong><br><br>
+    1. Verificare che siano isoelettronici (stesso numero di elettroni)<br><br>
+    2. Identificare la configurazione elettronica comune (in questo caso, quella dell'Ar)<br><br>
+    3. Confrontare il numero di protoni (Z) di ciascuno<br><br>
+    4. Applicare la regola: <strong>maggiore Z = minore raggio</strong><br><br>
+    5. Ordinare di conseguenza
+</div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+<script>
+    let currentStep = 0;
+    let totalSteps = 0;
+
+    document.addEventListener('DOMContentLoaded', function() {
+        totalSteps = document.querySelectorAll('.step-container').length;
+        updateProgress();
+        updateButtons();
+    });
+
+    function showNextStep() {
+        if (currentStep < totalSteps) {
+            const step = document.getElementById('step-' + currentStep);
+            if (step) {
+                step.classList.add('visible');
+                step.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                currentStep++;
+                updateProgress();
+                updateButtons();
+
+                if (window.parent !== window) {
+                    window.parent.postMessage({type: 'stepShown', step: currentStep, total: totalSteps}, '*');
+                }
+            }
+        }
+    }
+
+    function showAllSteps() {
+        document.querySelectorAll('.step-container').forEach(function(step) {
+            step.classList.add('visible');
+        });
+        currentStep = totalSteps;
+        updateProgress();
+        updateButtons();
+
+        if (window.parent !== window) {
+            window.parent.postMessage({type: 'allStepsShown'}, '*');
+        }
+    }
+
+    function hideAllSteps() {
+        document.querySelectorAll('.step-container').forEach(function(step) {
+            step.classList.remove('visible');
+        });
+        currentStep = 0;
+        updateProgress();
+        updateButtons();
+    }
+
+    function updateProgress() {
+        const pct = totalSteps > 0 ? (currentStep / totalSteps) * 100 : 0;
+        const fill = document.getElementById('progress-fill');
+        const text = document.getElementById('progress-text');
+        if (fill) fill.style.width = pct + '%';
+        if (text) text.textContent = 'Passaggio ' + currentStep + ' di ' + totalSteps;
+    }
+
+    function updateButtons() {
+        const nextBtn = document.getElementById('next-btn');
+        const allBtn = document.getElementById('all-btn');
+        const doneButtons = document.getElementById('done-buttons');
+
+        if (currentStep >= totalSteps) {
+            if (nextBtn) nextBtn.style.display = 'none';
+            if (allBtn) allBtn.style.display = 'none';
+            if (doneButtons) doneButtons.style.display = 'flex';
+        } else {
+            if (nextBtn) nextBtn.style.display = 'block';
+            if (allBtn) allBtn.style.display = 'block';
+            if (doneButtons) doneButtons.style.display = 'none';
+        }
+    }
+
+    function markExercise(status) {
+        // Salva in localStorage
+        const exerciseId = window.location.pathname.split('/').pop().replace('.html', '');
+        let progress = JSON.parse(localStorage.getItem('chemportal_progress') || '{}');
+        if (!progress.exercises) progress.exercises = {};
+        progress.exercises[exerciseId] = status;
+        localStorage.setItem('chemportal_progress', JSON.stringify(progress));
+
+        // Feedback visivo
+        const btn = status === 'done' ? document.getElementById('mark-done') : document.getElementById('mark-review');
+        const otherBtn = status === 'done' ? document.getElementById('mark-review') : document.getElementById('mark-done');
+
+        btn.classList.add('selected');
+        otherBtn.classList.remove('selected');
+
+        // Notifica parent
+        if (window.parent !== window) {
+            window.parent.postMessage({type: 'exerciseMarked', status: status, id: exerciseId}, '*');
+        }
+    }
+
+    function resetExercise() {
+        hideAllSteps();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Messaggi dal parent
+    window.addEventListener('message', function(e) {
+        if (e.data.type === 'showNext') showNextStep();
+        else if (e.data.type === 'showAll') showAllSteps();
+        else if (e.data.type === 'hideAll') hideAllSteps();
+    });
+
+    function closeExercise() {
+        if (window.parent !== window) {
+            // Siamo in iframe, chiedi al parent di chiudere
+            window.parent.postMessage({type: 'closeModal'}, '*');
+        } else {
+            // Standalone: torna alla pagina esercizi
+            const path = window.location.pathname;
+            if (path.includes('/content/soluzioni/')) {
+                window.location.href = '../../esercizi.html';
+            } else {
+                window.history.back();
+            }
+        }
+    }
+</script>
+</body>
+</html>

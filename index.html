@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChemPortal - Chimica Generale</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2563eb',
+                        secondary: '#1e40af',
+                        accent: '#3b82f6',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-primary to-secondary text-white shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex items-center justify-between">
+                <a href="index.html" class="flex items-center space-x-3">
+                    <span class="text-3xl">⚗️</span>
+                    <div>
+                        <h1 class="text-2xl font-bold">ChemPortal</h1>
+                        <p class="text-blue-200 text-sm">Chimica Generale</p>
+                    </div>
+                </a>
+                <nav class="hidden md:flex space-x-6 items-center">
+                    <a href="index.html" class="hover:text-blue-200 font-medium border-b-2 border-white pb-1">Home</a>
+                    <a href="manuale.html" class="hover:text-blue-200">Manuale</a>
+                    <a href="esercizi.html" class="hover:text-blue-200">Esercizi</a>
+                    <a href="flashcard.html" class="hover:text-blue-200">Formule</a>
+                    <a href="simulazione.html" class="hover:text-blue-200">Simulazione</a>
+                    <div class="relative">
+                        <input type="text" id="globalSearch" placeholder="Cerca..."
+                               class="px-3 py-1 rounded-lg text-gray-800 text-sm w-40 focus:w-56 transition-all focus:outline-none focus:ring-2 focus:ring-white">
+                        <div id="searchResults" class="hidden absolute top-full right-0 mt-2 w-80 bg-white rounded-lg shadow-xl max-h-96 overflow-y-auto z-50"></div>
+                    </div>
+                </nav>
+                <!-- Mobile menu button -->
+                <button id="mobileMenuBtn" class="md:hidden text-white">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div id="mobileMenu" class="hidden md:hidden bg-secondary">
+            <nav class="container mx-auto px-4 py-3 flex flex-col space-y-2">
+                <a href="index.html" class="text-white hover:text-blue-200 py-2">Home</a>
+                <a href="manuale.html" class="text-white hover:text-blue-200 py-2">Manuale</a>
+                <a href="esercizi.html" class="text-white hover:text-blue-200 py-2">Esercizi</a>
+                <a href="flashcard.html" class="text-white hover:text-blue-200 py-2">Formule</a>
+                <a href="simulazione.html" class="text-white hover:text-blue-200 py-2">Simulazione</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        <!-- Hero Section -->
+        <section class="text-center mb-12">
+            <h2 class="text-4xl font-bold text-gray-800 mb-4">Preparati all'esame di Chimica Generale</h2>
+            <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                7 capitoli di teoria, 88 esercizi risolti e simulazioni d'esame per superare l'esame con successo.
+            </p>
+        </section>
+
+        <!-- Progress Overview -->
+        <section id="progressOverview" class="bg-white rounded-xl shadow-md p-6 mb-8">
+            <h3 class="text-xl font-semibold text-gray-800 mb-4">Il tuo progresso</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="bg-blue-50 rounded-lg p-4">
+                    <div class="flex items-center justify-between">
+                        <span class="text-gray-600">Capitoli completati</span>
+                        <span id="chaptersProgress" class="text-2xl font-bold text-primary">0/7</span>
+                    </div>
+                    <div class="mt-2 bg-gray-200 rounded-full h-2">
+                        <div id="chaptersBar" class="bg-primary rounded-full h-2" style="width: 0%"></div>
+                    </div>
+                </div>
+                <div class="bg-green-50 rounded-lg p-4">
+                    <div class="flex items-center justify-between">
+                        <span class="text-gray-600">Esercizi fatti</span>
+                        <span id="exercisesProgress" class="text-2xl font-bold text-green-600">0/88</span>
+                    </div>
+                    <div class="mt-2 bg-gray-200 rounded-full h-2">
+                        <div id="exercisesBar" class="bg-green-500 rounded-full h-2" style="width: 0%"></div>
+                    </div>
+                </div>
+                <div class="bg-purple-50 rounded-lg p-4">
+                    <div class="flex items-center justify-between">
+                        <span class="text-gray-600">Simulazioni</span>
+                        <span id="examsProgress" class="text-2xl font-bold text-purple-600">0/7</span>
+                    </div>
+                    <div class="mt-2 bg-gray-200 rounded-full h-2">
+                        <div id="examsBar" class="bg-purple-500 rounded-full h-2" style="width: 0%"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Access Cards -->
+        <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+            <!-- Manuale Card -->
+            <a href="manuale.html" class="group bg-white rounded-xl shadow-md hover:shadow-xl transition-all p-6 border-l-4 border-primary">
+                <div class="flex items-center mb-4">
+                    <span class="text-4xl mr-4">📖</span>
+                    <h3 class="text-xl font-semibold text-gray-800 group-hover:text-primary">Manuale</h3>
+                </div>
+                <p class="text-gray-600 mb-4">7 capitoli con teoria completa, formule e esempi svolti.</p>
+                <ul class="text-sm text-gray-500 space-y-1">
+                    <li>• Nozioni e Materia</li>
+                    <li>• Teoria Atomica e Periodicità</li>
+                    <li>• Legami Chimici</li>
+                    <li>• Acidi e Basi</li>
+                    <li>• Termodinamica</li>
+                    <li>• Cinetica ed Elettrochimica</li>
+                </ul>
+            </a>
+
+            <!-- Esercizi Card -->
+            <a href="esercizi.html" class="group bg-white rounded-xl shadow-md hover:shadow-xl transition-all p-6 border-l-4 border-green-500">
+                <div class="flex items-center mb-4">
+                    <span class="text-4xl mr-4">✏️</span>
+                    <h3 class="text-xl font-semibold text-gray-800 group-hover:text-green-600">Esercizi</h3>
+                </div>
+                <p class="text-gray-600 mb-4">88 esercizi d'esame risolti passo-passo, organizzati per argomento.</p>
+                <div class="flex flex-wrap gap-2">
+                    <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded text-xs">Stechiometria</span>
+                    <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded text-xs">Redox</span>
+                    <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded text-xs">Lewis</span>
+                    <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded text-xs">pH</span>
+                    <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded text-xs">Pile</span>
+                </div>
+            </a>
+
+            <!-- Simulazione Card -->
+            <a href="simulazione.html" class="group bg-white rounded-xl shadow-md hover:shadow-xl transition-all p-6 border-l-4 border-purple-500">
+                <div class="flex items-center mb-4">
+                    <span class="text-4xl mr-4">🎯</span>
+                    <h3 class="text-xl font-semibold text-gray-800 group-hover:text-purple-600">Simulazione</h3>
+                </div>
+                <p class="text-gray-600 mb-4">Simula un esame reale con 8 domande e timer opzionale.</p>
+                <p class="text-sm text-gray-500">7 esami disponibili dagli anni passati. Prova a risolverli senza guardare le soluzioni!</p>
+            </a>
+        </section>
+
+        <!-- Argomenti più frequenti -->
+        <section class="bg-white rounded-xl shadow-md p-6 mb-8">
+            <h3 class="text-xl font-semibold text-gray-800 mb-4">Argomenti più frequenti all'esame</h3>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="text-center p-4 bg-red-50 rounded-lg">
+                    <span class="text-3xl font-bold text-red-600">23</span>
+                    <p class="text-sm text-gray-600 mt-1">Stechiometria</p>
+                </div>
+                <div class="text-center p-4 bg-blue-50 rounded-lg">
+                    <span class="text-3xl font-bold text-blue-600">16</span>
+                    <p class="text-sm text-gray-600 mt-1">Elettrochimica</p>
+                </div>
+                <div class="text-center p-4 bg-orange-50 rounded-lg">
+                    <span class="text-3xl font-bold text-orange-600">16</span>
+                    <p class="text-sm text-gray-600 mt-1">Termodinamica</p>
+                </div>
+                <div class="text-center p-4 bg-green-50 rounded-lg">
+                    <span class="text-3xl font-bold text-green-600">10</span>
+                    <p class="text-sm text-gray-600 mt-1">Acidi/Basi</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Chapters List -->
+        <section class="bg-white rounded-xl shadow-md p-6">
+            <h3 class="text-xl font-semibold text-gray-800 mb-4">Capitoli del Manuale</h3>
+            <div id="chaptersList" class="space-y-3">
+                <!-- Will be populated by JS -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-6 mt-12">
+        <div class="container mx-auto px-4 text-center">
+            <p class="text-gray-400">ChemPortal - Preparazione Esame Chimica Generale</p>
+            <p class="text-gray-500 text-sm mt-2">Materiale didattico per uso personale</p>
+        </div>
+    </footer>
+
+    <script src="js/data.js"></script>
+    <script src="js/progress.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/search.js"></script>
+</body>
+</html>

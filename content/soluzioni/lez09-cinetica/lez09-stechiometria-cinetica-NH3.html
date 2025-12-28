@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Esame 10-1 - Stechiometria e Cinetica NH3</title>
+    <style>
+        body { font-family: Georgia, serif; max-width: 800px; margin: 40px auto; padding: 20px; line-height: 1.8; }
+        h1 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+        h2 { color: #2980b9; margin-top: 30px; }
+        h3 { color: #8e44ad; margin-top: 25px; }
+        .question { background: #ecf0f1; padding: 15px; border-left: 4px solid #3498db; margin: 20px 0; }
+        .result { background: #d5f5e3; padding: 15px; border-left: 4px solid #27ae60; margin: 20px 0; font-weight: bold; }
+        .formula { background: #fdebd0; padding: 10px; margin: 10px 0; font-family: monospace; }
+        .step { background: #e8f6f3; padding: 12px; margin: 15px 0; border-radius: 5px; }
+        .important { background: #fadbd8; padding: 10px; margin: 10px 0; border-left: 4px solid #e74c3c; }
+        table { border-collapse: collapse; width: 100%; margin: 20px 0; }
+        th, td { border: 1px solid #bdc3c7; padding: 10px; text-align: center; }
+        th { background: #3498db; color: white; }
+    
+    .done-buttons {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+    .mark-btn {
+        padding: 12px 24px;
+        font-size: 1em;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .mark-done {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        color: white;
+    }
+    .mark-done:hover, .mark-done.selected {
+        background: linear-gradient(135deg, #1e7e34, #17a085);
+        transform: scale(1.05);
+    }
+    .mark-review {
+        background: linear-gradient(135deg, #ffc107, #fd7e14);
+        color: white;
+    }
+    .mark-review:hover, .mark-review.selected {
+        background: linear-gradient(135deg, #d39e00, #dc6502);
+        transform: scale(1.05);
+    }
+    .mark-reset {
+        background: #6c757d;
+        color: white;
+    }
+    .mark-reset:hover {
+        background: #545b62;
+    }
+    .mark-btn.selected {
+        box-shadow: 0 0 0 3px rgba(0,0,0,0.2);
+    }
+</style>
+
+<style>
+    .quiz-container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px;
+        padding-bottom: 120px;
+    }
+    .question-section {
+        background: linear-gradient(135deg, #e8f4f8 0%, #d4edda 100%);
+        border: 2px solid #17a2b8;
+        border-radius: 10px;
+        padding: 25px;
+        margin-bottom: 20px;
+    }
+    .question-section h2 {
+        color: #0c5460;
+        margin-top: 0;
+        margin-bottom: 15px;
+    }
+    .show-next-btn {
+        display: block;
+        width: 100%;
+        padding: 15px 30px;
+        font-size: 1.1em;
+        font-weight: bold;
+        color: white;
+        background: linear-gradient(135deg, #007bff, #0056b3);
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        margin: 15px 0;
+        transition: all 0.3s ease;
+    }
+    .show-next-btn:hover {
+        background: linear-gradient(135deg, #0056b3, #004094);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 123, 255, 0.4);
+    }
+    .show-all-btn {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        margin-top: 10px;
+    }
+    .show-all-btn:hover {
+        background: linear-gradient(135deg, #218838, #1db385);
+        box-shadow: 0 4px 12px rgba(40, 167, 69, 0.4);
+    }
+    .step-container {
+        display: none;
+        animation: fadeIn 0.5s ease;
+        margin-bottom: 20px;
+        border: 1px solid #dee2e6;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    .step-container.visible {
+        display: block;
+    }
+    .step-header {
+        background: linear-gradient(135deg, #6c757d, #495057);
+        color: white;
+        padding: 12px 20px;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+    }
+    .step-number-badge {
+        background: white;
+        color: #495057;
+        border-radius: 50%;
+        width: 28px;
+        height: 28px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 12px;
+        font-weight: bold;
+    }
+    .step-content {
+        padding: 20px;
+        background: white;
+    }
+    .progress-bar {
+        background: #e9ecef;
+        border-radius: 10px;
+        height: 8px;
+        margin: 15px 0;
+        overflow: hidden;
+    }
+    .progress-fill {
+        background: linear-gradient(90deg, #28a745, #20c997);
+        height: 100%;
+        border-radius: 10px;
+        transition: width 0.5s ease;
+    }
+    .progress-text {
+        text-align: center;
+        color: #6c757d;
+        font-size: 0.9em;
+        margin-bottom: 15px;
+    }
+    .controls {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: white;
+        padding: 15px 20px;
+        border-top: 2px solid #dee2e6;
+        box-shadow: 0 -4px 12px rgba(0,0,0,0.1);
+        z-index: 1000;
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+    }
+    .quiz-container {
+        padding-bottom: 100px;
+    }
+    .show-next-btn {
+        width: auto;
+        margin: 0;
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .final-answer {
+        background: #d4edda;
+        border: 2px solid #28a745;
+        border-radius: 10px;
+        padding: 20px;
+        margin-top: 20px;
+    }
+    .final-answer h3 {
+        color: #155724;
+        margin-top: 0;
+    }
+
+    .done-buttons {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+    .mark-btn {
+        padding: 12px 24px;
+        font-size: 1em;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .mark-done {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        color: white;
+    }
+    .mark-done:hover, .mark-done.selected {
+        background: linear-gradient(135deg, #1e7e34, #17a085);
+        transform: scale(1.05);
+    }
+    .mark-review {
+        background: linear-gradient(135deg, #ffc107, #fd7e14);
+        color: white;
+    }
+    .mark-review:hover, .mark-review.selected {
+        background: linear-gradient(135deg, #d39e00, #dc6502);
+        transform: scale(1.05);
+    }
+    .mark-reset {
+        background: #6c757d;
+        color: white;
+    }
+    .mark-reset:hover {
+        background: #545b62;
+    }
+    .mark-btn.selected {
+        box-shadow: 0 0 0 3px rgba(0,0,0,0.2);
+    }
+</style>
+</head>
+<body>
+<div class="quiz-container">
+    <h1>Esame 10 - Quesito 4: Stechiometria e Cinetica</h1>
+
+    <div class="question-section">
+        <h2>Testo dell'esercizio</h2>
+        <p>Risolvi l'esercizio seguente.</p>
+    </div>
+
+    <div class="progress-text" id="progress-text">Passaggio 0 di 7</div>
+    <div class="progress-bar">
+        <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+    </div>
+
+    <div class="controls">
+        <button id="next-btn" class="show-next-btn" onclick="showNextStep()">
+            ▶ Prossimo passaggio
+        </button>
+        <button id="all-btn" class="show-next-btn show-all-btn" onclick="showAllSteps()">
+            ⏩ Mostra tutto
+        </button>
+        <div id="done-buttons" class="done-buttons" style="display: none;">
+            <button id="mark-done" class="mark-btn mark-done" onclick="markExercise('done')">
+                ✓ Fatto
+            </button>
+            <button id="mark-review" class="mark-btn mark-review" onclick="markExercise('review')">
+                ⚠ Da rivedere
+            </button>
+            <button class="mark-btn mark-reset" onclick="resetExercise()">
+                ↺ Ricomincia
+            </button>
+            <button class="mark-btn" style="background: #17a2b8;" onclick="closeExercise()">
+                ✕ Chiudi
+            </button>
+        </div>
+    </div>
+
+    <div id="steps-wrapper">
+        
+        <div id="step-0" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">1</span>
+                Cosa ci chiede il problema?
+            </div>
+            <div class="step-content">
+                <h1>Esame 10 - Quesito 4: Stechiometria e Cinetica</h1>
+
+<div class="question">
+<strong>TESTO DEL QUESITO:</strong><br><br>
+Considera la seguente equazione chimica: 2 NH<sub>3</sub>(g) + 2 O<sub>2</sub>(g) → N<sub>2</sub>O(g) + 3 H<sub>2</sub>O(g)<br><br>
+Se in 6,0 s reagiscono 0,12 moli di ammoniaca, nello stesso intervallo di tempo quanto N<sub>2</sub>O e quanta H<sub>2</sub>O si forma?
+</div><h2>Cosa ci chiede il problema?</h2>
+
+<p>Prima di buttarci nei calcoli, fermiamoci un attimo a capire cosa sta succedendo. Abbiamo una reazione chimica in cui l'ammoniaca (NH<sub>3</sub>) reagisce con l'ossigeno per formare due prodotti: il protossido di azoto (N<sub>2</sub>O) e il vapore acqueo (H<sub>2</sub>O).</p>
+
+<p>Il problema ci dice che <strong>in 6 secondi</strong> vengono consumate <strong>0,12 moli di ammoniaca</strong>. Ci chiede: quante moli di N<sub>2</sub>O e di H<sub>2</sub>O si formano nello stesso tempo?</p>
+
+<p>La chiave per rispondere sta nei <strong>coefficienti stechiometrici</strong> della reazione bilanciata.</p>
+            </div>
+        </div>
+        
+        <div id="step-1" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">2</span>
+                Analisi dei coefficienti stechiometrici
+            </div>
+            <div class="step-content">
+                <h2>Analisi dei coefficienti stechiometrici</h2>
+
+<p>Guardiamo la reazione:</p>
+
+<div class="formula">
+2 NH<sub>3</sub> + 2 O<sub>2</sub> → 1 N<sub>2</sub>O + 3 H<sub>2</sub>O
+</div>
+
+<p>Cosa ci dicono questi numeri? I coefficienti stechiometrici ci indicano i <strong>rapporti molari</strong> tra reagenti e prodotti. In altre parole:</p>
+
+<ul>
+    <li>Ogni volta che reagiscono <strong>2 moli di NH<sub>3</sub></strong>...</li>
+    <li>...si forma <strong>1 mole di N<sub>2</sub>O</strong>...</li>
+    <li>...e si formano <strong>3 moli di H<sub>2</sub>O</strong></li>
+</ul>
+
+<p>Questi rapporti sono <strong>fissi e immutabili</strong>: sono determinati dalla stechiometria della reazione, cioe da come gli atomi si ricombinano.</p>
+
+<table>
+    <tr>
+        <th>Specie</th>
+        <th>Coefficiente</th>
+        <th>Ruolo</th>
+    </tr>
+    <tr>
+        <td>NH<sub>3</sub></td>
+        <td>2</td>
+        <td>Reagente</td>
+    </tr>
+    <tr>
+        <td>O<sub>2</sub></td>
+        <td>2</td>
+        <td>Reagente</td>
+    </tr>
+    <tr>
+        <td>N<sub>2</sub>O</td>
+        <td>1</td>
+        <td>Prodotto</td>
+    </tr>
+    <tr>
+        <td>H<sub>2</sub>O</td>
+        <td>3</td>
+        <td>Prodotto</td>
+    </tr>
+</table>
+            </div>
+        </div>
+        
+        <div id="step-2" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">3</span>
+                Calcolo delle moli di N2O prodotte
+            </div>
+            <div class="step-content">
+                <h2>Calcolo delle moli di N<sub>2</sub>O prodotte</h2>
+
+<h3>Passo 1: Scriviamo il rapporto stechiometrico</h3>
+
+<p>Dalla reazione, il rapporto tra NH<sub>3</sub> e N<sub>2</sub>O e:</p>
+
+<div class="formula">
+2 mol NH<sub>3</sub> : 1 mol N<sub>2</sub>O
+</div>
+
+<p>Questo significa che per ogni 2 moli di ammoniaca che reagiscono, si forma 1 mole di protossido di azoto. Il rapporto e quindi 2:1.</p>
+
+<h3>Passo 2: Impostiamo la proporzione</h3>
+
+<p>Sappiamo che reagiscono 0,12 mol di NH<sub>3</sub>. Quante moli di N<sub>2</sub>O si formano? Chiamiamo questa quantita incognita "x":</p>
+
+<div class="step">
+<strong>Proporzione:</strong><br><br>
+2 mol NH<sub>3</sub> : 1 mol N<sub>2</sub>O = 0,12 mol NH<sub>3</sub> : x mol N<sub>2</sub>O
+</div>
+
+<h3>Passo 3: Risolviamo la proporzione</h3>
+
+<p>Usando la proprieta fondamentale delle proporzioni (prodotto dei medi = prodotto degli estremi):</p>
+
+<div class="formula">
+x = (0,12 mol × 1 mol) / 2 mol = 0,12 / 2 = 0,06 mol
+</div>
+
+<p>Oppure, in modo piu intuitivo: se 2 moli di NH<sub>3</sub> danno 1 mole di N<sub>2</sub>O, allora 0,12 moli di NH<sub>3</sub> daranno la meta, cioe 0,12/2 = 0,06 mol.</p>
+
+<div class="result">
+<strong>Moli di N<sub>2</sub>O prodotte: 0,06 mol</strong>
+</div>
+            </div>
+        </div>
+        
+        <div id="step-3" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">4</span>
+                Calcolo delle moli di H2O prodotte
+            </div>
+            <div class="step-content">
+                <h2>Calcolo delle moli di H<sub>2</sub>O prodotte</h2>
+
+<h3>Passo 1: Scriviamo il rapporto stechiometrico</h3>
+
+<p>Dalla reazione, il rapporto tra NH<sub>3</sub> e H<sub>2</sub>O e:</p>
+
+<div class="formula">
+2 mol NH<sub>3</sub> : 3 mol H<sub>2</sub>O
+</div>
+
+<p>Questo significa che per ogni 2 moli di ammoniaca che reagiscono, si formano 3 moli di acqua.</p>
+
+<h3>Passo 2: Impostiamo la proporzione</h3>
+
+<div class="step">
+<strong>Proporzione:</strong><br><br>
+2 mol NH<sub>3</sub> : 3 mol H<sub>2</sub>O = 0,12 mol NH<sub>3</sub> : y mol H<sub>2</sub>O
+</div>
+
+<h3>Passo 3: Risolviamo la proporzione</h3>
+
+<div class="formula">
+y = (0,12 mol × 3 mol) / 2 mol = 0,36 / 2 = 0,18 mol
+</div>
+
+<p>In altre parole: se 2 moli di NH<sub>3</sub> producono 3 moli di H<sub>2</sub>O, allora 0,12 moli di NH<sub>3</sub> producono:</p>
+
+<div class="formula">
+0,12 × (3/2) = 0,12 × 1,5 = 0,18 mol
+</div>
+
+<div class="result">
+<strong>Moli di H<sub>2</sub>O prodotte: 0,18 mol</strong>
+</div>
+            </div>
+        </div>
+        
+        <div id="step-4" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">5</span>
+                Bonus: Calcolo della velocita di reazione
+            </div>
+            <div class="step-content">
+                <h2>Bonus: Calcolo della velocita di reazione</h2>
+
+<p>Il problema ci da anche un'informazione temporale: tutto avviene in 6,0 secondi. Questo ci permette di calcolare la <strong>velocita di reazione</strong>.</p>
+
+<h3>Cos'e la velocita di reazione?</h3>
+
+<p>La velocita di reazione ci dice quanto velocemente una reazione procede. Si puo esprimere come:</p>
+
+<ul>
+    <li>La <strong>velocita di scomparsa</strong> di un reagente (quante moli di reagente scompaiono per unita di tempo)</li>
+    <li>La <strong>velocita di formazione</strong> di un prodotto (quante moli di prodotto si formano per unita di tempo)</li>
+</ul>
+
+<div class="important">
+<strong>Attenzione!</strong> La velocita di reazione e UNICA per una data reazione, ma i singoli reagenti e prodotti scompaiono/appaiono a velocita diverse, proporzionali ai loro coefficienti stechiometrici!
+</div>
+
+<h3>Velocita di scomparsa dell'ammoniaca</h3>
+
+<div class="formula">
+v(NH<sub>3</sub>) = Δn(NH<sub>3</sub>) / Δt = 0,12 mol / 6,0 s = 0,020 mol/s
+</div>
+
+<p>L'ammoniaca scompare a una velocita di 0,020 moli al secondo.</p>
+
+<h3>Velocita di formazione del protossido di azoto</h3>
+
+<div class="formula">
+v(N<sub>2</sub>O) = Δn(N<sub>2</sub>O) / Δt = 0,06 mol / 6,0 s = 0,010 mol/s
+</div>
+
+<p>Il protossido di azoto si forma a una velocita di 0,010 moli al secondo.</p>
+
+<h3>Velocita di formazione dell'acqua</h3>
+
+<div class="formula">
+v(H<sub>2</sub>O) = Δn(H<sub>2</sub>O) / Δt = 0,18 mol / 6,0 s = 0,030 mol/s
+</div>
+
+<p>L'acqua si forma a una velocita di 0,030 moli al secondo.</p>
+
+<h3>Verifica dei rapporti</h3>
+
+<p>Notiamo che i rapporti tra le velocita corrispondono ai coefficienti stechiometrici:</p>
+
+<div class="step">
+v(NH<sub>3</sub>) : v(N<sub>2</sub>O) : v(H<sub>2</sub>O) = 0,020 : 0,010 : 0,030 = 2 : 1 : 3
+</div>
+
+<p>Questo e esattamente il rapporto 2:1:3 dei coefficienti stechiometrici nella reazione! Non e una coincidenza: la stechiometria governa tutto.</p>
+            </div>
+        </div>
+        
+        <div id="step-5" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">6</span>
+                Riepilogo dei risultati
+            </div>
+            <div class="step-content">
+                <h2>Riepilogo dei risultati</h2>
+
+<div class="result">
+<strong>RISPOSTE FINALI:</strong><br><br>
+In 6,0 secondi, se reagiscono 0,12 mol di NH<sub>3</sub>:<br><br>
+• Si formano <strong>0,06 mol di N<sub>2</sub>O</strong> (protossido di azoto)<br>
+• Si formano <strong>0,18 mol di H<sub>2</sub>O</strong> (vapore acqueo)<br><br>
+<em>Velocita di reazione:</em><br>
+• NH<sub>3</sub> scompare a 0,020 mol/s<br>
+• N<sub>2</sub>O si forma a 0,010 mol/s<br>
+• H<sub>2</sub>O si forma a 0,030 mol/s
+</div>
+            </div>
+        </div>
+        
+        <div id="step-6" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">7</span>
+                Concetto chiave da ricordare
+            </div>
+            <div class="step-content">
+                <h2>Concetto chiave da ricordare</h2>
+
+<p>La stechiometria di una reazione chimica stabilisce rapporti molari fissi tra tutte le specie coinvolte. Questi rapporti valgono:</p>
+
+<ol>
+    <li>Per le quantita totali (moli reagite/prodotte)</li>
+    <li>Per le velocita di reazione (moli/tempo)</li>
+    <li>Per qualsiasi altra grandezza molare (concentrazioni, pressioni parziali, ecc.)</li>
+</ol>
+
+<p>Tutto cio che devi fare e usare i coefficienti stechiometrici come fattori di conversione!</p>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+<script>
+    let currentStep = 0;
+    let totalSteps = 0;
+
+    document.addEventListener('DOMContentLoaded', function() {
+        totalSteps = document.querySelectorAll('.step-container').length;
+        updateProgress();
+        updateButtons();
+    });
+
+    function showNextStep() {
+        if (currentStep < totalSteps) {
+            const step = document.getElementById('step-' + currentStep);
+            if (step) {
+                step.classList.add('visible');
+                step.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                currentStep++;
+                updateProgress();
+                updateButtons();
+
+                if (window.parent !== window) {
+                    window.parent.postMessage({type: 'stepShown', step: currentStep, total: totalSteps}, '*');
+                }
+            }
+        }
+    }
+
+    function showAllSteps() {
+        document.querySelectorAll('.step-container').forEach(function(step) {
+            step.classList.add('visible');
+        });
+        currentStep = totalSteps;
+        updateProgress();
+        updateButtons();
+
+        if (window.parent !== window) {
+            window.parent.postMessage({type: 'allStepsShown'}, '*');
+        }
+    }
+
+    function hideAllSteps() {
+        document.querySelectorAll('.step-container').forEach(function(step) {
+            step.classList.remove('visible');
+        });
+        currentStep = 0;
+        updateProgress();
+        updateButtons();
+    }
+
+    function updateProgress() {
+        const pct = totalSteps > 0 ? (currentStep / totalSteps) * 100 : 0;
+        const fill = document.getElementById('progress-fill');
+        const text = document.getElementById('progress-text');
+        if (fill) fill.style.width = pct + '%';
+        if (text) text.textContent = 'Passaggio ' + currentStep + ' di ' + totalSteps;
+    }
+
+    function updateButtons() {
+        const nextBtn = document.getElementById('next-btn');
+        const allBtn = document.getElementById('all-btn');
+        const doneButtons = document.getElementById('done-buttons');
+
+        if (currentStep >= totalSteps) {
+            if (nextBtn) nextBtn.style.display = 'none';
+            if (allBtn) allBtn.style.display = 'none';
+            if (doneButtons) doneButtons.style.display = 'flex';
+        } else {
+            if (nextBtn) nextBtn.style.display = 'block';
+            if (allBtn) allBtn.style.display = 'block';
+            if (doneButtons) doneButtons.style.display = 'none';
+        }
+    }
+
+    function markExercise(status) {
+        // Salva in localStorage
+        const exerciseId = window.location.pathname.split('/').pop().replace('.html', '');
+        let progress = JSON.parse(localStorage.getItem('chemportal_progress') || '{}');
+        if (!progress.exercises) progress.exercises = {};
+        progress.exercises[exerciseId] = status;
+        localStorage.setItem('chemportal_progress', JSON.stringify(progress));
+
+        // Feedback visivo
+        const btn = status === 'done' ? document.getElementById('mark-done') : document.getElementById('mark-review');
+        const otherBtn = status === 'done' ? document.getElementById('mark-review') : document.getElementById('mark-done');
+
+        btn.classList.add('selected');
+        otherBtn.classList.remove('selected');
+
+        // Notifica parent
+        if (window.parent !== window) {
+            window.parent.postMessage({type: 'exerciseMarked', status: status, id: exerciseId}, '*');
+        }
+    }
+
+    function resetExercise() {
+        hideAllSteps();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Messaggi dal parent
+    window.addEventListener('message', function(e) {
+        if (e.data.type === 'showNext') showNextStep();
+        else if (e.data.type === 'showAll') showAllSteps();
+        else if (e.data.type === 'hideAll') hideAllSteps();
+    });
+
+    function closeExercise() {
+        if (window.parent !== window) {
+            // Siamo in iframe, chiedi al parent di chiudere
+            window.parent.postMessage({type: 'closeModal'}, '*');
+        } else {
+            // Standalone: torna alla pagina esercizi
+            const path = window.location.pathname;
+            if (path.includes('/content/soluzioni/')) {
+                window.location.href = '../../esercizi.html';
+            } else {
+                window.history.back();
+            }
+        }
+    }
+</script>
+</body>
+</html>

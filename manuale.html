@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manuale - ChemPortal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2563eb',
+                        secondary: '#1e40af',
+                        accent: '#3b82f6',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-primary to-secondary text-white shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex items-center justify-between">
+                <a href="index.html" class="flex items-center space-x-3">
+                    <span class="text-3xl">⚗️</span>
+                    <div>
+                        <h1 class="text-2xl font-bold">ChemPortal</h1>
+                        <p class="text-blue-200 text-sm">Chimica Generale</p>
+                    </div>
+                </a>
+                <nav class="hidden md:flex space-x-6 items-center">
+                    <a href="index.html" class="hover:text-blue-200">Home</a>
+                    <a href="manuale.html" class="hover:text-blue-200 font-medium border-b-2 border-white pb-1">Manuale</a>
+                    <a href="esercizi.html" class="hover:text-blue-200">Esercizi</a>
+                    <a href="flashcard.html" class="hover:text-blue-200">Formule</a>
+                    <a href="simulazione.html" class="hover:text-blue-200">Simulazione</a>
+                    <div class="relative">
+                        <input type="text" id="globalSearch" placeholder="Cerca..."
+                               class="px-3 py-1 rounded-lg text-gray-800 text-sm w-40 focus:w-56 transition-all focus:outline-none focus:ring-2 focus:ring-white">
+                        <div id="searchResults" class="hidden absolute top-full right-0 mt-2 w-80 bg-white rounded-lg shadow-xl max-h-96 overflow-y-auto z-50"></div>
+                    </div>
+                </nav>
+                <button id="mobileMenuBtn" class="md:hidden text-white">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <div id="mobileMenu" class="hidden md:hidden bg-secondary">
+            <nav class="container mx-auto px-4 py-3 flex flex-col space-y-2">
+                <a href="index.html" class="text-white hover:text-blue-200 py-2">Home</a>
+                <a href="manuale.html" class="text-white hover:text-blue-200 py-2">Manuale</a>
+                <a href="esercizi.html" class="text-white hover:text-blue-200 py-2">Esercizi</a>
+                <a href="flashcard.html" class="text-white hover:text-blue-200 py-2">Formule</a>
+                <a href="simulazione.html" class="text-white hover:text-blue-200 py-2">Simulazione</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="flex">
+        <!-- Sidebar -->
+        <aside class="w-64 bg-white shadow-lg min-h-screen hidden lg:block">
+            <div class="p-4 border-b">
+                <h2 class="font-semibold text-gray-800">Capitoli</h2>
+            </div>
+            <nav id="chapterSidebar" class="p-2">
+                <!-- Will be populated by JS -->
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 p-6">
+            <!-- Breadcrumb -->
+            <nav class="mb-4">
+                <ol class="flex items-center space-x-2 text-sm text-gray-500">
+                    <li><a href="index.html" class="hover:text-primary">Home</a></li>
+                    <li><span class="mx-2">/</span></li>
+                    <li><a href="manuale.html" class="hover:text-primary">Manuale</a></li>
+                    <li id="breadcrumbChapter" class="hidden">
+                        <span class="mx-2">/</span>
+                        <span id="breadcrumbChapterName"></span>
+                    </li>
+                </ol>
+            </nav>
+
+            <!-- Chapter selector for mobile -->
+            <div class="lg:hidden mb-4">
+                <select id="chapterSelect" class="w-full p-3 border rounded-lg bg-white shadow">
+                    <option value="">Seleziona un capitolo...</option>
+                </select>
+            </div>
+
+            <!-- Chapter content -->
+            <div id="chapterContent" class="bg-white rounded-xl shadow-lg overflow-hidden">
+                <!-- Welcome message when no chapter selected -->
+                <div id="welcomeMessage" class="p-8 text-center">
+                    <span class="text-6xl mb-4 block">📖</span>
+                    <h2 class="text-2xl font-bold text-gray-800 mb-4">Benvenuto nel Manuale</h2>
+                    <p class="text-gray-600 mb-6">Seleziona un capitolo dalla sidebar per iniziare a studiare.</p>
+                    <div id="quickChapters" class="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-2xl mx-auto">
+                        <!-- Will be populated by JS -->
+                    </div>
+                </div>
+
+                <!-- Chapter viewer (hidden by default) -->
+                <div id="chapterViewer" class="hidden">
+                    <div class="bg-gray-50 p-4 border-b flex items-center justify-between">
+                        <div class="flex items-center space-x-3">
+                            <span id="chapterIcon" class="text-3xl"></span>
+                            <div>
+                                <h2 id="chapterTitle" class="text-xl font-bold text-gray-800"></h2>
+                                <p id="chapterDescription" class="text-sm text-gray-500"></p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <a id="relatedExercisesBtn" href="#" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition flex items-center space-x-2">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+                                </svg>
+                                <span id="exerciseCountText">Esercizi correlati</span>
+                            </a>
+                            <button id="markCompleteBtn" class="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition flex items-center space-x-2">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                                </svg>
+                                <span>Segna completato</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Iframe for chapter content -->
+                    <iframe id="chapterFrame" class="w-full" style="height: calc(100vh - 250px); border: none;"></iframe>
+
+                    <!-- Navigation -->
+                    <div class="bg-gray-50 p-4 border-t flex justify-between">
+                        <button id="prevChapter" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition flex items-center space-x-2 disabled:opacity-50">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                            </svg>
+                            <span>Precedente</span>
+                        </button>
+                        <button id="nextChapter" class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-secondary transition flex items-center space-x-2 disabled:opacity-50">
+                            <span>Successivo</span>
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/data.js"></script>
+    <script src="js/progress.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/search.js"></script>
+    <script>
+        let chapters = [];
+        let currentChapterIndex = -1;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadChapters();
+            initMobileMenu();
+
+            // Check if chapter is specified in URL
+            const capParam = new URLSearchParams(window.location.search).get('cap');
+            if (capParam) {
+                const index = chapters.findIndex(c => c.id === capParam);
+                if (index !== -1) {
+                    selectChapter(index);
+                }
+            }
+        });
+
+        function loadChapters() {
+            chapters = CHAPTERS_DATA.chapters;
+            renderSidebar();
+            renderMobileSelect();
+            renderQuickChapters();
+        }
+
+        function renderSidebar() {
+            const sidebar = document.getElementById('chapterSidebar');
+            const progress = Progress.get();
+
+            sidebar.innerHTML = chapters.map((chapter, index) => {
+                const isComplete = progress.chapters && progress.chapters[chapter.id];
+                return `
+                    <button onclick="selectChapter(${index})"
+                            class="chapter-nav-item w-full text-left p-3 rounded-lg mb-1 flex items-center space-x-3"
+                            data-chapter="${chapter.id}">
+                        <span class="text-xl">${chapter.icon}</span>
+                        <div class="flex-1">
+                            <p class="font-medium text-gray-800 text-sm">${chapter.title}</p>
+                        </div>
+                        ${isComplete ? '<span class="text-green-500">✓</span>' : ''}
+                    </button>
+                `;
+            }).join('');
+        }
+
+        function renderMobileSelect() {
+            const select = document.getElementById('chapterSelect');
+            select.innerHTML = '<option value="">Seleziona un capitolo...</option>' +
+                chapters.map((chapter, index) =>
+                    `<option value="${index}">${chapter.icon} ${chapter.title}</option>`
+                ).join('');
+
+            select.addEventListener('change', (e) => {
+                if (e.target.value !== '') {
+                    selectChapter(parseInt(e.target.value));
+                }
+            });
+        }
+
+        function renderQuickChapters() {
+            const container = document.getElementById('quickChapters');
+            container.innerHTML = chapters.map((chapter, index) => `
+                <button onclick="selectChapter(${index})"
+                        class="p-4 bg-gray-50 rounded-lg hover:bg-blue-50 transition text-left flex items-center space-x-3">
+                    <span class="text-2xl">${chapter.icon}</span>
+                    <div>
+                        <p class="font-medium text-gray-800">${chapter.title}</p>
+                        <p class="text-xs text-gray-500">${chapter.exerciseCount} esercizi</p>
+                    </div>
+                </button>
+            `).join('');
+        }
+
+        // Mappa capitoli -> categorie esercizi
+        const chapterToCategory = {
+            '01-02': 'lez01-02-nozioni-materia',
+            '03-04': 'lez03-04-teoria-periodicita',
+            '05': 'lez05-legami',
+            '06': 'lez06-acidi-basi',
+            '07-08': 'lez07-08-termodinamica',
+            '09': 'lez09-cinetica',
+            '10': 'lez10-elettrochimica'
+        };
+
+        function selectChapter(index) {
+            currentChapterIndex = index;
+            const chapter = chapters[index];
+
+            // Update URL
+            history.pushState({}, '', `manuale.html?cap=${chapter.id}`);
+
+            // Update related exercises button
+            const categoryId = chapterToCategory[chapter.id];
+            const exerciseBtn = document.getElementById('relatedExercisesBtn');
+            const exerciseText = document.getElementById('exerciseCountText');
+            if (categoryId) {
+                exerciseBtn.href = `esercizi.html?cat=${categoryId}`;
+                exerciseText.textContent = `${chapter.exerciseCount} esercizi`;
+            }
+
+            // Update UI
+            document.getElementById('welcomeMessage').classList.add('hidden');
+            document.getElementById('chapterViewer').classList.remove('hidden');
+
+            document.getElementById('chapterIcon').textContent = chapter.icon;
+            document.getElementById('chapterTitle').textContent = chapter.title;
+            document.getElementById('chapterDescription').textContent = chapter.description;
+
+            // Update breadcrumb
+            document.getElementById('breadcrumbChapter').classList.remove('hidden');
+            document.getElementById('breadcrumbChapterName').textContent = chapter.title;
+
+            // Load chapter content
+            document.getElementById('chapterFrame').src = `content/manuale/${chapter.file}`;
+
+            // Update sidebar active state
+            document.querySelectorAll('.chapter-nav-item').forEach((el, i) => {
+                el.classList.toggle('active', i === index);
+            });
+
+            // Update mobile select
+            document.getElementById('chapterSelect').value = index;
+
+            // Update navigation buttons
+            document.getElementById('prevChapter').disabled = index === 0;
+            document.getElementById('nextChapter').disabled = index === chapters.length - 1;
+
+            // Update mark complete button
+            updateMarkCompleteBtn(chapter.id);
+
+            // Track visit
+            Progress.setLastVisited('chapter', chapter.id);
+        }
+
+        function updateMarkCompleteBtn(chapterId) {
+            const progress = Progress.get();
+            const btn = document.getElementById('markCompleteBtn');
+            const isComplete = progress.chapters && progress.chapters[chapterId];
+
+            if (isComplete) {
+                btn.innerHTML = `
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                    </svg>
+                    <span>Completato!</span>
+                `;
+                btn.className = 'px-4 py-2 bg-green-100 text-green-700 rounded-lg transition flex items-center space-x-2';
+            } else {
+                btn.innerHTML = `
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                    </svg>
+                    <span>Segna completato</span>
+                `;
+                btn.className = 'px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition flex items-center space-x-2';
+            }
+        }
+
+        // Mark chapter complete button
+        document.getElementById('markCompleteBtn').addEventListener('click', () => {
+            if (currentChapterIndex >= 0) {
+                const chapter = chapters[currentChapterIndex];
+                const progress = Progress.get();
+                const isComplete = progress.chapters && progress.chapters[chapter.id];
+
+                Progress.markChapter(chapter.id, !isComplete);
+                updateMarkCompleteBtn(chapter.id);
+                renderSidebar();
+
+                if (!isComplete) {
+                    ChemPortal.showNotification('Capitolo segnato come completato!', 'success');
+                }
+            }
+        });
+
+        // Navigation
+        document.getElementById('prevChapter').addEventListener('click', () => {
+            if (currentChapterIndex > 0) {
+                selectChapter(currentChapterIndex - 1);
+            }
+        });
+
+        document.getElementById('nextChapter').addEventListener('click', () => {
+            if (currentChapterIndex < chapters.length - 1) {
+                selectChapter(currentChapterIndex + 1);
+            }
+        });
+
+        // Mobile menu
+        function initMobileMenu() {
+            const btn = document.getElementById('mobileMenuBtn');
+            const menu = document.getElementById('mobileMenu');
+            if (btn && menu) {
+                btn.addEventListener('click', () => menu.classList.toggle('hidden'));
+            }
+        }
+    </script>
+</body>
+</html>

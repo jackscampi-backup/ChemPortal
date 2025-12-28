@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Esame 1-1 - Quesito 3</title>
+    <style>
+        body { font-family: Georgia, serif; max-width: 800px; margin: 40px auto; padding: 20px; line-height: 1.6; }
+        h1 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+        h2 { color: #2980b9; margin-top: 30px; }
+        h3 { color: #27ae60; }
+        .question { background: #ecf0f1; padding: 15px; border-left: 4px solid #3498db; margin: 20px 0; }
+        .result { background: #d5f5e3; padding: 15px; border-left: 4px solid #27ae60; margin: 20px 0; font-weight: bold; }
+        .formula { background: #fdebd0; padding: 10px; margin: 10px 0; font-family: monospace; }
+        table { border-collapse: collapse; width: 100%; margin: 20px 0; }
+        th, td { border: 1px solid #bdc3c7; padding: 10px; text-align: left; }
+        th { background: #3498db; color: white; }
+        tr:nth-child(even) { background: #f2f2f2; }
+        .note { background: #ebdef0; padding: 15px; border-left: 4px solid #8e44ad; margin: 20px 0; }
+    
+    .done-buttons {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+    .mark-btn {
+        padding: 12px 24px;
+        font-size: 1em;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .mark-done {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        color: white;
+    }
+    .mark-done:hover, .mark-done.selected {
+        background: linear-gradient(135deg, #1e7e34, #17a085);
+        transform: scale(1.05);
+    }
+    .mark-review {
+        background: linear-gradient(135deg, #ffc107, #fd7e14);
+        color: white;
+    }
+    .mark-review:hover, .mark-review.selected {
+        background: linear-gradient(135deg, #d39e00, #dc6502);
+        transform: scale(1.05);
+    }
+    .mark-reset {
+        background: #6c757d;
+        color: white;
+    }
+    .mark-reset:hover {
+        background: #545b62;
+    }
+    .mark-btn.selected {
+        box-shadow: 0 0 0 3px rgba(0,0,0,0.2);
+    }
+</style>
+
+<style>
+    .quiz-container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px;
+        padding-bottom: 120px;
+    }
+    .question-section {
+        background: linear-gradient(135deg, #e8f4f8 0%, #d4edda 100%);
+        border: 2px solid #17a2b8;
+        border-radius: 10px;
+        padding: 25px;
+        margin-bottom: 20px;
+    }
+    .question-section h2 {
+        color: #0c5460;
+        margin-top: 0;
+        margin-bottom: 15px;
+    }
+    .show-next-btn {
+        display: block;
+        width: 100%;
+        padding: 15px 30px;
+        font-size: 1.1em;
+        font-weight: bold;
+        color: white;
+        background: linear-gradient(135deg, #007bff, #0056b3);
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        margin: 15px 0;
+        transition: all 0.3s ease;
+    }
+    .show-next-btn:hover {
+        background: linear-gradient(135deg, #0056b3, #004094);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 123, 255, 0.4);
+    }
+    .show-all-btn {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        margin-top: 10px;
+    }
+    .show-all-btn:hover {
+        background: linear-gradient(135deg, #218838, #1db385);
+        box-shadow: 0 4px 12px rgba(40, 167, 69, 0.4);
+    }
+    .step-container {
+        display: none;
+        animation: fadeIn 0.5s ease;
+        margin-bottom: 20px;
+        border: 1px solid #dee2e6;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    .step-container.visible {
+        display: block;
+    }
+    .step-header {
+        background: linear-gradient(135deg, #6c757d, #495057);
+        color: white;
+        padding: 12px 20px;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+    }
+    .step-number-badge {
+        background: white;
+        color: #495057;
+        border-radius: 50%;
+        width: 28px;
+        height: 28px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 12px;
+        font-weight: bold;
+    }
+    .step-content {
+        padding: 20px;
+        background: white;
+    }
+    .progress-bar {
+        background: #e9ecef;
+        border-radius: 10px;
+        height: 8px;
+        margin: 15px 0;
+        overflow: hidden;
+    }
+    .progress-fill {
+        background: linear-gradient(90deg, #28a745, #20c997);
+        height: 100%;
+        border-radius: 10px;
+        transition: width 0.5s ease;
+    }
+    .progress-text {
+        text-align: center;
+        color: #6c757d;
+        font-size: 0.9em;
+        margin-bottom: 15px;
+    }
+    .controls {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: white;
+        padding: 15px 20px;
+        border-top: 2px solid #dee2e6;
+        box-shadow: 0 -4px 12px rgba(0,0,0,0.1);
+        z-index: 1000;
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+    }
+    .quiz-container {
+        padding-bottom: 100px;
+    }
+    .show-next-btn {
+        width: auto;
+        margin: 0;
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .final-answer {
+        background: #d4edda;
+        border: 2px solid #28a745;
+        border-radius: 10px;
+        padding: 20px;
+        margin-top: 20px;
+    }
+    .final-answer h3 {
+        color: #155724;
+        margin-top: 0;
+    }
+
+    .done-buttons {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+    .mark-btn {
+        padding: 12px 24px;
+        font-size: 1em;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .mark-done {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        color: white;
+    }
+    .mark-done:hover, .mark-done.selected {
+        background: linear-gradient(135deg, #1e7e34, #17a085);
+        transform: scale(1.05);
+    }
+    .mark-review {
+        background: linear-gradient(135deg, #ffc107, #fd7e14);
+        color: white;
+    }
+    .mark-review:hover, .mark-review.selected {
+        background: linear-gradient(135deg, #d39e00, #dc6502);
+        transform: scale(1.05);
+    }
+    .mark-reset {
+        background: #6c757d;
+        color: white;
+    }
+    .mark-reset:hover {
+        background: #545b62;
+    }
+    .mark-btn.selected {
+        box-shadow: 0 0 0 3px rgba(0,0,0,0.2);
+    }
+</style>
+</head>
+<body>
+<div class="quiz-container">
+    <h1>QUESITO 3 - Costante di Equilibrio e Pressione Totale</h1>
+
+    <div class="question-section">
+        <h2>Testo dell'esercizio</h2>
+        <p>Risolvi l'esercizio seguente.</p>
+    </div>
+
+    <div class="progress-text" id="progress-text">Passaggio 0 di 3</div>
+    <div class="progress-bar">
+        <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+    </div>
+
+    <div class="controls">
+        <button id="next-btn" class="show-next-btn" onclick="showNextStep()">
+            ▶ Prossimo passaggio
+        </button>
+        <button id="all-btn" class="show-next-btn show-all-btn" onclick="showAllSteps()">
+            ⏩ Mostra tutto
+        </button>
+        <div id="done-buttons" class="done-buttons" style="display: none;">
+            <button id="mark-done" class="mark-btn mark-done" onclick="markExercise('done')">
+                ✓ Fatto
+            </button>
+            <button id="mark-review" class="mark-btn mark-review" onclick="markExercise('review')">
+                ⚠ Da rivedere
+            </button>
+            <button class="mark-btn mark-reset" onclick="resetExercise()">
+                ↺ Ricomincia
+            </button>
+            <button class="mark-btn" style="background: #17a2b8;" onclick="closeExercise()">
+                ✕ Chiudi
+            </button>
+        </div>
+    </div>
+
+    <div id="steps-wrapper">
+        
+        <div id="step-0" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">1</span>
+                PARTE 1: Calcolo della costante di equilibrio K
+            </div>
+            <div class="step-content">
+                <h1>QUESITO 3 - Costante di Equilibrio e Pressione Totale</h1>
+
+<div class="question">
+<strong>TESTO:</strong> Calcolare la costante di equilibrio a 298 K per la reazione:<br>
+N₂O₄ (g) ⇌ 2NO₂ (g)<br><br>
+dai seguenti dati: ΔG°f (N₂O₄, g) = 99,8 kJ/mol, ΔG°f (NO₂, g) = 51,3 kJ/mol.<br><br>
+Calcolare inoltre la pressione totale all'equilibrio, a quella temperatura, sapendo che la pressione parziale all'equilibrio di N₂O₄ e 0,50 atm.
+</div>
+
+<p><strong>Dati utili:</strong> R = 8,314 J/(mol·K), T = 298 K</p><h2>PARTE 1: Calcolo della costante di equilibrio K</h2>
+
+<h3>1.1 Cosa ci dice l'energia libera di formazione?</h3>
+
+<p>L'energia libera di formazione standard (ΔG°f) rappresenta la variazione di energia libera quando si forma 1 mole di una sostanza a partire dagli elementi puri nei loro stati standard.</p>
+
+<p>I dati del problema ci dicono:</p>
+<ul>
+<li><strong>N₂O₄ (g):</strong> ΔG°f = 99,8 kJ/mol (positivo = meno stabile degli elementi)</li>
+<li><strong>NO₂ (g):</strong> ΔG°f = 51,3 kJ/mol (positivo = meno stabile degli elementi)</li>
+</ul>
+
+<h3>1.2 Calcolo del ΔG° della reazione</h3>
+
+<p>Per calcolare la variazione di energia libera standard della reazione, usiamo la formula:</p>
+
+<div class="formula">ΔG°rxn = Σ ΔG°f(prodotti) - Σ ΔG°f(reagenti)</div>
+
+<p>Scriviamo la reazione con i coefficienti:</p>
+<p style="text-align: center; font-size: 1.2em;"><strong>N₂O₄ (g) ⇌ 2NO₂ (g)</strong></p>
+
+<p>Applichiamo la formula:</p>
+
+<div class="formula">
+ΔG°rxn = [2 × ΔG°f(NO₂)] - [1 × ΔG°f(N₂O₄)]<br><br>
+ΔG°rxn = [2 × 51,3 kJ/mol] - [1 × 99,8 kJ/mol]<br><br>
+ΔG°rxn = 102,6 kJ/mol - 99,8 kJ/mol<br><br>
+ΔG°rxn = <strong>+2,8 kJ/mol = +2800 J/mol</strong>
+</div>
+
+<div class="note">
+<strong>Interpretazione del segno:</strong><br>
+Il ΔG° positivo (+2,8 kJ/mol) ci dice che in condizioni standard (1 atm, 298 K) la reazione <em>non e spontanea</em> nel verso diretto. L'equilibrio favorisce leggermente i reagenti (N₂O₄).
+</div>
+
+<h3>1.3 Relazione tra ΔG° e la costante di equilibrio K</h3>
+
+<p>La termodinamica ci fornisce una relazione fondamentale:</p>
+
+<div class="formula">ΔG° = -RT ln(K)</div>
+
+<p>Da cui possiamo ricavare K:</p>
+
+<div class="formula">
+ln(K) = -ΔG° / (RT)<br><br>
+K = e^(-ΔG°/RT)
+</div>
+
+<h3>1.4 Calcolo numerico di K</h3>
+
+<p>Sostituiamo i valori (attenzione alle unita: usiamo J, non kJ!):</p>
+
+<div class="formula">
+-ΔG° / (RT) = -2800 J/mol / (8,314 J/(mol·K) × 298 K)<br><br>
+= -2800 / 2477,6<br><br>
+= <strong>-1,13</strong>
+</div>
+
+<p>Quindi:</p>
+
+<div class="formula">
+K = e^(-1,13) = <strong>0,323</strong>
+</div>
+
+<div class="result">
+RISPOSTA PARTE 1: K = 0,32 (o Kp = 0,32 atm, dato che siamo in fase gas)
+</div>
+
+<div class="note">
+<strong>Verifica del risultato:</strong><br>
+K < 1 conferma che l'equilibrio e spostato verso i reagenti (N₂O₄), coerente con ΔG° > 0.
+</div>
+            </div>
+        </div>
+        
+        <div id="step-1" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">2</span>
+                PARTE 2: Calcolo della pressione totale all'equili...
+            </div>
+            <div class="step-content">
+                <h2>PARTE 2: Calcolo della pressione totale all'equilibrio</h2>
+
+<h3>2.1 Espressione della costante di equilibrio Kp</h3>
+
+<p>Per reazioni in fase gassosa, scriviamo Kp in termini di pressioni parziali:</p>
+
+<p>Per la reazione: N₂O₄ (g) ⇌ 2NO₂ (g)</p>
+
+<div class="formula">
+Kp = (P_NO₂)² / P_N₂O₄
+</div>
+
+<h3>2.2 Dati noti all'equilibrio</h3>
+
+<p>Il problema ci dice che:</p>
+<ul>
+<li>Kp = 0,323 atm (calcolato prima)</li>
+<li>P(N₂O₄) = 0,50 atm (dato)</li>
+<li>P(NO₂) = ? (da trovare)</li>
+</ul>
+
+<h3>2.3 Calcolo della pressione parziale di NO₂</h3>
+
+<p>Riarrangiamo l'espressione di Kp per trovare P(NO₂):</p>
+
+<div class="formula">
+Kp = (P_NO₂)² / P_N₂O₄<br><br>
+(P_NO₂)² = Kp × P_N₂O₄<br><br>
+(P_NO₂)² = 0,323 × 0,50 atm<br><br>
+(P_NO₂)² = 0,1615 atm²<br><br>
+P_NO₂ = √0,1615 = <strong>0,402 atm</strong>
+</div>
+
+<h3>2.4 Calcolo della pressione totale</h3>
+
+<p>La pressione totale e la somma delle pressioni parziali (legge di Dalton):</p>
+
+<div class="formula">
+P_tot = P_N₂O₄ + P_NO₂<br><br>
+P_tot = 0,50 atm + 0,40 atm<br><br>
+P_tot = <strong>0,90 atm</strong>
+</div>
+
+<div class="result">
+RISPOSTA PARTE 2: P_tot = 0,90 atm
+</div>
+            </div>
+        </div>
+        
+        <div id="step-2" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">3</span>
+                Riepilogo dei risultati
+            </div>
+            <div class="step-content">
+                <h2>Riepilogo dei risultati</h2>
+
+<table>
+<tr><th>Grandezza</th><th>Valore</th></tr>
+<tr><td>ΔG°f (N₂O₄)</td><td>99,8 kJ/mol</td></tr>
+<tr><td>ΔG°f (NO₂)</td><td>51,3 kJ/mol</td></tr>
+<tr><td>ΔG° reazione</td><td>+2,8 kJ/mol</td></tr>
+<tr><td>Esponente (-ΔG°/RT)</td><td>-1,13</td></tr>
+<tr><td><strong>Costante K (298 K)</strong></td><td><strong>0,32</strong></td></tr>
+<tr><td>P(N₂O₄) all'equilibrio</td><td>0,50 atm</td></tr>
+<tr><td>P(NO₂) all'equilibrio</td><td>0,40 atm</td></tr>
+<tr><td><strong>Pressione totale</strong></td><td><strong>0,90 atm</strong></td></tr>
+</table>
+
+<div class="note">
+<strong>Curiosita sul sistema N₂O₄/NO₂:</strong><br><br>
+Questo equilibrio e visibile a occhio nudo! Il N₂O₄ e incolore, mentre il NO₂ e di colore marrone-rossastro. Scaldando una fiala sigillata contenente questa miscela, si vede il colore intensificarsi (piu NO₂), mentre raffreddandola il colore sbiadisce (piu N₂O₄). E un classico esempio didattico del principio di Le Chatelier: la dissociazione e endotermica, quindi il calore favorisce i prodotti.
+</div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+<script>
+    let currentStep = 0;
+    let totalSteps = 0;
+
+    document.addEventListener('DOMContentLoaded', function() {
+        totalSteps = document.querySelectorAll('.step-container').length;
+        updateProgress();
+        updateButtons();
+    });
+
+    function showNextStep() {
+        if (currentStep < totalSteps) {
+            const step = document.getElementById('step-' + currentStep);
+            if (step) {
+                step.classList.add('visible');
+                step.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                currentStep++;
+                updateProgress();
+                updateButtons();
+
+                if (window.parent !== window) {
+                    window.parent.postMessage({type: 'stepShown', step: currentStep, total: totalSteps}, '*');
+                }
+            }
+        }
+    }
+
+    function showAllSteps() {
+        document.querySelectorAll('.step-container').forEach(function(step) {
+            step.classList.add('visible');
+        });
+        currentStep = totalSteps;
+        updateProgress();
+        updateButtons();
+
+        if (window.parent !== window) {
+            window.parent.postMessage({type: 'allStepsShown'}, '*');
+        }
+    }
+
+    function hideAllSteps() {
+        document.querySelectorAll('.step-container').forEach(function(step) {
+            step.classList.remove('visible');
+        });
+        currentStep = 0;
+        updateProgress();
+        updateButtons();
+    }
+
+    function updateProgress() {
+        const pct = totalSteps > 0 ? (currentStep / totalSteps) * 100 : 0;
+        const fill = document.getElementById('progress-fill');
+        const text = document.getElementById('progress-text');
+        if (fill) fill.style.width = pct + '%';
+        if (text) text.textContent = 'Passaggio ' + currentStep + ' di ' + totalSteps;
+    }
+
+    function updateButtons() {
+        const nextBtn = document.getElementById('next-btn');
+        const allBtn = document.getElementById('all-btn');
+        const doneButtons = document.getElementById('done-buttons');
+
+        if (currentStep >= totalSteps) {
+            if (nextBtn) nextBtn.style.display = 'none';
+            if (allBtn) allBtn.style.display = 'none';
+            if (doneButtons) doneButtons.style.display = 'flex';
+        } else {
+            if (nextBtn) nextBtn.style.display = 'block';
+            if (allBtn) allBtn.style.display = 'block';
+            if (doneButtons) doneButtons.style.display = 'none';
+        }
+    }
+
+    function markExercise(status) {
+        // Salva in localStorage
+        const exerciseId = window.location.pathname.split('/').pop().replace('.html', '');
+        let progress = JSON.parse(localStorage.getItem('chemportal_progress') || '{}');
+        if (!progress.exercises) progress.exercises = {};
+        progress.exercises[exerciseId] = status;
+        localStorage.setItem('chemportal_progress', JSON.stringify(progress));
+
+        // Feedback visivo
+        const btn = status === 'done' ? document.getElementById('mark-done') : document.getElementById('mark-review');
+        const otherBtn = status === 'done' ? document.getElementById('mark-review') : document.getElementById('mark-done');
+
+        btn.classList.add('selected');
+        otherBtn.classList.remove('selected');
+
+        // Notifica parent
+        if (window.parent !== window) {
+            window.parent.postMessage({type: 'exerciseMarked', status: status, id: exerciseId}, '*');
+        }
+    }
+
+    function resetExercise() {
+        hideAllSteps();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Messaggi dal parent
+    window.addEventListener('message', function(e) {
+        if (e.data.type === 'showNext') showNextStep();
+        else if (e.data.type === 'showAll') showAllSteps();
+        else if (e.data.type === 'hideAll') hideAllSteps();
+    });
+
+    function closeExercise() {
+        if (window.parent !== window) {
+            // Siamo in iframe, chiedi al parent di chiudere
+            window.parent.postMessage({type: 'closeModal'}, '*');
+        } else {
+            // Standalone: torna alla pagina esercizi
+            const path = window.location.pathname;
+            if (path.includes('/content/soluzioni/')) {
+                window.location.href = '../../esercizi.html';
+            } else {
+                window.history.back();
+            }
+        }
+    }
+</script>
+</body>
+</html>

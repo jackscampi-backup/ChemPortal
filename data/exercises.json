@@ -1,0 +1,148 @@
+{
+  "categories": [
+    {
+      "id": "lez01-02-nozioni-materia",
+      "title": "Stechiometria e Materia",
+      "icon": "🧪",
+      "color": "blue",
+      "exercises": [
+        {"id": "lez01-02-bilanciamento-redox", "title": "Bilanciamento Redox", "tags": ["redox", "bilanciamento"]},
+        {"id": "lez01-02-bilanciamento-redox-1", "title": "Bilanciamento Redox (2)", "tags": ["redox", "bilanciamento"]},
+        {"id": "lez01-02-bilanciamento-redox-2", "title": "Bilanciamento Redox (3)", "tags": ["redox", "bilanciamento"]},
+        {"id": "lez01-02-bilanciamento-redox-3", "title": "Bilanciamento Redox (4)", "tags": ["redox", "bilanciamento"]},
+        {"id": "lez01-02-bilanciamento-redox-4", "title": "Bilanciamento Redox (5)", "tags": ["redox", "bilanciamento"]},
+        {"id": "lez01-02-bilanciamento-redox-5", "title": "Bilanciamento Redox (6)", "tags": ["redox", "bilanciamento"]},
+        {"id": "lez01-02-bilanciamento-redox-6", "title": "Bilanciamento Redox (7)", "tags": ["redox", "bilanciamento"]},
+        {"id": "lez01-02-bilanciamento-redox-7", "title": "Bilanciamento Redox (8)", "tags": ["redox", "bilanciamento"]},
+        {"id": "lez01-02-bilanciamento-Cu-HNO3", "title": "Cu + HNO3", "tags": ["redox", "rame", "acido nitrico"]},
+        {"id": "lez01-02-bilanciamento-redox-KMnO4", "title": "Permanganato KMnO4", "tags": ["redox", "permanganato"]},
+        {"id": "lez01-02-numeri-ossidazione", "title": "Numeri di Ossidazione", "tags": ["ossidazione"]},
+        {"id": "lez01-02-numeri-ossidazione-1", "title": "Numeri di Ossidazione (2)", "tags": ["ossidazione"]},
+        {"id": "lez01-02-stechiometria-gas", "title": "Stechiometria Gas", "tags": ["gas", "stechiometria"]},
+        {"id": "lez01-02-stechiometria-precipitazione", "title": "Precipitazione", "tags": ["precipitazione"]},
+        {"id": "lez01-02-stechiometria-SO2", "title": "Stechiometria SO2", "tags": ["stechiometria"]},
+        {"id": "lez01-02-stechiometria-HNO3", "title": "Stechiometria HNO3", "tags": ["stechiometria", "acido nitrico"]},
+        {"id": "lez01-02-stechiometria-pirite", "title": "Stechiometria Pirite", "tags": ["stechiometria", "pirite"]},
+        {"id": "lez01-02-stechiometria-PCl3-Cl2", "title": "PCl3 + Cl2", "tags": ["stechiometria"]},
+        {"id": "lez01-02-moli-atomi-ferro", "title": "Moli e Atomi Ferro", "tags": ["moli", "ferro"]},
+        {"id": "lez01-02-reagente-limitante-titanio", "title": "Reagente Limitante Ti", "tags": ["reagente limitante", "titanio"]},
+        {"id": "lez01-02-precipitazione-BaSO4", "title": "Precipitazione BaSO4", "tags": ["precipitazione", "solfato"]},
+        {"id": "lez01-02-formula-molecolare", "title": "Formula Molecolare", "tags": ["formula"]},
+        {"id": "lez01-02-combustione-etanolo", "title": "Combustione Etanolo", "tags": ["combustione"]}
+      ]
+    },
+    {
+      "id": "lez03-04-teoria-periodicita",
+      "title": "Teoria Atomica e Periodicità",
+      "icon": "⚛️",
+      "color": "purple",
+      "exercises": [
+        {"id": "lez03-04-ioni-isoelettronici", "title": "Ioni Isoelettronici", "tags": ["isoelettronici", "ioni"]},
+        {"id": "lez03-04-ioni-isoelettronici-1", "title": "Ioni Isoelettronici (2)", "tags": ["isoelettronici", "ioni"]},
+        {"id": "lez03-04-potenziale-ionizzazione", "title": "Potenziale di Ionizzazione", "tags": ["ionizzazione"]},
+        {"id": "lez03-04-potenziale-ionizzazione-Li", "title": "Potenziale Ionizzazione Li", "tags": ["ionizzazione", "litio"]},
+        {"id": "lez03-04-configurazioni-raggi-ionici", "title": "Configurazioni e Raggi Ionici", "tags": ["configurazioni", "raggi"]},
+        {"id": "lez03-effetto-fotoelettrico", "title": "Effetto Fotoelettrico", "tags": ["fotoelettrico", "fotoni"]}
+      ]
+    },
+    {
+      "id": "lez05-legami",
+      "title": "Legami Chimici",
+      "icon": "🔗",
+      "color": "green",
+      "exercises": [
+        {"id": "lez05-lewis-geometria", "title": "Lewis e Geometria VSEPR", "tags": ["lewis", "vsepr"]},
+        {"id": "lez05-lewis-geometria-1", "title": "Lewis e Geometria (2)", "tags": ["lewis", "vsepr"]},
+        {"id": "lez05-lewis-geometria-2", "title": "Lewis e Geometria (3)", "tags": ["lewis", "vsepr"]},
+        {"id": "lez05-lewis-geometria-3", "title": "Lewis e Geometria (4)", "tags": ["lewis", "vsepr"]},
+        {"id": "lez05-lewis-geometria-4", "title": "Lewis e Geometria (5)", "tags": ["lewis", "vsepr"]},
+        {"id": "lez05-lewis-geometria-BrF3-H2SO4-BaCl2-O3", "title": "Lewis BrF3, H2SO4, BaCl2, O3", "tags": ["lewis", "vsepr"]},
+        {"id": "lez05-lewis-ibridizzazione", "title": "Lewis e Ibridizzazione", "tags": ["lewis", "ibridizzazione"]},
+        {"id": "lez05-lewis-composti-carbonio", "title": "Composti del Carbonio", "tags": ["lewis", "carbonio"]},
+        {"id": "lez05-lewis-O3-H2SO4-KClO4-HCO3-BeCl2", "title": "O3, H2SO4, KClO4, HCO3-, BeCl2", "tags": ["lewis", "vsepr"]},
+        {"id": "lez05-paramagnetismo-O2", "title": "Paramagnetismo O2", "tags": ["paramagnetismo", "ossigeno"]}
+      ]
+    },
+    {
+      "id": "lez06-acidi-basi",
+      "title": "Acidi e Basi",
+      "icon": "🧫",
+      "color": "yellow",
+      "exercises": [
+        {"id": "lez06-pH-acido-base", "title": "pH Acido-Base", "tags": ["pH"]},
+        {"id": "lez06-pH-acido-acetico", "title": "pH Acido Acetico", "tags": ["pH", "acetico"]},
+        {"id": "lez06-pH-acido-acetico-1", "title": "pH Acido Acetico (2)", "tags": ["pH", "acetico"]},
+        {"id": "lez06-pH-acido-acetico-2", "title": "pH Acido Acetico (3)", "tags": ["pH", "acetico"]},
+        {"id": "lez06-pH-ammoniaca", "title": "pH Ammoniaca", "tags": ["pH", "ammoniaca"]},
+        {"id": "lez06-pH-ammoniaca-1", "title": "pH Ammoniaca (2)", "tags": ["pH", "ammoniaca"]},
+        {"id": "lez06-pH-eccesso-acido", "title": "pH Eccesso Acido", "tags": ["pH"]},
+        {"id": "lez06-pH-acido-debole-tampone", "title": "Acido Debole e Tampone", "tags": ["pH", "tampone"]},
+        {"id": "lez06-pH-NaOH-HBr", "title": "pH NaOH + HBr", "tags": ["pH", "titolazione"]},
+        {"id": "lez06-pH-tampone-acetico", "title": "Tampone Acetico", "tags": ["tampone", "acetico"]}
+      ]
+    },
+    {
+      "id": "lez07-08-termodinamica",
+      "title": "Termodinamica",
+      "icon": "🔥",
+      "color": "orange",
+      "exercises": [
+        {"id": "lez07-08-entropia", "title": "Entropia", "tags": ["entropia"]},
+        {"id": "lez07-08-equilibrio-chimico", "title": "Equilibrio Chimico", "tags": ["equilibrio"]},
+        {"id": "lez07-08-termodinamica-Kp", "title": "Termodinamica Kp", "tags": ["Kp", "equilibrio"]},
+        {"id": "lez07-08-equilibrio-Kp", "title": "Equilibrio Kp", "tags": ["Kp", "equilibrio"]},
+        {"id": "lez07-08-calore-combustione", "title": "Calore di Combustione", "tags": ["combustione", "entalpia"]},
+        {"id": "lez07-08-entalpia-idrogenazione", "title": "Entalpia Idrogenazione", "tags": ["entalpia", "idrogenazione"]},
+        {"id": "lez07-termodinamica-hess", "title": "Legge di Hess", "tags": ["hess", "entalpia"]},
+        {"id": "lez07-calorimetria", "title": "Calorimetria", "tags": ["calorimetria"]},
+        {"id": "lez07-calorimetria-etilene", "title": "Calorimetria Etilene", "tags": ["calorimetria", "etilene"]},
+        {"id": "lez07-08-termodinamica-Kp-acetone", "title": "Kp Acetone", "tags": ["Kp", "acetone"]},
+        {"id": "lez07-08-termodinamica-Kp-acetone-1", "title": "Kp Acetone (2)", "tags": ["Kp", "acetone"]},
+        {"id": "lez07-termodinamica-TNT", "title": "Termodinamica TNT", "tags": ["entalpia", "esplosivi"]},
+        {"id": "lez07-termodinamica-TNT-1", "title": "Termodinamica TNT (2)", "tags": ["entalpia", "esplosivi"]},
+        {"id": "lez07-08-Keq-termodinamica-ammoniaca", "title": "Keq Ammoniaca", "tags": ["equilibrio", "ammoniaca"]},
+        {"id": "lez07-08-equilibrio-SO2Cl2", "title": "Equilibrio SO2Cl2", "tags": ["equilibrio"]},
+        {"id": "lez07-08-Keq-N2O4-NO2", "title": "Keq N2O4/NO2", "tags": ["equilibrio"]}
+      ]
+    },
+    {
+      "id": "lez09-cinetica",
+      "title": "Cinetica Chimica",
+      "icon": "⏱️",
+      "color": "teal",
+      "exercises": [
+        {"id": "lez09-cinetica", "title": "Cinetica Base", "tags": ["cinetica"]},
+        {"id": "lez09-cinetica-decomposizione", "title": "Decomposizione", "tags": ["cinetica", "decomposizione"]},
+        {"id": "lez09-cinetica-2ordine", "title": "Cinetica 2° Ordine", "tags": ["cinetica", "ordine"]},
+        {"id": "lez09-cinetica-secondo-ordine", "title": "Secondo Ordine", "tags": ["cinetica", "ordine"]},
+        {"id": "lez09-cinetica-ordine-reazione", "title": "Ordine di Reazione", "tags": ["cinetica", "ordine"]},
+        {"id": "lez09-stechiometria-cinetica-NH3", "title": "Stechiometria Cinetica NH3", "tags": ["cinetica", "ammoniaca"]},
+        {"id": "lez09-arrhenius-temperatura", "title": "Arrhenius e Temperatura", "tags": ["arrhenius", "temperatura"]}
+      ]
+    },
+    {
+      "id": "lez10-elettrochimica",
+      "title": "Elettrochimica",
+      "icon": "⚡",
+      "color": "red",
+      "exercises": [
+        {"id": "lez10-elettrolisi", "title": "Elettrolisi", "tags": ["elettrolisi"]},
+        {"id": "lez10-elettrolisi-1", "title": "Elettrolisi (2)", "tags": ["elettrolisi"]},
+        {"id": "lez10-elettrolisi-alluminio", "title": "Elettrolisi Alluminio", "tags": ["elettrolisi", "alluminio"]},
+        {"id": "lez10-elettrolisi-cromo", "title": "Elettrolisi Cromo", "tags": ["elettrolisi", "cromo"]},
+        {"id": "lez10-elettrolisi-calcio", "title": "Elettrolisi Calcio", "tags": ["elettrolisi", "calcio"]},
+        {"id": "lez10-pila-Ag-Cu", "title": "Pila Ag/Cu", "tags": ["pila", "nernst"]},
+        {"id": "lez10-pila-Pb-Zn-nernst", "title": "Pila Pb/Zn + Nernst", "tags": ["pila", "nernst"]},
+        {"id": "lez10-pila-H2-Ag", "title": "Pila H2/Ag", "tags": ["pila", "idrogeno"]},
+        {"id": "lez10-pila-concentrazione", "title": "Pila a Concentrazione", "tags": ["pila", "concentrazione"]},
+        {"id": "lez10-pila-concentrazione-1", "title": "Pila Concentrazione (2)", "tags": ["pila", "concentrazione"]},
+        {"id": "lez10-pila-concentrazione-Fe", "title": "Pila Concentrazione Fe", "tags": ["pila", "ferro"]},
+        {"id": "lez10-pila-concentrazione-MnO4", "title": "Pila MnO4-", "tags": ["pila", "permanganato"]},
+        {"id": "lez10-pila-concentrazione-MnO4-basico", "title": "MnO4- Ambiente Basico", "tags": ["pila", "basico"]},
+        {"id": "lez10-Keq-elettrochimica", "title": "Keq da Elettrochimica", "tags": ["equilibrio", "potenziale"]},
+        {"id": "lez10-redox-metalli-acido", "title": "Redox Metalli-Acido", "tags": ["redox", "metalli"]},
+        {"id": "lez10-elettrochimica-Kps-argento", "title": "Kps Argento", "tags": ["Kps", "argento"]}
+      ]
+    }
+  ]
+}

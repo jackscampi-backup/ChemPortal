@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trainer Nomenclatura - ChemPortal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2563eb',
+                        secondary: '#1e40af',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .quiz-card {
+            transition: all 0.3s ease;
+        }
+        .quiz-card.correct {
+            background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+            border-color: #28a745;
+        }
+        .quiz-card.wrong {
+            background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
+            border-color: #dc3545;
+        }
+        .formula-display {
+            font-family: 'Courier New', monospace;
+            font-size: 2.5em;
+            letter-spacing: 2px;
+        }
+        .option-btn {
+            transition: all 0.2s ease;
+        }
+        .option-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .option-btn.selected-correct {
+            background: #28a745 !important;
+            color: white;
+        }
+        .option-btn.selected-wrong {
+            background: #dc3545 !important;
+            color: white;
+        }
+        .option-btn.show-correct {
+            background: #28a745 !important;
+            color: white;
+        }
+        .streak-fire {
+            animation: pulse 0.5s ease infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-primary to-secondary text-white shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex items-center justify-between">
+                <a href="index.html" class="flex items-center space-x-3">
+                    <span class="text-3xl">⚗️</span>
+                    <div>
+                        <h1 class="text-2xl font-bold">ChemPortal</h1>
+                        <p class="text-blue-200 text-sm">Chimica Generale</p>
+                    </div>
+                </a>
+                <nav class="hidden md:flex space-x-6 items-center">
+                    <a href="index.html" class="hover:text-blue-200">Home</a>
+                    <a href="manuale.html" class="hover:text-blue-200">Manuale</a>
+                    <a href="esercizi.html" class="hover:text-blue-200">Esercizi</a>
+                    <a href="flashcard.html" class="hover:text-blue-200">Formule</a>
+                    <a href="simulazione.html" class="hover:text-blue-200">Simulazione</a>
+                </nav>
+                <button id="mobileMenuBtn" class="md:hidden text-white">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <div id="mobileMenu" class="hidden md:hidden bg-secondary">
+            <nav class="container mx-auto px-4 py-3 flex flex-col space-y-2">
+                <a href="index.html" class="text-white hover:text-blue-200 py-2">Home</a>
+                <a href="manuale.html" class="text-white hover:text-blue-200 py-2">Manuale</a>
+                <a href="esercizi.html" class="text-white hover:text-blue-200 py-2">Esercizi</a>
+                <a href="flashcard.html" class="text-white hover:text-blue-200 py-2">Formule</a>
+                <a href="simulazione.html" class="text-white hover:text-blue-200 py-2">Simulazione</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8">
+        <!-- Breadcrumb -->
+        <nav class="mb-6">
+            <ol class="flex items-center space-x-2 text-sm text-gray-500">
+                <li><a href="index.html" class="hover:text-primary">Home</a></li>
+                <li><span class="mx-2">/</span></li>
+                <li><a href="manuale.html?cap=00" class="hover:text-primary">Nomenclatura</a></li>
+                <li><span class="mx-2">/</span></li>
+                <li>Trainer</li>
+            </ol>
+        </nav>
+
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <h2 class="text-3xl font-bold text-gray-800 mb-2">Trainer Nomenclatura</h2>
+            <p class="text-gray-600">Impara la nomenclatura tradizionale e IUPAC con la pratica!</p>
+        </div>
+
+        <!-- Stats Bar -->
+        <div class="bg-white rounded-xl shadow-md p-4 mb-6">
+            <div class="flex flex-wrap justify-center gap-6">
+                <div class="text-center">
+                    <p class="text-3xl font-bold text-green-600" id="correctCount">0</p>
+                    <p class="text-sm text-gray-500">Corrette</p>
+                </div>
+                <div class="text-center">
+                    <p class="text-3xl font-bold text-red-600" id="wrongCount">0</p>
+                    <p class="text-sm text-gray-500">Sbagliate</p>
+                </div>
+                <div class="text-center">
+                    <p class="text-3xl font-bold text-blue-600" id="streakCount">0</p>
+                    <p class="text-sm text-gray-500">Serie <span id="streakFire"></span></p>
+                </div>
+                <div class="text-center">
+                    <p class="text-3xl font-bold text-purple-600" id="accuracy">0%</p>
+                    <p class="text-sm text-gray-500">Precisione</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Filters -->
+        <div class="bg-white rounded-xl shadow-md p-4 mb-6">
+            <div class="flex flex-wrap justify-center gap-3">
+                <label class="text-sm font-medium text-gray-700 self-center mr-2">Categoria:</label>
+                <select id="categoryFilter" class="px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary">
+                    <option value="all">Tutte</option>
+                    <option value="ossidi">Ossidi</option>
+                    <option value="idrossidi">Idrossidi</option>
+                    <option value="acidi">Acidi</option>
+                    <option value="sali">Sali</option>
+                </select>
+                <label class="text-sm font-medium text-gray-700 self-center ml-4 mr-2">Modalita:</label>
+                <select id="modeFilter" class="px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary">
+                    <option value="formula-to-name">Formula → Nome</option>
+                    <option value="name-to-formula">Nome → Formula</option>
+                    <option value="mixed">Mista</option>
+                </select>
+                <button onclick="resetStats()" class="ml-4 px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300">
+                    Reset
+                </button>
+            </div>
+        </div>
+
+        <!-- Quiz Card -->
+        <div id="quizCard" class="quiz-card bg-white rounded-xl shadow-lg p-8 max-w-2xl mx-auto border-2 border-transparent">
+            <div class="text-center mb-6">
+                <p class="text-sm text-gray-500 mb-2" id="questionType">Formula → Nome</p>
+                <div class="formula-display text-gray-800 mb-4" id="questionText">H₂SO₄</div>
+                <p class="text-gray-600" id="questionHint">Qual e il nome di questo composto?</p>
+            </div>
+
+            <!-- Options -->
+            <div id="optionsContainer" class="grid grid-cols-1 gap-3 mb-6">
+                <!-- Options will be populated by JS -->
+            </div>
+
+            <!-- Feedback -->
+            <div id="feedback" class="hidden text-center p-4 rounded-lg mb-4">
+                <p id="feedbackText" class="font-medium"></p>
+                <p id="feedbackExplanation" class="text-sm mt-2"></p>
+            </div>
+
+            <!-- Next Button -->
+            <div class="text-center">
+                <button id="nextBtn" onclick="nextQuestion()" class="hidden px-8 py-3 bg-primary text-white rounded-lg hover:bg-secondary transition font-medium">
+                    Prossima domanda →
+                </button>
+            </div>
+        </div>
+
+        <!-- Help Section -->
+        <div class="mt-8 max-w-2xl mx-auto">
+            <details class="bg-white rounded-xl shadow-md p-4">
+                <summary class="font-medium text-gray-700 cursor-pointer">Promemoria: Regole di nomenclatura</summary>
+                <div class="mt-4 text-sm text-gray-600 space-y-3">
+                    <p><strong>Suffissi tradizionali:</strong></p>
+                    <ul class="list-disc ml-6">
+                        <li><strong>-oso</strong>: n.o. minore (es. Fe²⁺ → ferroso)</li>
+                        <li><strong>-ico</strong>: n.o. maggiore (es. Fe³⁺ → ferrico)</li>
+                        <li><strong>ipo-...-oso</strong>: n.o. minimo (es. Cl⁺ → ipocloroso)</li>
+                        <li><strong>per-...-ico</strong>: n.o. massimo (es. Cl⁷⁺ → perclorico)</li>
+                    </ul>
+                    <p><strong>Da acido a sale:</strong></p>
+                    <ul class="list-disc ml-6">
+                        <li>-idrico → -uro (es. cloridrico → cloruro)</li>
+                        <li>-oso → -ito (es. solforoso → solfito)</li>
+                        <li>-ico → -ato (es. solforico → solfato)</li>
+                    </ul>
+                    <p><a href="manuale.html?cap=00" class="text-primary hover:underline">Vai al capitolo completo →</a></p>
+                </div>
+            </details>
+        </div>
+    </main>
+
+    <script>
+        // Database dei composti
+        const compounds = [
+            // OSSIDI BASICI
+            { formula: 'Na₂O', name: 'Ossido di sodio', nameIupac: 'Ossido di disodio', category: 'ossidi', type: 'basico' },
+            { formula: 'K₂O', name: 'Ossido di potassio', nameIupac: 'Ossido di dipotassio', category: 'ossidi', type: 'basico' },
+            { formula: 'CaO', name: 'Ossido di calcio', nameIupac: 'Ossido di calcio', category: 'ossidi', type: 'basico' },
+            { formula: 'MgO', name: 'Ossido di magnesio', nameIupac: 'Ossido di magnesio', category: 'ossidi', type: 'basico' },
+            { formula: 'FeO', name: 'Ossido ferroso', nameIupac: 'Monossido di ferro', category: 'ossidi', type: 'basico' },
+            { formula: 'Fe₂O₃', name: 'Ossido ferrico', nameIupac: 'Triossido di diferro', category: 'ossidi', type: 'basico' },
+            { formula: 'Cu₂O', name: 'Ossido rameoso', nameIupac: 'Ossido di dirame', category: 'ossidi', type: 'basico' },
+            { formula: 'CuO', name: 'Ossido rameico', nameIupac: 'Ossido di rame', category: 'ossidi', type: 'basico' },
+            { formula: 'Al₂O₃', name: 'Ossido di alluminio', nameIupac: 'Triossido di dialluminio', category: 'ossidi', type: 'basico' },
+            { formula: 'ZnO', name: 'Ossido di zinco', nameIupac: 'Ossido di zinco', category: 'ossidi', type: 'basico' },
+
+            // ANIDRIDI (OSSIDI ACIDI)
+            { formula: 'CO₂', name: 'Anidride carbonica', nameIupac: 'Diossido di carbonio', category: 'ossidi', type: 'acido' },
+            { formula: 'SO₂', name: 'Anidride solforosa', nameIupac: 'Diossido di zolfo', category: 'ossidi', type: 'acido' },
+            { formula: 'SO₃', name: 'Anidride solforica', nameIupac: 'Triossido di zolfo', category: 'ossidi', type: 'acido' },
+            { formula: 'N₂O₃', name: 'Anidride nitrosa', nameIupac: 'Triossido di diazoto', category: 'ossidi', type: 'acido' },
+            { formula: 'N₂O₅', name: 'Anidride nitrica', nameIupac: 'Pentossido di diazoto', category: 'ossidi', type: 'acido' },
+            { formula: 'P₂O₃', name: 'Anidride fosforosa', nameIupac: 'Triossido di difosforo', category: 'ossidi', type: 'acido' },
+            { formula: 'P₂O₅', name: 'Anidride fosforica', nameIupac: 'Pentossido di difosforo', category: 'ossidi', type: 'acido' },
+            { formula: 'Cl₂O', name: 'Anidride ipoclorosa', nameIupac: 'Ossido di dicloro', category: 'ossidi', type: 'acido' },
+            { formula: 'Cl₂O₃', name: 'Anidride clorosa', nameIupac: 'Triossido di dicloro', category: 'ossidi', type: 'acido' },
+            { formula: 'Cl₂O₅', name: 'Anidride clorica', nameIupac: 'Pentossido di dicloro', category: 'ossidi', type: 'acido' },
+            { formula: 'Cl₂O₇', name: 'Anidride perclorica', nameIupac: 'Eptossido di dicloro', category: 'ossidi', type: 'acido' },
+
+            // IDROSSIDI
+            { formula: 'NaOH', name: 'Idrossido di sodio', nameIupac: 'Idrossido di sodio', category: 'idrossidi' },
+            { formula: 'KOH', name: 'Idrossido di potassio', nameIupac: 'Idrossido di potassio', category: 'idrossidi' },
+            { formula: 'Ca(OH)₂', name: 'Idrossido di calcio', nameIupac: 'Diidrossido di calcio', category: 'idrossidi' },
+            { formula: 'Mg(OH)₂', name: 'Idrossido di magnesio', nameIupac: 'Diidrossido di magnesio', category: 'idrossidi' },
+            { formula: 'Fe(OH)₂', name: 'Idrossido ferroso', nameIupac: 'Diidrossido di ferro', category: 'idrossidi' },
+            { formula: 'Fe(OH)₃', name: 'Idrossido ferrico', nameIupac: 'Triidrossido di ferro', category: 'idrossidi' },
+            { formula: 'Cu(OH)₂', name: 'Idrossido rameico', nameIupac: 'Diidrossido di rame', category: 'idrossidi' },
+            { formula: 'Al(OH)₃', name: 'Idrossido di alluminio', nameIupac: 'Triidrossido di alluminio', category: 'idrossidi' },
+            { formula: 'Zn(OH)₂', name: 'Idrossido di zinco', nameIupac: 'Diidrossido di zinco', category: 'idrossidi' },
+
+            // ACIDI (IDRACIDI)
+            { formula: 'HCl', name: 'Acido cloridrico', nameIupac: 'Cloruro di idrogeno', category: 'acidi', type: 'idracido' },
+            { formula: 'HBr', name: 'Acido bromidrico', nameIupac: 'Bromuro di idrogeno', category: 'acidi', type: 'idracido' },
+            { formula: 'HI', name: 'Acido iodidrico', nameIupac: 'Ioduro di idrogeno', category: 'acidi', type: 'idracido' },
+            { formula: 'HF', name: 'Acido fluoridrico', nameIupac: 'Fluoruro di idrogeno', category: 'acidi', type: 'idracido' },
+            { formula: 'H₂S', name: 'Acido solfidrico', nameIupac: 'Solfuro di idrogeno', category: 'acidi', type: 'idracido' },
+
+            // ACIDI (OSSIACIDI)
+            { formula: 'H₂SO₃', name: 'Acido solforoso', nameIupac: 'Acido triossosolforico(IV)', category: 'acidi', type: 'ossiacido' },
+            { formula: 'H₂SO₄', name: 'Acido solforico', nameIupac: 'Acido tetraossosolforico(VI)', category: 'acidi', type: 'ossiacido' },
+            { formula: 'HNO₂', name: 'Acido nitroso', nameIupac: 'Acido diossonitrico(III)', category: 'acidi', type: 'ossiacido' },
+            { formula: 'HNO₃', name: 'Acido nitrico', nameIupac: 'Acido triossonitrico(V)', category: 'acidi', type: 'ossiacido' },
+            { formula: 'H₂CO₃', name: 'Acido carbonico', nameIupac: 'Acido triosscarbonico(IV)', category: 'acidi', type: 'ossiacido' },
+            { formula: 'H₃PO₄', name: 'Acido fosforico', nameIupac: 'Acido tetraossofosforico(V)', category: 'acidi', type: 'ossiacido' },
+            { formula: 'HClO', name: 'Acido ipocloroso', nameIupac: 'Acido monossoclorico(I)', category: 'acidi', type: 'ossiacido' },
+            { formula: 'HClO₂', name: 'Acido cloroso', nameIupac: 'Acido diossoclorico(III)', category: 'acidi', type: 'ossiacido' },
+            { formula: 'HClO₃', name: 'Acido clorico', nameIupac: 'Acido triossoclorico(V)', category: 'acidi', type: 'ossiacido' },
+            { formula: 'HClO₄', name: 'Acido perclorico', nameIupac: 'Acido tetraossoclorico(VII)', category: 'acidi', type: 'ossiacido' },
+
+            // SALI BINARI
+            { formula: 'NaCl', name: 'Cloruro di sodio', nameIupac: 'Cloruro di sodio', category: 'sali', type: 'binario' },
+            { formula: 'KBr', name: 'Bromuro di potassio', nameIupac: 'Bromuro di potassio', category: 'sali', type: 'binario' },
+            { formula: 'CaF₂', name: 'Fluoruro di calcio', nameIupac: 'Difluoruro di calcio', category: 'sali', type: 'binario' },
+            { formula: 'FeCl₂', name: 'Cloruro ferroso', nameIupac: 'Dicloruro di ferro', category: 'sali', type: 'binario' },
+            { formula: 'FeCl₃', name: 'Cloruro ferrico', nameIupac: 'Tricloruro di ferro', category: 'sali', type: 'binario' },
+            { formula: 'Na₂S', name: 'Solfuro di sodio', nameIupac: 'Solfuro di disodio', category: 'sali', type: 'binario' },
+            { formula: 'ZnS', name: 'Solfuro di zinco', nameIupac: 'Solfuro di zinco', category: 'sali', type: 'binario' },
+            { formula: 'AgCl', name: 'Cloruro di argento', nameIupac: 'Cloruro di argento', category: 'sali', type: 'binario' },
+
+            // SALI TERNARI
+            { formula: 'Na₂SO₃', name: 'Solfito di sodio', nameIupac: 'Triossosolfato(IV) di disodio', category: 'sali', type: 'ternario' },
+            { formula: 'Na₂SO₄', name: 'Solfato di sodio', nameIupac: 'Tetraossosolfato(VI) di disodio', category: 'sali', type: 'ternario' },
+            { formula: 'KNO₂', name: 'Nitrito di potassio', nameIupac: 'Diossonitrato(III) di potassio', category: 'sali', type: 'ternario' },
+            { formula: 'KNO₃', name: 'Nitrato di potassio', nameIupac: 'Triossonitrato(V) di potassio', category: 'sali', type: 'ternario' },
+            { formula: 'CaCO₃', name: 'Carbonato di calcio', nameIupac: 'Triossocarbonato(IV) di calcio', category: 'sali', type: 'ternario' },
+            { formula: 'NaHCO₃', name: 'Bicarbonato di sodio', nameIupac: 'Idrogenotriossocarbonato(IV) di sodio', category: 'sali', type: 'ternario' },
+            { formula: 'FeSO₄', name: 'Solfato ferroso', nameIupac: 'Tetraossosolfato(VI) di ferro(II)', category: 'sali', type: 'ternario' },
+            { formula: 'Fe₂(SO₄)₃', name: 'Solfato ferrico', nameIupac: 'Tetraossosolfato(VI) di ferro(III)', category: 'sali', type: 'ternario' },
+            { formula: 'NaClO', name: 'Ipoclorito di sodio', nameIupac: 'Monossoclorato(I) di sodio', category: 'sali', type: 'ternario' },
+            { formula: 'KClO₃', name: 'Clorato di potassio', nameIupac: 'Triossoclorato(V) di potassio', category: 'sali', type: 'ternario' },
+            { formula: 'KClO₄', name: 'Perclorato di potassio', nameIupac: 'Tetraossoclorato(VII) di potassio', category: 'sali', type: 'ternario' },
+            { formula: 'Ca₃(PO₄)₂', name: 'Fosfato di calcio', nameIupac: 'Tetraosofosfato(V) di tricalcio', category: 'sali', type: 'ternario' },
+            { formula: 'AgNO₃', name: 'Nitrato di argento', nameIupac: 'Triossonitrato(V) di argento', category: 'sali', type: 'ternario' },
+            { formula: 'CuSO₄', name: 'Solfato rameico', nameIupac: 'Tetraossosolfato(VI) di rame(II)', category: 'sali', type: 'ternario' },
+        ];
+
+        let currentQuestion = null;
+        let stats = { correct: 0, wrong: 0, streak: 0, maxStreak: 0 };
+        let answered = false;
+
+        function getFilteredCompounds() {
+            const category = document.getElementById('categoryFilter').value;
+            if (category === 'all') return compounds;
+            return compounds.filter(c => c.category === category);
+        }
+
+        function generateQuestion() {
+            const filtered = getFilteredCompounds();
+            if (filtered.length === 0) return;
+
+            const mode = document.getElementById('modeFilter').value;
+            const compound = filtered[Math.floor(Math.random() * filtered.length)];
+
+            let questionMode = mode;
+            if (mode === 'mixed') {
+                questionMode = Math.random() > 0.5 ? 'formula-to-name' : 'name-to-formula';
+            }
+
+            currentQuestion = {
+                compound,
+                mode: questionMode
+            };
+
+            renderQuestion();
+        }
+
+        function renderQuestion() {
+            const card = document.getElementById('quizCard');
+            card.classList.remove('correct', 'wrong');
+            answered = false;
+
+            const { compound, mode } = currentQuestion;
+
+            document.getElementById('questionType').textContent =
+                mode === 'formula-to-name' ? 'Formula → Nome' : 'Nome → Formula';
+
+            if (mode === 'formula-to-name') {
+                document.getElementById('questionText').textContent = compound.formula;
+                document.getElementById('questionHint').textContent = 'Qual e il nome tradizionale di questo composto?';
+            } else {
+                document.getElementById('questionText').textContent = compound.name;
+                document.getElementById('questionHint').textContent = 'Qual e la formula di questo composto?';
+            }
+
+            // Generate options
+            const correctAnswer = mode === 'formula-to-name' ? compound.name : compound.formula;
+            const options = generateOptions(compound, mode);
+
+            const container = document.getElementById('optionsContainer');
+            container.innerHTML = options.map((opt, i) => `
+                <button onclick="checkAnswer('${opt.replace(/'/g, "\\'")}')"
+                        class="option-btn w-full p-4 text-left border-2 border-gray-200 rounded-lg hover:border-primary hover:bg-blue-50 transition"
+                        data-option="${opt}">
+                    ${opt}
+                </button>
+            `).join('');
+
+            document.getElementById('feedback').classList.add('hidden');
+            document.getElementById('nextBtn').classList.add('hidden');
+        }
+
+        function generateOptions(compound, mode) {
+            const correctAnswer = mode === 'formula-to-name' ? compound.name : compound.formula;
+            const filtered = getFilteredCompounds();
+
+            // Get wrong answers from same category
+            let wrongAnswers = filtered
+                .filter(c => c !== compound)
+                .map(c => mode === 'formula-to-name' ? c.name : c.formula)
+                .filter(a => a !== correctAnswer);
+
+            // Shuffle and take 3
+            wrongAnswers = wrongAnswers.sort(() => Math.random() - 0.5).slice(0, 3);
+
+            // Combine and shuffle
+            const options = [correctAnswer, ...wrongAnswers].sort(() => Math.random() - 0.5);
+            return options;
+        }
+
+        function checkAnswer(selected) {
+            if (answered) return;
+            answered = true;
+
+            const { compound, mode } = currentQuestion;
+            const correctAnswer = mode === 'formula-to-name' ? compound.name : compound.formula;
+            const isCorrect = selected === correctAnswer;
+
+            // Update stats
+            if (isCorrect) {
+                stats.correct++;
+                stats.streak++;
+                if (stats.streak > stats.maxStreak) stats.maxStreak = stats.streak;
+            } else {
+                stats.wrong++;
+                stats.streak = 0;
+            }
+            updateStats();
+
+            // Visual feedback
+            const card = document.getElementById('quizCard');
+            card.classList.add(isCorrect ? 'correct' : 'wrong');
+
+            // Highlight buttons
+            document.querySelectorAll('.option-btn').forEach(btn => {
+                btn.disabled = true;
+                if (btn.dataset.option === selected) {
+                    btn.classList.add(isCorrect ? 'selected-correct' : 'selected-wrong');
+                }
+                if (btn.dataset.option === correctAnswer && !isCorrect) {
+                    btn.classList.add('show-correct');
+                }
+            });
+
+            // Show feedback
+            const feedback = document.getElementById('feedback');
+            feedback.classList.remove('hidden', 'bg-green-100', 'bg-red-100');
+            feedback.classList.add(isCorrect ? 'bg-green-100' : 'bg-red-100');
+
+            document.getElementById('feedbackText').textContent =
+                isCorrect ? 'Corretto!' : 'Sbagliato!';
+
+            let explanation = '';
+            if (!isCorrect) {
+                explanation = `La risposta corretta era: ${correctAnswer}`;
+            }
+            if (compound.nameIupac && mode === 'formula-to-name') {
+                explanation += explanation ? '<br>' : '';
+                explanation += `Nome IUPAC: ${compound.nameIupac}`;
+            }
+            document.getElementById('feedbackExplanation').innerHTML = explanation;
+
+            document.getElementById('nextBtn').classList.remove('hidden');
+        }
+
+        function updateStats() {
+            document.getElementById('correctCount').textContent = stats.correct;
+            document.getElementById('wrongCount').textContent = stats.wrong;
+            document.getElementById('streakCount').textContent = stats.streak;
+
+            const total = stats.correct + stats.wrong;
+            const accuracy = total > 0 ? Math.round((stats.correct / total) * 100) : 0;
+            document.getElementById('accuracy').textContent = accuracy + '%';
+
+            // Fire animation for streak
+            const fire = document.getElementById('streakFire');
+            if (stats.streak >= 3) {
+                fire.textContent = '🔥';
+                fire.classList.add('streak-fire');
+            } else {
+                fire.textContent = '';
+                fire.classList.remove('streak-fire');
+            }
+        }
+
+        function nextQuestion() {
+            generateQuestion();
+        }
+
+        function resetStats() {
+            stats = { correct: 0, wrong: 0, streak: 0, maxStreak: 0 };
+            updateStats();
+            generateQuestion();
+        }
+
+        // Event listeners
+        document.getElementById('categoryFilter').addEventListener('change', generateQuestion);
+        document.getElementById('modeFilter').addEventListener('change', generateQuestion);
+
+        document.getElementById('mobileMenuBtn').addEventListener('click', () => {
+            document.getElementById('mobileMenu').classList.toggle('hidden');
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            generateQuestion();
+        });
+    </script>
+</body>
+</html>

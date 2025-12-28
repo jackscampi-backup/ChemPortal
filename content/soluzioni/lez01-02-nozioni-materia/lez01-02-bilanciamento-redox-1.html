@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Esame 10 - Quesito 8: Bilanciamento Redox</title>
+    <style>
+        body { font-family: Georgia, serif; max-width: 850px; margin: 40px auto; padding: 20px; line-height: 1.8; }
+        h1 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+        h2 { color: #2980b9; margin-top: 30px; }
+        h3 { color: #1a5276; margin-top: 25px; }
+        .question { background: #ecf0f1; padding: 15px; border-left: 4px solid #3498db; margin: 20px 0; }
+        .result { background: #d5f5e3; padding: 15px; border-left: 4px solid #27ae60; margin: 20px 0; font-weight: bold; }
+        .formula { background: #fdebd0; padding: 10px; margin: 10px 0; font-family: monospace; font-size: 1.1em; }
+        .step { background: #f8f9fa; padding: 12px; margin: 10px 0; border-left: 3px solid #9b59b6; }
+        .warning { background: #fadbd8; padding: 12px; margin: 10px 0; border-left: 3px solid #e74c3c; }
+        .info { background: #d6eaf8; padding: 12px; margin: 10px 0; border-left: 3px solid #3498db; }
+        table { border-collapse: collapse; width: 100%; margin: 20px 0; }
+        th, td { border: 1px solid #bdc3c7; padding: 10px; text-align: center; }
+        th { background: #3498db; color: white; }
+        hr { margin: 40px 0; border: 1px solid #bdc3c7; }
+    
+    .done-buttons {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+    .mark-btn {
+        padding: 12px 24px;
+        font-size: 1em;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .mark-done {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        color: white;
+    }
+    .mark-done:hover, .mark-done.selected {
+        background: linear-gradient(135deg, #1e7e34, #17a085);
+        transform: scale(1.05);
+    }
+    .mark-review {
+        background: linear-gradient(135deg, #ffc107, #fd7e14);
+        color: white;
+    }
+    .mark-review:hover, .mark-review.selected {
+        background: linear-gradient(135deg, #d39e00, #dc6502);
+        transform: scale(1.05);
+    }
+    .mark-reset {
+        background: #6c757d;
+        color: white;
+    }
+    .mark-reset:hover {
+        background: #545b62;
+    }
+    .mark-btn.selected {
+        box-shadow: 0 0 0 3px rgba(0,0,0,0.2);
+    }
+</style>
+
+<style>
+    .quiz-container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px;
+        padding-bottom: 120px;
+    }
+    .question-section {
+        background: linear-gradient(135deg, #e8f4f8 0%, #d4edda 100%);
+        border: 2px solid #17a2b8;
+        border-radius: 10px;
+        padding: 25px;
+        margin-bottom: 20px;
+    }
+    .question-section h2 {
+        color: #0c5460;
+        margin-top: 0;
+        margin-bottom: 15px;
+    }
+    .show-next-btn {
+        display: block;
+        width: 100%;
+        padding: 15px 30px;
+        font-size: 1.1em;
+        font-weight: bold;
+        color: white;
+        background: linear-gradient(135deg, #007bff, #0056b3);
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        margin: 15px 0;
+        transition: all 0.3s ease;
+    }
+    .show-next-btn:hover {
+        background: linear-gradient(135deg, #0056b3, #004094);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 123, 255, 0.4);
+    }
+    .show-all-btn {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        margin-top: 10px;
+    }
+    .show-all-btn:hover {
+        background: linear-gradient(135deg, #218838, #1db385);
+        box-shadow: 0 4px 12px rgba(40, 167, 69, 0.4);
+    }
+    .step-container {
+        display: none;
+        animation: fadeIn 0.5s ease;
+        margin-bottom: 20px;
+        border: 1px solid #dee2e6;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    .step-container.visible {
+        display: block;
+    }
+    .step-header {
+        background: linear-gradient(135deg, #6c757d, #495057);
+        color: white;
+        padding: 12px 20px;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+    }
+    .step-number-badge {
+        background: white;
+        color: #495057;
+        border-radius: 50%;
+        width: 28px;
+        height: 28px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 12px;
+        font-weight: bold;
+    }
+    .step-content {
+        padding: 20px;
+        background: white;
+    }
+    .progress-bar {
+        background: #e9ecef;
+        border-radius: 10px;
+        height: 8px;
+        margin: 15px 0;
+        overflow: hidden;
+    }
+    .progress-fill {
+        background: linear-gradient(90deg, #28a745, #20c997);
+        height: 100%;
+        border-radius: 10px;
+        transition: width 0.5s ease;
+    }
+    .progress-text {
+        text-align: center;
+        color: #6c757d;
+        font-size: 0.9em;
+        margin-bottom: 15px;
+    }
+    .controls {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: white;
+        padding: 15px 20px;
+        border-top: 2px solid #dee2e6;
+        box-shadow: 0 -4px 12px rgba(0,0,0,0.1);
+        z-index: 1000;
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+    }
+    .quiz-container {
+        padding-bottom: 100px;
+    }
+    .show-next-btn {
+        width: auto;
+        margin: 0;
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .final-answer {
+        background: #d4edda;
+        border: 2px solid #28a745;
+        border-radius: 10px;
+        padding: 20px;
+        margin-top: 20px;
+    }
+    .final-answer h3 {
+        color: #155724;
+        margin-top: 0;
+    }
+
+    .done-buttons {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+    .mark-btn {
+        padding: 12px 24px;
+        font-size: 1em;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .mark-done {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        color: white;
+    }
+    .mark-done:hover, .mark-done.selected {
+        background: linear-gradient(135deg, #1e7e34, #17a085);
+        transform: scale(1.05);
+    }
+    .mark-review {
+        background: linear-gradient(135deg, #ffc107, #fd7e14);
+        color: white;
+    }
+    .mark-review:hover, .mark-review.selected {
+        background: linear-gradient(135deg, #d39e00, #dc6502);
+        transform: scale(1.05);
+    }
+    .mark-reset {
+        background: #6c757d;
+        color: white;
+    }
+    .mark-reset:hover {
+        background: #545b62;
+    }
+    .mark-btn.selected {
+        box-shadow: 0 0 0 3px rgba(0,0,0,0.2);
+    }
+</style>
+</head>
+<body>
+<div class="quiz-container">
+    <h1>Esame 10 - Quesito 8: Bilanciamento Reazioni Redox</h1>
+
+    <div class="question-section">
+        <h2>Testo dell'esercizio</h2>
+        <p>Risolvi l'esercizio seguente.</p>
+    </div>
+
+    <div class="progress-text" id="progress-text">Passaggio 0 di 4</div>
+    <div class="progress-bar">
+        <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+    </div>
+
+    <div class="controls">
+        <button id="next-btn" class="show-next-btn" onclick="showNextStep()">
+            ▶ Prossimo passaggio
+        </button>
+        <button id="all-btn" class="show-next-btn show-all-btn" onclick="showAllSteps()">
+            ⏩ Mostra tutto
+        </button>
+        <div id="done-buttons" class="done-buttons" style="display: none;">
+            <button id="mark-done" class="mark-btn mark-done" onclick="markExercise('done')">
+                ✓ Fatto
+            </button>
+            <button id="mark-review" class="mark-btn mark-review" onclick="markExercise('review')">
+                ⚠ Da rivedere
+            </button>
+            <button class="mark-btn mark-reset" onclick="resetExercise()">
+                ↺ Ricomincia
+            </button>
+            <button class="mark-btn" style="background: #17a2b8;" onclick="closeExercise()">
+                ✕ Chiudi
+            </button>
+        </div>
+    </div>
+
+    <div id="steps-wrapper">
+        
+        <div id="step-0" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">1</span>
+                REAZIONE 1: Mn2+ + ClO3- --> MnO2 + ClO2
+            </div>
+            <div class="step-content">
+                <h1>Esame 10 - Quesito 8: Bilanciamento Reazioni Redox</h1>
+
+<div class="question">
+<strong>TESTO DEL QUESITO:</strong><br>
+Completare e bilanciare le seguenti reazioni:<br>
+1) Mn<sup>2+</sup> + ClO<sub>3</sub><sup>-</sup> --> MnO<sub>2</sub> + ClO<sub>2</sub><br>
+2) KNO<sub>3</sub> + Al + KOH + H<sub>2</sub>O --> NH<sub>3</sub> + KAlO<sub>2</sub><br>
+3) Cr<sub>2</sub>O<sub>7</sub><sup>2-</sup> + C<sub>2</sub>O<sub>4</sub><sup>2-</sup> + H<sub>3</sub>O<sup>+</sup> --> Cr<sup>3+</sup> + CO<sub>2</sub> + H<sub>2</sub>O
+</div>
+
+<div class="info">
+<strong>Metodo che useremo:</strong> Il metodo delle semireazioni. L'idea e' semplice: separiamo la reazione in due parti - una dove qualcosa si ossida (perde elettroni) e una dove qualcosa si riduce (acquista elettroni). Poi bilanciamo separatamente e le rimettiamo insieme.
+</div>
+
+<hr><h2>REAZIONE 1: Mn<sup>2+</sup> + ClO<sub>3</sub><sup>-</sup> --> MnO<sub>2</sub> + ClO<sub>2</sub></h2>
+
+<h3>Passo 1: Identificare cosa si ossida e cosa si riduce</h3>
+
+<p>Prima di tutto, devo capire quali elementi cambiano il loro numero di ossidazione. Fermati un attimo a pensare: il numero di ossidazione e' come una "carica fittizia" che assegniamo agli atomi in un composto.</p>
+
+<p><strong>Analisi del Manganese (Mn):</strong></p>
+<ul>
+    <li>Nei reagenti: Mn<sup>2+</sup> --> il manganese ha carica +2, quindi n.o. = <strong>+2</strong></li>
+    <li>Nei prodotti: MnO<sub>2</sub> --> l'ossigeno ha sempre n.o. = -2, quindi: Mn + 2*(-2) = 0, cioe' Mn = <strong>+4</strong></li>
+</ul>
+<p>Il manganese passa da +2 a +4: <strong>PERDE elettroni</strong>, quindi si <strong>OSSIDA</strong>.</p>
+
+<p><strong>Analisi del Cloro (Cl):</strong></p>
+<ul>
+    <li>Nei reagenti: ClO<sub>3</sub><sup>-</sup> --> Cl + 3*(-2) = -1, quindi Cl = <strong>+5</strong></li>
+    <li>Nei prodotti: ClO<sub>2</sub> --> Cl + 2*(-2) = 0, quindi Cl = <strong>+4</strong></li>
+</ul>
+<p>Il cloro passa da +5 a +4: <strong>ACQUISTA elettroni</strong>, quindi si <strong>RIDUCE</strong>.</p>
+
+<h3>Passo 2: Scrivere le semireazioni</h3>
+
+<div class="step">
+<strong>Semireazione di ossidazione (Mn):</strong><br>
+Mn<sup>2+</sup> --> MnO<sub>2</sub>
+</div>
+
+<div class="step">
+<strong>Semireazione di riduzione (Cl):</strong><br>
+ClO<sub>3</sub><sup>-</sup> --> ClO<sub>2</sub>
+</div>
+
+<h3>Passo 3: Bilanciare le semireazioni</h3>
+
+<p>Per ogni semireazione, seguiamo quest'ordine: prima gli atomi diversi da H e O, poi gli ossigeni (con H<sub>2</sub>O), poi gli idrogeni (con H<sup>+</sup>), infine le cariche (con elettroni).</p>
+
+<p><strong>Semireazione di ossidazione:</strong></p>
+<div class="step">
+Mn<sup>2+</sup> --> MnO<sub>2</sub><br><br>
+<em>1. Mn e' gia' bilanciato (1 da ogni lato)</em><br><br>
+<em>2. Bilancio gli ossigeni:</em> A destra ho 2 ossigeni, a sinistra zero. In ambiente acquoso aggiungo H<sub>2</sub>O a sinistra:<br>
+Mn<sup>2+</sup> + 2H<sub>2</sub>O --> MnO<sub>2</sub><br><br>
+<em>3. Bilancio gli idrogeni:</em> A sinistra ho 4 H (da 2H<sub>2</sub>O), a destra zero. Aggiungo 4 H<sup>+</sup> a destra:<br>
+Mn<sup>2+</sup> + 2H<sub>2</sub>O --> MnO<sub>2</sub> + 4H<sup>+</sup><br><br>
+<em>4. Bilancio le cariche con gli elettroni:</em><br>
+- Sinistra: +2<br>
+- Destra: +4 (da 4H<sup>+</sup>)<br>
+Devo aggiungere 2 elettroni a destra per bilanciare:<br>
+<strong>Mn<sup>2+</sup> + 2H<sub>2</sub>O --> MnO<sub>2</sub> + 4H<sup>+</sup> + 2e<sup>-</sup></strong><br>
+Verifica: +2 = +4 - 2 = +2  OK!
+</div>
+
+<p><strong>Semireazione di riduzione:</strong></p>
+<div class="step">
+ClO<sub>3</sub><sup>-</sup> --> ClO<sub>2</sub><br><br>
+<em>1. Cl e' gia' bilanciato</em><br><br>
+<em>2. Bilancio gli ossigeni:</em> A sinistra ho 3 O, a destra ho 2 O. Aggiungo 1 H<sub>2</sub>O a destra:<br>
+ClO<sub>3</sub><sup>-</sup> --> ClO<sub>2</sub> + H<sub>2</sub>O<br><br>
+<em>3. Bilancio gli idrogeni:</em> A destra ho 2 H, a sinistra zero. Aggiungo 2 H<sup>+</sup> a sinistra:<br>
+ClO<sub>3</sub><sup>-</sup> + 2H<sup>+</sup> --> ClO<sub>2</sub> + H<sub>2</sub>O<br><br>
+<em>4. Bilancio le cariche:</em><br>
+- Sinistra: -1 + 2 = +1<br>
+- Destra: 0<br>
+Devo aggiungere 1 elettrone a sinistra:<br>
+<strong>ClO<sub>3</sub><sup>-</sup> + 2H<sup>+</sup> + e<sup>-</sup> --> ClO<sub>2</sub> + H<sub>2</sub>O</strong><br>
+Verifica: -1 + 2 - 1 = 0 = 0  OK!
+</div>
+
+<h3>Passo 4: Eguagliare gli elettroni e sommare</h3>
+
+<p>Ora il punto cruciale: gli elettroni che vengono ceduti nell'ossidazione DEVONO essere uguali a quelli acquistati nella riduzione. E' la conservazione della carica!</p>
+
+<ul>
+    <li>Ossidazione: cede 2 elettroni</li>
+    <li>Riduzione: acquista 1 elettrone</li>
+</ul>
+
+<p>Devo moltiplicare la riduzione per 2:</p>
+
+<div class="step">
+<strong>Ossidazione (x1):</strong> Mn<sup>2+</sup> + 2H<sub>2</sub>O --> MnO<sub>2</sub> + 4H<sup>+</sup> + 2e<sup>-</sup><br>
+<strong>Riduzione (x2):</strong> 2ClO<sub>3</sub><sup>-</sup> + 4H<sup>+</sup> + 2e<sup>-</sup> --> 2ClO<sub>2</sub> + 2H<sub>2</sub>O
+</div>
+
+<p>Sommo le due semireazioni (gli elettroni si semplificano!):</p>
+
+<div class="formula">
+Mn<sup>2+</sup> + 2H<sub>2</sub>O + 2ClO<sub>3</sub><sup>-</sup> + 4H<sup>+</sup> --> MnO<sub>2</sub> + 4H<sup>+</sup> + 2ClO<sub>2</sub> + 2H<sub>2</sub>O
+</div>
+
+<p>Semplifico i termini uguali da entrambi i lati:</p>
+<ul>
+    <li>2H<sub>2</sub>O a sinistra e 2H<sub>2</sub>O a destra --> si eliminano</li>
+    <li>4H<sup>+</sup> a sinistra e 4H<sup>+</sup> a destra --> si eliminano</li>
+</ul>
+
+<div class="result">
+<strong>REAZIONE 1 BILANCIATA:</strong><br><br>
+Mn<sup>2+</sup> + 2ClO<sub>3</sub><sup>-</sup> --> MnO<sub>2</sub> + 2ClO<sub>2</sub>
+</div>
+
+<p><strong>Verifica finale:</strong></p>
+<table>
+    <tr><th>Elemento</th><th>Sinistra</th><th>Destra</th></tr>
+    <tr><td>Mn</td><td>1</td><td>1</td></tr>
+    <tr><td>Cl</td><td>2</td><td>2</td></tr>
+    <tr><td>O</td><td>6</td><td>2+4=6</td></tr>
+    <tr><td>Carica</td><td>+2-2=0</td><td>0</td></tr>
+</table>
+<p>Tutto bilanciato!</p>
+
+<hr>
+            </div>
+        </div>
+        
+        <div id="step-1" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">2</span>
+                REAZIONE 2: KNO3 + Al + KOH + H2O --> NH3 + KAlO2
+            </div>
+            <div class="step-content">
+                <h2>REAZIONE 2: KNO<sub>3</sub> + Al + KOH + H<sub>2</sub>O --> NH<sub>3</sub> + KAlO<sub>2</sub></h2>
+
+<div class="info">
+<strong>Attenzione!</strong> Questa reazione avviene in ambiente BASICO (c'e' KOH). Il metodo e' lo stesso, ma invece di H<sup>+</sup> useremo OH<sup>-</sup>.
+</div>
+
+<h3>Passo 1: Identificare cosa si ossida e cosa si riduce</h3>
+
+<p><strong>Analisi dell'Alluminio (Al):</strong></p>
+<ul>
+    <li>Nei reagenti: Al metallico --> n.o. = <strong>0</strong></li>
+    <li>Nei prodotti: KAlO<sub>2</sub> --> K ha +1, O ha -2, quindi: +1 + Al + 2*(-2) = 0, cioe' Al = <strong>+3</strong></li>
+</ul>
+<p>L'alluminio passa da 0 a +3: <strong>PERDE elettroni</strong>, quindi si <strong>OSSIDA</strong>.</p>
+
+<p><strong>Analisi dell'Azoto (N):</strong></p>
+<ul>
+    <li>Nei reagenti: KNO<sub>3</sub> --> K ha +1, O ha -2, quindi: +1 + N + 3*(-2) = 0, cioe' N = <strong>+5</strong></li>
+    <li>Nei prodotti: NH<sub>3</sub> --> H ha +1, quindi: N + 3*(+1) = 0, cioe' N = <strong>-3</strong></li>
+</ul>
+<p>L'azoto passa da +5 a -3: <strong>ACQUISTA elettroni</strong> (ben 8!), quindi si <strong>RIDUCE</strong>.</p>
+
+<h3>Passo 2: Scrivere le semireazioni ioniche</h3>
+
+<p>In ambiente basico, lavoriamo con le specie ioniche. KNO<sub>3</sub> in soluzione da' K<sup>+</sup> e NO<sub>3</sub><sup>-</sup>.</p>
+
+<div class="step">
+<strong>Semireazione di ossidazione (Al):</strong><br>
+Al --> AlO<sub>2</sub><sup>-</sup>
+</div>
+
+<div class="step">
+<strong>Semireazione di riduzione (N):</strong><br>
+NO<sub>3</sub><sup>-</sup> --> NH<sub>3</sub>
+</div>
+
+<h3>Passo 3: Bilanciare le semireazioni in ambiente basico</h3>
+
+<p><strong>Semireazione di ossidazione:</strong></p>
+<div class="step">
+Al --> AlO<sub>2</sub><sup>-</sup><br><br>
+<em>1. Al e' bilanciato</em><br><br>
+<em>2. Bilancio gli ossigeni con OH<sup>-</sup>:</em> A destra ho 2 O, a sinistra zero. In ambiente basico, aggiungo 4 OH<sup>-</sup> a sinistra (perche' ogni O richiede 2 OH<sup>-</sup> per avere anche l'H<sub>2</sub>O dall'altra parte):<br>
+Al + 4OH<sup>-</sup> --> AlO<sub>2</sub><sup>-</sup><br><br>
+<em>3. Bilancio gli idrogeni:</em> A sinistra ho 4 H (da 4 OH<sup>-</sup>), a destra zero. Aggiungo 2 H<sub>2</sub>O a destra:<br>
+Al + 4OH<sup>-</sup> --> AlO<sub>2</sub><sup>-</sup> + 2H<sub>2</sub>O<br><br>
+<em>Verifica ossigeni:</em> Sinistra: 4, Destra: 2+2=4  OK!<br><br>
+<em>4. Bilancio le cariche:</em><br>
+- Sinistra: 4*(-1) = -4<br>
+- Destra: -1<br>
+Devo aggiungere 3 elettroni a destra:<br>
+<strong>Al + 4OH<sup>-</sup> --> AlO<sub>2</sub><sup>-</sup> + 2H<sub>2</sub>O + 3e<sup>-</sup></strong><br>
+Verifica: -4 = -1 - 3 = -4  OK!
+</div>
+
+<p><strong>Semireazione di riduzione:</strong></p>
+<div class="step">
+NO<sub>3</sub><sup>-</sup> --> NH<sub>3</sub><br><br>
+<em>1. N e' bilanciato</em><br><br>
+<em>2. Bilancio gli ossigeni:</em> A sinistra ho 3 O, a destra zero. In ambiente basico, aggiungo 3 H<sub>2</sub>O a destra e 6 OH<sup>-</sup> a sinistra:<br>
+NO<sub>3</sub><sup>-</sup> + 6H<sub>2</sub>O --> NH<sub>3</sub> + ...<br><br>
+Aspetta, usiamo un approccio piu' sistematico. Bilancio prima in ambiente acido, poi converto in basico.<br><br>
+<em>In ambiente acido:</em><br>
+NO<sub>3</sub><sup>-</sup> --> NH<sub>3</sub><br>
+- Bilancio O con H<sub>2</sub>O: 3 ossigeni a sinistra, aggiungo 3 H<sub>2</sub>O a destra<br>
+NO<sub>3</sub><sup>-</sup> --> NH<sub>3</sub> + 3H<sub>2</sub>O<br>
+- Bilancio H: a destra ho 3+6=9 H, aggiungo 9 H<sup>+</sup> a sinistra<br>
+NO<sub>3</sub><sup>-</sup> + 9H<sup>+</sup> --> NH<sub>3</sub> + 3H<sub>2</sub>O<br>
+- Bilancio cariche: sinistra = -1+9 = +8, destra = 0. Aggiungo 8 e<sup>-</sup> a sinistra<br>
+NO<sub>3</sub><sup>-</sup> + 9H<sup>+</sup> + 8e<sup>-</sup> --> NH<sub>3</sub> + 3H<sub>2</sub>O<br><br>
+<em>Conversione in ambiente basico:</em> Aggiungo 9 OH<sup>-</sup> da entrambi i lati (per neutralizzare i 9 H<sup>+</sup>):<br>
+NO<sub>3</sub><sup>-</sup> + 9H<sup>+</sup> + 9OH<sup>-</sup> + 8e<sup>-</sup> --> NH<sub>3</sub> + 3H<sub>2</sub>O + 9OH<sup>-</sup><br><br>
+9H<sup>+</sup> + 9OH<sup>-</sup> = 9H<sub>2</sub>O, quindi:<br>
+NO<sub>3</sub><sup>-</sup> + 9H<sub>2</sub>O + 8e<sup>-</sup> --> NH<sub>3</sub> + 3H<sub>2</sub>O + 9OH<sup>-</sup><br><br>
+Semplifico le H<sub>2</sub>O: 9-3 = 6 a sinistra<br>
+<strong>NO<sub>3</sub><sup>-</sup> + 6H<sub>2</sub>O + 8e<sup>-</sup> --> NH<sub>3</sub> + 9OH<sup>-</sup></strong><br><br>
+Verifica cariche: -1-8 = -9 = -9  OK!
+</div>
+
+<h3>Passo 4: Eguagliare gli elettroni e sommare</h3>
+
+<ul>
+    <li>Ossidazione: cede 3 elettroni</li>
+    <li>Riduzione: acquista 8 elettroni</li>
+</ul>
+
+<p>Devo trovare il minimo comune multiplo tra 3 e 8, che e' 24.</p>
+
+<div class="step">
+<strong>Ossidazione (x8):</strong> 8Al + 32OH<sup>-</sup> --> 8AlO<sub>2</sub><sup>-</sup> + 16H<sub>2</sub>O + 24e<sup>-</sup><br>
+<strong>Riduzione (x3):</strong> 3NO<sub>3</sub><sup>-</sup> + 18H<sub>2</sub>O + 24e<sup>-</sup> --> 3NH<sub>3</sub> + 27OH<sup>-</sup>
+</div>
+
+<p>Sommo:</p>
+<div class="formula">
+8Al + 32OH<sup>-</sup> + 3NO<sub>3</sub><sup>-</sup> + 18H<sub>2</sub>O --> 8AlO<sub>2</sub><sup>-</sup> + 16H<sub>2</sub>O + 3NH<sub>3</sub> + 27OH<sup>-</sup>
+</div>
+
+<p>Semplifico:</p>
+<ul>
+    <li>H<sub>2</sub>O: 18 - 16 = 2 a sinistra</li>
+    <li>OH<sup>-</sup>: 32 - 27 = 5 a sinistra</li>
+</ul>
+
+<div class="formula">
+8Al + 5OH<sup>-</sup> + 3NO<sub>3</sub><sup>-</sup> + 2H<sub>2</sub>O --> 8AlO<sub>2</sub><sup>-</sup> + 3NH<sub>3</sub>
+</div>
+
+<p>Ora riscriviamo in forma molecolare aggiungendo i controioni K<sup>+</sup>:</p>
+<ul>
+    <li>5OH<sup>-</sup> provengono da 5KOH</li>
+    <li>3NO<sub>3</sub><sup>-</sup> provengono da 3KNO<sub>3</sub></li>
+    <li>8AlO<sub>2</sub><sup>-</sup> formano 8KAlO<sub>2</sub></li>
+    <li>Totale K<sup>+</sup> a sinistra: 5+3 = 8, a destra: 8  OK!</li>
+</ul>
+
+<div class="result">
+<strong>REAZIONE 2 BILANCIATA:</strong><br><br>
+3KNO<sub>3</sub> + 8Al + 5KOH + 2H<sub>2</sub>O --> 3NH<sub>3</sub> + 8KAlO<sub>2</sub>
+</div>
+
+<p><strong>Verifica finale:</strong></p>
+<table>
+    <tr><th>Elemento</th><th>Sinistra</th><th>Destra</th></tr>
+    <tr><td>K</td><td>3+5=8</td><td>8</td></tr>
+    <tr><td>N</td><td>3</td><td>3</td></tr>
+    <tr><td>O</td><td>9+5+2=16</td><td>16</td></tr>
+    <tr><td>Al</td><td>8</td><td>8</td></tr>
+    <tr><td>H</td><td>5+4=9</td><td>9</td></tr>
+</table>
+<p>Tutto bilanciato!</p>
+
+<hr>
+            </div>
+        </div>
+        
+        <div id="step-2" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">3</span>
+                REAZIONE 3: Cr2O72- + C2O42- + H3O+ --> Cr3+ + CO2...
+            </div>
+            <div class="step-content">
+                <h2>REAZIONE 3: Cr<sub>2</sub>O<sub>7</sub><sup>2-</sup> + C<sub>2</sub>O<sub>4</sub><sup>2-</sup> + H<sub>3</sub>O<sup>+</sup> --> Cr<sup>3+</sup> + CO<sub>2</sub> + H<sub>2</sub>O</h2>
+
+<div class="info">
+<strong>Nota:</strong> Questa reazione avviene in ambiente ACIDO (c'e' H<sub>3</sub>O<sup>+</sup>). H<sub>3</sub>O<sup>+</sup> e' equivalente a H<sup>+</sup> + H<sub>2</sub>O.
+</div>
+
+<h3>Passo 1: Identificare cosa si ossida e cosa si riduce</h3>
+
+<p><strong>Analisi del Cromo (Cr):</strong></p>
+<ul>
+    <li>Nei reagenti: Cr<sub>2</sub>O<sub>7</sub><sup>2-</sup> --> 2Cr + 7*(-2) = -2, quindi 2Cr = +12, cioe' Cr = <strong>+6</strong></li>
+    <li>Nei prodotti: Cr<sup>3+</sup> --> n.o. = <strong>+3</strong></li>
+</ul>
+<p>Il cromo passa da +6 a +3: <strong>ACQUISTA elettroni</strong>, quindi si <strong>RIDUCE</strong>.</p>
+
+<p><strong>Analisi del Carbonio (C):</strong></p>
+<ul>
+    <li>Nei reagenti: C<sub>2</sub>O<sub>4</sub><sup>2-</sup> (ossalato) --> 2C + 4*(-2) = -2, quindi 2C = +6, cioe' C = <strong>+3</strong></li>
+    <li>Nei prodotti: CO<sub>2</sub> --> C + 2*(-2) = 0, quindi C = <strong>+4</strong></li>
+</ul>
+<p>Il carbonio passa da +3 a +4: <strong>PERDE elettroni</strong>, quindi si <strong>OSSIDA</strong>.</p>
+
+<h3>Passo 2: Scrivere le semireazioni</h3>
+
+<div class="step">
+<strong>Semireazione di riduzione (Cr):</strong><br>
+Cr<sub>2</sub>O<sub>7</sub><sup>2-</sup> --> Cr<sup>3+</sup>
+</div>
+
+<div class="step">
+<strong>Semireazione di ossidazione (C):</strong><br>
+C<sub>2</sub>O<sub>4</sub><sup>2-</sup> --> CO<sub>2</sub>
+</div>
+
+<h3>Passo 3: Bilanciare le semireazioni in ambiente acido</h3>
+
+<p><strong>Semireazione di riduzione:</strong></p>
+<div class="step">
+Cr<sub>2</sub>O<sub>7</sub><sup>2-</sup> --> Cr<sup>3+</sup><br><br>
+<em>1. Bilancio il cromo:</em> A sinistra ho 2 Cr, a destra 1. Moltiplico per 2 a destra:<br>
+Cr<sub>2</sub>O<sub>7</sub><sup>2-</sup> --> 2Cr<sup>3+</sup><br><br>
+<em>2. Bilancio gli ossigeni con H<sub>2</sub>O:</em> A sinistra ho 7 O, a destra zero. Aggiungo 7 H<sub>2</sub>O a destra:<br>
+Cr<sub>2</sub>O<sub>7</sub><sup>2-</sup> --> 2Cr<sup>3+</sup> + 7H<sub>2</sub>O<br><br>
+<em>3. Bilancio gli idrogeni con H<sup>+</sup>:</em> A destra ho 14 H, a sinistra zero. Aggiungo 14 H<sup>+</sup> a sinistra:<br>
+Cr<sub>2</sub>O<sub>7</sub><sup>2-</sup> + 14H<sup>+</sup> --> 2Cr<sup>3+</sup> + 7H<sub>2</sub>O<br><br>
+<em>4. Bilancio le cariche:</em><br>
+- Sinistra: -2 + 14 = +12<br>
+- Destra: 2*(+3) = +6<br>
+Devo aggiungere 6 elettroni a sinistra (perche' e' una riduzione!):<br>
+<strong>Cr<sub>2</sub>O<sub>7</sub><sup>2-</sup> + 14H<sup>+</sup> + 6e<sup>-</sup> --> 2Cr<sup>3+</sup> + 7H<sub>2</sub>O</strong><br>
+Verifica: -2 + 14 - 6 = +6 = +6  OK!
+</div>
+
+<p><strong>Semireazione di ossidazione:</strong></p>
+<div class="step">
+C<sub>2</sub>O<sub>4</sub><sup>2-</sup> --> CO<sub>2</sub><br><br>
+<em>1. Bilancio il carbonio:</em> A sinistra ho 2 C, a destra 1. Moltiplico per 2 a destra:<br>
+C<sub>2</sub>O<sub>4</sub><sup>2-</sup> --> 2CO<sub>2</sub><br><br>
+<em>2. Bilancio gli ossigeni:</em> A sinistra ho 4 O, a destra 4 O. Gia' bilanciati!<br><br>
+<em>3. Bilancio gli idrogeni:</em> Non ci sono idrogeni da nessuna parte. OK!<br><br>
+<em>4. Bilancio le cariche:</em><br>
+- Sinistra: -2<br>
+- Destra: 0<br>
+Devo aggiungere 2 elettroni a destra (perche' e' un'ossidazione!):<br>
+<strong>C<sub>2</sub>O<sub>4</sub><sup>2-</sup> --> 2CO<sub>2</sub> + 2e<sup>-</sup></strong><br>
+Verifica: -2 = 0 - 2 = -2  OK!
+</div>
+
+<h3>Passo 4: Eguagliare gli elettroni e sommare</h3>
+
+<ul>
+    <li>Riduzione: acquista 6 elettroni</li>
+    <li>Ossidazione: cede 2 elettroni</li>
+</ul>
+
+<p>Il minimo comune multiplo tra 6 e 2 e' 6. Moltiplico l'ossidazione per 3.</p>
+
+<div class="step">
+<strong>Riduzione (x1):</strong> Cr<sub>2</sub>O<sub>7</sub><sup>2-</sup> + 14H<sup>+</sup> + 6e<sup>-</sup> --> 2Cr<sup>3+</sup> + 7H<sub>2</sub>O<br>
+<strong>Ossidazione (x3):</strong> 3C<sub>2</sub>O<sub>4</sub><sup>2-</sup> --> 6CO<sub>2</sub> + 6e<sup>-</sup>
+</div>
+
+<p>Sommo (gli elettroni si cancellano):</p>
+
+<div class="formula">
+Cr<sub>2</sub>O<sub>7</sub><sup>2-</sup> + 14H<sup>+</sup> + 3C<sub>2</sub>O<sub>4</sub><sup>2-</sup> --> 2Cr<sup>3+</sup> + 7H<sub>2</sub>O + 6CO<sub>2</sub>
+</div>
+
+<p>Poiche' nel testo originale c'era H<sub>3</sub>O<sup>+</sup> invece di H<sup>+</sup>, possiamo scrivere la reazione usando H<sub>3</sub>O<sup>+</sup>. Ricorda che H<sub>3</sub>O<sup>+</sup> = H<sup>+</sup> + H<sub>2</sub>O. Quindi 14 H<sup>+</sup> = 14 H<sub>3</sub>O<sup>+</sup> che producono anche 14 H<sub>2</sub>O aggiuntive a destra:</p>
+
+<div class="result">
+<strong>REAZIONE 3 BILANCIATA:</strong><br><br>
+Cr<sub>2</sub>O<sub>7</sub><sup>2-</sup> + 3C<sub>2</sub>O<sub>4</sub><sup>2-</sup> + 14H<sub>3</sub>O<sup>+</sup> --> 2Cr<sup>3+</sup> + 6CO<sub>2</sub> + 21H<sub>2</sub>O<br><br>
+<em>oppure, usando H<sup>+</sup>:</em><br><br>
+Cr<sub>2</sub>O<sub>7</sub><sup>2-</sup> + 3C<sub>2</sub>O<sub>4</sub><sup>2-</sup> + 14H<sup>+</sup> --> 2Cr<sup>3+</sup> + 6CO<sub>2</sub> + 7H<sub>2</sub>O
+</div>
+
+<p><strong>Verifica finale (con H<sup>+</sup>):</strong></p>
+<table>
+    <tr><th>Elemento</th><th>Sinistra</th><th>Destra</th></tr>
+    <tr><td>Cr</td><td>2</td><td>2</td></tr>
+    <tr><td>C</td><td>6</td><td>6</td></tr>
+    <tr><td>O</td><td>7+12=19</td><td>12+7=19</td></tr>
+    <tr><td>H</td><td>14</td><td>14</td></tr>
+    <tr><td>Carica</td><td>-2-6+14=+6</td><td>+6</td></tr>
+</table>
+<p>Tutto bilanciato!</p>
+
+<hr>
+            </div>
+        </div>
+        
+        <div id="step-3" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">4</span>
+                RIEPILOGO FINALE
+            </div>
+            <div class="step-content">
+                <h2>RIEPILOGO FINALE</h2>
+
+<div class="result">
+<strong>1) Mn<sup>2+</sup> + 2ClO<sub>3</sub><sup>-</sup> --> MnO<sub>2</sub> + 2ClO<sub>2</sub></strong><br><br>
+<strong>2) 3KNO<sub>3</sub> + 8Al + 5KOH + 2H<sub>2</sub>O --> 3NH<sub>3</sub> + 8KAlO<sub>2</sub></strong><br><br>
+<strong>3) Cr<sub>2</sub>O<sub>7</sub><sup>2-</sup> + 3C<sub>2</sub>O<sub>4</sub><sup>2-</sup> + 14H<sup>+</sup> --> 2Cr<sup>3+</sup> + 6CO<sub>2</sub> + 7H<sub>2</sub>O</strong>
+</div>
+
+<div class="info">
+<strong>Ricorda il metodo:</strong>
+<ol>
+    <li>Identifica chi si ossida e chi si riduce (calcola i n.o.)</li>
+    <li>Scrivi le semireazioni separate</li>
+    <li>Bilancia ogni semireazione: prima atomi, poi O (con H<sub>2</sub>O), poi H (con H<sup>+</sup> o OH<sup>-</sup>), infine cariche (con e<sup>-</sup>)</li>
+    <li>Moltiplica le semireazioni per eguagliare gli elettroni</li>
+    <li>Somma e semplifica</li>
+</ol>
+</div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+<script>
+    let currentStep = 0;
+    let totalSteps = 0;
+
+    document.addEventListener('DOMContentLoaded', function() {
+        totalSteps = document.querySelectorAll('.step-container').length;
+        updateProgress();
+        updateButtons();
+    });
+
+    function showNextStep() {
+        if (currentStep < totalSteps) {
+            const step = document.getElementById('step-' + currentStep);
+            if (step) {
+                step.classList.add('visible');
+                step.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                currentStep++;
+                updateProgress();
+                updateButtons();
+
+                if (window.parent !== window) {
+                    window.parent.postMessage({type: 'stepShown', step: currentStep, total: totalSteps}, '*');
+                }
+            }
+        }
+    }
+
+    function showAllSteps() {
+        document.querySelectorAll('.step-container').forEach(function(step) {
+            step.classList.add('visible');
+        });
+        currentStep = totalSteps;
+        updateProgress();
+        updateButtons();
+
+        if (window.parent !== window) {
+            window.parent.postMessage({type: 'allStepsShown'}, '*');
+        }
+    }
+
+    function hideAllSteps() {
+        document.querySelectorAll('.step-container').forEach(function(step) {
+            step.classList.remove('visible');
+        });
+        currentStep = 0;
+        updateProgress();
+        updateButtons();
+    }
+
+    function updateProgress() {
+        const pct = totalSteps > 0 ? (currentStep / totalSteps) * 100 : 0;
+        const fill = document.getElementById('progress-fill');
+        const text = document.getElementById('progress-text');
+        if (fill) fill.style.width = pct + '%';
+        if (text) text.textContent = 'Passaggio ' + currentStep + ' di ' + totalSteps;
+    }
+
+    function updateButtons() {
+        const nextBtn = document.getElementById('next-btn');
+        const allBtn = document.getElementById('all-btn');
+        const doneButtons = document.getElementById('done-buttons');
+
+        if (currentStep >= totalSteps) {
+            if (nextBtn) nextBtn.style.display = 'none';
+            if (allBtn) allBtn.style.display = 'none';
+            if (doneButtons) doneButtons.style.display = 'flex';
+        } else {
+            if (nextBtn) nextBtn.style.display = 'block';
+            if (allBtn) allBtn.style.display = 'block';
+            if (doneButtons) doneButtons.style.display = 'none';
+        }
+    }
+
+    function markExercise(status) {
+        // Salva in localStorage
+        const exerciseId = window.location.pathname.split('/').pop().replace('.html', '');
+        let progress = JSON.parse(localStorage.getItem('chemportal_progress') || '{}');
+        if (!progress.exercises) progress.exercises = {};
+        progress.exercises[exerciseId] = status;
+        localStorage.setItem('chemportal_progress', JSON.stringify(progress));
+
+        // Feedback visivo
+        const btn = status === 'done' ? document.getElementById('mark-done') : document.getElementById('mark-review');
+        const otherBtn = status === 'done' ? document.getElementById('mark-review') : document.getElementById('mark-done');
+
+        btn.classList.add('selected');
+        otherBtn.classList.remove('selected');
+
+        // Notifica parent
+        if (window.parent !== window) {
+            window.parent.postMessage({type: 'exerciseMarked', status: status, id: exerciseId}, '*');
+        }
+    }
+
+    function resetExercise() {
+        hideAllSteps();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Messaggi dal parent
+    window.addEventListener('message', function(e) {
+        if (e.data.type === 'showNext') showNextStep();
+        else if (e.data.type === 'showAll') showAllSteps();
+        else if (e.data.type === 'hideAll') hideAllSteps();
+    });
+
+    function closeExercise() {
+        if (window.parent !== window) {
+            // Siamo in iframe, chiedi al parent di chiudere
+            window.parent.postMessage({type: 'closeModal'}, '*');
+        } else {
+            // Standalone: torna alla pagina esercizi
+            const path = window.location.pathname;
+            if (path.includes('/content/soluzioni/')) {
+                window.location.href = '../../esercizi.html';
+            } else {
+                window.history.back();
+            }
+        }
+    }
+</script>
+</body>
+</html>

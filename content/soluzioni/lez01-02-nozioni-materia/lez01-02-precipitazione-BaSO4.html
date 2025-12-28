@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Esame 10-1 - Precipitazione BaSO4</title>
+    <style>
+        body { font-family: Georgia, serif; max-width: 800px; margin: 40px auto; padding: 20px; line-height: 1.8; }
+        h1 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+        h2 { color: #2980b9; margin-top: 30px; }
+        .question { background: #ecf0f1; padding: 15px; border-left: 4px solid #3498db; margin: 20px 0; }
+        .result { background: #d5f5e3; padding: 15px; border-left: 4px solid #27ae60; margin: 20px 0; font-weight: bold; }
+        .formula { background: #fdebd0; padding: 10px; margin: 10px 0; font-family: monospace; }
+        .step { background: #fff; padding: 15px; border-left: 4px solid #9b59b6; margin: 15px 0; }
+        .note { background: #fdf2e9; padding: 12px; border-left: 4px solid #e67e22; margin: 15px 0; font-style: italic; }
+    
+    .done-buttons {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+    .mark-btn {
+        padding: 12px 24px;
+        font-size: 1em;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .mark-done {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        color: white;
+    }
+    .mark-done:hover, .mark-done.selected {
+        background: linear-gradient(135deg, #1e7e34, #17a085);
+        transform: scale(1.05);
+    }
+    .mark-review {
+        background: linear-gradient(135deg, #ffc107, #fd7e14);
+        color: white;
+    }
+    .mark-review:hover, .mark-review.selected {
+        background: linear-gradient(135deg, #d39e00, #dc6502);
+        transform: scale(1.05);
+    }
+    .mark-reset {
+        background: #6c757d;
+        color: white;
+    }
+    .mark-reset:hover {
+        background: #545b62;
+    }
+    .mark-btn.selected {
+        box-shadow: 0 0 0 3px rgba(0,0,0,0.2);
+    }
+</style>
+
+<style>
+    .quiz-container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px;
+        padding-bottom: 120px;
+    }
+    .question-section {
+        background: linear-gradient(135deg, #e8f4f8 0%, #d4edda 100%);
+        border: 2px solid #17a2b8;
+        border-radius: 10px;
+        padding: 25px;
+        margin-bottom: 20px;
+    }
+    .question-section h2 {
+        color: #0c5460;
+        margin-top: 0;
+        margin-bottom: 15px;
+    }
+    .show-next-btn {
+        display: block;
+        width: 100%;
+        padding: 15px 30px;
+        font-size: 1.1em;
+        font-weight: bold;
+        color: white;
+        background: linear-gradient(135deg, #007bff, #0056b3);
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        margin: 15px 0;
+        transition: all 0.3s ease;
+    }
+    .show-next-btn:hover {
+        background: linear-gradient(135deg, #0056b3, #004094);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 123, 255, 0.4);
+    }
+    .show-all-btn {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        margin-top: 10px;
+    }
+    .show-all-btn:hover {
+        background: linear-gradient(135deg, #218838, #1db385);
+        box-shadow: 0 4px 12px rgba(40, 167, 69, 0.4);
+    }
+    .step-container {
+        display: none;
+        animation: fadeIn 0.5s ease;
+        margin-bottom: 20px;
+        border: 1px solid #dee2e6;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    .step-container.visible {
+        display: block;
+    }
+    .step-header {
+        background: linear-gradient(135deg, #6c757d, #495057);
+        color: white;
+        padding: 12px 20px;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+    }
+    .step-number-badge {
+        background: white;
+        color: #495057;
+        border-radius: 50%;
+        width: 28px;
+        height: 28px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 12px;
+        font-weight: bold;
+    }
+    .step-content {
+        padding: 20px;
+        background: white;
+    }
+    .progress-bar {
+        background: #e9ecef;
+        border-radius: 10px;
+        height: 8px;
+        margin: 15px 0;
+        overflow: hidden;
+    }
+    .progress-fill {
+        background: linear-gradient(90deg, #28a745, #20c997);
+        height: 100%;
+        border-radius: 10px;
+        transition: width 0.5s ease;
+    }
+    .progress-text {
+        text-align: center;
+        color: #6c757d;
+        font-size: 0.9em;
+        margin-bottom: 15px;
+    }
+    .controls {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: white;
+        padding: 15px 20px;
+        border-top: 2px solid #dee2e6;
+        box-shadow: 0 -4px 12px rgba(0,0,0,0.1);
+        z-index: 1000;
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+    }
+    .quiz-container {
+        padding-bottom: 100px;
+    }
+    .show-next-btn {
+        width: auto;
+        margin: 0;
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .final-answer {
+        background: #d4edda;
+        border: 2px solid #28a745;
+        border-radius: 10px;
+        padding: 20px;
+        margin-top: 20px;
+    }
+    .final-answer h3 {
+        color: #155724;
+        margin-top: 0;
+    }
+
+    .done-buttons {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+    .mark-btn {
+        padding: 12px 24px;
+        font-size: 1em;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .mark-done {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        color: white;
+    }
+    .mark-done:hover, .mark-done.selected {
+        background: linear-gradient(135deg, #1e7e34, #17a085);
+        transform: scale(1.05);
+    }
+    .mark-review {
+        background: linear-gradient(135deg, #ffc107, #fd7e14);
+        color: white;
+    }
+    .mark-review:hover, .mark-review.selected {
+        background: linear-gradient(135deg, #d39e00, #dc6502);
+        transform: scale(1.05);
+    }
+    .mark-reset {
+        background: #6c757d;
+        color: white;
+    }
+    .mark-reset:hover {
+        background: #545b62;
+    }
+    .mark-btn.selected {
+        box-shadow: 0 0 0 3px rgba(0,0,0,0.2);
+    }
+</style>
+</head>
+<body>
+<div class="quiz-container">
+    <h1>Esame 10 - Quesito 5: Precipitazione di Solfato di Bario</h1>
+
+    <div class="question-section">
+        <h2>Testo dell'esercizio</h2>
+        <p>Risolvi l'esercizio seguente.</p>
+    </div>
+
+    <div class="progress-text" id="progress-text">Passaggio 0 di 7</div>
+    <div class="progress-bar">
+        <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+    </div>
+
+    <div class="controls">
+        <button id="next-btn" class="show-next-btn" onclick="showNextStep()">
+            ▶ Prossimo passaggio
+        </button>
+        <button id="all-btn" class="show-next-btn show-all-btn" onclick="showAllSteps()">
+            ⏩ Mostra tutto
+        </button>
+        <div id="done-buttons" class="done-buttons" style="display: none;">
+            <button id="mark-done" class="mark-btn mark-done" onclick="markExercise('done')">
+                ✓ Fatto
+            </button>
+            <button id="mark-review" class="mark-btn mark-review" onclick="markExercise('review')">
+                ⚠ Da rivedere
+            </button>
+            <button class="mark-btn mark-reset" onclick="resetExercise()">
+                ↺ Ricomincia
+            </button>
+            <button class="mark-btn" style="background: #17a2b8;" onclick="closeExercise()">
+                ✕ Chiudi
+            </button>
+        </div>
+    </div>
+
+    <div id="steps-wrapper">
+        
+        <div id="step-0" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">1</span>
+                Introduzione al problema
+            </div>
+            <div class="step-content">
+                <h1>Esame 10 - Quesito 5: Precipitazione di Solfato di Bario</h1>
+
+<div class="question">
+<strong>TESTO DEL QUESITO:</strong><br><br>
+A 360 mL di una soluzione di Bario idrossido (Ba(OH)2) 0,25 M si aggiungono 250 mL di una soluzione di acido solforico (H2SO4) 0,1 M. Calcolare la quantita di solfato di bario (BaSO4) che precipita, assumendo la precipitazione quantitativa.
+<br><br>
+<strong>Reazione:</strong> Ba(OH)2 + H2SO4 --> BaSO4 (precipitato) + 2H2O
+</div><h2>Introduzione al problema</h2>
+
+<p>Prima di buttarci nei calcoli, cerchiamo di capire cosa sta succedendo in questa reazione. Stiamo mescolando due soluzioni: una contiene <strong>idrossido di bario</strong> (una base forte) e l'altra contiene <strong>acido solforico</strong> (un acido forte).</p>
+
+<p>Quando queste due sostanze si incontrano, avviene una reazione che produce <strong>solfato di bario</strong> (BaSO4), che e un sale praticamente insolubile in acqua. Questo significa che non appena si forma, precipita sul fondo del recipiente come un solido bianco.</p>
+
+<div class="note">
+<strong>Cosa significa "precipitazione quantitativa"?</strong> Significa che assumiamo che TUTTO il prodotto si depositi come solido, cioe la reazione va a completamento al 100%. In realta una quantita infinitesimale rimane in soluzione, ma per i nostri calcoli la consideriamo trascurabile.
+</div>
+            </div>
+        </div>
+        
+        <div id="step-1" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">2</span>
+                I dati del problema
+            </div>
+            <div class="step-content">
+                <h2>I dati del problema</h2>
+
+<p>Organizziamo i dati che ci sono stati forniti:</p>
+
+<ul>
+    <li><strong>Soluzione di Ba(OH)2:</strong>
+        <ul>
+            <li>Volume = 360 mL = 0,360 L</li>
+            <li>Concentrazione = 0,25 M (cioe 0,25 mol/L)</li>
+        </ul>
+    </li>
+    <li><strong>Soluzione di H2SO4:</strong>
+        <ul>
+            <li>Volume = 250 mL = 0,250 L</li>
+            <li>Concentrazione = 0,1 M (cioe 0,1 mol/L)</li>
+        </ul>
+    </li>
+    <li><strong>Massa molare di BaSO4:</strong> 233,4 g/mol</li>
+</ul>
+
+<p><strong>Cosa dobbiamo trovare?</strong> La massa in grammi del solfato di bario che precipita.</p>
+            </div>
+        </div>
+        
+        <div id="step-2" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">3</span>
+                PASSO 1: Calcolare le moli dei reagenti
+            </div>
+            <div class="step-content">
+                <h2>PASSO 1: Calcolare le moli dei reagenti</h2>
+
+<p>Per prima cosa, dobbiamo sapere QUANTE molecole (espresse in moli) di ciascun reagente abbiamo a disposizione. Per farlo, usiamo la relazione fondamentale:</p>
+
+<div class="formula">
+n = M x V
+<br><br>
+dove: n = numero di moli, M = molarita (mol/L), V = volume (in litri)
+</div>
+
+<div class="step">
+<strong>Moli di Ba(OH)2:</strong><br><br>
+n(Ba(OH)2) = 0,25 mol/L x 0,360 L = <strong>0,090 mol</strong>
+<br><br>
+Quindi abbiamo 0,090 moli di idrossido di bario nella nostra soluzione.
+</div>
+
+<div class="step">
+<strong>Moli di H2SO4:</strong><br><br>
+n(H2SO4) = 0,1 mol/L x 0,250 L = <strong>0,025 mol</strong>
+<br><br>
+Quindi abbiamo 0,025 moli di acido solforico.
+</div>
+            </div>
+        </div>
+        
+        <div id="step-3" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">4</span>
+                PASSO 2: Identificare il reagente limitante
+            </div>
+            <div class="step-content">
+                <h2>PASSO 2: Identificare il reagente limitante</h2>
+
+<p>Ora dobbiamo capire quale dei due reagenti si esaurira per primo. Questo e fondamentale perche la quantita di prodotto che si forma dipende dal <strong>reagente limitante</strong>, cioe quello che "finisce" per primo e blocca la reazione.</p>
+
+<p>Guardiamo la reazione bilanciata:</p>
+
+<div class="formula">
+Ba(OH)2 + H2SO4 --> BaSO4 + 2H2O
+</div>
+
+<p>I coefficienti stechiometrici ci dicono che:</p>
+<ul>
+    <li>1 mole di Ba(OH)2 reagisce con 1 mole di H2SO4</li>
+    <li>Il rapporto e quindi <strong>1:1</strong></li>
+</ul>
+
+<p>Confrontiamo le moli che abbiamo:</p>
+
+<div class="step">
+<ul>
+    <li>Moli di Ba(OH)2 disponibili: <strong>0,090 mol</strong></li>
+    <li>Moli di H2SO4 disponibili: <strong>0,025 mol</strong></li>
+</ul>
+<br>
+Poiche il rapporto e 1:1, ogni mole di H2SO4 ha bisogno di 1 mole di Ba(OH)2.
+<br><br>
+Abbiamo 0,025 mol di acido, quindi servirebbero 0,025 mol di Ba(OH)2.
+<br><br>
+Ma noi abbiamo 0,090 mol di Ba(OH)2, cioe molto di piu di quanto serve!
+<br><br>
+<strong>Conclusione:</strong> L'acido solforico (H2SO4) e il <strong>REAGENTE LIMITANTE</strong> perche ce n'e di meno e si esaurira per primo.
+</div>
+
+<div class="note">
+<strong>Nota:</strong> Il Ba(OH)2 e in eccesso. Dopo la reazione, ne rimarra una parte non reagita: 0,090 - 0,025 = 0,065 mol di Ba(OH)2 rimarranno in soluzione.
+</div>
+            </div>
+        </div>
+        
+        <div id="step-4" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">5</span>
+                PASSO 3: Calcolare le moli di BaSO4 che precipita
+            </div>
+            <div class="step-content">
+                <h2>PASSO 3: Calcolare le moli di BaSO4 che precipita</h2>
+
+<p>Dalla stechiometria della reazione:</p>
+
+<div class="formula">
+1 mol H2SO4 --> 1 mol BaSO4
+</div>
+
+<p>Questo ci dice che per ogni mole di acido solforico che reagisce, si forma esattamente una mole di solfato di bario.</p>
+
+<div class="step">
+Poiche reagiscono tutte le 0,025 mol di H2SO4 (e il reagente limitante!), si formeranno:
+<br><br>
+n(BaSO4) = n(H2SO4) = <strong>0,025 mol</strong>
+</div>
+            </div>
+        </div>
+        
+        <div id="step-5" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">6</span>
+                PASSO 4: Convertire le moli in grammi
+            </div>
+            <div class="step-content">
+                <h2>PASSO 4: Convertire le moli in grammi</h2>
+
+<p>Finalmente possiamo calcolare la massa del precipitato! Usiamo la relazione:</p>
+
+<div class="formula">
+m = n x MM
+<br><br>
+dove: m = massa (g), n = moli, MM = massa molare (g/mol)
+</div>
+
+<div class="step">
+<strong>Massa di BaSO4:</strong><br><br>
+m(BaSO4) = 0,025 mol x 233,4 g/mol = <strong>5,835 g</strong>
+</div>
+
+<div class="result">
+<strong>RISPOSTA FINALE:</strong><br><br>
+La quantita di solfato di bario (BaSO4) che precipita e: <strong>5,835 grammi</strong>
+<br><br>
+(oppure, arrotondando: circa 5,84 g)
+</div>
+            </div>
+        </div>
+        
+        <div id="step-6" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">7</span>
+                Riepilogo del procedimento
+            </div>
+            <div class="step-content">
+                <h2>Riepilogo del procedimento</h2>
+
+<ol>
+    <li><strong>Calcolo delle moli:</strong>
+        <ul>
+            <li>n(Ba(OH)2) = 0,25 x 0,360 = 0,090 mol</li>
+            <li>n(H2SO4) = 0,1 x 0,250 = 0,025 mol</li>
+        </ul>
+    </li>
+    <li><strong>Reagente limitante:</strong> H2SO4 (ce n'e di meno, rapporto 1:1)</li>
+    <li><strong>Moli di prodotto:</strong> n(BaSO4) = 0,025 mol</li>
+    <li><strong>Massa finale:</strong> m = 0,025 x 233,4 = 5,835 g</li>
+</ol>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+<script>
+    let currentStep = 0;
+    let totalSteps = 0;
+
+    document.addEventListener('DOMContentLoaded', function() {
+        totalSteps = document.querySelectorAll('.step-container').length;
+        updateProgress();
+        updateButtons();
+    });
+
+    function showNextStep() {
+        if (currentStep < totalSteps) {
+            const step = document.getElementById('step-' + currentStep);
+            if (step) {
+                step.classList.add('visible');
+                step.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                currentStep++;
+                updateProgress();
+                updateButtons();
+
+                if (window.parent !== window) {
+                    window.parent.postMessage({type: 'stepShown', step: currentStep, total: totalSteps}, '*');
+                }
+            }
+        }
+    }
+
+    function showAllSteps() {
+        document.querySelectorAll('.step-container').forEach(function(step) {
+            step.classList.add('visible');
+        });
+        currentStep = totalSteps;
+        updateProgress();
+        updateButtons();
+
+        if (window.parent !== window) {
+            window.parent.postMessage({type: 'allStepsShown'}, '*');
+        }
+    }
+
+    function hideAllSteps() {
+        document.querySelectorAll('.step-container').forEach(function(step) {
+            step.classList.remove('visible');
+        });
+        currentStep = 0;
+        updateProgress();
+        updateButtons();
+    }
+
+    function updateProgress() {
+        const pct = totalSteps > 0 ? (currentStep / totalSteps) * 100 : 0;
+        const fill = document.getElementById('progress-fill');
+        const text = document.getElementById('progress-text');
+        if (fill) fill.style.width = pct + '%';
+        if (text) text.textContent = 'Passaggio ' + currentStep + ' di ' + totalSteps;
+    }
+
+    function updateButtons() {
+        const nextBtn = document.getElementById('next-btn');
+        const allBtn = document.getElementById('all-btn');
+        const doneButtons = document.getElementById('done-buttons');
+
+        if (currentStep >= totalSteps) {
+            if (nextBtn) nextBtn.style.display = 'none';
+            if (allBtn) allBtn.style.display = 'none';
+            if (doneButtons) doneButtons.style.display = 'flex';
+        } else {
+            if (nextBtn) nextBtn.style.display = 'block';
+            if (allBtn) allBtn.style.display = 'block';
+            if (doneButtons) doneButtons.style.display = 'none';
+        }
+    }
+
+    function markExercise(status) {
+        // Salva in localStorage
+        const exerciseId = window.location.pathname.split('/').pop().replace('.html', '');
+        let progress = JSON.parse(localStorage.getItem('chemportal_progress') || '{}');
+        if (!progress.exercises) progress.exercises = {};
+        progress.exercises[exerciseId] = status;
+        localStorage.setItem('chemportal_progress', JSON.stringify(progress));
+
+        // Feedback visivo
+        const btn = status === 'done' ? document.getElementById('mark-done') : document.getElementById('mark-review');
+        const otherBtn = status === 'done' ? document.getElementById('mark-review') : document.getElementById('mark-done');
+
+        btn.classList.add('selected');
+        otherBtn.classList.remove('selected');
+
+        // Notifica parent
+        if (window.parent !== window) {
+            window.parent.postMessage({type: 'exerciseMarked', status: status, id: exerciseId}, '*');
+        }
+    }
+
+    function resetExercise() {
+        hideAllSteps();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Messaggi dal parent
+    window.addEventListener('message', function(e) {
+        if (e.data.type === 'showNext') showNextStep();
+        else if (e.data.type === 'showAll') showAllSteps();
+        else if (e.data.type === 'hideAll') hideAllSteps();
+    });
+
+    function closeExercise() {
+        if (window.parent !== window) {
+            // Siamo in iframe, chiedi al parent di chiudere
+            window.parent.postMessage({type: 'closeModal'}, '*');
+        } else {
+            // Standalone: torna alla pagina esercizi
+            const path = window.location.pathname;
+            if (path.includes('/content/soluzioni/')) {
+                window.location.href = '../../esercizi.html';
+            } else {
+                window.history.back();
+            }
+        }
+    }
+</script>
+</body>
+</html>

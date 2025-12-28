@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Esame 1-1 - Esercizio 6: Formula Molecolare</title>
+    <style>
+        body { font-family: Georgia, serif; max-width: 800px; margin: 40px auto; padding: 20px; line-height: 1.6; }
+        h1 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+        h2 { color: #2980b9; margin-top: 30px; }
+        .question { background: #ecf0f1; padding: 15px; border-left: 4px solid #3498db; margin: 20px 0; }
+        .result { background: #d5f5e3; padding: 15px; border-left: 4px solid #27ae60; margin: 20px 0; font-weight: bold; }
+        .formula { background: #fdebd0; padding: 10px; margin: 10px 0; font-family: monospace; }
+        .step { background: #fff; padding: 15px; border: 1px solid #ddd; margin: 15px 0; border-radius: 5px; }
+        table { border-collapse: collapse; width: 100%; margin: 20px 0; }
+        th, td { border: 1px solid #bdc3c7; padding: 10px; text-align: center; }
+        th { background: #3498db; color: white; }
+    
+    .done-buttons {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+    .mark-btn {
+        padding: 12px 24px;
+        font-size: 1em;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .mark-done {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        color: white;
+    }
+    .mark-done:hover, .mark-done.selected {
+        background: linear-gradient(135deg, #1e7e34, #17a085);
+        transform: scale(1.05);
+    }
+    .mark-review {
+        background: linear-gradient(135deg, #ffc107, #fd7e14);
+        color: white;
+    }
+    .mark-review:hover, .mark-review.selected {
+        background: linear-gradient(135deg, #d39e00, #dc6502);
+        transform: scale(1.05);
+    }
+    .mark-reset {
+        background: #6c757d;
+        color: white;
+    }
+    .mark-reset:hover {
+        background: #545b62;
+    }
+    .mark-btn.selected {
+        box-shadow: 0 0 0 3px rgba(0,0,0,0.2);
+    }
+</style>
+
+<style>
+    .quiz-container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px;
+        padding-bottom: 120px;
+    }
+    .question-section {
+        background: linear-gradient(135deg, #e8f4f8 0%, #d4edda 100%);
+        border: 2px solid #17a2b8;
+        border-radius: 10px;
+        padding: 25px;
+        margin-bottom: 20px;
+    }
+    .question-section h2 {
+        color: #0c5460;
+        margin-top: 0;
+        margin-bottom: 15px;
+    }
+    .show-next-btn {
+        display: block;
+        width: 100%;
+        padding: 15px 30px;
+        font-size: 1.1em;
+        font-weight: bold;
+        color: white;
+        background: linear-gradient(135deg, #007bff, #0056b3);
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        margin: 15px 0;
+        transition: all 0.3s ease;
+    }
+    .show-next-btn:hover {
+        background: linear-gradient(135deg, #0056b3, #004094);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 123, 255, 0.4);
+    }
+    .show-all-btn {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        margin-top: 10px;
+    }
+    .show-all-btn:hover {
+        background: linear-gradient(135deg, #218838, #1db385);
+        box-shadow: 0 4px 12px rgba(40, 167, 69, 0.4);
+    }
+    .step-container {
+        display: none;
+        animation: fadeIn 0.5s ease;
+        margin-bottom: 20px;
+        border: 1px solid #dee2e6;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    .step-container.visible {
+        display: block;
+    }
+    .step-header {
+        background: linear-gradient(135deg, #6c757d, #495057);
+        color: white;
+        padding: 12px 20px;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+    }
+    .step-number-badge {
+        background: white;
+        color: #495057;
+        border-radius: 50%;
+        width: 28px;
+        height: 28px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 12px;
+        font-weight: bold;
+    }
+    .step-content {
+        padding: 20px;
+        background: white;
+    }
+    .progress-bar {
+        background: #e9ecef;
+        border-radius: 10px;
+        height: 8px;
+        margin: 15px 0;
+        overflow: hidden;
+    }
+    .progress-fill {
+        background: linear-gradient(90deg, #28a745, #20c997);
+        height: 100%;
+        border-radius: 10px;
+        transition: width 0.5s ease;
+    }
+    .progress-text {
+        text-align: center;
+        color: #6c757d;
+        font-size: 0.9em;
+        margin-bottom: 15px;
+    }
+    .controls {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: white;
+        padding: 15px 20px;
+        border-top: 2px solid #dee2e6;
+        box-shadow: 0 -4px 12px rgba(0,0,0,0.1);
+        z-index: 1000;
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+    }
+    .quiz-container {
+        padding-bottom: 100px;
+    }
+    .show-next-btn {
+        width: auto;
+        margin: 0;
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .final-answer {
+        background: #d4edda;
+        border: 2px solid #28a745;
+        border-radius: 10px;
+        padding: 20px;
+        margin-top: 20px;
+    }
+    .final-answer h3 {
+        color: #155724;
+        margin-top: 0;
+    }
+
+    .done-buttons {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+    .mark-btn {
+        padding: 12px 24px;
+        font-size: 1em;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .mark-done {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        color: white;
+    }
+    .mark-done:hover, .mark-done.selected {
+        background: linear-gradient(135deg, #1e7e34, #17a085);
+        transform: scale(1.05);
+    }
+    .mark-review {
+        background: linear-gradient(135deg, #ffc107, #fd7e14);
+        color: white;
+    }
+    .mark-review:hover, .mark-review.selected {
+        background: linear-gradient(135deg, #d39e00, #dc6502);
+        transform: scale(1.05);
+    }
+    .mark-reset {
+        background: #6c757d;
+        color: white;
+    }
+    .mark-reset:hover {
+        background: #545b62;
+    }
+    .mark-btn.selected {
+        box-shadow: 0 0 0 3px rgba(0,0,0,0.2);
+    }
+</style>
+</head>
+<body>
+<div class="quiz-container">
+    <h1>ESERCIZIO 6 - Determinazione della Formula Molecolare</h1>
+
+    <div class="question-section">
+        <h2>Testo dell'esercizio</h2>
+        <p>Risolvi l'esercizio seguente.</p>
+    </div>
+
+    <div class="progress-text" id="progress-text">Passaggio 0 di 6</div>
+    <div class="progress-bar">
+        <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+    </div>
+
+    <div class="controls">
+        <button id="next-btn" class="show-next-btn" onclick="showNextStep()">
+            ▶ Prossimo passaggio
+        </button>
+        <button id="all-btn" class="show-next-btn show-all-btn" onclick="showAllSteps()">
+            ⏩ Mostra tutto
+        </button>
+        <div id="done-buttons" class="done-buttons" style="display: none;">
+            <button id="mark-done" class="mark-btn mark-done" onclick="markExercise('done')">
+                ✓ Fatto
+            </button>
+            <button id="mark-review" class="mark-btn mark-review" onclick="markExercise('review')">
+                ⚠ Da rivedere
+            </button>
+            <button class="mark-btn mark-reset" onclick="resetExercise()">
+                ↺ Ricomincia
+            </button>
+            <button class="mark-btn" style="background: #17a2b8;" onclick="closeExercise()">
+                ✕ Chiudi
+            </button>
+        </div>
+    </div>
+
+    <div id="steps-wrapper">
+        
+        <div id="step-0" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">1</span>
+                Strategia di risoluzione
+            </div>
+            <div class="step-content">
+                <h1>ESERCIZIO 6 - Determinazione della Formula Molecolare</h1>
+
+<div class="question">
+<strong>TESTO:</strong> Le percentuali in massa di un composto organico sono: C 63,57%, H 6,00%, N 9,27% e O 21,17%. La massa molare del composto e 151,2 g/mol; determinare la formula molecolare del composto.
+</div><h2>Strategia di risoluzione</h2>
+<p>Per trovare la formula molecolare di un composto dalla sua composizione percentuale, dobbiamo seguire tre passaggi:</p>
+<ol>
+    <li><strong>Calcolare le moli di ogni elemento</strong> assumendo 100 g di composto (cosi le percentuali diventano direttamente grammi)</li>
+    <li><strong>Trovare la formula minima</strong> dividendo tutte le moli per il valore piu piccolo</li>
+    <li><strong>Trovare il fattore moltiplicativo</strong> confrontando la massa della formula minima con quella reale</li>
+</ol>
+            </div>
+        </div>
+        
+        <div id="step-1" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">2</span>
+                1. Calcolo delle moli di ogni elemento
+            </div>
+            <div class="step-content">
+                <h2>1. Calcolo delle moli di ogni elemento</h2>
+
+<p>Assumiamo di avere <strong>100 g di composto</strong>. In questo modo le percentuali diventano direttamente grammi:</p>
+<ul>
+    <li>Carbonio (C): 63,57 g</li>
+    <li>Idrogeno (H): 6,00 g</li>
+    <li>Azoto (N): 9,27 g</li>
+    <li>Ossigeno (O): 21,17 g</li>
+</ul>
+
+<p>Ora dividiamo ogni massa per la rispettiva massa atomica per ottenere le moli:</p>
+
+<div class="step">
+<strong>Carbonio:</strong><br>
+<div class="formula">n(C) = 63,57 g / 12,01 g/mol = <strong>5,293 mol</strong></div>
+</div>
+
+<div class="step">
+<strong>Idrogeno:</strong><br>
+<div class="formula">n(H) = 6,00 g / 1,008 g/mol = <strong>5,952 mol</strong></div>
+</div>
+
+<div class="step">
+<strong>Azoto:</strong><br>
+<div class="formula">n(N) = 9,27 g / 14,01 g/mol = <strong>0,6617 mol</strong></div>
+</div>
+
+<div class="step">
+<strong>Ossigeno:</strong><br>
+<div class="formula">n(O) = 21,17 g / 16,00 g/mol = <strong>1,323 mol</strong></div>
+</div>
+            </div>
+        </div>
+        
+        <div id="step-2" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">3</span>
+                2. Determinazione della formula minima
+            </div>
+            <div class="step-content">
+                <h2>2. Determinazione della formula minima</h2>
+
+<p>Per trovare il rapporto piu semplice tra gli atomi, dividiamo tutte le moli per il valore piu piccolo, che e quello dell'azoto: <strong>0,6617 mol</strong></p>
+
+<table>
+    <tr>
+        <th>Elemento</th>
+        <th>Moli</th>
+        <th>Moli / 0,6617</th>
+        <th>Rapporto intero</th>
+    </tr>
+    <tr>
+        <td>C</td>
+        <td>5,293</td>
+        <td>5,293 / 0,6617 = 8,00</td>
+        <td><strong>8</strong></td>
+    </tr>
+    <tr>
+        <td>H</td>
+        <td>5,952</td>
+        <td>5,952 / 0,6617 = 8,99</td>
+        <td><strong>9</strong></td>
+    </tr>
+    <tr>
+        <td>N</td>
+        <td>0,6617</td>
+        <td>0,6617 / 0,6617 = 1,00</td>
+        <td><strong>1</strong></td>
+    </tr>
+    <tr>
+        <td>O</td>
+        <td>1,323</td>
+        <td>1,323 / 0,6617 = 2,00</td>
+        <td><strong>2</strong></td>
+    </tr>
+</table>
+
+<p>I rapporti sono gia numeri interi (o molto vicini). La <strong>formula minima</strong> e quindi:</p>
+<div class="formula" style="text-align: center; font-size: 1.3em;">
+C<sub>8</sub>H<sub>9</sub>NO<sub>2</sub>
+</div>
+            </div>
+        </div>
+        
+        <div id="step-3" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">4</span>
+                3. Calcolo della massa della formula minima
+            </div>
+            <div class="step-content">
+                <h2>3. Calcolo della massa della formula minima</h2>
+
+<div class="formula">
+M(C<sub>8</sub>H<sub>9</sub>NO<sub>2</sub>) = 8 x 12,01 + 9 x 1,008 + 1 x 14,01 + 2 x 16,00<br><br>
+M = 96,08 + 9,072 + 14,01 + 32,00 = <strong>151,16 g/mol</strong>
+</div>
+            </div>
+        </div>
+        
+        <div id="step-4" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">5</span>
+                4. Determinazione del fattore moltiplicativo
+            </div>
+            <div class="step-content">
+                <h2>4. Determinazione del fattore moltiplicativo</h2>
+
+<p>Confrontiamo la massa della formula minima con la massa molare data:</p>
+
+<div class="formula">
+Fattore = M(reale) / M(formula minima) = 151,2 / 151,16 = <strong>1,00</strong>
+</div>
+
+<p>Il fattore e praticamente uguale a 1, il che significa che la <strong>formula minima coincide con la formula molecolare</strong>.</p>
+
+<div class="result">
+<strong>RISPOSTA FINALE:</strong><br><br>
+La formula molecolare del composto e: <strong>C<sub>8</sub>H<sub>9</sub>NO<sub>2</sub></strong><br><br>
+Questo composto potrebbe essere, ad esempio, l'<strong>acetaminofene</strong> (paracetamolo), un comune farmaco analgesico e antipiretico.
+</div>
+            </div>
+        </div>
+        
+        <div id="step-5" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">6</span>
+                Verifica del risultato
+            </div>
+            <div class="step-content">
+                <h2>Verifica del risultato</h2>
+<p>Verifichiamo che la composizione percentuale sia corretta:</p>
+<div class="formula">
+%C = (8 x 12,01 / 151,16) x 100 = 63,56%  (dato: 63,57%)<br>
+%H = (9 x 1,008 / 151,16) x 100 = 6,00%   (dato: 6,00%)<br>
+%N = (14,01 / 151,16) x 100 = 9,27%       (dato: 9,27%)<br>
+%O = (2 x 16,00 / 151,16) x 100 = 21,17%  (dato: 21,17%)<br>
+<br>
+Totale: 63,56 + 6,00 + 9,27 + 21,17 = 100,00%
+</div>
+<p>I valori coincidono perfettamente con i dati forniti!</p>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+<script>
+    let currentStep = 0;
+    let totalSteps = 0;
+
+    document.addEventListener('DOMContentLoaded', function() {
+        totalSteps = document.querySelectorAll('.step-container').length;
+        updateProgress();
+        updateButtons();
+    });
+
+    function showNextStep() {
+        if (currentStep < totalSteps) {
+            const step = document.getElementById('step-' + currentStep);
+            if (step) {
+                step.classList.add('visible');
+                step.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                currentStep++;
+                updateProgress();
+                updateButtons();
+
+                if (window.parent !== window) {
+                    window.parent.postMessage({type: 'stepShown', step: currentStep, total: totalSteps}, '*');
+                }
+            }
+        }
+    }
+
+    function showAllSteps() {
+        document.querySelectorAll('.step-container').forEach(function(step) {
+            step.classList.add('visible');
+        });
+        currentStep = totalSteps;
+        updateProgress();
+        updateButtons();
+
+        if (window.parent !== window) {
+            window.parent.postMessage({type: 'allStepsShown'}, '*');
+        }
+    }
+
+    function hideAllSteps() {
+        document.querySelectorAll('.step-container').forEach(function(step) {
+            step.classList.remove('visible');
+        });
+        currentStep = 0;
+        updateProgress();
+        updateButtons();
+    }
+
+    function updateProgress() {
+        const pct = totalSteps > 0 ? (currentStep / totalSteps) * 100 : 0;
+        const fill = document.getElementById('progress-fill');
+        const text = document.getElementById('progress-text');
+        if (fill) fill.style.width = pct + '%';
+        if (text) text.textContent = 'Passaggio ' + currentStep + ' di ' + totalSteps;
+    }
+
+    function updateButtons() {
+        const nextBtn = document.getElementById('next-btn');
+        const allBtn = document.getElementById('all-btn');
+        const doneButtons = document.getElementById('done-buttons');
+
+        if (currentStep >= totalSteps) {
+            if (nextBtn) nextBtn.style.display = 'none';
+            if (allBtn) allBtn.style.display = 'none';
+            if (doneButtons) doneButtons.style.display = 'flex';
+        } else {
+            if (nextBtn) nextBtn.style.display = 'block';
+            if (allBtn) allBtn.style.display = 'block';
+            if (doneButtons) doneButtons.style.display = 'none';
+        }
+    }
+
+    function markExercise(status) {
+        // Salva in localStorage
+        const exerciseId = window.location.pathname.split('/').pop().replace('.html', '');
+        let progress = JSON.parse(localStorage.getItem('chemportal_progress') || '{}');
+        if (!progress.exercises) progress.exercises = {};
+        progress.exercises[exerciseId] = status;
+        localStorage.setItem('chemportal_progress', JSON.stringify(progress));
+
+        // Feedback visivo
+        const btn = status === 'done' ? document.getElementById('mark-done') : document.getElementById('mark-review');
+        const otherBtn = status === 'done' ? document.getElementById('mark-review') : document.getElementById('mark-done');
+
+        btn.classList.add('selected');
+        otherBtn.classList.remove('selected');
+
+        // Notifica parent
+        if (window.parent !== window) {
+            window.parent.postMessage({type: 'exerciseMarked', status: status, id: exerciseId}, '*');
+        }
+    }
+
+    function resetExercise() {
+        hideAllSteps();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Messaggi dal parent
+    window.addEventListener('message', function(e) {
+        if (e.data.type === 'showNext') showNextStep();
+        else if (e.data.type === 'showAll') showAllSteps();
+        else if (e.data.type === 'hideAll') hideAllSteps();
+    });
+
+    function closeExercise() {
+        if (window.parent !== window) {
+            // Siamo in iframe, chiedi al parent di chiudere
+            window.parent.postMessage({type: 'closeModal'}, '*');
+        } else {
+            // Standalone: torna alla pagina esercizi
+            const path = window.location.pathname;
+            if (path.includes('/content/soluzioni/')) {
+                window.location.href = '../../esercizi.html';
+            } else {
+                window.history.back();
+            }
+        }
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Esercizi - ChemPortal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2563eb',
+                        secondary: '#1e40af',
+                        accent: '#3b82f6',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-primary to-secondary text-white shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex items-center justify-between">
+                <a href="index.html" class="flex items-center space-x-3">
+                    <span class="text-3xl">⚗️</span>
+                    <div>
+                        <h1 class="text-2xl font-bold">ChemPortal</h1>
+                        <p class="text-blue-200 text-sm">Chimica Generale</p>
+                    </div>
+                </a>
+                <nav class="hidden md:flex space-x-6 items-center">
+                    <a href="index.html" class="hover:text-blue-200">Home</a>
+                    <a href="manuale.html" class="hover:text-blue-200">Manuale</a>
+                    <a href="esercizi.html" class="hover:text-blue-200 font-medium border-b-2 border-white pb-1">Esercizi</a>
+                    <a href="flashcard.html" class="hover:text-blue-200">Formule</a>
+                    <a href="simulazione.html" class="hover:text-blue-200">Simulazione</a>
+                    <div class="relative">
+                        <input type="text" id="globalSearch" placeholder="Cerca..."
+                               class="px-3 py-1 rounded-lg text-gray-800 text-sm w-40 focus:w-56 transition-all focus:outline-none focus:ring-2 focus:ring-white">
+                        <div id="searchResults" class="hidden absolute top-full right-0 mt-2 w-80 bg-white rounded-lg shadow-xl max-h-96 overflow-y-auto z-50"></div>
+                    </div>
+                </nav>
+                <button id="mobileMenuBtn" class="md:hidden text-white">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <div id="mobileMenu" class="hidden md:hidden bg-secondary">
+            <nav class="container mx-auto px-4 py-3 flex flex-col space-y-2">
+                <a href="index.html" class="text-white hover:text-blue-200 py-2">Home</a>
+                <a href="manuale.html" class="text-white hover:text-blue-200 py-2">Manuale</a>
+                <a href="esercizi.html" class="text-white hover:text-blue-200 py-2">Esercizi</a>
+                <a href="flashcard.html" class="text-white hover:text-blue-200 py-2">Formule</a>
+                <a href="simulazione.html" class="text-white hover:text-blue-200 py-2">Simulazione</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8">
+        <!-- Breadcrumb -->
+        <nav class="mb-6">
+            <ol class="flex items-center space-x-2 text-sm text-gray-500">
+                <li><a href="index.html" class="hover:text-primary">Home</a></li>
+                <li><span class="mx-2">/</span></li>
+                <li>Esercizi</li>
+            </ol>
+        </nav>
+
+        <!-- Page Header -->
+        <div class="mb-8">
+            <h2 class="text-3xl font-bold text-gray-800 mb-2">Esercizi d'Esame</h2>
+            <p class="text-gray-600">88 esercizi risolti passo-passo, organizzati per argomento.</p>
+        </div>
+
+        <!-- Filters -->
+        <div class="bg-white rounded-xl shadow-md p-4 mb-6">
+            <div class="flex flex-wrap items-center gap-4">
+                <div class="flex-1 min-w-[200px]">
+                    <input type="text" id="searchInput" placeholder="Cerca esercizi..."
+                           class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary">
+                </div>
+                <select id="categoryFilter" class="p-3 border rounded-lg bg-white">
+                    <option value="">Tutti gli argomenti</option>
+                </select>
+                <select id="statusFilter" class="p-3 border rounded-lg bg-white">
+                    <option value="">Tutti gli stati</option>
+                    <option value="done">Fatti</option>
+                    <option value="review">Da rivedere</option>
+                    <option value="pending">Non fatti</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Progress Stats -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+            <div class="bg-green-50 rounded-lg p-4 flex items-center justify-between">
+                <span class="text-gray-600">Fatti</span>
+                <span id="doneCount" class="text-2xl font-bold text-green-600">0</span>
+            </div>
+            <div class="bg-yellow-50 rounded-lg p-4 flex items-center justify-between">
+                <span class="text-gray-600">Da rivedere</span>
+                <span id="reviewCount" class="text-2xl font-bold text-yellow-600">0</span>
+            </div>
+            <div class="bg-gray-50 rounded-lg p-4 flex items-center justify-between">
+                <span class="text-gray-600">Non fatti</span>
+                <span id="pendingCount" class="text-2xl font-bold text-gray-600">0</span>
+            </div>
+        </div>
+
+        <!-- Categories -->
+        <div id="categoriesContainer">
+            <!-- Will be populated by JS -->
+        </div>
+
+        <!-- Exercise Modal -->
+        <div id="exerciseModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4">
+            <div class="bg-white rounded-xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden flex flex-col">
+                <div class="bg-gray-50 p-4 border-b flex items-center justify-between">
+                    <h3 id="modalTitle" class="text-xl font-bold text-gray-800"></h3>
+                    <button onclick="closeModal()" class="text-gray-500 hover:text-gray-700">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="flex-1 overflow-auto">
+                    <iframe id="exerciseFrame" class="w-full h-full" style="min-height: 500px;"></iframe>
+                </div>
+                <div class="bg-gray-50 p-4 border-t flex justify-end">
+                    <div class="flex space-x-2">
+                        <button id="prevExercise" onclick="navigateExercise(-1)" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition">
+                            ← Precedente
+                        </button>
+                        <button id="nextExercise" onclick="navigateExercise(1)" class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-secondary transition">
+                            Successivo →
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/data.js"></script>
+    <script src="js/progress.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/search.js"></script>
+    <script>
+        let categories = [];
+        let allExercises = [];
+        let currentExerciseIndex = -1;
+        let filteredExercises = [];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadExercises();
+            initFilters();
+            initMobileMenu();
+            updateStats();
+
+            // Check for category filter in URL (from manuale.html)
+            const urlParams = new URLSearchParams(window.location.search);
+            const catParam = urlParams.get('cat');
+            if (catParam) {
+                const categoryFilter = document.getElementById('categoryFilter');
+                categoryFilter.value = catParam;
+                categoryFilter.dispatchEvent(new Event('change'));
+            }
+        });
+
+        function loadExercises() {
+            categories = EXERCISES_DATA.categories;
+
+            // Flatten exercises for navigation
+            categories.forEach(cat => {
+                cat.exercises.forEach(ex => {
+                    allExercises.push({
+                        ...ex,
+                        category: cat.id,
+                        categoryTitle: cat.title,
+                        categoryIcon: cat.icon,
+                        categoryColor: cat.color
+                    });
+                });
+            });
+
+            filteredExercises = [...allExercises];
+            renderCategories();
+            populateCategoryFilter();
+        }
+
+        function renderCategories() {
+            const container = document.getElementById('categoriesContainer');
+            const progress = Progress.get();
+
+            container.innerHTML = categories.map(category => {
+                const categoryExercises = filteredExercises.filter(e => e.category === category.id);
+                if (categoryExercises.length === 0) return '';
+
+                return `
+                    <div class="mb-8">
+                        <div class="flex items-center space-x-3 mb-4">
+                            <span class="text-3xl">${category.icon}</span>
+                            <h3 class="text-xl font-bold text-gray-800">${category.title}</h3>
+                            <span class="text-sm text-gray-500">(${categoryExercises.length} esercizi)</span>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                            ${categoryExercises.map(exercise => {
+                                const status = progress.exercises ? progress.exercises[exercise.id] : null;
+                                const statusClass = status === 'done' ? 'done' : status === 'review' ? 'review' : '';
+                                const statusBadge = status === 'done'
+                                    ? '<span class="badge badge-done">Fatto</span>'
+                                    : status === 'review'
+                                    ? '<span class="badge badge-review">Da rivedere</span>'
+                                    : '';
+
+                                return `
+                                    <div class="exercise-card bg-white rounded-lg shadow-md p-4 border-l-4 border-${category.color}-500 cursor-pointer hover:shadow-lg ${statusClass}"
+                                         onclick="openExercise('${exercise.id}')">
+                                        <div class="flex justify-between items-start mb-2">
+                                            <h4 class="font-semibold text-gray-800">${exercise.title}</h4>
+                                            ${statusBadge}
+                                        </div>
+                                        <div class="flex flex-wrap gap-1">
+                                            ${exercise.tags.map(tag =>
+                                                `<span class="bg-gray-100 text-gray-600 px-2 py-0.5 rounded text-xs">${tag}</span>`
+                                            ).join('')}
+                                        </div>
+                                    </div>
+                                `;
+                            }).join('')}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function populateCategoryFilter() {
+            const select = document.getElementById('categoryFilter');
+            select.innerHTML = '<option value="">Tutti gli argomenti</option>' +
+                categories.map(cat =>
+                    `<option value="${cat.id}">${cat.icon} ${cat.title}</option>`
+                ).join('');
+        }
+
+        function initFilters() {
+            const searchInput = document.getElementById('searchInput');
+            const categoryFilter = document.getElementById('categoryFilter');
+            const statusFilter = document.getElementById('statusFilter');
+
+            const applyFilters = () => {
+                const search = searchInput.value.toLowerCase();
+                const category = categoryFilter.value;
+                const status = statusFilter.value;
+                const progress = Progress.get();
+
+                filteredExercises = allExercises.filter(ex => {
+                    // Search filter
+                    const matchesSearch = !search ||
+                        ex.title.toLowerCase().includes(search) ||
+                        ex.tags.some(t => t.toLowerCase().includes(search));
+
+                    // Category filter
+                    const matchesCategory = !category || ex.category === category;
+
+                    // Status filter
+                    const exStatus = progress.exercises ? progress.exercises[ex.id] : null;
+                    let matchesStatus = true;
+                    if (status === 'done') matchesStatus = exStatus === 'done';
+                    else if (status === 'review') matchesStatus = exStatus === 'review';
+                    else if (status === 'pending') matchesStatus = !exStatus;
+
+                    return matchesSearch && matchesCategory && matchesStatus;
+                });
+
+                renderCategories();
+                updateStats();
+            };
+
+            searchInput.addEventListener('input', ChemPortal.debounce(applyFilters, 300));
+            categoryFilter.addEventListener('change', applyFilters);
+            statusFilter.addEventListener('change', applyFilters);
+        }
+
+        function updateStats() {
+            const progress = Progress.get();
+            let done = 0, review = 0, pending = 0;
+
+            allExercises.forEach(ex => {
+                const status = progress.exercises ? progress.exercises[ex.id] : null;
+                if (status === 'done') done++;
+                else if (status === 'review') review++;
+                else pending++;
+            });
+
+            document.getElementById('doneCount').textContent = done;
+            document.getElementById('reviewCount').textContent = review;
+            document.getElementById('pendingCount').textContent = pending;
+        }
+
+        function openExercise(exerciseId) {
+            currentExerciseIndex = filteredExercises.findIndex(e => e.id === exerciseId);
+            if (currentExerciseIndex === -1) return;
+
+            const exercise = filteredExercises[currentExerciseIndex];
+            const modal = document.getElementById('exerciseModal');
+            const frame = document.getElementById('exerciseFrame');
+            const title = document.getElementById('modalTitle');
+
+            title.textContent = `${exercise.categoryIcon} ${exercise.title}`;
+            frame.src = `content/soluzioni/${exercise.category}/${exercise.id}.html`;
+
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+
+            updateNavigationButtons();
+            Progress.setLastVisited('exercise', exercise.id);
+        }
+
+        function closeModal() {
+            document.getElementById('exerciseModal').classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+
+        function navigateExercise(direction) {
+            const newIndex = currentExerciseIndex + direction;
+            if (newIndex >= 0 && newIndex < filteredExercises.length) {
+                openExercise(filteredExercises[newIndex].id);
+            }
+        }
+
+        function updateNavigationButtons() {
+            document.getElementById('prevExercise').disabled = currentExerciseIndex <= 0;
+            document.getElementById('nextExercise').disabled = currentExerciseIndex >= filteredExercises.length - 1;
+        }
+
+        function markCurrentExercise(status) {
+            if (currentExerciseIndex >= 0) {
+                const exercise = filteredExercises[currentExerciseIndex];
+                Progress.markExercise(exercise.id, status);
+                updateStats();
+                renderCategories();
+                ChemPortal.showNotification(
+                    status === 'done' ? 'Esercizio segnato come fatto!' : 'Esercizio da rivedere',
+                    status === 'done' ? 'success' : 'info'
+                );
+            }
+        }
+
+        // Close modal on escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
+            if (e.key === 'ArrowLeft') navigateExercise(-1);
+            if (e.key === 'ArrowRight') navigateExercise(1);
+        });
+
+        // Close modal on backdrop click
+        document.getElementById('exerciseModal').addEventListener('click', (e) => {
+            if (e.target.id === 'exerciseModal') closeModal();
+        });
+
+        // Ascolta messaggi dall'iframe (quiz mode)
+        window.addEventListener('message', (e) => {
+            if (e.data.type === 'exerciseMarked') {
+                // L'esercizio ha già salvato in localStorage, aggiorniamo solo la UI
+                updateStats();
+                renderCategories();
+                ChemPortal.showNotification(
+                    e.data.status === 'done' ? 'Esercizio segnato come fatto!' : 'Esercizio da rivedere',
+                    e.data.status === 'done' ? 'success' : 'info'
+                );
+            } else if (e.data.type === 'closeModal') {
+                closeModal();
+            }
+        });
+
+        function initMobileMenu() {
+            const btn = document.getElementById('mobileMenuBtn');
+            const menu = document.getElementById('mobileMenu');
+            if (btn && menu) {
+                btn.addEventListener('click', () => menu.classList.toggle('hidden'));
+            }
+        }
+    </script>
+</body>
+</html>

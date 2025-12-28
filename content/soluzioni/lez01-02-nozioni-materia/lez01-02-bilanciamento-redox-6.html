@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Esame 8-1 - Bilanciamento Redox</title>
+    <style>
+        body { font-family: Georgia, serif; max-width: 800px; margin: 40px auto; padding: 20px; line-height: 1.8; }
+        h1 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+        h2 { color: #2980b9; margin-top: 30px; }
+        h3 { color: #8e44ad; margin-top: 25px; }
+        .question { background: #ecf0f1; padding: 15px; border-left: 4px solid #3498db; margin: 20px 0; }
+        .result { background: #d5f5e3; padding: 15px; border-left: 4px solid #27ae60; margin: 20px 0; font-weight: bold; }
+        .formula { background: #fdebd0; padding: 10px; margin: 10px 0; font-family: monospace; font-size: 1.1em; }
+        .step { background: #e8f6f3; padding: 12px; margin: 10px 0; border-radius: 5px; }
+        .important { background: #fadbd8; padding: 10px; margin: 10px 0; border-left: 4px solid #e74c3c; }
+        .semireazione { background: #d4efdf; padding: 8px 15px; margin: 8px 0; font-family: monospace; border-left: 3px solid #27ae60; }
+    
+    .done-buttons {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+    .mark-btn {
+        padding: 12px 24px;
+        font-size: 1em;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .mark-done {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        color: white;
+    }
+    .mark-done:hover, .mark-done.selected {
+        background: linear-gradient(135deg, #1e7e34, #17a085);
+        transform: scale(1.05);
+    }
+    .mark-review {
+        background: linear-gradient(135deg, #ffc107, #fd7e14);
+        color: white;
+    }
+    .mark-review:hover, .mark-review.selected {
+        background: linear-gradient(135deg, #d39e00, #dc6502);
+        transform: scale(1.05);
+    }
+    .mark-reset {
+        background: #6c757d;
+        color: white;
+    }
+    .mark-reset:hover {
+        background: #545b62;
+    }
+    .mark-btn.selected {
+        box-shadow: 0 0 0 3px rgba(0,0,0,0.2);
+    }
+</style>
+
+<style>
+    .quiz-container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px;
+        padding-bottom: 120px;
+    }
+    .question-section {
+        background: linear-gradient(135deg, #e8f4f8 0%, #d4edda 100%);
+        border: 2px solid #17a2b8;
+        border-radius: 10px;
+        padding: 25px;
+        margin-bottom: 20px;
+    }
+    .question-section h2 {
+        color: #0c5460;
+        margin-top: 0;
+        margin-bottom: 15px;
+    }
+    .show-next-btn {
+        display: block;
+        width: 100%;
+        padding: 15px 30px;
+        font-size: 1.1em;
+        font-weight: bold;
+        color: white;
+        background: linear-gradient(135deg, #007bff, #0056b3);
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        margin: 15px 0;
+        transition: all 0.3s ease;
+    }
+    .show-next-btn:hover {
+        background: linear-gradient(135deg, #0056b3, #004094);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 123, 255, 0.4);
+    }
+    .show-all-btn {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        margin-top: 10px;
+    }
+    .show-all-btn:hover {
+        background: linear-gradient(135deg, #218838, #1db385);
+        box-shadow: 0 4px 12px rgba(40, 167, 69, 0.4);
+    }
+    .step-container {
+        display: none;
+        animation: fadeIn 0.5s ease;
+        margin-bottom: 20px;
+        border: 1px solid #dee2e6;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    .step-container.visible {
+        display: block;
+    }
+    .step-header {
+        background: linear-gradient(135deg, #6c757d, #495057);
+        color: white;
+        padding: 12px 20px;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+    }
+    .step-number-badge {
+        background: white;
+        color: #495057;
+        border-radius: 50%;
+        width: 28px;
+        height: 28px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 12px;
+        font-weight: bold;
+    }
+    .step-content {
+        padding: 20px;
+        background: white;
+    }
+    .progress-bar {
+        background: #e9ecef;
+        border-radius: 10px;
+        height: 8px;
+        margin: 15px 0;
+        overflow: hidden;
+    }
+    .progress-fill {
+        background: linear-gradient(90deg, #28a745, #20c997);
+        height: 100%;
+        border-radius: 10px;
+        transition: width 0.5s ease;
+    }
+    .progress-text {
+        text-align: center;
+        color: #6c757d;
+        font-size: 0.9em;
+        margin-bottom: 15px;
+    }
+    .controls {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: white;
+        padding: 15px 20px;
+        border-top: 2px solid #dee2e6;
+        box-shadow: 0 -4px 12px rgba(0,0,0,0.1);
+        z-index: 1000;
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+    }
+    .quiz-container {
+        padding-bottom: 100px;
+    }
+    .show-next-btn {
+        width: auto;
+        margin: 0;
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .final-answer {
+        background: #d4edda;
+        border: 2px solid #28a745;
+        border-radius: 10px;
+        padding: 20px;
+        margin-top: 20px;
+    }
+    .final-answer h3 {
+        color: #155724;
+        margin-top: 0;
+    }
+
+    .done-buttons {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+    .mark-btn {
+        padding: 12px 24px;
+        font-size: 1em;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .mark-done {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        color: white;
+    }
+    .mark-done:hover, .mark-done.selected {
+        background: linear-gradient(135deg, #1e7e34, #17a085);
+        transform: scale(1.05);
+    }
+    .mark-review {
+        background: linear-gradient(135deg, #ffc107, #fd7e14);
+        color: white;
+    }
+    .mark-review:hover, .mark-review.selected {
+        background: linear-gradient(135deg, #d39e00, #dc6502);
+        transform: scale(1.05);
+    }
+    .mark-reset {
+        background: #6c757d;
+        color: white;
+    }
+    .mark-reset:hover {
+        background: #545b62;
+    }
+    .mark-btn.selected {
+        box-shadow: 0 0 0 3px rgba(0,0,0,0.2);
+    }
+</style>
+</head>
+<body>
+<div class="quiz-container">
+    <h1>Esame 8 - Quesito 4: Bilanciamento Reazioni Redox</h1>
+
+    <div class="question-section">
+        <h2>Testo dell'esercizio</h2>
+        <p>Risolvi l'esercizio seguente.</p>
+    </div>
+
+    <div class="progress-text" id="progress-text">Passaggio 0 di 4</div>
+    <div class="progress-bar">
+        <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+    </div>
+
+    <div class="controls">
+        <button id="next-btn" class="show-next-btn" onclick="showNextStep()">
+            ▶ Prossimo passaggio
+        </button>
+        <button id="all-btn" class="show-next-btn show-all-btn" onclick="showAllSteps()">
+            ⏩ Mostra tutto
+        </button>
+        <div id="done-buttons" class="done-buttons" style="display: none;">
+            <button id="mark-done" class="mark-btn mark-done" onclick="markExercise('done')">
+                ✓ Fatto
+            </button>
+            <button id="mark-review" class="mark-btn mark-review" onclick="markExercise('review')">
+                ⚠ Da rivedere
+            </button>
+            <button class="mark-btn mark-reset" onclick="resetExercise()">
+                ↺ Ricomincia
+            </button>
+            <button class="mark-btn" style="background: #17a2b8;" onclick="closeExercise()">
+                ✕ Chiudi
+            </button>
+        </div>
+    </div>
+
+    <div id="steps-wrapper">
+        
+        <div id="step-0" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">1</span>
+                Reazione 1: Ag2O + H2O2 -> Ag + H2O + O2
+            </div>
+            <div class="step-content">
+                <h1>Esame 8 - Quesito 4: Bilanciamento Reazioni Redox</h1>
+
+<div class="question">
+    <strong>Testo del quesito:</strong><br>
+    Completare e bilanciare le seguenti reazioni:<br>
+    1) Ag2O + H2O2 = Ag + H2O + O2<br>
+    2) Si + NaOH = Na4SiO4 + H2<br>
+    3) Fe + HCl = FeCl2 + H2
+</div><h2>Reazione 1: Ag2O + H2O2 -> Ag + H2O + O2</h2>
+
+<p>Iniziamo analizzando questa reazione. Dobbiamo prima capire <strong>cosa si ossida</strong> e <strong>cosa si riduce</strong>. Per farlo, assegniamo i numeri di ossidazione a tutti gli elementi.</p>
+
+<h3>Assegnazione numeri di ossidazione</h3>
+
+<p><strong>Nei reagenti:</strong></p>
+<ul>
+    <li><strong>Ag2O:</strong> L'ossigeno ha numero di ossidazione -2. Per bilanciare, l'argento deve avere +1. Quindi Ag ha n.o. = <strong>+1</strong></li>
+    <li><strong>H2O2 (acqua ossigenata):</strong> L'idrogeno ha n.o. = +1. L'ossigeno in H2O2 e' un caso particolare: ha n.o. = <strong>-1</strong> (non -2 come di solito!)</li>
+</ul>
+
+<p><strong>Nei prodotti:</strong></p>
+<ul>
+    <li><strong>Ag metallico:</strong> n.o. = <strong>0</strong> (elemento libero)</li>
+    <li><strong>H2O:</strong> H = +1, O = -2</li>
+    <li><strong>O2:</strong> n.o. = <strong>0</strong> (elemento libero)</li>
+</ul>
+
+<h3>Identificazione ossidazione e riduzione</h3>
+
+<div class="step">
+    <strong>Argento:</strong> passa da +1 (in Ag2O) a 0 (in Ag) -> <strong>RIDUZIONE</strong> (acquista 1 elettrone per atomo)<br><br>
+    <strong>Ossigeno di H2O2:</strong> passa da -1 a 0 (in O2) -> <strong>OSSIDAZIONE</strong> (perde 1 elettrone per atomo)
+</div>
+
+<div class="important">
+    <strong>Attenzione!</strong> L'ossigeno di H2O2 non diventa tutto O2. Una parte va a formare H2O (dove O ha n.o. -2). Ma per la parte che diventa O2, c'e' ossidazione.
+</div>
+
+<h3>Scrittura delle semireazioni</h3>
+
+<p><strong>Semireazione di riduzione (Ag+1 -> Ag0):</strong></p>
+<div class="semireazione">
+    Ag+ + 1e- -> Ag
+</div>
+<p>Ma nell'Ag2O abbiamo 2 atomi di argento, quindi:</p>
+<div class="semireazione">
+    Ag2O + 2e- -> 2Ag + O2-
+</div>
+<p>L'ossido libera ione ossido. In ambiente acquoso:</p>
+<div class="semireazione">
+    Ag2O + 2H+ + 2e- -> 2Ag + H2O
+</div>
+
+<p><strong>Semireazione di ossidazione (O-1 in H2O2 -> O0 in O2):</strong></p>
+<div class="semireazione">
+    H2O2 -> O2 + 2H+ + 2e-
+</div>
+<p>Qui 2 atomi di O (ciascuno con -1) perdono 1 elettrone ciascuno, diventando O2 (n.o. = 0).</p>
+
+<h3>Bilanciamento delle semireazioni</h3>
+
+<p>Le due semireazioni sono gia' bilanciate in termini di elettroni (entrambe coinvolgono 2 elettroni):</p>
+
+<div class="semireazione">
+    Riduzione: Ag2O + 2H+ + 2e- -> 2Ag + H2O
+</div>
+<div class="semireazione">
+    Ossidazione: H2O2 -> O2 + 2H+ + 2e-
+</div>
+
+<h3>Somma delle semireazioni</h3>
+
+<p>Sommando le due semireazioni (gli elettroni si cancellano, e anche i 2H+ si cancellano):</p>
+
+<div class="formula">
+    Ag2O + H2O2 -> 2Ag + H2O + O2
+</div>
+
+<h3>Verifica del bilanciamento</h3>
+
+<p>Contiamo gli atomi da entrambi i lati:</p>
+<ul>
+    <li>Ag: 2 a sinistra, 2 a destra ✓</li>
+    <li>O: 1 (da Ag2O) + 2 (da H2O2) = 3 a sinistra; 1 (da H2O) + 2 (da O2) = 3 a destra ✓</li>
+    <li>H: 2 a sinistra (da H2O2), 2 a destra (da H2O) ✓</li>
+</ul>
+
+<div class="result">
+    <strong>Reazione 1 bilanciata:</strong><br>
+    Ag2O + H2O2 -> 2Ag + H2O + O2
+</div>
+
+<hr>
+            </div>
+        </div>
+        
+        <div id="step-1" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">2</span>
+                Reazione 2: Si + NaOH -> Na4SiO4 + H2
+            </div>
+            <div class="step-content">
+                <h2>Reazione 2: Si + NaOH -> Na4SiO4 + H2</h2>
+
+<p>Questa reazione avviene in ambiente <strong>basico</strong> (c'e' NaOH). Il silicio reagisce con la soda per formare un silicato e idrogeno gassoso.</p>
+
+<h3>Assegnazione numeri di ossidazione</h3>
+
+<p><strong>Nei reagenti:</strong></p>
+<ul>
+    <li><strong>Si elementare:</strong> n.o. = <strong>0</strong></li>
+    <li><strong>NaOH:</strong> Na = +1, O = -2, H = <strong>+1</strong></li>
+</ul>
+
+<p><strong>Nei prodotti:</strong></p>
+<ul>
+    <li><strong>Na4SiO4:</strong> Na = +1, O = -2. Per il silicio: 4(+1) + Si + 4(-2) = 0, quindi Si = <strong>+4</strong></li>
+    <li><strong>H2:</strong> n.o. = <strong>0</strong></li>
+</ul>
+
+<h3>Identificazione ossidazione e riduzione</h3>
+
+<div class="step">
+    <strong>Silicio:</strong> passa da 0 a +4 -> <strong>OSSIDAZIONE</strong> (perde 4 elettroni)<br><br>
+    <strong>Idrogeno:</strong> passa da +1 (in NaOH) a 0 (in H2) -> <strong>RIDUZIONE</strong> (acquista 1 elettrone per atomo)
+</div>
+
+<h3>Scrittura delle semireazioni</h3>
+
+<p><strong>Semireazione di ossidazione (Si0 -> Si+4):</strong></p>
+<p>In ambiente basico, usiamo OH- e H2O per bilanciare:</p>
+<div class="semireazione">
+    Si + 8OH- -> SiO4(4-) + 4H2O + 4e-
+</div>
+<p>Verifica: Si passa da 0 a +4, quindi perde 4 elettroni. Corretto!</p>
+
+<p><strong>Semireazione di riduzione (H+1 -> H0):</strong></p>
+<div class="semireazione">
+    2H2O + 2e- -> H2 + 2OH-
+</div>
+<p>(Questa e' la forma della riduzione dell'acqua in ambiente basico)</p>
+
+<h3>Bilanciamento degli elettroni</h3>
+
+<p>La semireazione di ossidazione produce 4 elettroni, quella di riduzione ne consuma 2. Dobbiamo moltiplicare la riduzione per 2:</p>
+
+<div class="semireazione">
+    Ossidazione: Si + 8OH- -> SiO4(4-) + 4H2O + 4e-
+</div>
+<div class="semireazione">
+    Riduzione (x2): 4H2O + 4e- -> 2H2 + 4OH-
+</div>
+
+<h3>Somma delle semireazioni</h3>
+
+<p>Sommando:</p>
+<div class="formula">
+    Si + 8OH- + 4H2O -> SiO4(4-) + 4H2O + 2H2 + 4OH-
+</div>
+
+<p>Semplificando (4H2O si cancellano, e 4OH- si cancellano):</p>
+<div class="formula">
+    Si + 4OH- -> SiO4(4-) + 2H2
+</div>
+
+<p>Ora aggiungiamo i 4 ioni Na+ per avere Na4SiO4:</p>
+<div class="formula">
+    Si + 4NaOH -> Na4SiO4 + 2H2
+</div>
+
+<h3>Verifica del bilanciamento</h3>
+
+<ul>
+    <li>Si: 1 a sinistra, 1 a destra ✓</li>
+    <li>Na: 4 a sinistra, 4 a destra ✓</li>
+    <li>O: 4 a sinistra (da 4 NaOH), 4 a destra (da Na4SiO4) ✓</li>
+    <li>H: 4 a sinistra (da 4 NaOH), 4 a destra (da 2 H2) ✓</li>
+</ul>
+
+<div class="result">
+    <strong>Reazione 2 bilanciata:</strong><br>
+    Si + 4NaOH -> Na4SiO4 + 2H2
+</div>
+
+<hr>
+            </div>
+        </div>
+        
+        <div id="step-2" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">3</span>
+                Reazione 3: Fe + HCl -> FeCl2 + H2
+            </div>
+            <div class="step-content">
+                <h2>Reazione 3: Fe + HCl -> FeCl2 + H2</h2>
+
+<p>Questa e' la reazione classica tra un metallo e un acido. Il ferro metallico reagisce con acido cloridrico per dare cloruro ferroso e idrogeno gassoso.</p>
+
+<h3>Assegnazione numeri di ossidazione</h3>
+
+<p><strong>Nei reagenti:</strong></p>
+<ul>
+    <li><strong>Fe metallico:</strong> n.o. = <strong>0</strong></li>
+    <li><strong>HCl:</strong> H = <strong>+1</strong>, Cl = -1</li>
+</ul>
+
+<p><strong>Nei prodotti:</strong></p>
+<ul>
+    <li><strong>FeCl2:</strong> Cl = -1, quindi Fe = <strong>+2</strong></li>
+    <li><strong>H2:</strong> n.o. = <strong>0</strong></li>
+</ul>
+
+<h3>Identificazione ossidazione e riduzione</h3>
+
+<div class="step">
+    <strong>Ferro:</strong> passa da 0 a +2 -> <strong>OSSIDAZIONE</strong> (perde 2 elettroni)<br><br>
+    <strong>Idrogeno:</strong> passa da +1 a 0 -> <strong>RIDUZIONE</strong> (acquista 1 elettrone per atomo)
+</div>
+
+<h3>Scrittura delle semireazioni</h3>
+
+<p><strong>Semireazione di ossidazione (Fe0 -> Fe2+):</strong></p>
+<div class="semireazione">
+    Fe -> Fe2+ + 2e-
+</div>
+
+<p><strong>Semireazione di riduzione (H+ -> H0):</strong></p>
+<div class="semireazione">
+    2H+ + 2e- -> H2
+</div>
+<p>(Servono 2 ioni H+ per formare una molecola di H2, e ogni H+ acquista 1 elettrone)</p>
+
+<h3>Bilanciamento degli elettroni</h3>
+
+<p>Entrambe le semireazioni coinvolgono 2 elettroni, quindi sono gia' bilanciate:</p>
+
+<div class="semireazione">
+    Ossidazione: Fe -> Fe2+ + 2e-
+</div>
+<div class="semireazione">
+    Riduzione: 2H+ + 2e- -> H2
+</div>
+
+<h3>Somma delle semireazioni</h3>
+
+<p>Sommando (gli elettroni si cancellano):</p>
+<div class="formula">
+    Fe + 2H+ -> Fe2+ + H2
+</div>
+
+<p>Ora aggiungiamo i cloruri (2 Cl- per ogni Fe2+ e 1 Cl- per ogni H+):</p>
+<div class="formula">
+    Fe + 2HCl -> FeCl2 + H2
+</div>
+
+<h3>Verifica del bilanciamento</h3>
+
+<ul>
+    <li>Fe: 1 a sinistra, 1 a destra ✓</li>
+    <li>H: 2 a sinistra (da 2 HCl), 2 a destra (da H2) ✓</li>
+    <li>Cl: 2 a sinistra, 2 a destra ✓</li>
+</ul>
+
+<div class="result">
+    <strong>Reazione 3 bilanciata:</strong><br>
+    Fe + 2HCl -> FeCl2 + H2
+</div>
+
+<hr>
+            </div>
+        </div>
+        
+        <div id="step-3" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">4</span>
+                Riepilogo delle tre reazioni bilanciate
+            </div>
+            <div class="step-content">
+                <h2>Riepilogo delle tre reazioni bilanciate</h2>
+
+<div class="result" style="font-size: 1.1em;">
+    <strong>1)</strong> Ag2O + H2O2 -> 2Ag + H2O + O2<br><br>
+    <strong>2)</strong> Si + 4NaOH -> Na4SiO4 + 2H2<br><br>
+    <strong>3)</strong> Fe + 2HCl -> FeCl2 + H2
+</div>
+
+<p style="margin-top: 30px; color: #7f8c8d;">
+    <em>Ricorda: nel bilanciamento redox con il metodo delle semireazioni, la chiave e' sempre identificare correttamente cosa si ossida e cosa si riduce, poi bilanciare gli elettroni persi e acquistati!</em>
+</p>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+<script>
+    let currentStep = 0;
+    let totalSteps = 0;
+
+    document.addEventListener('DOMContentLoaded', function() {
+        totalSteps = document.querySelectorAll('.step-container').length;
+        updateProgress();
+        updateButtons();
+    });
+
+    function showNextStep() {
+        if (currentStep < totalSteps) {
+            const step = document.getElementById('step-' + currentStep);
+            if (step) {
+                step.classList.add('visible');
+                step.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                currentStep++;
+                updateProgress();
+                updateButtons();
+
+                if (window.parent !== window) {
+                    window.parent.postMessage({type: 'stepShown', step: currentStep, total: totalSteps}, '*');
+                }
+            }
+        }
+    }
+
+    function showAllSteps() {
+        document.querySelectorAll('.step-container').forEach(function(step) {
+            step.classList.add('visible');
+        });
+        currentStep = totalSteps;
+        updateProgress();
+        updateButtons();
+
+        if (window.parent !== window) {
+            window.parent.postMessage({type: 'allStepsShown'}, '*');
+        }
+    }
+
+    function hideAllSteps() {
+        document.querySelectorAll('.step-container').forEach(function(step) {
+            step.classList.remove('visible');
+        });
+        currentStep = 0;
+        updateProgress();
+        updateButtons();
+    }
+
+    function updateProgress() {
+        const pct = totalSteps > 0 ? (currentStep / totalSteps) * 100 : 0;
+        const fill = document.getElementById('progress-fill');
+        const text = document.getElementById('progress-text');
+        if (fill) fill.style.width = pct + '%';
+        if (text) text.textContent = 'Passaggio ' + currentStep + ' di ' + totalSteps;
+    }
+
+    function updateButtons() {
+        const nextBtn = document.getElementById('next-btn');
+        const allBtn = document.getElementById('all-btn');
+        const doneButtons = document.getElementById('done-buttons');
+
+        if (currentStep >= totalSteps) {
+            if (nextBtn) nextBtn.style.display = 'none';
+            if (allBtn) allBtn.style.display = 'none';
+            if (doneButtons) doneButtons.style.display = 'flex';
+        } else {
+            if (nextBtn) nextBtn.style.display = 'block';
+            if (allBtn) allBtn.style.display = 'block';
+            if (doneButtons) doneButtons.style.display = 'none';
+        }
+    }
+
+    function markExercise(status) {
+        // Salva in localStorage
+        const exerciseId = window.location.pathname.split('/').pop().replace('.html', '');
+        let progress = JSON.parse(localStorage.getItem('chemportal_progress') || '{}');
+        if (!progress.exercises) progress.exercises = {};
+        progress.exercises[exerciseId] = status;
+        localStorage.setItem('chemportal_progress', JSON.stringify(progress));
+
+        // Feedback visivo
+        const btn = status === 'done' ? document.getElementById('mark-done') : document.getElementById('mark-review');
+        const otherBtn = status === 'done' ? document.getElementById('mark-review') : document.getElementById('mark-done');
+
+        btn.classList.add('selected');
+        otherBtn.classList.remove('selected');
+
+        // Notifica parent
+        if (window.parent !== window) {
+            window.parent.postMessage({type: 'exerciseMarked', status: status, id: exerciseId}, '*');
+        }
+    }
+
+    function resetExercise() {
+        hideAllSteps();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Messaggi dal parent
+    window.addEventListener('message', function(e) {
+        if (e.data.type === 'showNext') showNextStep();
+        else if (e.data.type === 'showAll') showAllSteps();
+        else if (e.data.type === 'hideAll') hideAllSteps();
+    });
+
+    function closeExercise() {
+        if (window.parent !== window) {
+            // Siamo in iframe, chiedi al parent di chiudere
+            window.parent.postMessage({type: 'closeModal'}, '*');
+        } else {
+            // Standalone: torna alla pagina esercizi
+            const path = window.location.pathname;
+            if (path.includes('/content/soluzioni/')) {
+                window.location.href = '../../esercizi.html';
+            } else {
+                window.history.back();
+            }
+        }
+    }
+</script>
+</body>
+</html>

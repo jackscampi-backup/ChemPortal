@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Esame 7-1 - Termodinamica e Kp - Idrogenazione dell'acetone</title>
+    <style>
+        body { font-family: Georgia, serif; max-width: 800px; margin: 40px auto; padding: 20px; line-height: 1.8; }
+        h1 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+        h2 { color: #2980b9; margin-top: 30px; }
+        h3 { color: #8e44ad; margin-top: 25px; }
+        .question { background: #ecf0f1; padding: 15px; border-left: 4px solid #3498db; margin: 20px 0; }
+        .result { background: #d5f5e3; padding: 15px; border-left: 4px solid #27ae60; margin: 20px 0; font-weight: bold; }
+        .formula { background: #fdebd0; padding: 12px; margin: 15px 0; font-family: 'Courier New', monospace; font-size: 1.05em; }
+        .note { background: #ebdef0; padding: 12px; border-left: 4px solid #8e44ad; margin: 15px 0; font-style: italic; }
+        .step { background: #e8f6f3; padding: 10px; margin: 10px 0; border-radius: 5px; }
+        p { margin: 12px 0; }
+    
+    .done-buttons {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+    .mark-btn {
+        padding: 12px 24px;
+        font-size: 1em;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .mark-done {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        color: white;
+    }
+    .mark-done:hover, .mark-done.selected {
+        background: linear-gradient(135deg, #1e7e34, #17a085);
+        transform: scale(1.05);
+    }
+    .mark-review {
+        background: linear-gradient(135deg, #ffc107, #fd7e14);
+        color: white;
+    }
+    .mark-review:hover, .mark-review.selected {
+        background: linear-gradient(135deg, #d39e00, #dc6502);
+        transform: scale(1.05);
+    }
+    .mark-reset {
+        background: #6c757d;
+        color: white;
+    }
+    .mark-reset:hover {
+        background: #545b62;
+    }
+    .mark-btn.selected {
+        box-shadow: 0 0 0 3px rgba(0,0,0,0.2);
+    }
+</style>
+
+<style>
+    .quiz-container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px;
+        padding-bottom: 120px;
+    }
+    .question-section {
+        background: linear-gradient(135deg, #e8f4f8 0%, #d4edda 100%);
+        border: 2px solid #17a2b8;
+        border-radius: 10px;
+        padding: 25px;
+        margin-bottom: 20px;
+    }
+    .question-section h2 {
+        color: #0c5460;
+        margin-top: 0;
+        margin-bottom: 15px;
+    }
+    .show-next-btn {
+        display: block;
+        width: 100%;
+        padding: 15px 30px;
+        font-size: 1.1em;
+        font-weight: bold;
+        color: white;
+        background: linear-gradient(135deg, #007bff, #0056b3);
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        margin: 15px 0;
+        transition: all 0.3s ease;
+    }
+    .show-next-btn:hover {
+        background: linear-gradient(135deg, #0056b3, #004094);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 123, 255, 0.4);
+    }
+    .show-all-btn {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        margin-top: 10px;
+    }
+    .show-all-btn:hover {
+        background: linear-gradient(135deg, #218838, #1db385);
+        box-shadow: 0 4px 12px rgba(40, 167, 69, 0.4);
+    }
+    .step-container {
+        display: none;
+        animation: fadeIn 0.5s ease;
+        margin-bottom: 20px;
+        border: 1px solid #dee2e6;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    .step-container.visible {
+        display: block;
+    }
+    .step-header {
+        background: linear-gradient(135deg, #6c757d, #495057);
+        color: white;
+        padding: 12px 20px;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+    }
+    .step-number-badge {
+        background: white;
+        color: #495057;
+        border-radius: 50%;
+        width: 28px;
+        height: 28px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 12px;
+        font-weight: bold;
+    }
+    .step-content {
+        padding: 20px;
+        background: white;
+    }
+    .progress-bar {
+        background: #e9ecef;
+        border-radius: 10px;
+        height: 8px;
+        margin: 15px 0;
+        overflow: hidden;
+    }
+    .progress-fill {
+        background: linear-gradient(90deg, #28a745, #20c997);
+        height: 100%;
+        border-radius: 10px;
+        transition: width 0.5s ease;
+    }
+    .progress-text {
+        text-align: center;
+        color: #6c757d;
+        font-size: 0.9em;
+        margin-bottom: 15px;
+    }
+    .controls {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: white;
+        padding: 15px 20px;
+        border-top: 2px solid #dee2e6;
+        box-shadow: 0 -4px 12px rgba(0,0,0,0.1);
+        z-index: 1000;
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+    }
+    .quiz-container {
+        padding-bottom: 100px;
+    }
+    .show-next-btn {
+        width: auto;
+        margin: 0;
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .final-answer {
+        background: #d4edda;
+        border: 2px solid #28a745;
+        border-radius: 10px;
+        padding: 20px;
+        margin-top: 20px;
+    }
+    .final-answer h3 {
+        color: #155724;
+        margin-top: 0;
+    }
+
+    .done-buttons {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+    .mark-btn {
+        padding: 12px 24px;
+        font-size: 1em;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .mark-done {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        color: white;
+    }
+    .mark-done:hover, .mark-done.selected {
+        background: linear-gradient(135deg, #1e7e34, #17a085);
+        transform: scale(1.05);
+    }
+    .mark-review {
+        background: linear-gradient(135deg, #ffc107, #fd7e14);
+        color: white;
+    }
+    .mark-review:hover, .mark-review.selected {
+        background: linear-gradient(135deg, #d39e00, #dc6502);
+        transform: scale(1.05);
+    }
+    .mark-reset {
+        background: #6c757d;
+        color: white;
+    }
+    .mark-reset:hover {
+        background: #545b62;
+    }
+    .mark-btn.selected {
+        box-shadow: 0 0 0 3px rgba(0,0,0,0.2);
+    }
+</style>
+</head>
+<body>
+<div class="quiz-container">
+    <h1>Termodinamica: Spontaneita e Energia Libera di Gibbs</h1>
+
+    <div class="question-section">
+        <h2>Testo dell'esercizio</h2>
+        <p>Risolvi l'esercizio seguente.</p>
+    </div>
+
+    <div class="progress-text" id="progress-text">Passaggio 0 di 5</div>
+    <div class="progress-bar">
+        <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+    </div>
+
+    <div class="controls">
+        <button id="next-btn" class="show-next-btn" onclick="showNextStep()">
+            ▶ Prossimo passaggio
+        </button>
+        <button id="all-btn" class="show-next-btn show-all-btn" onclick="showAllSteps()">
+            ⏩ Mostra tutto
+        </button>
+        <div id="done-buttons" class="done-buttons" style="display: none;">
+            <button id="mark-done" class="mark-btn mark-done" onclick="markExercise('done')">
+                ✓ Fatto
+            </button>
+            <button id="mark-review" class="mark-btn mark-review" onclick="markExercise('review')">
+                ⚠ Da rivedere
+            </button>
+            <button class="mark-btn mark-reset" onclick="resetExercise()">
+                ↺ Ricomincia
+            </button>
+            <button class="mark-btn" style="background: #17a2b8;" onclick="closeExercise()">
+                ✕ Chiudi
+            </button>
+        </div>
+    </div>
+
+    <div id="steps-wrapper">
+        
+        <div id="step-0" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">1</span>
+                Idrogenazione dell'acetone a 2-propanolo
+            </div>
+            <div class="step-content">
+                <h1>Termodinamica: Spontaneita e Energia Libera di Gibbs</h1><h2>Idrogenazione dell'acetone a 2-propanolo</h2>
+
+<div class="question">
+<strong>TESTO DEL QUESITO:</strong><br><br>
+Si consideri l'idrogenazione dell'acetone (CH<sub>3</sub>)<sub>2</sub>CO a 2-propanolo (CH<sub>3</sub>)<sub>2</sub>CHOH di seguito riportata:
+<br><br>
+<strong>(CH<sub>3</sub>)<sub>2</sub>CO(g) + H<sub>2</sub>(g) ⇌ (CH<sub>3</sub>)<sub>2</sub>CHOH(g)</strong>
+<br><br>
+Alla temperatura di 452 K, la K<sub>p</sub> vale 2.25 atm<sup>-1</sup>.
+<br><br>
+a) A questa T la reazione e spontanea partendo dallo stato standard?<br>
+b) Quanto vale il DeltaG a 452 K quando P(2-propanolo) = 22.5 atm, P(acetone) = 2 atm e P(H<sub>2</sub>) = 5 atm?
+</div>
+            </div>
+        </div>
+        
+        <div id="step-1" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">2</span>
+                Risoluzione
+            </div>
+            <div class="step-content">
+                <h2>Risoluzione</h2>
+
+<h3>Prima di tutto: cosa ci sta chiedendo il problema?</h3>
+
+<p>Questo esercizio riguarda la <strong>termodinamica chimica</strong> e in particolare il concetto di <strong>energia libera di Gibbs (DeltaG)</strong>. Ci viene chiesto di capire:</p>
+
+<ol>
+    <li><strong>Punto a)</strong>: La reazione e spontanea quando partiamo dallo stato standard? In altre parole, se mettiamo insieme i reagenti nelle condizioni standard, la reazione "parte da sola" verso destra?</li>
+    <li><strong>Punto b)</strong>: Cosa succede alla spontaneita quando le pressioni NON sono quelle standard, ma sono quelle specifiche date nel problema?</li>
+</ol>
+
+<h3>Concetto chiave: il legame tra K e DeltaG</h3>
+
+<p>Ricordiamoci una cosa fondamentale: esiste una relazione matematica precisa tra la <strong>costante di equilibrio K</strong> e l'<strong>energia libera di Gibbs standard DeltaG°</strong>:</p>
+
+<div class="formula">
+DeltaG° = -R x T x ln(K)
+</div>
+
+<p>Dove:</p>
+<ul>
+    <li><strong>R</strong> = 8.314 J/(mol x K) - la costante universale dei gas</li>
+    <li><strong>T</strong> = temperatura in Kelvin</li>
+    <li><strong>K</strong> = costante di equilibrio (nel nostro caso K<sub>p</sub>)</li>
+    <li><strong>ln</strong> = logaritmo naturale (base e)</li>
+</ul>
+
+<div class="note">
+<strong>Perche questa formula e cosi importante?</strong><br>
+Perche ci dice che se conosciamo K, possiamo calcolare DeltaG° e quindi sapere se la reazione e spontanea nello stato standard!
+</div>
+
+<hr>
+            </div>
+        </div>
+        
+        <div id="step-2" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">3</span>
+                PUNTO A: La reazione e spontanea nello stato stand...
+            </div>
+            <div class="step-content">
+                <h2>PUNTO A: La reazione e spontanea nello stato standard?</h2>
+
+<h3>Cosa significa "stato standard"?</h3>
+
+<p>Per i gas, lo stato standard significa che <strong>tutte le pressioni parziali sono pari a 1 atm</strong>. Quindi stiamo chiedendo: se P(acetone) = 1 atm, P(H<sub>2</sub>) = 1 atm e P(2-propanolo) = 1 atm, la reazione procede spontaneamente verso destra?</p>
+
+<h3>Passo 1: Scriviamo i dati</h3>
+
+<div class="step">
+<ul>
+    <li>T = 452 K</li>
+    <li>K<sub>p</sub> = 2.25 atm<sup>-1</sup></li>
+    <li>R = 8.314 J/(mol x K)</li>
+</ul>
+</div>
+
+<h3>Passo 2: Calcoliamo DeltaG°</h3>
+
+<p>Applichiamo la formula:</p>
+
+<div class="formula">
+DeltaG° = -R x T x ln(K<sub>p</sub>)
+</div>
+
+<p>Prima calcoliamo il logaritmo naturale di 2.25:</p>
+
+<div class="formula">
+ln(2.25) = 0.811
+</div>
+
+<p>Ora sostituiamo tutti i valori:</p>
+
+<div class="formula">
+DeltaG° = -8.314 J/(mol x K) x 452 K x 0.811
+</div>
+
+<div class="formula">
+DeltaG° = -8.314 x 452 x 0.811 = -3047 J/mol
+</div>
+
+<p>Convertiamo in kJ/mol (dividendo per 1000):</p>
+
+<div class="formula">
+DeltaG° = -3.05 kJ/mol
+</div>
+
+<h3>Passo 3: Interpretiamo il risultato</h3>
+
+<p>Ora, cosa ci dice questo valore?</p>
+
+<div class="note">
+<strong>Regola fondamentale:</strong><br>
+- Se DeltaG° < 0 --> La reazione e <strong>SPONTANEA</strong> nello stato standard<br>
+- Se DeltaG° > 0 --> La reazione e <strong>NON SPONTANEA</strong> nello stato standard<br>
+- Se DeltaG° = 0 --> Il sistema e all'equilibrio
+</div>
+
+<p>Il nostro DeltaG° = <strong>-3.05 kJ/mol</strong>, che e un valore <strong>NEGATIVO</strong>!</p>
+
+<div class="result">
+RISPOSTA PUNTO A:<br><br>
+Si, la reazione e SPONTANEA nello stato standard a 452 K.<br><br>
+DeltaG° = -3.05 kJ/mol < 0
+</div>
+
+<p>Questo ha senso anche intuitivamente: se K<sub>p</sub> > 1, significa che all'equilibrio i prodotti sono favoriti rispetto ai reagenti, quindi la reazione "vuole" andare verso destra, cioe e spontanea.</p>
+
+<hr>
+            </div>
+        </div>
+        
+        <div id="step-3" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">4</span>
+                PUNTO B: DeltaG con pressioni non standard
+            </div>
+            <div class="step-content">
+                <h2>PUNTO B: DeltaG con pressioni non standard</h2>
+
+<h3>Cosa cambia rispetto al punto A?</h3>
+
+<p>Nel punto A abbiamo calcolato DeltaG° (con il pallino), cioe l'energia libera nelle condizioni STANDARD (tutte le pressioni = 1 atm).</p>
+
+<p>Ora ci chiedono di calcolare DeltaG (SENZA pallino), cioe l'energia libera in condizioni QUALSIASI, con le pressioni specifiche date nel problema.</p>
+
+<h3>La formula che ci serve</h3>
+
+<p>Per calcolare DeltaG in condizioni non standard, usiamo questa formula:</p>
+
+<div class="formula">
+DeltaG = DeltaG° + R x T x ln(Q)
+</div>
+
+<p>Dove <strong>Q</strong> e il <strong>quoziente di reazione</strong>. Ma cos'e Q?</p>
+
+<h3>Il quoziente di reazione Q</h3>
+
+<p>Q ha la stessa forma matematica di K<sub>p</sub>, ma mentre K<sub>p</sub> si calcola con le pressioni ALL'EQUILIBRIO, Q si calcola con le pressioni ATTUALI (quelle date nel problema, che non sono necessariamente quelle di equilibrio).</p>
+
+<p>Per la nostra reazione:</p>
+
+<div class="formula">
+(CH<sub>3</sub>)<sub>2</sub>CO(g) + H<sub>2</sub>(g) ⇌ (CH<sub>3</sub>)<sub>2</sub>CHOH(g)
+</div>
+
+<p>Il quoziente di reazione e:</p>
+
+<div class="formula">
+Q = P(2-propanolo) / [P(acetone) x P(H<sub>2</sub>)]
+</div>
+
+<h3>Passo 1: Scriviamo i dati</h3>
+
+<div class="step">
+<ul>
+    <li>P(2-propanolo) = 22.5 atm</li>
+    <li>P(acetone) = 2 atm</li>
+    <li>P(H<sub>2</sub>) = 5 atm</li>
+    <li>T = 452 K</li>
+    <li>DeltaG° = -3047 J/mol (calcolato prima)</li>
+</ul>
+</div>
+
+<h3>Passo 2: Calcoliamo Q</h3>
+
+<div class="formula">
+Q = 22.5 / (2 x 5) = 22.5 / 10 = 2.25 atm<sup>-1</sup>
+</div>
+
+<div class="note">
+<strong>Osservazione interessante!</strong><br>
+Nota che Q = 2.25 e K<sub>p</sub> = 2.25. Sono UGUALI! Questo e un caso particolare molto significativo, come vedremo tra poco.
+</div>
+
+<h3>Passo 3: Calcoliamo DeltaG</h3>
+
+<p>Applichiamo la formula:</p>
+
+<div class="formula">
+DeltaG = DeltaG° + R x T x ln(Q)
+</div>
+
+<p>Calcoliamo ln(Q) = ln(2.25) = 0.811</p>
+
+<p>Sostituiamo:</p>
+
+<div class="formula">
+DeltaG = -3047 + 8.314 x 452 x 0.811
+</div>
+
+<div class="formula">
+DeltaG = -3047 + 3047 = 0 J/mol
+</div>
+
+<div class="result">
+RISPOSTA PUNTO B:<br><br>
+DeltaG = 0 J/mol (oppure 0 kJ/mol)
+</div>
+
+<h3>Cosa significa questo risultato?</h3>
+
+<p>Il fatto che DeltaG = 0 ha un significato molto preciso:</p>
+
+<div class="note">
+<strong>Quando DeltaG = 0, il sistema e ALL'EQUILIBRIO!</strong><br><br>
+Questo ha perfettamente senso: avevamo notato che Q = K<sub>p</sub> = 2.25.<br>
+Quando Q = K, il sistema e gia all'equilibrio e non c'e nessuna "spinta" ne verso destra ne verso sinistra.
+</div>
+
+<p>In pratica, con quelle pressioni specifiche (22.5 atm, 2 atm, 5 atm), il sistema si trova esattamente nel punto di equilibrio. Non c'e tendenza a formare piu prodotti ne piu reagenti.</p>
+
+<hr>
+            </div>
+        </div>
+        
+        <div id="step-4" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">5</span>
+                Riepilogo finale
+            </div>
+            <div class="step-content">
+                <h2>Riepilogo finale</h2>
+
+<table>
+    <tr>
+        <th>Domanda</th>
+        <th>Risposta</th>
+        <th>Significato</th>
+    </tr>
+    <tr>
+        <td>a) Spontaneita nello stato standard?</td>
+        <td>Si, DeltaG° = -3.05 kJ/mol</td>
+        <td>Partendo da 1 atm per tutti, la reazione procede verso destra</td>
+    </tr>
+    <tr>
+        <td>b) DeltaG con le pressioni date?</td>
+        <td>DeltaG = 0 kJ/mol</td>
+        <td>Il sistema e all'equilibrio (Q = K)</td>
+    </tr>
+</table>
+
+<h3>Formule utilizzate</h3>
+
+<div class="formula">
+DeltaG° = -R x T x ln(K)
+</div>
+
+<div class="formula">
+DeltaG = DeltaG° + R x T x ln(Q)
+</div>
+
+<div class="formula">
+Q = P(prodotti) / P(reagenti)  [con i coefficienti stechiometrici come esponenti]
+</div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+<script>
+    let currentStep = 0;
+    let totalSteps = 0;
+
+    document.addEventListener('DOMContentLoaded', function() {
+        totalSteps = document.querySelectorAll('.step-container').length;
+        updateProgress();
+        updateButtons();
+    });
+
+    function showNextStep() {
+        if (currentStep < totalSteps) {
+            const step = document.getElementById('step-' + currentStep);
+            if (step) {
+                step.classList.add('visible');
+                step.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                currentStep++;
+                updateProgress();
+                updateButtons();
+
+                if (window.parent !== window) {
+                    window.parent.postMessage({type: 'stepShown', step: currentStep, total: totalSteps}, '*');
+                }
+            }
+        }
+    }
+
+    function showAllSteps() {
+        document.querySelectorAll('.step-container').forEach(function(step) {
+            step.classList.add('visible');
+        });
+        currentStep = totalSteps;
+        updateProgress();
+        updateButtons();
+
+        if (window.parent !== window) {
+            window.parent.postMessage({type: 'allStepsShown'}, '*');
+        }
+    }
+
+    function hideAllSteps() {
+        document.querySelectorAll('.step-container').forEach(function(step) {
+            step.classList.remove('visible');
+        });
+        currentStep = 0;
+        updateProgress();
+        updateButtons();
+    }
+
+    function updateProgress() {
+        const pct = totalSteps > 0 ? (currentStep / totalSteps) * 100 : 0;
+        const fill = document.getElementById('progress-fill');
+        const text = document.getElementById('progress-text');
+        if (fill) fill.style.width = pct + '%';
+        if (text) text.textContent = 'Passaggio ' + currentStep + ' di ' + totalSteps;
+    }
+
+    function updateButtons() {
+        const nextBtn = document.getElementById('next-btn');
+        const allBtn = document.getElementById('all-btn');
+        const doneButtons = document.getElementById('done-buttons');
+
+        if (currentStep >= totalSteps) {
+            if (nextBtn) nextBtn.style.display = 'none';
+            if (allBtn) allBtn.style.display = 'none';
+            if (doneButtons) doneButtons.style.display = 'flex';
+        } else {
+            if (nextBtn) nextBtn.style.display = 'block';
+            if (allBtn) allBtn.style.display = 'block';
+            if (doneButtons) doneButtons.style.display = 'none';
+        }
+    }
+
+    function markExercise(status) {
+        // Salva in localStorage
+        const exerciseId = window.location.pathname.split('/').pop().replace('.html', '');
+        let progress = JSON.parse(localStorage.getItem('chemportal_progress') || '{}');
+        if (!progress.exercises) progress.exercises = {};
+        progress.exercises[exerciseId] = status;
+        localStorage.setItem('chemportal_progress', JSON.stringify(progress));
+
+        // Feedback visivo
+        const btn = status === 'done' ? document.getElementById('mark-done') : document.getElementById('mark-review');
+        const otherBtn = status === 'done' ? document.getElementById('mark-review') : document.getElementById('mark-done');
+
+        btn.classList.add('selected');
+        otherBtn.classList.remove('selected');
+
+        // Notifica parent
+        if (window.parent !== window) {
+            window.parent.postMessage({type: 'exerciseMarked', status: status, id: exerciseId}, '*');
+        }
+    }
+
+    function resetExercise() {
+        hideAllSteps();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Messaggi dal parent
+    window.addEventListener('message', function(e) {
+        if (e.data.type === 'showNext') showNextStep();
+        else if (e.data.type === 'showAll') showAllSteps();
+        else if (e.data.type === 'hideAll') hideAllSteps();
+    });
+
+    function closeExercise() {
+        if (window.parent !== window) {
+            // Siamo in iframe, chiedi al parent di chiudere
+            window.parent.postMessage({type: 'closeModal'}, '*');
+        } else {
+            // Standalone: torna alla pagina esercizi
+            const path = window.location.pathname;
+            if (path.includes('/content/soluzioni/')) {
+                window.location.href = '../../esercizi.html';
+            } else {
+                window.history.back();
+            }
+        }
+    }
+</script>
+</body>
+</html>

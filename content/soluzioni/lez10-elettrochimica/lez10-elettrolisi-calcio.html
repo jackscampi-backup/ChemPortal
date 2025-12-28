@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Esame 9 - Elettrolisi CaCl2 fuso</title>
+    <style>
+        body { font-family: Georgia, serif; max-width: 800px; margin: 40px auto; padding: 20px; line-height: 1.8; }
+        h1 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+        h2 { color: #2980b9; margin-top: 30px; }
+        .question { background: #ecf0f1; padding: 15px; border-left: 4px solid #3498db; margin: 20px 0; font-style: italic; }
+        .result { background: #d5f5e3; padding: 15px; border-left: 4px solid #27ae60; margin: 20px 0; font-weight: bold; font-size: 1.1em; }
+        .formula { background: #fdebd0; padding: 10px; margin: 10px 0; font-family: "Courier New", monospace; font-size: 1.05em; }
+        .step { background: #f8f9fa; padding: 15px; margin: 15px 0; border-radius: 5px; border: 1px solid #dee2e6; }
+        .step-title { font-weight: bold; color: #2980b9; margin-bottom: 10px; }
+        .note { background: #fff3cd; padding: 12px; margin: 15px 0; border-left: 4px solid #ffc107; }
+        .concept { background: #e8f4fd; padding: 12px; margin: 15px 0; border-left: 4px solid #17a2b8; }
+    
+    .done-buttons {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+    .mark-btn {
+        padding: 12px 24px;
+        font-size: 1em;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .mark-done {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        color: white;
+    }
+    .mark-done:hover, .mark-done.selected {
+        background: linear-gradient(135deg, #1e7e34, #17a085);
+        transform: scale(1.05);
+    }
+    .mark-review {
+        background: linear-gradient(135deg, #ffc107, #fd7e14);
+        color: white;
+    }
+    .mark-review:hover, .mark-review.selected {
+        background: linear-gradient(135deg, #d39e00, #dc6502);
+        transform: scale(1.05);
+    }
+    .mark-reset {
+        background: #6c757d;
+        color: white;
+    }
+    .mark-reset:hover {
+        background: #545b62;
+    }
+    .mark-btn.selected {
+        box-shadow: 0 0 0 3px rgba(0,0,0,0.2);
+    }
+</style>
+
+<style>
+    .quiz-container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px;
+        padding-bottom: 120px;
+    }
+    .question-section {
+        background: linear-gradient(135deg, #e8f4f8 0%, #d4edda 100%);
+        border: 2px solid #17a2b8;
+        border-radius: 10px;
+        padding: 25px;
+        margin-bottom: 20px;
+    }
+    .question-section h2 {
+        color: #0c5460;
+        margin-top: 0;
+        margin-bottom: 15px;
+    }
+    .show-next-btn {
+        display: block;
+        width: 100%;
+        padding: 15px 30px;
+        font-size: 1.1em;
+        font-weight: bold;
+        color: white;
+        background: linear-gradient(135deg, #007bff, #0056b3);
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        margin: 15px 0;
+        transition: all 0.3s ease;
+    }
+    .show-next-btn:hover {
+        background: linear-gradient(135deg, #0056b3, #004094);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 123, 255, 0.4);
+    }
+    .show-all-btn {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        margin-top: 10px;
+    }
+    .show-all-btn:hover {
+        background: linear-gradient(135deg, #218838, #1db385);
+        box-shadow: 0 4px 12px rgba(40, 167, 69, 0.4);
+    }
+    .step-container {
+        display: none;
+        animation: fadeIn 0.5s ease;
+        margin-bottom: 20px;
+        border: 1px solid #dee2e6;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    .step-container.visible {
+        display: block;
+    }
+    .step-header {
+        background: linear-gradient(135deg, #6c757d, #495057);
+        color: white;
+        padding: 12px 20px;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+    }
+    .step-number-badge {
+        background: white;
+        color: #495057;
+        border-radius: 50%;
+        width: 28px;
+        height: 28px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 12px;
+        font-weight: bold;
+    }
+    .step-content {
+        padding: 20px;
+        background: white;
+    }
+    .progress-bar {
+        background: #e9ecef;
+        border-radius: 10px;
+        height: 8px;
+        margin: 15px 0;
+        overflow: hidden;
+    }
+    .progress-fill {
+        background: linear-gradient(90deg, #28a745, #20c997);
+        height: 100%;
+        border-radius: 10px;
+        transition: width 0.5s ease;
+    }
+    .progress-text {
+        text-align: center;
+        color: #6c757d;
+        font-size: 0.9em;
+        margin-bottom: 15px;
+    }
+    .controls {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: white;
+        padding: 15px 20px;
+        border-top: 2px solid #dee2e6;
+        box-shadow: 0 -4px 12px rgba(0,0,0,0.1);
+        z-index: 1000;
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+    }
+    .quiz-container {
+        padding-bottom: 100px;
+    }
+    .show-next-btn {
+        width: auto;
+        margin: 0;
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .final-answer {
+        background: #d4edda;
+        border: 2px solid #28a745;
+        border-radius: 10px;
+        padding: 20px;
+        margin-top: 20px;
+    }
+    .final-answer h3 {
+        color: #155724;
+        margin-top: 0;
+    }
+
+    .done-buttons {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+    .mark-btn {
+        padding: 12px 24px;
+        font-size: 1em;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .mark-done {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        color: white;
+    }
+    .mark-done:hover, .mark-done.selected {
+        background: linear-gradient(135deg, #1e7e34, #17a085);
+        transform: scale(1.05);
+    }
+    .mark-review {
+        background: linear-gradient(135deg, #ffc107, #fd7e14);
+        color: white;
+    }
+    .mark-review:hover, .mark-review.selected {
+        background: linear-gradient(135deg, #d39e00, #dc6502);
+        transform: scale(1.05);
+    }
+    .mark-reset {
+        background: #6c757d;
+        color: white;
+    }
+    .mark-reset:hover {
+        background: #545b62;
+    }
+    .mark-btn.selected {
+        box-shadow: 0 0 0 3px rgba(0,0,0,0.2);
+    }
+</style>
+</head>
+<body>
+<div class="quiz-container">
+    <h1>Elettrolisi del Cloruro di Calcio Fuso</h1>
+
+    <div class="question-section">
+        <h2>Testo dell'esercizio</h2>
+        <p>Risolvi l'esercizio seguente.</p>
+    </div>
+
+    <div class="progress-text" id="progress-text">Passaggio 0 di 4</div>
+    <div class="progress-bar">
+        <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+    </div>
+
+    <div class="controls">
+        <button id="next-btn" class="show-next-btn" onclick="showNextStep()">
+            ▶ Prossimo passaggio
+        </button>
+        <button id="all-btn" class="show-next-btn show-all-btn" onclick="showAllSteps()">
+            ⏩ Mostra tutto
+        </button>
+        <div id="done-buttons" class="done-buttons" style="display: none;">
+            <button id="mark-done" class="mark-btn mark-done" onclick="markExercise('done')">
+                ✓ Fatto
+            </button>
+            <button id="mark-review" class="mark-btn mark-review" onclick="markExercise('review')">
+                ⚠ Da rivedere
+            </button>
+            <button class="mark-btn mark-reset" onclick="resetExercise()">
+                ↺ Ricomincia
+            </button>
+            <button class="mark-btn" style="background: #17a2b8;" onclick="closeExercise()">
+                ✕ Chiudi
+            </button>
+        </div>
+    </div>
+
+    <div id="steps-wrapper">
+        
+        <div id="step-0" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">1</span>
+                Cosa ci viene chiesto?
+            </div>
+            <div class="step-content">
+                <h1>Elettrolisi del Cloruro di Calcio Fuso</h1>
+
+<div class="question">
+<strong>QUESITO 5:</strong> Quanto calcio e' possibile ottenere dall'elettrolisi di CaCl<sub>2</sub> fuso con una corrente di 350 A per un tempo pari a 45 minuti?
+</div><h2>Cosa ci viene chiesto?</h2>
+
+<p>Questo e' un classico problema di <strong>elettrolisi</strong>, dove dobbiamo calcolare la massa di un metallo che si deposita al catodo quando facciamo passare corrente elettrica attraverso un sale fuso. In questo caso, vogliamo sapere quanti grammi di calcio metallico (Ca) otteniamo.</p>
+
+<div class="concept">
+<strong>Cosa succede nell'elettrolisi di CaCl<sub>2</sub> fuso?</strong><br>
+Il cloruro di calcio fuso contiene ioni Ca<sup>2+</sup> e ioni Cl<sup>-</sup> liberi di muoversi. Quando applichiamo corrente elettrica:<br>
+- Al <strong>catodo</strong> (polo negativo): gli ioni Ca<sup>2+</sup> acquistano elettroni e diventano calcio metallico<br>
+- All'<strong>anodo</strong> (polo positivo): gli ioni Cl<sup>-</sup> cedono elettroni e si forma cloro gassoso (Cl<sub>2</sub>)
+</div>
+            </div>
+        </div>
+        
+        <div id="step-1" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">2</span>
+                Dati del problema
+            </div>
+            <div class="step-content">
+                <h2>Dati del problema</h2>
+
+<div class="step">
+<div class="step-title">Raccogliamo i dati:</div>
+<ul>
+    <li>Intensita' di corrente: <strong>I = 350 A</strong> (Ampere)</li>
+    <li>Tempo: <strong>t = 45 minuti</strong></li>
+    <li>Costante di Faraday: <strong>F = 96500 C/mol</strong></li>
+    <li>Massa molare del calcio: <strong>MM(Ca) = 40 g/mol</strong></li>
+</ul>
+</div>
+
+<div class="note">
+<strong>Attenzione al tempo!</strong> La formula richiede il tempo in secondi, non in minuti. Dobbiamo convertire!
+</div>
+            </div>
+        </div>
+        
+        <div id="step-2" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">3</span>
+                Svolgimento passo dopo passo
+            </div>
+            <div class="step-content">
+                <h2>Svolgimento passo dopo passo</h2>
+
+<div class="step">
+<div class="step-title">PASSO 1: Convertiamo il tempo in secondi</div>
+
+<p>Perche' facciamo questo? Perche' la carica elettrica Q si misura in Coulomb (C), e un Coulomb e' definito come la carica che passa quando scorre una corrente di 1 Ampere per 1 secondo. Quindi nella formula Q = I x t, il tempo DEVE essere in secondi!</p>
+
+<div class="formula">
+t = 45 minuti x 60 secondi/minuto = <strong>2700 secondi</strong>
+</div>
+</div>
+
+<div class="step">
+<div class="step-title">PASSO 2: Calcoliamo la carica totale Q</div>
+
+<p>La carica elettrica Q rappresenta la "quantita' totale di elettricita'" che e' passata attraverso la cella elettrolitica. Si calcola moltiplicando l'intensita' di corrente per il tempo.</p>
+
+<div class="formula">
+Q = I x t<br>
+Q = 350 A x 2700 s<br>
+Q = <strong>945000 C</strong> (Coulomb)
+</div>
+
+<p>Cosa significa questo numero? Significa che durante l'elettrolisi sono passati 945000 Coulomb di carica elettrica. E' un numero enorme! Ma quanti elettroni corrispondono a questa carica?</p>
+</div>
+
+<div class="step">
+<div class="step-title">PASSO 3: Scriviamo la semireazione al catodo</div>
+
+<p>Prima di andare avanti, dobbiamo capire cosa succede a livello atomico. Al catodo, gli ioni calcio Ca<sup>2+</sup> si riducono (cioe' acquistano elettroni) per diventare atomi di calcio metallico:</p>
+
+<div class="formula">
+Ca<sup>2+</sup> + 2e<sup>-</sup> --> Ca
+</div>
+
+<p>Questo ci dice una cosa fondamentale: per produrre UN atomo di calcio, servono DUE elettroni. Oppure, ragionando in moli: per produrre UNA mole di calcio, servono DUE moli di elettroni.</p>
+
+<p>Quindi il numero di elettroni scambiati e': <strong>n<sub>e</sub> = 2</strong></p>
+</div>
+
+<div class="step">
+<div class="step-title">PASSO 4: Calcoliamo le moli di calcio prodotte</div>
+
+<p>Ora usiamo la legge di Faraday. La costante di Faraday F = 96500 C/mol ci dice quanta carica corrisponde a una mole di elettroni.</p>
+
+<p>La formula per calcolare le moli di sostanza prodotta e':</p>
+
+<div class="formula">
+n = Q / (n<sub>e</sub> x F)
+</div>
+
+<p>Dove:</p>
+<ul>
+    <li><strong>n</strong> = moli di calcio prodotte (quello che cerchiamo)</li>
+    <li><strong>Q</strong> = 945000 C (la carica totale che abbiamo calcolato)</li>
+    <li><strong>n<sub>e</sub></strong> = 2 (elettroni per ogni atomo di calcio)</li>
+    <li><strong>F</strong> = 96500 C/mol (costante di Faraday)</li>
+</ul>
+
+<p>Sostituiamo:</p>
+
+<div class="formula">
+n = 945000 C / (2 x 96500 C/mol)<br>
+n = 945000 / 193000<br>
+n = <strong>4,896 mol</strong> di calcio
+</div>
+
+<p>Abbiamo quindi prodotto quasi 5 moli di calcio metallico!</p>
+</div>
+
+<div class="step">
+<div class="step-title">PASSO 5: Convertiamo le moli in grammi</div>
+
+<p>L'ultimo passaggio e' semplice: dobbiamo trasformare le moli in grammi, usando la massa molare del calcio.</p>
+
+<div class="formula">
+massa = n x MM(Ca)<br>
+massa = 4,896 mol x 40 g/mol<br>
+massa = <strong>195,9 g</strong>
+</div>
+</div>
+
+<div class="result">
+RISPOSTA FINALE: Dall'elettrolisi di CaCl<sub>2</sub> fuso con una corrente di 350 A per 45 minuti si ottengono circa <strong>196 grammi</strong> (o piu' precisamente 195,9 g) di calcio metallico.
+</div>
+            </div>
+        </div>
+        
+        <div id="step-3" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">4</span>
+                Riepilogo del ragionamento
+            </div>
+            <div class="step-content">
+                <h2>Riepilogo del ragionamento</h2>
+
+<div class="concept">
+<p>Ricapitoliamo i passaggi chiave:</p>
+<ol>
+    <li><strong>Convertire il tempo in secondi</strong>: 45 min = 2700 s</li>
+    <li><strong>Calcolare la carica</strong>: Q = I x t = 350 x 2700 = 945000 C</li>
+    <li><strong>Identificare n<sub>e</sub></strong>: dalla semireazione Ca<sup>2+</sup> + 2e<sup>-</sup> --> Ca, abbiamo n<sub>e</sub> = 2</li>
+    <li><strong>Calcolare le moli</strong>: n = Q / (n<sub>e</sub> x F) = 945000 / (2 x 96500) = 4,896 mol</li>
+    <li><strong>Calcolare la massa</strong>: m = n x MM = 4,896 x 40 = 195,9 g</li>
+</ol>
+</div>
+
+<div class="note">
+<strong>Formula compatta:</strong> Se vuoi, puoi usare direttamente la formula completa:<br><br>
+<div class="formula">
+m = (I x t x MM) / (n<sub>e</sub> x F) = (350 x 2700 x 40) / (2 x 96500) = 195,9 g
+</div>
+</div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+<script>
+    let currentStep = 0;
+    let totalSteps = 0;
+
+    document.addEventListener('DOMContentLoaded', function() {
+        totalSteps = document.querySelectorAll('.step-container').length;
+        updateProgress();
+        updateButtons();
+    });
+
+    function showNextStep() {
+        if (currentStep < totalSteps) {
+            const step = document.getElementById('step-' + currentStep);
+            if (step) {
+                step.classList.add('visible');
+                step.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                currentStep++;
+                updateProgress();
+                updateButtons();
+
+                if (window.parent !== window) {
+                    window.parent.postMessage({type: 'stepShown', step: currentStep, total: totalSteps}, '*');
+                }
+            }
+        }
+    }
+
+    function showAllSteps() {
+        document.querySelectorAll('.step-container').forEach(function(step) {
+            step.classList.add('visible');
+        });
+        currentStep = totalSteps;
+        updateProgress();
+        updateButtons();
+
+        if (window.parent !== window) {
+            window.parent.postMessage({type: 'allStepsShown'}, '*');
+        }
+    }
+
+    function hideAllSteps() {
+        document.querySelectorAll('.step-container').forEach(function(step) {
+            step.classList.remove('visible');
+        });
+        currentStep = 0;
+        updateProgress();
+        updateButtons();
+    }
+
+    function updateProgress() {
+        const pct = totalSteps > 0 ? (currentStep / totalSteps) * 100 : 0;
+        const fill = document.getElementById('progress-fill');
+        const text = document.getElementById('progress-text');
+        if (fill) fill.style.width = pct + '%';
+        if (text) text.textContent = 'Passaggio ' + currentStep + ' di ' + totalSteps;
+    }
+
+    function updateButtons() {
+        const nextBtn = document.getElementById('next-btn');
+        const allBtn = document.getElementById('all-btn');
+        const doneButtons = document.getElementById('done-buttons');
+
+        if (currentStep >= totalSteps) {
+            if (nextBtn) nextBtn.style.display = 'none';
+            if (allBtn) allBtn.style.display = 'none';
+            if (doneButtons) doneButtons.style.display = 'flex';
+        } else {
+            if (nextBtn) nextBtn.style.display = 'block';
+            if (allBtn) allBtn.style.display = 'block';
+            if (doneButtons) doneButtons.style.display = 'none';
+        }
+    }
+
+    function markExercise(status) {
+        // Salva in localStorage
+        const exerciseId = window.location.pathname.split('/').pop().replace('.html', '');
+        let progress = JSON.parse(localStorage.getItem('chemportal_progress') || '{}');
+        if (!progress.exercises) progress.exercises = {};
+        progress.exercises[exerciseId] = status;
+        localStorage.setItem('chemportal_progress', JSON.stringify(progress));
+
+        // Feedback visivo
+        const btn = status === 'done' ? document.getElementById('mark-done') : document.getElementById('mark-review');
+        const otherBtn = status === 'done' ? document.getElementById('mark-review') : document.getElementById('mark-done');
+
+        btn.classList.add('selected');
+        otherBtn.classList.remove('selected');
+
+        // Notifica parent
+        if (window.parent !== window) {
+            window.parent.postMessage({type: 'exerciseMarked', status: status, id: exerciseId}, '*');
+        }
+    }
+
+    function resetExercise() {
+        hideAllSteps();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Messaggi dal parent
+    window.addEventListener('message', function(e) {
+        if (e.data.type === 'showNext') showNextStep();
+        else if (e.data.type === 'showAll') showAllSteps();
+        else if (e.data.type === 'hideAll') hideAllSteps();
+    });
+
+    function closeExercise() {
+        if (window.parent !== window) {
+            // Siamo in iframe, chiedi al parent di chiudere
+            window.parent.postMessage({type: 'closeModal'}, '*');
+        } else {
+            // Standalone: torna alla pagina esercizi
+            const path = window.location.pathname;
+            if (path.includes('/content/soluzioni/')) {
+                window.location.href = '../../esercizi.html';
+            } else {
+                window.history.back();
+            }
+        }
+    }
+</script>
+</body>
+</html>

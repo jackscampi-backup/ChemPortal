@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Esame 3-1 - Esercizio 8: Elettrolisi dell'Al2O3</title>
+    <style>
+        body {
+            font-family: 'Georgia', serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px;
+            line-height: 1.8;
+            color: #333;
+            background-color: #fff;
+        }
+
+        h1 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 15px;
+            font-size: 1.8em;
+        }
+
+        h2 {
+            color: #2980b9;
+            margin-top: 35px;
+            font-size: 1.4em;
+        }
+
+        .box-problema {
+            background: linear-gradient(135deg, #e8f4fc 0%, #d6eaf8 100%);
+            border-left: 5px solid #3498db;
+            padding: 20px 25px;
+            margin: 25px 0;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .box-dati {
+            background: linear-gradient(135deg, #fef9e7 0%, #fcf3cf 100%);
+            border-left: 5px solid #f39c12;
+            padding: 20px 25px;
+            margin: 25px 0;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .box-formula {
+            background: linear-gradient(135deg, #f5eef8 0%, #ebdef0 100%);
+            border: 2px solid #9b59b6;
+            padding: 20px 25px;
+            margin: 25px 0;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .box-formula .formula {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #8e44ad;
+        }
+
+        .box-risultato {
+            background: linear-gradient(135deg, #d5f4e6 0%, #a9dfbf 100%);
+            border: 3px solid #27ae60;
+            padding: 25px;
+            margin: 30px 0;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .box-risultato .valore {
+            font-size: 1.6em;
+            font-weight: bold;
+            color: #1e8449;
+        }
+
+        .passaggio {
+            background-color: #fafafa;
+            border-left: 4px solid #95a5a6;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .calcolo {
+            font-family: 'Courier New', monospace;
+            background-color: #ecf0f1;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-size: 1.05em;
+        }
+
+        .nota {
+            background-color: #fff3cd;
+            border: 1px solid #ffc107;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-style: italic;
+        }
+
+        .evidenziato {
+            background-color: #fff59d;
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+
+        ul {
+            margin: 15px 0;
+        }
+
+        li {
+            margin: 8px 0;
+        }
+    
+    .done-buttons {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+    .mark-btn {
+        padding: 12px 24px;
+        font-size: 1em;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .mark-done {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        color: white;
+    }
+    .mark-done:hover, .mark-done.selected {
+        background: linear-gradient(135deg, #1e7e34, #17a085);
+        transform: scale(1.05);
+    }
+    .mark-review {
+        background: linear-gradient(135deg, #ffc107, #fd7e14);
+        color: white;
+    }
+    .mark-review:hover, .mark-review.selected {
+        background: linear-gradient(135deg, #d39e00, #dc6502);
+        transform: scale(1.05);
+    }
+    .mark-reset {
+        background: #6c757d;
+        color: white;
+    }
+    .mark-reset:hover {
+        background: #545b62;
+    }
+    .mark-btn.selected {
+        box-shadow: 0 0 0 3px rgba(0,0,0,0.2);
+    }
+</style>
+
+<style>
+    .quiz-container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px;
+        padding-bottom: 120px;
+    }
+    .question-section {
+        background: linear-gradient(135deg, #e8f4f8 0%, #d4edda 100%);
+        border: 2px solid #17a2b8;
+        border-radius: 10px;
+        padding: 25px;
+        margin-bottom: 20px;
+    }
+    .question-section h2 {
+        color: #0c5460;
+        margin-top: 0;
+        margin-bottom: 15px;
+    }
+    .show-next-btn {
+        display: block;
+        width: 100%;
+        padding: 15px 30px;
+        font-size: 1.1em;
+        font-weight: bold;
+        color: white;
+        background: linear-gradient(135deg, #007bff, #0056b3);
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        margin: 15px 0;
+        transition: all 0.3s ease;
+    }
+    .show-next-btn:hover {
+        background: linear-gradient(135deg, #0056b3, #004094);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 123, 255, 0.4);
+    }
+    .show-all-btn {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        margin-top: 10px;
+    }
+    .show-all-btn:hover {
+        background: linear-gradient(135deg, #218838, #1db385);
+        box-shadow: 0 4px 12px rgba(40, 167, 69, 0.4);
+    }
+    .step-container {
+        display: none;
+        animation: fadeIn 0.5s ease;
+        margin-bottom: 20px;
+        border: 1px solid #dee2e6;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    .step-container.visible {
+        display: block;
+    }
+    .step-header {
+        background: linear-gradient(135deg, #6c757d, #495057);
+        color: white;
+        padding: 12px 20px;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+    }
+    .step-number-badge {
+        background: white;
+        color: #495057;
+        border-radius: 50%;
+        width: 28px;
+        height: 28px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 12px;
+        font-weight: bold;
+    }
+    .step-content {
+        padding: 20px;
+        background: white;
+    }
+    .progress-bar {
+        background: #e9ecef;
+        border-radius: 10px;
+        height: 8px;
+        margin: 15px 0;
+        overflow: hidden;
+    }
+    .progress-fill {
+        background: linear-gradient(90deg, #28a745, #20c997);
+        height: 100%;
+        border-radius: 10px;
+        transition: width 0.5s ease;
+    }
+    .progress-text {
+        text-align: center;
+        color: #6c757d;
+        font-size: 0.9em;
+        margin-bottom: 15px;
+    }
+    .controls {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: white;
+        padding: 15px 20px;
+        border-top: 2px solid #dee2e6;
+        box-shadow: 0 -4px 12px rgba(0,0,0,0.1);
+        z-index: 1000;
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+    }
+    .quiz-container {
+        padding-bottom: 100px;
+    }
+    .show-next-btn {
+        width: auto;
+        margin: 0;
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .final-answer {
+        background: #d4edda;
+        border: 2px solid #28a745;
+        border-radius: 10px;
+        padding: 20px;
+        margin-top: 20px;
+    }
+    .final-answer h3 {
+        color: #155724;
+        margin-top: 0;
+    }
+
+    .done-buttons {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+    .mark-btn {
+        padding: 12px 24px;
+        font-size: 1em;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .mark-done {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        color: white;
+    }
+    .mark-done:hover, .mark-done.selected {
+        background: linear-gradient(135deg, #1e7e34, #17a085);
+        transform: scale(1.05);
+    }
+    .mark-review {
+        background: linear-gradient(135deg, #ffc107, #fd7e14);
+        color: white;
+    }
+    .mark-review:hover, .mark-review.selected {
+        background: linear-gradient(135deg, #d39e00, #dc6502);
+        transform: scale(1.05);
+    }
+    .mark-reset {
+        background: #6c757d;
+        color: white;
+    }
+    .mark-reset:hover {
+        background: #545b62;
+    }
+    .mark-btn.selected {
+        box-shadow: 0 0 0 3px rgba(0,0,0,0.2);
+    }
+</style>
+</head>
+<body>
+<div class="quiz-container">
+    <h1>Esame 3-1 - Esercizio 8: Elettrolisi dell'Al2O3 fuso</h1>
+
+    <div class="question-section">
+        <h2>Testo dell'esercizio</h2>
+        <p>Risolvi l'esercizio seguente.</p>
+    </div>
+
+    <div class="progress-text" id="progress-text">Passaggio 0 di 5</div>
+    <div class="progress-bar">
+        <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+    </div>
+
+    <div class="controls">
+        <button id="next-btn" class="show-next-btn" onclick="showNextStep()">
+            ▶ Prossimo passaggio
+        </button>
+        <button id="all-btn" class="show-next-btn show-all-btn" onclick="showAllSteps()">
+            ⏩ Mostra tutto
+        </button>
+        <div id="done-buttons" class="done-buttons" style="display: none;">
+            <button id="mark-done" class="mark-btn mark-done" onclick="markExercise('done')">
+                ✓ Fatto
+            </button>
+            <button id="mark-review" class="mark-btn mark-review" onclick="markExercise('review')">
+                ⚠ Da rivedere
+            </button>
+            <button class="mark-btn mark-reset" onclick="resetExercise()">
+                ↺ Ricomincia
+            </button>
+            <button class="mark-btn" style="background: #17a2b8;" onclick="closeExercise()">
+                ✕ Chiudi
+            </button>
+        </div>
+    </div>
+
+    <div id="steps-wrapper">
+        
+        <div id="step-0" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">1</span>
+                Comprensione del fenomeno
+            </div>
+            <div class="step-content">
+                <h1>Esame 3-1 - Esercizio 8: Elettrolisi dell'Al2O3 fuso</h1>
+
+    <div class="box-problema">
+        <strong>PROBLEMA:</strong><br>
+        Quanto alluminio e possibile ottenere dall'elettrolisi di Al2O3 fuso con purezza del 94% considerando di utilizzare una corrente di 600 A per un tempo pari a 40 minuti?
+    </div>
+
+    <div class="box-dati">
+        <strong>DATI FORNITI:</strong>
+        <ul>
+            <li><strong>Massa molare dell'alluminio:</strong> MM(Al) = 27 g/mol</li>
+            <li><strong>Costante di Faraday:</strong> F = 96485 C/mol</li>
+            <li><strong>Semireazione di riduzione:</strong> Al3+ + 3e- --&gt; Al</li>
+            <li><strong>Intensita di corrente:</strong> I = 600 A</li>
+            <li><strong>Tempo:</strong> t = 40 minuti</li>
+            <li><strong>Purezza del prodotto finale:</strong> 94%</li>
+        </ul>
+    </div><h2>Comprensione del fenomeno</h2>
+
+    <p>
+        L'<strong>elettrolisi</strong> e un processo elettrochimico fondamentale che ci permette di utilizzare energia elettrica per forzare una reazione chimica che normalmente non avverrebbe in modo spontaneo. In questo esercizio stiamo decomponendo l'ossido di alluminio fuso (Al2O3, noto anche come <em>allumina</em>) per ottenere alluminio metallico puro.
+    </p>
+
+    <p>
+        Questo processo e esattamente quello che viene utilizzato nell'industria per produrre l'alluminio! Si chiama <strong>processo Hall-Heroult</strong> e fu sviluppato nel 1886. L'allumina viene sciolta in criolite fusa (Na3AlF6) per abbassare la temperatura di fusione, e poi viene elettrolizzata.
+    </p>
+
+    <p>
+        Durante l'elettrolisi, al <strong>catodo</strong> (polo negativo) avviene la riduzione degli ioni alluminio:
+    </p>
+
+    <div class="calcolo">
+        Al3+ + 3e- --&gt; Al (metallo)
+    </div>
+
+    <p>
+        Questa semireazione ci dice una cosa fondamentale: <span class="evidenziato">per depositare un atomo di alluminio servono 3 elettroni</span>. Questo perche lo ione alluminio ha carica 3+ (ha perso 3 elettroni) e per tornare allo stato metallico neutro deve riacquistare tutti e 3 quegli elettroni. Quindi per depositare una mole di alluminio servono 3 moli di elettroni.
+    </p>
+            </div>
+        </div>
+        
+        <div id="step-1" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">2</span>
+                Le leggi di Faraday dell'elettrolisi
+            </div>
+            <div class="step-content">
+                <h2>Le leggi di Faraday dell'elettrolisi</h2>
+
+    <p>
+        Per risolvere questo problema utilizziamo le <strong>leggi di Faraday</strong>, che sono le leggi fondamentali che collegano la quantita di sostanza prodotta durante un'elettrolisi con la corrente elettrica utilizzata. Michael Faraday le formulo nel 1833 e sono ancora oggi alla base di tutti i calcoli elettrochimici.
+    </p>
+
+    <div class="box-formula">
+        <strong>Prima legge di Faraday:</strong><br><br>
+        <span class="formula">Q = I x t</span><br><br>
+        La carica elettrica (Q) e uguale al prodotto tra intensita di corrente (I) e tempo (t)
+    </div>
+
+    <p>
+        Questa legge ci dice semplicemente che la quantita totale di carica elettrica che passa attraverso la cella elettrolitica dipende da quanto e intensa la corrente e per quanto tempo la facciamo passare. Piu corrente o piu tempo significano piu carica.
+    </p>
+
+    <div class="box-formula">
+        <strong>Seconda legge di Faraday:</strong><br><br>
+        <span class="formula">m = (Q x MM) / (n x F)</span><br><br>
+        La massa depositata dipende dalla carica, dalla massa molare e dal numero di elettroni scambiati
+    </div>
+
+    <p>
+        Questa seconda legge e quella che ci permette di calcolare quanta sostanza otteniamo. Analizziamo ogni termine:
+    </p>
+
+    <ul>
+        <li><strong>m</strong> = massa della sostanza depositata (quello che vogliamo trovare, in grammi)</li>
+        <li><strong>Q</strong> = carica elettrica totale passata attraverso la cella (in Coulomb)</li>
+        <li><strong>MM</strong> = massa molare della sostanza che si deposita (in g/mol)</li>
+        <li><strong>n</strong> = numero di elettroni scambiati nella semireazione (adimensionale)</li>
+        <li><strong>F</strong> = costante di Faraday = 96485 C/mol (rappresenta la carica di una mole di elettroni)</li>
+    </ul>
+            </div>
+        </div>
+        
+        <div id="step-2" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">3</span>
+                Risoluzione passo per passo
+            </div>
+            <div class="step-content">
+                <h2>Risoluzione passo per passo</h2>
+
+    <h3>Passaggio 1: Conversione del tempo in secondi</h3>
+
+    <div class="passaggio">
+        <p>
+            La prima cosa da fare e sempre verificare che le unita di misura siano compatibili. La corrente elettrica e misurata in Ampere (A), e un Ampere corrisponde a un Coulomb al secondo (1 A = 1 C/s). Quindi per ottenere la carica in Coulomb dobbiamo esprimere il tempo in secondi, non in minuti.
+        </p>
+        <div class="calcolo">
+            t = 40 minuti<br><br>
+            Sappiamo che 1 minuto = 60 secondi, quindi:<br><br>
+            t = 40 x 60 secondi = <strong>2400 s</strong>
+        </div>
+    </div>
+
+    <h3>Passaggio 2: Calcolo della carica elettrica totale</h3>
+
+    <div class="passaggio">
+        <p>
+            Ora applichiamo la prima legge di Faraday per calcolare quanta carica elettrica e passata attraverso la cella elettrolitica durante l'intero processo di elettrolisi. Questa e la quantita totale di "elettricita" che abbiamo fatto passare.
+        </p>
+        <div class="calcolo">
+            Q = I x t<br><br>
+            Q = 600 A x 2400 s<br><br>
+            Q = <strong>1440000 C</strong> (ovvero 1.44 x 10^6 C)
+        </div>
+        <p>
+            Ricordiamo che 1 Ampere = 1 Coulomb/secondo, quindi quando moltiplichiamo Ampere per secondi otteniamo Coulomb: A x s = (C/s) x s = C. Abbiamo fatto passare quasi un milione e mezzo di Coulomb!
+        </p>
+    </div>
+
+    <h3>Passaggio 3: Identificazione del numero di elettroni scambiati</h3>
+
+    <div class="passaggio">
+        <p>
+            Dalla semireazione di riduzione fornita nel testo:
+        </p>
+        <div class="calcolo">
+            Al3+ + 3e- --&gt; Al
+        </div>
+        <p>
+            Vediamo chiaramente che <strong>n = 3</strong>, cioe servono 3 moli di elettroni per ridurre 1 mole di ioni Al3+ a 1 mole di alluminio metallico.
+        </p>
+        <p>
+            Questo ha perfettamente senso dal punto di vista chimico: l'alluminio nel composto Al2O3 si trova come ione Al3+, avendo perso 3 elettroni per raggiungere la configurazione elettronica stabile del gas nobile neon. Per tornare allo stato metallico neutro (numero di ossidazione zero), deve riacquistare tutti e 3 quegli elettroni.
+        </p>
+    </div>
+
+    <h3>Passaggio 4: Calcolo della massa di alluminio teorica</h3>
+
+    <div class="passaggio">
+        <p>
+            Ora applichiamo la seconda legge di Faraday. Questa formula ci dara la massa <em>teorica</em> di alluminio, cioe quella che otterremmo se il processo fosse perfetto al 100%.
+        </p>
+        <div class="calcolo">
+            m(teorica) = (Q x MM) / (n x F)<br><br>
+            m(teorica) = (1440000 C x 27 g/mol) / (3 x 96485 C/mol)<br><br>
+            m(teorica) = 38880000 (C x g/mol) / 289455 (C/mol)<br><br>
+            m(teorica) = <strong>134.31 g</strong>
+        </div>
+        <p>
+            Questa sarebbe la massa di alluminio che otterremmo in condizioni ideali, se tutto funzionasse perfettamente.
+        </p>
+    </div>
+
+    <h3>Passaggio 5: Applicazione della purezza</h3>
+
+    <div class="passaggio">
+        <p>
+            Il problema ci dice che la purezza del prodotto finale e del 94%. Questo significa che del prodotto totale che otteniamo, solo il 94% e effettivamente alluminio puro. Il restante 6% sono impurezze (altri metalli, ossidi non completamente ridotti, ecc.).
+        </p>
+        <p>
+            Per trovare la massa di alluminio puro effettivamente ottenibile, dobbiamo moltiplicare la massa teorica per il fattore di purezza:
+        </p>
+        <div class="calcolo">
+            Purezza = 94% = 94/100 = 0.94<br><br>
+            m(Al puro) = m(teorica) x 0.94<br><br>
+            m(Al puro) = 134.31 g x 0.94<br><br>
+            m(Al puro) = <strong>126.25 g</strong>
+        </div>
+    </div>
+
+    <h3>Verifica delle unita di misura</h3>
+
+    <div class="passaggio">
+        <p>
+            E sempre buona pratica verificare che le unita di misura tornino. Controlliamo la formula principale:
+        </p>
+        <div class="calcolo">
+            m = [C x (g/mol)] / [adimensionale x (C/mol)]<br><br>
+            m = [C x g x mol] / [mol x C]<br><br>
+            m = g
+        </div>
+        <p>
+            I Coulomb si semplificano tra numeratore e denominatore, le moli si semplificano, e ci restano i grammi. Le unita di misura tornano correttamente!
+        </p>
+    </div>
+
+    <div class="box-risultato">
+        <strong>RISPOSTA FINALE</strong><br><br>
+        Dall'elettrolisi dell'Al2O3 fuso, utilizzando una corrente di 600 A per 40 minuti, considerando una purezza del 94%, si possono ottenere:<br><br>
+        <span class="valore">m(Al) = 126.25 g di alluminio puro</span>
+    </div>
+            </div>
+        </div>
+        
+        <div id="step-3" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">4</span>
+                Approfondimento: cosa succede all'anodo?
+            </div>
+            <div class="step-content">
+                <h2>Approfondimento: cosa succede all'anodo?</h2>
+
+    <div class="nota">
+        <p>
+            Per completezza, vediamo cosa succede all'altro elettrodo. Mentre al catodo si deposita l'alluminio, all'anodo (polo positivo) avviene l'ossidazione degli ioni ossido:
+        </p>
+        <p style="text-align: center; font-family: monospace;">
+            2O2- --&gt; O2 + 4e-
+        </p>
+        <p>
+            Si libera quindi ossigeno gassoso (O2). Nell'industria, gli anodi sono fatti di grafite (carbonio), che reagisce con l'ossigeno prodotto formando CO2. Per questo motivo gli anodi si consumano e devono essere sostituiti regolarmente.
+        </p>
+        <p>
+            La reazione complessiva dell'elettrolisi e:
+        </p>
+        <p style="text-align: center; font-family: monospace;">
+            2Al2O3(fuso) --&gt; 4Al(l) + 3O2(g)
+        </p>
+    </div>
+            </div>
+        </div>
+        
+        <div id="step-4" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">5</span>
+                Riepilogo del metodo risolutivo
+            </div>
+            <div class="step-content">
+                <h2>Riepilogo del metodo risolutivo</h2>
+
+    <ol>
+        <li><strong>Converti il tempo in secondi</strong> se dato in minuti o ore</li>
+        <li><strong>Calcola la carica totale:</strong> Q = I x t</li>
+        <li><strong>Identifica n</strong> dalla semireazione (numero di elettroni per ione)</li>
+        <li><strong>Applica la formula di Faraday:</strong> m = (Q x MM) / (n x F)</li>
+        <li><strong>Applica la purezza</strong> moltiplicando per il fattore decimale (es. 0.94 per 94%)</li>
+        <li><strong>Verifica</strong> le unita di misura</li>
+    </ol>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+<script>
+    let currentStep = 0;
+    let totalSteps = 0;
+
+    document.addEventListener('DOMContentLoaded', function() {
+        totalSteps = document.querySelectorAll('.step-container').length;
+        updateProgress();
+        updateButtons();
+    });
+
+    function showNextStep() {
+        if (currentStep < totalSteps) {
+            const step = document.getElementById('step-' + currentStep);
+            if (step) {
+                step.classList.add('visible');
+                step.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                currentStep++;
+                updateProgress();
+                updateButtons();
+
+                if (window.parent !== window) {
+                    window.parent.postMessage({type: 'stepShown', step: currentStep, total: totalSteps}, '*');
+                }
+            }
+        }
+    }
+
+    function showAllSteps() {
+        document.querySelectorAll('.step-container').forEach(function(step) {
+            step.classList.add('visible');
+        });
+        currentStep = totalSteps;
+        updateProgress();
+        updateButtons();
+
+        if (window.parent !== window) {
+            window.parent.postMessage({type: 'allStepsShown'}, '*');
+        }
+    }
+
+    function hideAllSteps() {
+        document.querySelectorAll('.step-container').forEach(function(step) {
+            step.classList.remove('visible');
+        });
+        currentStep = 0;
+        updateProgress();
+        updateButtons();
+    }
+
+    function updateProgress() {
+        const pct = totalSteps > 0 ? (currentStep / totalSteps) * 100 : 0;
+        const fill = document.getElementById('progress-fill');
+        const text = document.getElementById('progress-text');
+        if (fill) fill.style.width = pct + '%';
+        if (text) text.textContent = 'Passaggio ' + currentStep + ' di ' + totalSteps;
+    }
+
+    function updateButtons() {
+        const nextBtn = document.getElementById('next-btn');
+        const allBtn = document.getElementById('all-btn');
+        const doneButtons = document.getElementById('done-buttons');
+
+        if (currentStep >= totalSteps) {
+            if (nextBtn) nextBtn.style.display = 'none';
+            if (allBtn) allBtn.style.display = 'none';
+            if (doneButtons) doneButtons.style.display = 'flex';
+        } else {
+            if (nextBtn) nextBtn.style.display = 'block';
+            if (allBtn) allBtn.style.display = 'block';
+            if (doneButtons) doneButtons.style.display = 'none';
+        }
+    }
+
+    function markExercise(status) {
+        // Salva in localStorage
+        const exerciseId = window.location.pathname.split('/').pop().replace('.html', '');
+        let progress = JSON.parse(localStorage.getItem('chemportal_progress') || '{}');
+        if (!progress.exercises) progress.exercises = {};
+        progress.exercises[exerciseId] = status;
+        localStorage.setItem('chemportal_progress', JSON.stringify(progress));
+
+        // Feedback visivo
+        const btn = status === 'done' ? document.getElementById('mark-done') : document.getElementById('mark-review');
+        const otherBtn = status === 'done' ? document.getElementById('mark-review') : document.getElementById('mark-done');
+
+        btn.classList.add('selected');
+        otherBtn.classList.remove('selected');
+
+        // Notifica parent
+        if (window.parent !== window) {
+            window.parent.postMessage({type: 'exerciseMarked', status: status, id: exerciseId}, '*');
+        }
+    }
+
+    function resetExercise() {
+        hideAllSteps();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Messaggi dal parent
+    window.addEventListener('message', function(e) {
+        if (e.data.type === 'showNext') showNextStep();
+        else if (e.data.type === 'showAll') showAllSteps();
+        else if (e.data.type === 'hideAll') hideAllSteps();
+    });
+
+    function closeExercise() {
+        if (window.parent !== window) {
+            // Siamo in iframe, chiedi al parent di chiudere
+            window.parent.postMessage({type: 'closeModal'}, '*');
+        } else {
+            // Standalone: torna alla pagina esercizi
+            const path = window.location.pathname;
+            if (path.includes('/content/soluzioni/')) {
+                window.location.href = '../../esercizi.html';
+            } else {
+                window.history.back();
+            }
+        }
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Esame 1-2 - Esercizio 2 - Numeri di Ossidazione</title>
+    <style>
+        body { font-family: Georgia, serif; max-width: 800px; margin: 40px auto; padding: 20px; line-height: 1.8; color: #333; }
+        h2 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+        h3 { color: #2980b9; margin-top: 30px; }
+        h4 { color: #27ae60; margin-top: 25px; }
+        .result { background-color: #e8f5e9; padding: 15px; border-radius: 5px; border-left: 4px solid #4caf50; margin: 20px 0; }
+        .domanda { background: #f8f9fa; border-left: 4px solid #3498db; padding: 15px 20px; margin: 20px 0; font-style: italic; }
+        sub { font-size: 0.8em; vertical-align: sub; }
+        sup { font-size: 0.8em; vertical-align: super; }
+        hr { margin: 30px 0; border: none; border-top: 1px solid #ddd; }
+        .important { background-color: #fff3e0; padding: 15px; border-radius: 5px; border-left: 4px solid #ff9800; margin: 20px 0; }
+        table { border-collapse: collapse; width: 100%; margin: 20px 0; }
+        th, td { border: 1px solid #ddd; padding: 12px; text-align: center; }
+        th { background-color: #3498db; color: white; }
+        tr:nth-child(even) { background-color: #f2f2f2; }
+    
+    .done-buttons {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+    .mark-btn {
+        padding: 12px 24px;
+        font-size: 1em;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .mark-done {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        color: white;
+    }
+    .mark-done:hover, .mark-done.selected {
+        background: linear-gradient(135deg, #1e7e34, #17a085);
+        transform: scale(1.05);
+    }
+    .mark-review {
+        background: linear-gradient(135deg, #ffc107, #fd7e14);
+        color: white;
+    }
+    .mark-review:hover, .mark-review.selected {
+        background: linear-gradient(135deg, #d39e00, #dc6502);
+        transform: scale(1.05);
+    }
+    .mark-reset {
+        background: #6c757d;
+        color: white;
+    }
+    .mark-reset:hover {
+        background: #545b62;
+    }
+    .mark-btn.selected {
+        box-shadow: 0 0 0 3px rgba(0,0,0,0.2);
+    }
+</style>
+
+<style>
+    .quiz-container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px;
+        padding-bottom: 120px;
+    }
+    .question-section {
+        background: linear-gradient(135deg, #e8f4f8 0%, #d4edda 100%);
+        border: 2px solid #17a2b8;
+        border-radius: 10px;
+        padding: 25px;
+        margin-bottom: 20px;
+    }
+    .question-section h2 {
+        color: #0c5460;
+        margin-top: 0;
+        margin-bottom: 15px;
+    }
+    .show-next-btn {
+        display: block;
+        width: 100%;
+        padding: 15px 30px;
+        font-size: 1.1em;
+        font-weight: bold;
+        color: white;
+        background: linear-gradient(135deg, #007bff, #0056b3);
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        margin: 15px 0;
+        transition: all 0.3s ease;
+    }
+    .show-next-btn:hover {
+        background: linear-gradient(135deg, #0056b3, #004094);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 123, 255, 0.4);
+    }
+    .show-all-btn {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        margin-top: 10px;
+    }
+    .show-all-btn:hover {
+        background: linear-gradient(135deg, #218838, #1db385);
+        box-shadow: 0 4px 12px rgba(40, 167, 69, 0.4);
+    }
+    .step-container {
+        display: none;
+        animation: fadeIn 0.5s ease;
+        margin-bottom: 20px;
+        border: 1px solid #dee2e6;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    .step-container.visible {
+        display: block;
+    }
+    .step-header {
+        background: linear-gradient(135deg, #6c757d, #495057);
+        color: white;
+        padding: 12px 20px;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+    }
+    .step-number-badge {
+        background: white;
+        color: #495057;
+        border-radius: 50%;
+        width: 28px;
+        height: 28px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 12px;
+        font-weight: bold;
+    }
+    .step-content {
+        padding: 20px;
+        background: white;
+    }
+    .progress-bar {
+        background: #e9ecef;
+        border-radius: 10px;
+        height: 8px;
+        margin: 15px 0;
+        overflow: hidden;
+    }
+    .progress-fill {
+        background: linear-gradient(90deg, #28a745, #20c997);
+        height: 100%;
+        border-radius: 10px;
+        transition: width 0.5s ease;
+    }
+    .progress-text {
+        text-align: center;
+        color: #6c757d;
+        font-size: 0.9em;
+        margin-bottom: 15px;
+    }
+    .controls {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: white;
+        padding: 15px 20px;
+        border-top: 2px solid #dee2e6;
+        box-shadow: 0 -4px 12px rgba(0,0,0,0.1);
+        z-index: 1000;
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+    }
+    .quiz-container {
+        padding-bottom: 100px;
+    }
+    .show-next-btn {
+        width: auto;
+        margin: 0;
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .final-answer {
+        background: #d4edda;
+        border: 2px solid #28a745;
+        border-radius: 10px;
+        padding: 20px;
+        margin-top: 20px;
+    }
+    .final-answer h3 {
+        color: #155724;
+        margin-top: 0;
+    }
+
+    .done-buttons {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+    .mark-btn {
+        padding: 12px 24px;
+        font-size: 1em;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .mark-done {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        color: white;
+    }
+    .mark-done:hover, .mark-done.selected {
+        background: linear-gradient(135deg, #1e7e34, #17a085);
+        transform: scale(1.05);
+    }
+    .mark-review {
+        background: linear-gradient(135deg, #ffc107, #fd7e14);
+        color: white;
+    }
+    .mark-review:hover, .mark-review.selected {
+        background: linear-gradient(135deg, #d39e00, #dc6502);
+        transform: scale(1.05);
+    }
+    .mark-reset {
+        background: #6c757d;
+        color: white;
+    }
+    .mark-reset:hover {
+        background: #545b62;
+    }
+    .mark-btn.selected {
+        box-shadow: 0 0 0 3px rgba(0,0,0,0.2);
+    }
+</style>
+</head>
+<body>
+<div class="quiz-container">
+    <h1>Esercizio</h1>
+
+    <div class="question-section">
+        <h2>Testo dell'esercizio</h2>
+        <p>Risolvi l'esercizio seguente.</p>
+    </div>
+
+    <div class="progress-text" id="progress-text">Passaggio 0 di 9</div>
+    <div class="progress-bar">
+        <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+    </div>
+
+    <div class="controls">
+        <button id="next-btn" class="show-next-btn" onclick="showNextStep()">
+            ▶ Prossimo passaggio
+        </button>
+        <button id="all-btn" class="show-next-btn show-all-btn" onclick="showAllSteps()">
+            ⏩ Mostra tutto
+        </button>
+        <div id="done-buttons" class="done-buttons" style="display: none;">
+            <button id="mark-done" class="mark-btn mark-done" onclick="markExercise('done')">
+                ✓ Fatto
+            </button>
+            <button id="mark-review" class="mark-btn mark-review" onclick="markExercise('review')">
+                ⚠ Da rivedere
+            </button>
+            <button class="mark-btn mark-reset" onclick="resetExercise()">
+                ↺ Ricomincia
+            </button>
+            <button class="mark-btn" style="background: #17a2b8;" onclick="closeExercise()">
+                ✕ Chiudi
+            </button>
+        </div>
+    </div>
+
+    <div id="steps-wrapper">
+        
+        <div id="step-0" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">1</span>
+                Numeri di Ossidazione
+            </div>
+            <div class="step-content">
+                <h3>Numeri di Ossidazione</h3>
+
+<div class="domanda">
+<strong>Testo della domanda:</strong><br>
+Assegnare ad ogni atomo il numero di ossidazione nelle seguenti specie:<br>
+a) C<sub>3</sub>H<sub>8</sub><br>
+b) Na<sub>2</sub>S<sub>2</sub>O<sub>8</sub><br>
+c) Solfito di calcio<br>
+d) Acetone (struttura: H<sub>3</sub>C-CO-CH<sub>3</sub>)<br>
+e) Metanolo (struttura: H<sub>3</sub>C-OH)<br>
+f) Acido trifluoroacetico (struttura: F<sub>3</sub>C-COOH)
+</div>
+
+<hr>
+            </div>
+        </div>
+        
+        <div id="step-1" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">2</span>
+                Premessa: Regole fondamentali per i numeri di ossi...
+            </div>
+            <div class="step-content">
+                <h3>Premessa: Regole fondamentali per i numeri di ossidazione</h3>
+
+<p>Prima di risolvere gli esercizi, ricordiamo le <strong>regole fondamentali</strong> per assegnare i numeri di ossidazione:</p>
+
+<ol>
+    <li><strong>Elemento allo stato elementare:</strong> numero di ossidazione = 0</li>
+    <li><strong>Ione monoatomico:</strong> numero di ossidazione = carica dello ione</li>
+    <li><strong>Idrogeno:</strong> di solito +1 (eccetto negli idruri metallici dove è -1)</li>
+    <li><strong>Ossigeno:</strong> di solito -2 (eccetto nei perossidi dove è -1, e in OF<sub>2</sub> dove è +2)</li>
+    <li><strong>Fluoro:</strong> sempre -1 (è l'elemento più elettronegativo)</li>
+    <li><strong>Metalli alcalini (gruppo 1):</strong> sempre +1</li>
+    <li><strong>Metalli alcalino-terrosi (gruppo 2):</strong> sempre +2</li>
+    <li><strong>La somma dei numeri di ossidazione</strong> in una molecola neutra deve essere zero; in uno ione deve essere uguale alla carica dello ione.</li>
+</ol>
+
+<p>Per le molecole organiche, è spesso utile ragionare sulla <strong>struttura</strong> e sull'elettronegatività relativa degli atomi.</p>
+
+<hr>
+            </div>
+        </div>
+        
+        <div id="step-2" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">3</span>
+                a) C3H8 (Propano)
+            </div>
+            <div class="step-content">
+                <h3>a) C<sub>3</sub>H<sub>8</sub> (Propano)</h3>
+
+<p>Il propano è un idrocarburo con formula C<sub>3</sub>H<sub>8</sub>. Applichiamo le regole:</p>
+
+<p><strong>Passo 1:</strong> Assegniamo il numero di ossidazione all'idrogeno.</p>
+<p>L'idrogeno, legato al carbonio (non a un metallo), ha numero di ossidazione <strong>+1</strong>.</p>
+
+<p><strong>Passo 2:</strong> Calcoliamo il numero di ossidazione del carbonio.</p>
+<p>La molecola è neutra, quindi la somma dei numeri di ossidazione deve essere zero:</p>
+
+<p style="text-align: center;">3 × (n.o. C) + 8 × (+1) = 0</p>
+<p style="text-align: center;">3 × (n.o. C) + 8 = 0</p>
+<p style="text-align: center;">3 × (n.o. C) = -8</p>
+<p style="text-align: center;">n.o. C = -8/3 = <strong>-8/3</strong></p>
+
+<div class="result">
+<strong>Risultato per C<sub>3</sub>H<sub>8</sub>:</strong><br>
+- Carbonio (C): <strong>-8/3</strong> (valore medio)<br>
+- Idrogeno (H): <strong>+1</strong>
+</div>
+
+<div class="important">
+<strong>Nota:</strong> Il valore -8/3 è un numero di ossidazione medio. In realtà, i tre atomi di carbonio nel propano hanno ambienti chimici leggermente diversi, ma per scopi pratici si usa questo valore medio.
+</div>
+
+<hr>
+            </div>
+        </div>
+        
+        <div id="step-3" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">4</span>
+                b) Na2S2O8 (Persolfato di sodio)
+            </div>
+            <div class="step-content">
+                <h3>b) Na<sub>2</sub>S<sub>2</sub>O<sub>8</sub> (Persolfato di sodio)</h3>
+
+<p>Questo composto contiene lo ione persolfato S<sub>2</sub>O<sub>8</sub><sup>2-</sup>.</p>
+
+<p><strong>Passo 1:</strong> Assegniamo i numeri di ossidazione noti.</p>
+<ul>
+    <li>Sodio (Na): è un metallo alcalino, quindi ha sempre n.o. = <strong>+1</strong></li>
+    <li>Ossigeno (O): nel persolfato l'ossigeno ha n.o. = <strong>-2</strong> (non è un perossido, anche se la struttura contiene un legame O-O, l'ossigeno si considera comunque -2 per il calcolo)</li>
+</ul>
+
+<p><strong>Passo 2:</strong> Calcoliamo il numero di ossidazione dello zolfo.</p>
+<p>La molecola è neutra:</p>
+
+<p style="text-align: center;">2 × (+1) + 2 × (n.o. S) + 8 × (-2) = 0</p>
+<p style="text-align: center;">2 + 2 × (n.o. S) - 16 = 0</p>
+<p style="text-align: center;">2 × (n.o. S) = 14</p>
+<p style="text-align: center;">n.o. S = <strong>+7</strong></p>
+
+<div class="result">
+<strong>Risultato per Na<sub>2</sub>S<sub>2</sub>O<sub>8</sub>:</strong><br>
+- Sodio (Na): <strong>+1</strong><br>
+- Zolfo (S): <strong>+7</strong><br>
+- Ossigeno (O): <strong>-2</strong>
+</div>
+
+<div class="important">
+<strong>Nota:</strong> Lo ione persolfato ha una struttura particolare con un legame perossidico O-O. Se si considera che due ossigeni sono in forma perossidica (-1), allora lo zolfo avrebbe n.o. +6. Tuttavia, nella convenzione standard per il bilanciamento, si usa spesso O = -2 per tutti, ottenendo S = +7.
+</div>
+
+<hr>
+            </div>
+        </div>
+        
+        <div id="step-4" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">5</span>
+                c) Solfito di calcio (CaSO3)
+            </div>
+            <div class="step-content">
+                <h3>c) Solfito di calcio (CaSO<sub>3</sub>)</h3>
+
+<p>Il solfito di calcio ha formula CaSO<sub>3</sub> e contiene lo ione solfito SO<sub>3</sub><sup>2-</sup>.</p>
+
+<p><strong>Passo 1:</strong> Assegniamo i numeri di ossidazione noti.</p>
+<ul>
+    <li>Calcio (Ca): è un metallo alcalino-terroso (gruppo 2), quindi ha n.o. = <strong>+2</strong></li>
+    <li>Ossigeno (O): ha n.o. = <strong>-2</strong></li>
+</ul>
+
+<p><strong>Passo 2:</strong> Calcoliamo il numero di ossidazione dello zolfo.</p>
+<p>La molecola è neutra:</p>
+
+<p style="text-align: center;">(+2) + (n.o. S) + 3 × (-2) = 0</p>
+<p style="text-align: center;">2 + (n.o. S) - 6 = 0</p>
+<p style="text-align: center;">n.o. S = <strong>+4</strong></p>
+
+<div class="result">
+<strong>Risultato per CaSO<sub>3</sub> (solfito di calcio):</strong><br>
+- Calcio (Ca): <strong>+2</strong><br>
+- Zolfo (S): <strong>+4</strong><br>
+- Ossigeno (O): <strong>-2</strong>
+</div>
+
+<hr>
+            </div>
+        </div>
+        
+        <div id="step-5" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">6</span>
+                d) Acetone (H3C-CO-CH3)
+            </div>
+            <div class="step-content">
+                <h3>d) Acetone (H<sub>3</sub>C-CO-CH<sub>3</sub>)</h3>
+
+<p>L'acetone ha formula molecolare C<sub>3</sub>H<sub>6</sub>O. La struttura è: CH<sub>3</sub>-CO-CH<sub>3</sub></p>
+
+<p>Per le molecole organiche con carboni in ambienti diversi, è meglio ragionare sulla <strong>struttura</strong>.</p>
+
+<p><strong>Approccio strutturale:</strong></p>
+
+<p><strong>Carbonio del gruppo metilico (CH<sub>3</sub>):</strong></p>
+<p>Ogni carbonio dei gruppi CH<sub>3</sub> è legato a:</p>
+<ul>
+    <li>3 atomi di H (meno elettronegativi del C, quindi C "guadagna" 3 elettroni: contributo -3)</li>
+    <li>1 atomo di C (stessa elettronegatività, contributo 0)</li>
+</ul>
+<p>n.o. del C in CH<sub>3</sub> = <strong>-3</strong></p>
+
+<p><strong>Carbonio del gruppo carbonilico (C=O):</strong></p>
+<p>Questo carbonio è legato a:</p>
+<ul>
+    <li>1 doppio legame con O (O più elettronegativo, contributo +2)</li>
+    <li>2 legami con C (stessa elettronegatività, contributo 0)</li>
+</ul>
+<p>n.o. del C in C=O = <strong>+2</strong></p>
+
+<p><strong>Verifica:</strong> 2 × (-3) + 1 × (+2) + 6 × (+1) + 1 × (-2) = -6 + 2 + 6 - 2 = 0. Corretto!</p>
+
+<div class="result">
+<strong>Risultato per l'acetone (CH<sub>3</sub>-CO-CH<sub>3</sub>):</strong><br>
+- Carbonio dei gruppi CH<sub>3</sub>: <strong>-3</strong> (2 atomi)<br>
+- Carbonio del gruppo C=O: <strong>+2</strong> (1 atomo)<br>
+- Idrogeno (H): <strong>+1</strong><br>
+- Ossigeno (O): <strong>-2</strong>
+</div>
+
+<hr>
+            </div>
+        </div>
+        
+        <div id="step-6" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">7</span>
+                e) Metanolo (H3C-OH)
+            </div>
+            <div class="step-content">
+                <h3>e) Metanolo (H<sub>3</sub>C-OH)</h3>
+
+<p>Il metanolo ha formula CH<sub>3</sub>OH (o CH<sub>4</sub>O).</p>
+
+<p><strong>Approccio strutturale per il carbonio:</strong></p>
+<p>Il carbonio nel metanolo è legato a:</p>
+<ul>
+    <li>3 atomi di H (meno elettronegativi, contributo -3)</li>
+    <li>1 atomo di O (più elettronegativo, contributo +1)</li>
+</ul>
+<p>n.o. del C = -3 + 1 = <strong>-2</strong></p>
+
+<p><strong>Verifica con la formula:</strong></p>
+<p style="text-align: center;">(n.o. C) + 4 × (+1) + 1 × (-2) = 0</p>
+<p style="text-align: center;">(n.o. C) + 4 - 2 = 0</p>
+<p style="text-align: center;">n.o. C = <strong>-2</strong></p>
+
+<div class="result">
+<strong>Risultato per il metanolo (CH<sub>3</sub>OH):</strong><br>
+- Carbonio (C): <strong>-2</strong><br>
+- Idrogeno (H): <strong>+1</strong><br>
+- Ossigeno (O): <strong>-2</strong>
+</div>
+
+<hr>
+            </div>
+        </div>
+        
+        <div id="step-7" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">8</span>
+                f) Acido trifluoroacetico (F3C-COOH)
+            </div>
+            <div class="step-content">
+                <h3>f) Acido trifluoroacetico (F<sub>3</sub>C-COOH)</h3>
+
+<p>L'acido trifluoroacetico ha formula C<sub>2</sub>HO<sub>2</sub>F<sub>3</sub>. La struttura è: CF<sub>3</sub>-COOH</p>
+
+<p>Questa molecola ha due carboni in ambienti molto diversi.</p>
+
+<p><strong>Carbonio del gruppo CF<sub>3</sub>:</strong></p>
+<p>Questo carbonio è legato a:</p>
+<ul>
+    <li>3 atomi di F (F è molto più elettronegativo, contributo +3)</li>
+    <li>1 atomo di C (stessa elettronegatività, contributo 0)</li>
+</ul>
+<p>n.o. del C in CF<sub>3</sub> = <strong>+3</strong></p>
+
+<p><strong>Carbonio del gruppo carbossilico (COOH):</strong></p>
+<p>Questo carbonio è legato a:</p>
+<ul>
+    <li>1 doppio legame con O (contributo +2)</li>
+    <li>1 legame con O del gruppo OH (contributo +1)</li>
+    <li>1 legame con C (contributo 0)</li>
+</ul>
+<p>n.o. del C in COOH = <strong>+3</strong></p>
+
+<p><strong>Verifica:</strong></p>
+<p style="text-align: center;">1 × (+3) + 1 × (+3) + 1 × (+1) + 2 × (-2) + 3 × (-1) = 0</p>
+<p style="text-align: center;">3 + 3 + 1 - 4 - 3 = 0. Corretto!</p>
+
+<div class="result">
+<strong>Risultato per l'acido trifluoroacetico (CF<sub>3</sub>-COOH):</strong><br>
+- Carbonio del gruppo CF<sub>3</sub>: <strong>+3</strong><br>
+- Carbonio del gruppo COOH: <strong>+3</strong><br>
+- Idrogeno (H): <strong>+1</strong><br>
+- Ossigeno (O): <strong>-2</strong><br>
+- Fluoro (F): <strong>-1</strong>
+</div>
+
+<hr>
+            </div>
+        </div>
+        
+        <div id="step-8" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">9</span>
+                Riepilogo finale
+            </div>
+            <div class="step-content">
+                <h3>Riepilogo finale</h3>
+
+<table>
+    <tr>
+        <th>Composto</th>
+        <th>Elemento</th>
+        <th>Numero di ossidazione</th>
+    </tr>
+    <tr>
+        <td rowspan="2">C<sub>3</sub>H<sub>8</sub></td>
+        <td>C</td>
+        <td>-8/3 (medio)</td>
+    </tr>
+    <tr>
+        <td>H</td>
+        <td>+1</td>
+    </tr>
+    <tr>
+        <td rowspan="3">Na<sub>2</sub>S<sub>2</sub>O<sub>8</sub></td>
+        <td>Na</td>
+        <td>+1</td>
+    </tr>
+    <tr>
+        <td>S</td>
+        <td>+7</td>
+    </tr>
+    <tr>
+        <td>O</td>
+        <td>-2</td>
+    </tr>
+    <tr>
+        <td rowspan="3">CaSO<sub>3</sub></td>
+        <td>Ca</td>
+        <td>+2</td>
+    </tr>
+    <tr>
+        <td>S</td>
+        <td>+4</td>
+    </tr>
+    <tr>
+        <td>O</td>
+        <td>-2</td>
+    </tr>
+    <tr>
+        <td rowspan="4">Acetone</td>
+        <td>C (CH<sub>3</sub>)</td>
+        <td>-3</td>
+    </tr>
+    <tr>
+        <td>C (C=O)</td>
+        <td>+2</td>
+    </tr>
+    <tr>
+        <td>H</td>
+        <td>+1</td>
+    </tr>
+    <tr>
+        <td>O</td>
+        <td>-2</td>
+    </tr>
+    <tr>
+        <td rowspan="3">Metanolo</td>
+        <td>C</td>
+        <td>-2</td>
+    </tr>
+    <tr>
+        <td>H</td>
+        <td>+1</td>
+    </tr>
+    <tr>
+        <td>O</td>
+        <td>-2</td>
+    </tr>
+    <tr>
+        <td rowspan="4">Acido trifluoroacetico</td>
+        <td>C (CF<sub>3</sub>)</td>
+        <td>+3</td>
+    </tr>
+    <tr>
+        <td>C (COOH)</td>
+        <td>+3</td>
+    </tr>
+    <tr>
+        <td>H, O, F</td>
+        <td>+1, -2, -1</td>
+    </tr>
+</table>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+<script>
+    let currentStep = 0;
+    let totalSteps = 0;
+
+    document.addEventListener('DOMContentLoaded', function() {
+        totalSteps = document.querySelectorAll('.step-container').length;
+        updateProgress();
+        updateButtons();
+    });
+
+    function showNextStep() {
+        if (currentStep < totalSteps) {
+            const step = document.getElementById('step-' + currentStep);
+            if (step) {
+                step.classList.add('visible');
+                step.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                currentStep++;
+                updateProgress();
+                updateButtons();
+
+                if (window.parent !== window) {
+                    window.parent.postMessage({type: 'stepShown', step: currentStep, total: totalSteps}, '*');
+                }
+            }
+        }
+    }
+
+    function showAllSteps() {
+        document.querySelectorAll('.step-container').forEach(function(step) {
+            step.classList.add('visible');
+        });
+        currentStep = totalSteps;
+        updateProgress();
+        updateButtons();
+
+        if (window.parent !== window) {
+            window.parent.postMessage({type: 'allStepsShown'}, '*');
+        }
+    }
+
+    function hideAllSteps() {
+        document.querySelectorAll('.step-container').forEach(function(step) {
+            step.classList.remove('visible');
+        });
+        currentStep = 0;
+        updateProgress();
+        updateButtons();
+    }
+
+    function updateProgress() {
+        const pct = totalSteps > 0 ? (currentStep / totalSteps) * 100 : 0;
+        const fill = document.getElementById('progress-fill');
+        const text = document.getElementById('progress-text');
+        if (fill) fill.style.width = pct + '%';
+        if (text) text.textContent = 'Passaggio ' + currentStep + ' di ' + totalSteps;
+    }
+
+    function updateButtons() {
+        const nextBtn = document.getElementById('next-btn');
+        const allBtn = document.getElementById('all-btn');
+        const doneButtons = document.getElementById('done-buttons');
+
+        if (currentStep >= totalSteps) {
+            if (nextBtn) nextBtn.style.display = 'none';
+            if (allBtn) allBtn.style.display = 'none';
+            if (doneButtons) doneButtons.style.display = 'flex';
+        } else {
+            if (nextBtn) nextBtn.style.display = 'block';
+            if (allBtn) allBtn.style.display = 'block';
+            if (doneButtons) doneButtons.style.display = 'none';
+        }
+    }
+
+    function markExercise(status) {
+        // Salva in localStorage
+        const exerciseId = window.location.pathname.split('/').pop().replace('.html', '');
+        let progress = JSON.parse(localStorage.getItem('chemportal_progress') || '{}');
+        if (!progress.exercises) progress.exercises = {};
+        progress.exercises[exerciseId] = status;
+        localStorage.setItem('chemportal_progress', JSON.stringify(progress));
+
+        // Feedback visivo
+        const btn = status === 'done' ? document.getElementById('mark-done') : document.getElementById('mark-review');
+        const otherBtn = status === 'done' ? document.getElementById('mark-review') : document.getElementById('mark-done');
+
+        btn.classList.add('selected');
+        otherBtn.classList.remove('selected');
+
+        // Notifica parent
+        if (window.parent !== window) {
+            window.parent.postMessage({type: 'exerciseMarked', status: status, id: exerciseId}, '*');
+        }
+    }
+
+    function resetExercise() {
+        hideAllSteps();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Messaggi dal parent
+    window.addEventListener('message', function(e) {
+        if (e.data.type === 'showNext') showNextStep();
+        else if (e.data.type === 'showAll') showAllSteps();
+        else if (e.data.type === 'hideAll') hideAllSteps();
+    });
+
+    function closeExercise() {
+        if (window.parent !== window) {
+            // Siamo in iframe, chiedi al parent di chiudere
+            window.parent.postMessage({type: 'closeModal'}, '*');
+        } else {
+            // Standalone: torna alla pagina esercizi
+            const path = window.location.pathname;
+            if (path.includes('/content/soluzioni/')) {
+                window.location.href = '../../esercizi.html';
+            } else {
+                window.history.back();
+            }
+        }
+    }
+</script>
+</body>
+</html>

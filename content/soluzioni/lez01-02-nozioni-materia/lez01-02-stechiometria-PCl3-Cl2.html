@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Esame 7 - Quesito 3 - Stechiometria PCl3/Cl2</title>
+    <style>
+        body { font-family: Georgia, serif; max-width: 800px; margin: 40px auto; padding: 20px; line-height: 1.8; }
+        h1 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+        h2 { color: #2980b9; margin-top: 30px; }
+        .question { background: #ecf0f1; padding: 15px; border-left: 4px solid #3498db; margin: 20px 0; font-style: italic; }
+        .result { background: #d5f5e3; padding: 15px; border-left: 4px solid #27ae60; margin: 20px 0; font-weight: bold; font-size: 1.1em; }
+        .formula { background: #fdebd0; padding: 10px; margin: 10px 0; font-family: monospace; text-align: center; }
+        .step { background: #f8f9fa; padding: 15px; margin: 15px 0; border-radius: 5px; }
+        .data { background: #e8f4f8; padding: 15px; margin: 15px 0; border-left: 4px solid #17a2b8; }
+        .note { background: #fff3cd; padding: 12px; margin: 15px 0; border-left: 4px solid #ffc107; font-size: 0.95em; }
+        table { border-collapse: collapse; width: 100%; margin: 20px 0; }
+        th, td { border: 1px solid #bdc3c7; padding: 10px; text-align: center; }
+        th { background: #3498db; color: white; }
+    
+    .done-buttons {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+    .mark-btn {
+        padding: 12px 24px;
+        font-size: 1em;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .mark-done {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        color: white;
+    }
+    .mark-done:hover, .mark-done.selected {
+        background: linear-gradient(135deg, #1e7e34, #17a085);
+        transform: scale(1.05);
+    }
+    .mark-review {
+        background: linear-gradient(135deg, #ffc107, #fd7e14);
+        color: white;
+    }
+    .mark-review:hover, .mark-review.selected {
+        background: linear-gradient(135deg, #d39e00, #dc6502);
+        transform: scale(1.05);
+    }
+    .mark-reset {
+        background: #6c757d;
+        color: white;
+    }
+    .mark-reset:hover {
+        background: #545b62;
+    }
+    .mark-btn.selected {
+        box-shadow: 0 0 0 3px rgba(0,0,0,0.2);
+    }
+</style>
+
+<style>
+    .quiz-container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px;
+        padding-bottom: 120px;
+    }
+    .question-section {
+        background: linear-gradient(135deg, #e8f4f8 0%, #d4edda 100%);
+        border: 2px solid #17a2b8;
+        border-radius: 10px;
+        padding: 25px;
+        margin-bottom: 20px;
+    }
+    .question-section h2 {
+        color: #0c5460;
+        margin-top: 0;
+        margin-bottom: 15px;
+    }
+    .show-next-btn {
+        display: block;
+        width: 100%;
+        padding: 15px 30px;
+        font-size: 1.1em;
+        font-weight: bold;
+        color: white;
+        background: linear-gradient(135deg, #007bff, #0056b3);
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        margin: 15px 0;
+        transition: all 0.3s ease;
+    }
+    .show-next-btn:hover {
+        background: linear-gradient(135deg, #0056b3, #004094);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 123, 255, 0.4);
+    }
+    .show-all-btn {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        margin-top: 10px;
+    }
+    .show-all-btn:hover {
+        background: linear-gradient(135deg, #218838, #1db385);
+        box-shadow: 0 4px 12px rgba(40, 167, 69, 0.4);
+    }
+    .step-container {
+        display: none;
+        animation: fadeIn 0.5s ease;
+        margin-bottom: 20px;
+        border: 1px solid #dee2e6;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    .step-container.visible {
+        display: block;
+    }
+    .step-header {
+        background: linear-gradient(135deg, #6c757d, #495057);
+        color: white;
+        padding: 12px 20px;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+    }
+    .step-number-badge {
+        background: white;
+        color: #495057;
+        border-radius: 50%;
+        width: 28px;
+        height: 28px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 12px;
+        font-weight: bold;
+    }
+    .step-content {
+        padding: 20px;
+        background: white;
+    }
+    .progress-bar {
+        background: #e9ecef;
+        border-radius: 10px;
+        height: 8px;
+        margin: 15px 0;
+        overflow: hidden;
+    }
+    .progress-fill {
+        background: linear-gradient(90deg, #28a745, #20c997);
+        height: 100%;
+        border-radius: 10px;
+        transition: width 0.5s ease;
+    }
+    .progress-text {
+        text-align: center;
+        color: #6c757d;
+        font-size: 0.9em;
+        margin-bottom: 15px;
+    }
+    .controls {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: white;
+        padding: 15px 20px;
+        border-top: 2px solid #dee2e6;
+        box-shadow: 0 -4px 12px rgba(0,0,0,0.1);
+        z-index: 1000;
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+    }
+    .quiz-container {
+        padding-bottom: 100px;
+    }
+    .show-next-btn {
+        width: auto;
+        margin: 0;
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .final-answer {
+        background: #d4edda;
+        border: 2px solid #28a745;
+        border-radius: 10px;
+        padding: 20px;
+        margin-top: 20px;
+    }
+    .final-answer h3 {
+        color: #155724;
+        margin-top: 0;
+    }
+
+    .done-buttons {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+    .mark-btn {
+        padding: 12px 24px;
+        font-size: 1em;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .mark-done {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        color: white;
+    }
+    .mark-done:hover, .mark-done.selected {
+        background: linear-gradient(135deg, #1e7e34, #17a085);
+        transform: scale(1.05);
+    }
+    .mark-review {
+        background: linear-gradient(135deg, #ffc107, #fd7e14);
+        color: white;
+    }
+    .mark-review:hover, .mark-review.selected {
+        background: linear-gradient(135deg, #d39e00, #dc6502);
+        transform: scale(1.05);
+    }
+    .mark-reset {
+        background: #6c757d;
+        color: white;
+    }
+    .mark-reset:hover {
+        background: #545b62;
+    }
+    .mark-btn.selected {
+        box-shadow: 0 0 0 3px rgba(0,0,0,0.2);
+    }
+</style>
+</head>
+<body>
+<div class="quiz-container">
+    <h1>Esame 7 - Quesito 3</h1>
+
+    <div class="question-section">
+        <h2>Testo dell'esercizio</h2>
+        <p>Risolvi l'esercizio seguente.</p>
+    </div>
+
+    <div class="progress-text" id="progress-text">Passaggio 0 di 10</div>
+    <div class="progress-bar">
+        <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+    </div>
+
+    <div class="controls">
+        <button id="next-btn" class="show-next-btn" onclick="showNextStep()">
+            ▶ Prossimo passaggio
+        </button>
+        <button id="all-btn" class="show-next-btn show-all-btn" onclick="showAllSteps()">
+            ⏩ Mostra tutto
+        </button>
+        <div id="done-buttons" class="done-buttons" style="display: none;">
+            <button id="mark-done" class="mark-btn mark-done" onclick="markExercise('done')">
+                ✓ Fatto
+            </button>
+            <button id="mark-review" class="mark-btn mark-review" onclick="markExercise('review')">
+                ⚠ Da rivedere
+            </button>
+            <button class="mark-btn mark-reset" onclick="resetExercise()">
+                ↺ Ricomincia
+            </button>
+            <button class="mark-btn" style="background: #17a2b8;" onclick="closeExercise()">
+                ✕ Chiudi
+            </button>
+        </div>
+    </div>
+
+    <div id="steps-wrapper">
+        
+        <div id="step-0" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">1</span>
+                Stechiometria: Volume di Cl2 per trasformare PCl3 ...
+            </div>
+            <div class="step-content">
+                <h1>Esame 7 - Quesito 3</h1><h2>Stechiometria: Volume di Cl2 per trasformare PCl3 in PCl5</h2>
+
+<div class="question">
+<strong>Testo del quesito:</strong><br>
+Calcolare quanti litri di cloro misurati a c.n. sono necessari per trasformare 50.5 g di PCl3 in PCl5.
+</div>
+            </div>
+        </div>
+        
+        <div id="step-1" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">2</span>
+                Cosa ci viene chiesto?
+            </div>
+            <div class="step-content">
+                <h2>Cosa ci viene chiesto?</h2>
+
+<p>Prima di tuffarci nei calcoli, fermiamoci un attimo a capire cosa sta succedendo. Il problema ci chiede di calcolare un <strong>volume di gas</strong> (il cloro, Cl2) necessario per una reazione chimica.</p>
+
+<p>Abbiamo del <strong>tricloruro di fosforo</strong> (PCl3) e vogliamo trasformarlo in <strong>pentacloruro di fosforo</strong> (PCl5). Come? Aggiungendo cloro gassoso!</p>
+            </div>
+        </div>
+        
+        <div id="step-2" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">3</span>
+                Passo 1: Scriviamo la reazione chimica
+            </div>
+            <div class="step-content">
+                <h2>Passo 1: Scriviamo la reazione chimica</h2>
+
+<div class="step">
+<p>Prima di tutto, dobbiamo scrivere l'equazione chimica. Cosa succede? Il PCl3 reagisce con il Cl2 per formare PCl5.</p>
+
+<p>Scriviamo la reazione:</p>
+
+<div class="formula">
+PCl3 + Cl2 --> PCl5
+</div>
+
+<p>Verifichiamo che sia bilanciata contando gli atomi:</p>
+<ul>
+    <li><strong>Fosforo (P):</strong> 1 a sinistra, 1 a destra. OK!</li>
+    <li><strong>Cloro (Cl):</strong> 3 (da PCl3) + 2 (da Cl2) = 5 a sinistra; 5 a destra (da PCl5). OK!</li>
+</ul>
+
+<p>La reazione e' gia' bilanciata! Questo ci dice che <strong>1 mole di PCl3</strong> reagisce con <strong>1 mole di Cl2</strong> per dare <strong>1 mole di PCl5</strong>.</p>
+</div>
+            </div>
+        </div>
+        
+        <div id="step-3" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">4</span>
+                Passo 2: Raccogliamo i dati
+            </div>
+            <div class="step-content">
+                <h2>Passo 2: Raccogliamo i dati</h2>
+
+<div class="data">
+<strong>Dati del problema:</strong>
+<ul>
+    <li>Massa di PCl3 = 50.5 g</li>
+    <li>Condizioni: c.n. (condizioni normali: 0 gradi C, 1 atm)</li>
+</ul>
+
+<strong>Cosa dobbiamo trovare:</strong>
+<ul>
+    <li>Volume di Cl2 in litri</li>
+</ul>
+
+<strong>Dati che ci servono (da tavola periodica):</strong>
+<ul>
+    <li>Massa atomica P = 31.0 g/mol</li>
+    <li>Massa atomica Cl = 35.5 g/mol</li>
+</ul>
+</div>
+            </div>
+        </div>
+        
+        <div id="step-4" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">5</span>
+                Passo 3: Calcoliamo la massa molare di PCl3
+            </div>
+            <div class="step-content">
+                <h2>Passo 3: Calcoliamo la massa molare di PCl3</h2>
+
+<div class="step">
+<p>Per convertire i grammi in moli, abbiamo bisogno della <strong>massa molare</strong> di PCl3.</p>
+
+<p>La molecola PCl3 contiene:</p>
+<ul>
+    <li>1 atomo di fosforo (P)</li>
+    <li>3 atomi di cloro (Cl)</li>
+</ul>
+
+<p>Quindi la massa molare e':</p>
+
+<div class="formula">
+MM(PCl3) = 1 x 31.0 + 3 x 35.5 = 31.0 + 106.5 = 137.5 g/mol
+</div>
+
+<p>Questo significa che <strong>137.5 grammi</strong> di PCl3 corrispondono a <strong>1 mole</strong> di PCl3.</p>
+</div>
+            </div>
+        </div>
+        
+        <div id="step-5" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">6</span>
+                Passo 4: Calcoliamo le moli di PCl3
+            </div>
+            <div class="step-content">
+                <h2>Passo 4: Calcoliamo le moli di PCl3</h2>
+
+<div class="step">
+<p>Ora possiamo calcolare quante moli di PCl3 abbiamo a disposizione.</p>
+
+<p>La formula fondamentale e':</p>
+
+<div class="formula">
+n = massa / massa molare
+</div>
+
+<p>Sostituiamo i valori:</p>
+
+<div class="formula">
+n(PCl3) = 50.5 g / 137.5 g/mol = 0.367 mol
+</div>
+
+<p>Abbiamo quindi <strong>0.367 moli</strong> di tricloruro di fosforo.</p>
+</div>
+            </div>
+        </div>
+        
+        <div id="step-6" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">7</span>
+                Passo 5: Calcoliamo le moli di Cl2 necessarie
+            </div>
+            <div class="step-content">
+                <h2>Passo 5: Calcoliamo le moli di Cl2 necessarie</h2>
+
+<div class="step">
+<p>Guardiamo di nuovo la reazione bilanciata:</p>
+
+<div class="formula">
+PCl3 + Cl2 --> PCl5
+</div>
+
+<p>I coefficienti stechiometrici ci dicono che:</p>
+<ul>
+    <li>1 mole di PCl3 reagisce con 1 mole di Cl2</li>
+</ul>
+
+<p>Quindi il rapporto molare tra PCl3 e Cl2 e' <strong>1:1</strong>.</p>
+
+<p>Questo significa che ci servono <strong>le stesse moli</strong> di Cl2 quante ne abbiamo di PCl3:</p>
+
+<div class="formula">
+n(Cl2) = n(PCl3) = 0.367 mol
+</div>
+</div>
+            </div>
+        </div>
+        
+        <div id="step-7" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">8</span>
+                Passo 6: Calcoliamo il volume di Cl2 a condizioni ...
+            </div>
+            <div class="step-content">
+                <h2>Passo 6: Calcoliamo il volume di Cl2 a condizioni normali</h2>
+
+<div class="step">
+<p>Ora arriva la parte finale! Dobbiamo convertire le moli di Cl2 in litri.</p>
+
+<p>A <strong>condizioni normali (c.n.)</strong> - cioe' 0 gradi C (273 K) e 1 atm - sappiamo che:</p>
+
+<div class="note">
+<strong>Regola fondamentale:</strong> 1 mole di qualsiasi gas ideale occupa un volume di 22.4 litri a c.n.
+</div>
+
+<p>Questa e' una conseguenza dell'equazione di stato dei gas ideali (PV = nRT), e vale per TUTTI i gas a queste condizioni!</p>
+
+<p>Quindi il volume di Cl2 sara':</p>
+
+<div class="formula">
+V(Cl2) = n(Cl2) x 22.4 L/mol
+</div>
+
+<div class="formula">
+V(Cl2) = 0.367 mol x 22.4 L/mol = 8.22 L
+</div>
+</div>
+
+<div class="result">
+RISPOSTA: Sono necessari 8.22 litri di cloro (Cl2) a condizioni normali per trasformare 50.5 g di PCl3 in PCl5.
+</div>
+            </div>
+        </div>
+        
+        <div id="step-8" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">9</span>
+                Riepilogo del procedimento
+            </div>
+            <div class="step-content">
+                <h2>Riepilogo del procedimento</h2>
+
+<table>
+<tr>
+    <th>Passo</th>
+    <th>Operazione</th>
+    <th>Risultato</th>
+</tr>
+<tr>
+    <td>1</td>
+    <td>Scriviamo e bilanciamo la reazione</td>
+    <td>PCl3 + Cl2 --> PCl5</td>
+</tr>
+<tr>
+    <td>2</td>
+    <td>Calcoliamo MM(PCl3)</td>
+    <td>137.5 g/mol</td>
+</tr>
+<tr>
+    <td>3</td>
+    <td>Calcoliamo n(PCl3) = 50.5/137.5</td>
+    <td>0.367 mol</td>
+</tr>
+<tr>
+    <td>4</td>
+    <td>Dal rapporto 1:1, n(Cl2) = n(PCl3)</td>
+    <td>0.367 mol</td>
+</tr>
+<tr>
+    <td>5</td>
+    <td>Calcoliamo V = n x 22.4</td>
+    <td>8.22 L</td>
+</tr>
+</table>
+            </div>
+        </div>
+        
+        <div id="step-9" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">10</span>
+                Concetti chiave da ricordare
+            </div>
+            <div class="step-content">
+                <h2>Concetti chiave da ricordare</h2>
+
+<div class="note">
+<ul>
+    <li>A c.n. (0 gradi C, 1 atm), 1 mole di gas = 22.4 L (volume molare)</li>
+    <li>I coefficienti stechiometrici indicano i rapporti molari tra reagenti e prodotti</li>
+    <li>Per passare da grammi a moli: n = m / MM</li>
+    <li>Per passare da moli a litri (gas a c.n.): V = n x 22.4</li>
+</ul>
+</div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+<script>
+    let currentStep = 0;
+    let totalSteps = 0;
+
+    document.addEventListener('DOMContentLoaded', function() {
+        totalSteps = document.querySelectorAll('.step-container').length;
+        updateProgress();
+        updateButtons();
+    });
+
+    function showNextStep() {
+        if (currentStep < totalSteps) {
+            const step = document.getElementById('step-' + currentStep);
+            if (step) {
+                step.classList.add('visible');
+                step.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                currentStep++;
+                updateProgress();
+                updateButtons();
+
+                if (window.parent !== window) {
+                    window.parent.postMessage({type: 'stepShown', step: currentStep, total: totalSteps}, '*');
+                }
+            }
+        }
+    }
+
+    function showAllSteps() {
+        document.querySelectorAll('.step-container').forEach(function(step) {
+            step.classList.add('visible');
+        });
+        currentStep = totalSteps;
+        updateProgress();
+        updateButtons();
+
+        if (window.parent !== window) {
+            window.parent.postMessage({type: 'allStepsShown'}, '*');
+        }
+    }
+
+    function hideAllSteps() {
+        document.querySelectorAll('.step-container').forEach(function(step) {
+            step.classList.remove('visible');
+        });
+        currentStep = 0;
+        updateProgress();
+        updateButtons();
+    }
+
+    function updateProgress() {
+        const pct = totalSteps > 0 ? (currentStep / totalSteps) * 100 : 0;
+        const fill = document.getElementById('progress-fill');
+        const text = document.getElementById('progress-text');
+        if (fill) fill.style.width = pct + '%';
+        if (text) text.textContent = 'Passaggio ' + currentStep + ' di ' + totalSteps;
+    }
+
+    function updateButtons() {
+        const nextBtn = document.getElementById('next-btn');
+        const allBtn = document.getElementById('all-btn');
+        const doneButtons = document.getElementById('done-buttons');
+
+        if (currentStep >= totalSteps) {
+            if (nextBtn) nextBtn.style.display = 'none';
+            if (allBtn) allBtn.style.display = 'none';
+            if (doneButtons) doneButtons.style.display = 'flex';
+        } else {
+            if (nextBtn) nextBtn.style.display = 'block';
+            if (allBtn) allBtn.style.display = 'block';
+            if (doneButtons) doneButtons.style.display = 'none';
+        }
+    }
+
+    function markExercise(status) {
+        // Salva in localStorage
+        const exerciseId = window.location.pathname.split('/').pop().replace('.html', '');
+        let progress = JSON.parse(localStorage.getItem('chemportal_progress') || '{}');
+        if (!progress.exercises) progress.exercises = {};
+        progress.exercises[exerciseId] = status;
+        localStorage.setItem('chemportal_progress', JSON.stringify(progress));
+
+        // Feedback visivo
+        const btn = status === 'done' ? document.getElementById('mark-done') : document.getElementById('mark-review');
+        const otherBtn = status === 'done' ? document.getElementById('mark-review') : document.getElementById('mark-done');
+
+        btn.classList.add('selected');
+        otherBtn.classList.remove('selected');
+
+        // Notifica parent
+        if (window.parent !== window) {
+            window.parent.postMessage({type: 'exerciseMarked', status: status, id: exerciseId}, '*');
+        }
+    }
+
+    function resetExercise() {
+        hideAllSteps();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Messaggi dal parent
+    window.addEventListener('message', function(e) {
+        if (e.data.type === 'showNext') showNextStep();
+        else if (e.data.type === 'showAll') showAllSteps();
+        else if (e.data.type === 'hideAll') hideAllSteps();
+    });
+
+    function closeExercise() {
+        if (window.parent !== window) {
+            // Siamo in iframe, chiedi al parent di chiudere
+            window.parent.postMessage({type: 'closeModal'}, '*');
+        } else {
+            // Standalone: torna alla pagina esercizi
+            const path = window.location.pathname;
+            if (path.includes('/content/soluzioni/')) {
+                window.location.href = '../../esercizi.html';
+            } else {
+                window.history.back();
+            }
+        }
+    }
+</script>
+</body>
+</html>

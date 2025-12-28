@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Esame 8-1 - Pila a Concentrazione Fe3+/Fe2+</title>
+    <style>
+        body { font-family: Georgia, serif; max-width: 800px; margin: 40px auto; padding: 20px; line-height: 1.8; }
+        h1 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+        h2 { color: #2980b9; margin-top: 30px; }
+        h3 { color: #8e44ad; margin-top: 25px; }
+        .question { background: #ecf0f1; padding: 15px; border-left: 4px solid #3498db; margin: 20px 0; }
+        .result { background: #d5f5e3; padding: 15px; border-left: 4px solid #27ae60; margin: 20px 0; font-weight: bold; }
+        .formula { background: #fdebd0; padding: 10px; margin: 10px 0; font-family: monospace; }
+        .important { background: #fadbd8; padding: 15px; border-left: 4px solid #e74c3c; margin: 20px 0; }
+        .step { background: #e8f6f3; padding: 15px; margin: 15px 0; border-radius: 5px; }
+        table { border-collapse: collapse; width: 100%; margin: 20px 0; }
+        th, td { border: 1px solid #bdc3c7; padding: 10px; text-align: center; }
+        th { background: #3498db; color: white; }
+        .highlight { color: #e74c3c; font-weight: bold; }
+    
+    .done-buttons {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+    .mark-btn {
+        padding: 12px 24px;
+        font-size: 1em;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .mark-done {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        color: white;
+    }
+    .mark-done:hover, .mark-done.selected {
+        background: linear-gradient(135deg, #1e7e34, #17a085);
+        transform: scale(1.05);
+    }
+    .mark-review {
+        background: linear-gradient(135deg, #ffc107, #fd7e14);
+        color: white;
+    }
+    .mark-review:hover, .mark-review.selected {
+        background: linear-gradient(135deg, #d39e00, #dc6502);
+        transform: scale(1.05);
+    }
+    .mark-reset {
+        background: #6c757d;
+        color: white;
+    }
+    .mark-reset:hover {
+        background: #545b62;
+    }
+    .mark-btn.selected {
+        box-shadow: 0 0 0 3px rgba(0,0,0,0.2);
+    }
+</style>
+
+<style>
+    .quiz-container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px;
+        padding-bottom: 120px;
+    }
+    .question-section {
+        background: linear-gradient(135deg, #e8f4f8 0%, #d4edda 100%);
+        border: 2px solid #17a2b8;
+        border-radius: 10px;
+        padding: 25px;
+        margin-bottom: 20px;
+    }
+    .question-section h2 {
+        color: #0c5460;
+        margin-top: 0;
+        margin-bottom: 15px;
+    }
+    .show-next-btn {
+        display: block;
+        width: 100%;
+        padding: 15px 30px;
+        font-size: 1.1em;
+        font-weight: bold;
+        color: white;
+        background: linear-gradient(135deg, #007bff, #0056b3);
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        margin: 15px 0;
+        transition: all 0.3s ease;
+    }
+    .show-next-btn:hover {
+        background: linear-gradient(135deg, #0056b3, #004094);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 123, 255, 0.4);
+    }
+    .show-all-btn {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        margin-top: 10px;
+    }
+    .show-all-btn:hover {
+        background: linear-gradient(135deg, #218838, #1db385);
+        box-shadow: 0 4px 12px rgba(40, 167, 69, 0.4);
+    }
+    .step-container {
+        display: none;
+        animation: fadeIn 0.5s ease;
+        margin-bottom: 20px;
+        border: 1px solid #dee2e6;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    .step-container.visible {
+        display: block;
+    }
+    .step-header {
+        background: linear-gradient(135deg, #6c757d, #495057);
+        color: white;
+        padding: 12px 20px;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+    }
+    .step-number-badge {
+        background: white;
+        color: #495057;
+        border-radius: 50%;
+        width: 28px;
+        height: 28px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 12px;
+        font-weight: bold;
+    }
+    .step-content {
+        padding: 20px;
+        background: white;
+    }
+    .progress-bar {
+        background: #e9ecef;
+        border-radius: 10px;
+        height: 8px;
+        margin: 15px 0;
+        overflow: hidden;
+    }
+    .progress-fill {
+        background: linear-gradient(90deg, #28a745, #20c997);
+        height: 100%;
+        border-radius: 10px;
+        transition: width 0.5s ease;
+    }
+    .progress-text {
+        text-align: center;
+        color: #6c757d;
+        font-size: 0.9em;
+        margin-bottom: 15px;
+    }
+    .controls {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: white;
+        padding: 15px 20px;
+        border-top: 2px solid #dee2e6;
+        box-shadow: 0 -4px 12px rgba(0,0,0,0.1);
+        z-index: 1000;
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+    }
+    .quiz-container {
+        padding-bottom: 100px;
+    }
+    .show-next-btn {
+        width: auto;
+        margin: 0;
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .final-answer {
+        background: #d4edda;
+        border: 2px solid #28a745;
+        border-radius: 10px;
+        padding: 20px;
+        margin-top: 20px;
+    }
+    .final-answer h3 {
+        color: #155724;
+        margin-top: 0;
+    }
+
+    .done-buttons {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+    .mark-btn {
+        padding: 12px 24px;
+        font-size: 1em;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .mark-done {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        color: white;
+    }
+    .mark-done:hover, .mark-done.selected {
+        background: linear-gradient(135deg, #1e7e34, #17a085);
+        transform: scale(1.05);
+    }
+    .mark-review {
+        background: linear-gradient(135deg, #ffc107, #fd7e14);
+        color: white;
+    }
+    .mark-review:hover, .mark-review.selected {
+        background: linear-gradient(135deg, #d39e00, #dc6502);
+        transform: scale(1.05);
+    }
+    .mark-reset {
+        background: #6c757d;
+        color: white;
+    }
+    .mark-reset:hover {
+        background: #545b62;
+    }
+    .mark-btn.selected {
+        box-shadow: 0 0 0 3px rgba(0,0,0,0.2);
+    }
+</style>
+</head>
+<body>
+<div class="quiz-container">
+    <h1>Esame 8 - Quesito 1: Pila a Concentrazione Fe3+/Fe2+</h1>
+
+    <div class="question-section">
+        <h2>Testo dell'esercizio</h2>
+        <p>Risolvi l'esercizio seguente.</p>
+    </div>
+
+    <div class="progress-text" id="progress-text">Passaggio 0 di 8</div>
+    <div class="progress-bar">
+        <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+    </div>
+
+    <div class="controls">
+        <button id="next-btn" class="show-next-btn" onclick="showNextStep()">
+            ▶ Prossimo passaggio
+        </button>
+        <button id="all-btn" class="show-next-btn show-all-btn" onclick="showAllSteps()">
+            ⏩ Mostra tutto
+        </button>
+        <div id="done-buttons" class="done-buttons" style="display: none;">
+            <button id="mark-done" class="mark-btn mark-done" onclick="markExercise('done')">
+                ✓ Fatto
+            </button>
+            <button id="mark-review" class="mark-btn mark-review" onclick="markExercise('review')">
+                ⚠ Da rivedere
+            </button>
+            <button class="mark-btn mark-reset" onclick="resetExercise()">
+                ↺ Ricomincia
+            </button>
+            <button class="mark-btn" style="background: #17a2b8;" onclick="closeExercise()">
+                ✕ Chiudi
+            </button>
+        </div>
+    </div>
+
+    <div id="steps-wrapper">
+        
+        <div id="step-0" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">1</span>
+                Capire il problema: Cos'e una pila a concentrazion...
+            </div>
+            <div class="step-content">
+                <h1>Esame 8 - Quesito 1: Pila a Concentrazione Fe3+/Fe2+</h1>
+
+<div class="question">
+<strong>TESTO DEL QUESITO:</strong><br><br>
+Si hanno a disposizione due elettrodi cosi costituiti:<br>
+a) Pt/Fe2+ (0.05M), Fe3+ (0.1M)<br>
+b) Pt/Fe2+ (2M), Fe3+ (1M)<br><br>
+Stabilire di che tipo di pila si tratta e calcolarne la f.e.m. indicando quale elettrodo e il catodo e quale e l'anodo.
+</div><h2>Capire il problema: Cos'e una pila a concentrazione?</h2>
+
+<p>Prima di tutto, fermati un attimo a capire cosa abbiamo davanti. Questo e un esercizio su una <strong>pila a concentrazione</strong>.</p>
+
+<p>Cosa rende speciale questo tipo di pila? In una pila "normale" abbiamo due metalli diversi (per esempio Zn e Cu) con potenziali standard diversi. Ma qui abbiamo qualcosa di particolare: <strong>entrambi gli elettrodi sono basati sulla stessa coppia redox!</strong></p>
+
+<p>Guardiamo i due elettrodi:</p>
+<ul>
+    <li><strong>Elettrodo (a):</strong> Pt / Fe2+ (0.05 M), Fe3+ (0.1 M)</li>
+    <li><strong>Elettrodo (b):</strong> Pt / Fe2+ (2 M), Fe3+ (1 M)</li>
+</ul>
+
+<p>Entrambi coinvolgono la coppia <strong>Fe3+/Fe2+</strong>. Quindi il potenziale standard E° e lo stesso per entrambi! E allora come puo funzionare una pila se i due elettrodi hanno lo stesso E°?</p>
+
+<div class="important">
+<strong>Ecco il punto chiave:</strong> In una pila a concentrazione, la differenza di potenziale NON nasce dalla differenza di E° (che e uguale per entrambi), ma dalla <strong>differenza di concentrazione</strong> degli ioni nelle due semicelle!
+</div>
+
+<p>L'equazione di Nernst ci dice che il potenziale reale di un elettrodo dipende non solo da E°, ma anche dalle concentrazioni. Concentrazioni diverse = potenziali reali diversi = funzionamento della pila!</p>
+            </div>
+        </div>
+        
+        <div id="step-1" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">2</span>
+                Dati del problema
+            </div>
+            <div class="step-content">
+                <h2>Dati del problema</h2>
+
+<table>
+    <tr>
+        <th>Grandezza</th>
+        <th>Elettrodo (a)</th>
+        <th>Elettrodo (b)</th>
+    </tr>
+    <tr>
+        <td>[Fe2+]</td>
+        <td>0.05 M</td>
+        <td>2 M</td>
+    </tr>
+    <tr>
+        <td>[Fe3+]</td>
+        <td>0.1 M</td>
+        <td>1 M</td>
+    </tr>
+    <tr>
+        <td>E° (Fe3+/Fe2+)</td>
+        <td colspan="2">+0.77 V</td>
+    </tr>
+</table>
+            </div>
+        </div>
+        
+        <div id="step-2" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">3</span>
+                Passo 1: Scrivere la semireazione e l'equazione di...
+            </div>
+            <div class="step-content">
+                <h2>Passo 1: Scrivere la semireazione e l'equazione di Nernst</h2>
+
+<p>La semireazione di riduzione per la coppia Fe3+/Fe2+ e:</p>
+
+<div class="formula">
+Fe3+ + e- --> Fe2+
+</div>
+
+<p>Notiamo che in questa reazione viene scambiato <strong>1 solo elettrone</strong> (quindi n = 1).</p>
+
+<p>L'equazione di Nernst per questa coppia e:</p>
+
+<div class="formula">
+E = E° + (0.059 / n) x log([Fe3+] / [Fe2+])
+</div>
+
+<p>Perche il rapporto e [Fe3+]/[Fe2+] e non il contrario? Perche nella semireazione di riduzione Fe3+ e il reagente (forma ossidata) e Fe2+ e il prodotto (forma ridotta). La formula di Nernst usa sempre [ossidato]/[ridotto].</p>
+            </div>
+        </div>
+        
+        <div id="step-3" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">4</span>
+                Passo 2: Calcolare il potenziale dell'elettrodo (a...
+            </div>
+            <div class="step-content">
+                <h2>Passo 2: Calcolare il potenziale dell'elettrodo (a)</h2>
+
+<div class="step">
+<h3>Elettrodo (a): Fe2+ (0.05 M), Fe3+ (0.1 M)</h3>
+
+<p>Applichiamo Nernst:</p>
+
+<div class="formula">
+E(a) = E° + (0.059 / 1) x log([Fe3+] / [Fe2+])
+</div>
+
+<p>Sostituiamo i valori:</p>
+
+<div class="formula">
+E(a) = 0.77 + 0.059 x log(0.1 / 0.05)
+</div>
+
+<p>Calcoliamo il rapporto delle concentrazioni:</p>
+<div class="formula">
+0.1 / 0.05 = 2
+</div>
+
+<p>Calcoliamo il logaritmo:</p>
+<div class="formula">
+log(2) = 0.301
+</div>
+
+<p>Quindi:</p>
+<div class="formula">
+E(a) = 0.77 + 0.059 x 0.301<br>
+E(a) = 0.77 + 0.0178<br>
+<strong>E(a) = +0.788 V</strong>
+</div>
+</div>
+            </div>
+        </div>
+        
+        <div id="step-4" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">5</span>
+                Passo 3: Calcolare il potenziale dell'elettrodo (b...
+            </div>
+            <div class="step-content">
+                <h2>Passo 3: Calcolare il potenziale dell'elettrodo (b)</h2>
+
+<div class="step">
+<h3>Elettrodo (b): Fe2+ (2 M), Fe3+ (1 M)</h3>
+
+<p>Applichiamo di nuovo Nernst:</p>
+
+<div class="formula">
+E(b) = E° + (0.059 / 1) x log([Fe3+] / [Fe2+])
+</div>
+
+<p>Sostituiamo i valori:</p>
+
+<div class="formula">
+E(b) = 0.77 + 0.059 x log(1 / 2)
+</div>
+
+<p>Calcoliamo il rapporto delle concentrazioni:</p>
+<div class="formula">
+1 / 2 = 0.5
+</div>
+
+<p>Calcoliamo il logaritmo:</p>
+<div class="formula">
+log(0.5) = -0.301
+</div>
+
+<p>(Nota: log(0.5) = log(1/2) = -log(2) = -0.301)</p>
+
+<p>Quindi:</p>
+<div class="formula">
+E(b) = 0.77 + 0.059 x (-0.301)<br>
+E(b) = 0.77 - 0.0178<br>
+<strong>E(b) = +0.752 V</strong>
+</div>
+</div>
+            </div>
+        </div>
+        
+        <div id="step-5" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">6</span>
+                Passo 4: Identificare catodo e anodo
+            </div>
+            <div class="step-content">
+                <h2>Passo 4: Identificare catodo e anodo</h2>
+
+<p>Ora confrontiamo i due potenziali:</p>
+
+<table>
+    <tr>
+        <th>Elettrodo</th>
+        <th>Potenziale</th>
+    </tr>
+    <tr>
+        <td>E(a)</td>
+        <td>+0.788 V</td>
+    </tr>
+    <tr>
+        <td>E(b)</td>
+        <td>+0.752 V</td>
+    </tr>
+</table>
+
+<p>Ricorda la regola fondamentale:</p>
+<ul>
+    <li><strong>CATODO</strong> = elettrodo con potenziale MAGGIORE (dove avviene la RIDUZIONE)</li>
+    <li><strong>ANODO</strong> = elettrodo con potenziale MINORE (dove avviene l'OSSIDAZIONE)</li>
+</ul>
+
+<p>Quindi:</p>
+<div class="result">
+<strong>CATODO: Elettrodo (a)</strong> con E = +0.788 V<br>
+(qui Fe3+ si riduce a Fe2+)<br><br>
+<strong>ANODO: Elettrodo (b)</strong> con E = +0.752 V<br>
+(qui Fe2+ si ossida a Fe3+)
+</div>
+            </div>
+        </div>
+        
+        <div id="step-6" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">7</span>
+                Passo 5: Calcolare la f.e.m. della pila
+            </div>
+            <div class="step-content">
+                <h2>Passo 5: Calcolare la f.e.m. della pila</h2>
+
+<p>La forza elettromotrice (f.e.m.) di una pila si calcola sempre come:</p>
+
+<div class="formula">
+f.e.m. = E(catodo) - E(anodo)
+</div>
+
+<p>Sostituiamo:</p>
+
+<div class="formula">
+f.e.m. = 0.788 - 0.752 = <strong>0.036 V</strong>
+</div>
+
+<p>Oppure, in millivolt:</p>
+<div class="formula">
+f.e.m. = 36 mV
+</div>
+
+<div class="result">
+<strong>RISPOSTA FINALE:</strong><br><br>
+Si tratta di una <strong>PILA A CONCENTRAZIONE</strong> basata sulla coppia Fe3+/Fe2+.<br><br>
+<strong>Catodo (riduzione):</strong> Elettrodo (a) - Pt/Fe2+ (0.05M), Fe3+ (0.1M)<br>
+E(catodo) = +0.788 V<br><br>
+<strong>Anodo (ossidazione):</strong> Elettrodo (b) - Pt/Fe2+ (2M), Fe3+ (1M)<br>
+E(anodo) = +0.752 V<br><br>
+<strong>f.e.m. = 0.036 V = 36 mV</strong>
+</div>
+            </div>
+        </div>
+        
+        <div id="step-7" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">8</span>
+                Interpretazione fisica del risultato
+            </div>
+            <div class="step-content">
+                <h2>Interpretazione fisica del risultato</h2>
+
+<p>Ti stai chiedendo perche l'elettrodo (a) ha potenziale maggiore?</p>
+
+<p>Guardiamo i rapporti [Fe3+]/[Fe2+]:</p>
+<ul>
+    <li>Elettrodo (a): 0.1/0.05 = <strong>2</strong></li>
+    <li>Elettrodo (b): 1/2 = <strong>0.5</strong></li>
+</ul>
+
+<p>Nell'elettrodo (a) c'e un <strong>eccesso relativo di Fe3+</strong> rispetto a Fe2+. Questo significa che c'e "piu voglia" di ridurre Fe3+ a Fe2+, quindi il potenziale di riduzione e piu alto.</p>
+
+<p>Nell'elettrodo (b) c'e un <strong>eccesso relativo di Fe2+</strong> rispetto a Fe3+. Qui la reazione tende di piu verso l'ossidazione di Fe2+ a Fe3+, quindi il potenziale di riduzione e piu basso.</p>
+
+<p>La pila funziona perche il sistema cerca di <strong>equilibrare le concentrazioni</strong> tra le due semicelle: Fe3+ si riduce dove ce n'e di piu (catodo), Fe2+ si ossida dove ce n'e di piu (anodo).</p>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+<script>
+    let currentStep = 0;
+    let totalSteps = 0;
+
+    document.addEventListener('DOMContentLoaded', function() {
+        totalSteps = document.querySelectorAll('.step-container').length;
+        updateProgress();
+        updateButtons();
+    });
+
+    function showNextStep() {
+        if (currentStep < totalSteps) {
+            const step = document.getElementById('step-' + currentStep);
+            if (step) {
+                step.classList.add('visible');
+                step.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                currentStep++;
+                updateProgress();
+                updateButtons();
+
+                if (window.parent !== window) {
+                    window.parent.postMessage({type: 'stepShown', step: currentStep, total: totalSteps}, '*');
+                }
+            }
+        }
+    }
+
+    function showAllSteps() {
+        document.querySelectorAll('.step-container').forEach(function(step) {
+            step.classList.add('visible');
+        });
+        currentStep = totalSteps;
+        updateProgress();
+        updateButtons();
+
+        if (window.parent !== window) {
+            window.parent.postMessage({type: 'allStepsShown'}, '*');
+        }
+    }
+
+    function hideAllSteps() {
+        document.querySelectorAll('.step-container').forEach(function(step) {
+            step.classList.remove('visible');
+        });
+        currentStep = 0;
+        updateProgress();
+        updateButtons();
+    }
+
+    function updateProgress() {
+        const pct = totalSteps > 0 ? (currentStep / totalSteps) * 100 : 0;
+        const fill = document.getElementById('progress-fill');
+        const text = document.getElementById('progress-text');
+        if (fill) fill.style.width = pct + '%';
+        if (text) text.textContent = 'Passaggio ' + currentStep + ' di ' + totalSteps;
+    }
+
+    function updateButtons() {
+        const nextBtn = document.getElementById('next-btn');
+        const allBtn = document.getElementById('all-btn');
+        const doneButtons = document.getElementById('done-buttons');
+
+        if (currentStep >= totalSteps) {
+            if (nextBtn) nextBtn.style.display = 'none';
+            if (allBtn) allBtn.style.display = 'none';
+            if (doneButtons) doneButtons.style.display = 'flex';
+        } else {
+            if (nextBtn) nextBtn.style.display = 'block';
+            if (allBtn) allBtn.style.display = 'block';
+            if (doneButtons) doneButtons.style.display = 'none';
+        }
+    }
+
+    function markExercise(status) {
+        // Salva in localStorage
+        const exerciseId = window.location.pathname.split('/').pop().replace('.html', '');
+        let progress = JSON.parse(localStorage.getItem('chemportal_progress') || '{}');
+        if (!progress.exercises) progress.exercises = {};
+        progress.exercises[exerciseId] = status;
+        localStorage.setItem('chemportal_progress', JSON.stringify(progress));
+
+        // Feedback visivo
+        const btn = status === 'done' ? document.getElementById('mark-done') : document.getElementById('mark-review');
+        const otherBtn = status === 'done' ? document.getElementById('mark-review') : document.getElementById('mark-done');
+
+        btn.classList.add('selected');
+        otherBtn.classList.remove('selected');
+
+        // Notifica parent
+        if (window.parent !== window) {
+            window.parent.postMessage({type: 'exerciseMarked', status: status, id: exerciseId}, '*');
+        }
+    }
+
+    function resetExercise() {
+        hideAllSteps();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Messaggi dal parent
+    window.addEventListener('message', function(e) {
+        if (e.data.type === 'showNext') showNextStep();
+        else if (e.data.type === 'showAll') showAllSteps();
+        else if (e.data.type === 'hideAll') hideAllSteps();
+    });
+
+    function closeExercise() {
+        if (window.parent !== window) {
+            // Siamo in iframe, chiedi al parent di chiudere
+            window.parent.postMessage({type: 'closeModal'}, '*');
+        } else {
+            // Standalone: torna alla pagina esercizi
+            const path = window.location.pathname;
+            if (path.includes('/content/soluzioni/')) {
+                window.location.href = '../../esercizi.html';
+            } else {
+                window.history.back();
+            }
+        }
+    }
+</script>
+</body>
+</html>

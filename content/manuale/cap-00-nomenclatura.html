@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Nomenclatura Chimica - Tradizionale e IUPAC</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 2cm;
+        }
+        body {
+            font-family: Georgia, serif;
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            line-height: 1.8;
+            color: #333;
+        }
+        h1 {
+            color: #1a5276;
+            border-bottom: 4px solid #2980b9;
+            padding-bottom: 15px;
+            font-size: 2em;
+        }
+        h2 {
+            color: #2471a3;
+            margin-top: 40px;
+            border-left: 4px solid #3498db;
+            padding-left: 15px;
+        }
+        h3 {
+            color: #1e8449;
+            margin-top: 25px;
+        }
+        .indice {
+            background: #eaf2f8;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .indice ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        .indice li {
+            margin: 5px 0;
+        }
+        .indice a {
+            color: #2471a3;
+            text-decoration: none;
+        }
+        .definizione {
+            background: #e8f6f3;
+            padding: 15px;
+            border-left: 4px solid #1abc9c;
+            margin: 15px 0;
+        }
+        .regola {
+            background: #fdebd0;
+            padding: 15px;
+            border-left: 4px solid #e67e22;
+            margin: 15px 0;
+        }
+        .esempio {
+            background: #e8f4fd;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            border: 1px solid #3498db;
+        }
+        .attenzione {
+            background: #fdedec;
+            padding: 15px;
+            border-left: 4px solid #e74c3c;
+            margin: 15px 0;
+        }
+        .trainer-link {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 30px 0;
+            text-align: center;
+        }
+        .trainer-link a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: center;
+        }
+        th {
+            background: #2980b9;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        .formula {
+            font-family: 'Courier New', monospace;
+            background: #f5f5f5;
+            padding: 3px 8px;
+            border-radius: 4px;
+        }
+        .schema {
+            background: #fff;
+            border: 2px solid #3498db;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .freccia {
+            font-size: 1.5em;
+            color: #3498db;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Nomenclatura Chimica</h1>
+
+<div class="indice">
+    <strong>Indice del capitolo:</strong>
+    <ul>
+        <li><a href="#intro">1. Introduzione</a></li>
+        <li><a href="#nox">2. Numeri di ossidazione</a></li>
+        <li><a href="#ossidi">3. Ossidi</a></li>
+        <li><a href="#idrossidi">4. Idrossidi</a></li>
+        <li><a href="#acidi">5. Acidi</a></li>
+        <li><a href="#sali">6. Sali</a></li>
+        <li><a href="#riepilogo">7. Tabelle riassuntive</a></li>
+    </ul>
+</div>
+
+<h2 id="intro">1. Introduzione</h2>
+
+<p>La nomenclatura chimica e il sistema di regole per assegnare nomi ai composti. Esistono due sistemi principali:</p>
+
+<div class="definizione">
+    <strong>Nomenclatura Tradizionale:</strong> usa suffissi (-oso, -ico) e prefissi (ipo-, per-) basati sul numero di ossidazione dell'elemento.
+</div>
+
+<div class="definizione">
+    <strong>Nomenclatura IUPAC:</strong> usa prefissi numerici (mono-, di-, tri-...) per indicare il numero di atomi. E' piu sistematica e non ambigua.
+</div>
+
+<p><strong>All'esame</strong> viene richiesta principalmente la nomenclatura tradizionale, ma e bene conoscere entrambe.</p>
+
+<h2 id="nox">2. Numeri di Ossidazione</h2>
+
+<p>Il numero di ossidazione (n.o.) e la carica che un atomo avrebbe se tutti i legami fossero ionici. E' fondamentale per la nomenclatura tradizionale.</p>
+
+<div class="regola">
+    <strong>Regole per determinare il n.o.:</strong>
+    <ol>
+        <li>Elementi liberi: n.o. = 0 (es. Fe, O₂, H₂)</li>
+        <li>Ioni monoatomici: n.o. = carica (es. Na⁺ → +1, Cl⁻ → -1)</li>
+        <li>Ossigeno: quasi sempre -2 (eccezione: perossidi -1, OF₂ +2)</li>
+        <li>Idrogeno: +1 con non metalli, -1 con metalli (idruri)</li>
+        <li>La somma dei n.o. in un composto neutro = 0</li>
+        <li>La somma dei n.o. in uno ione = carica dello ione</li>
+    </ol>
+</div>
+
+<h3>Numeri di ossidazione comuni</h3>
+
+<table>
+    <tr>
+        <th>Elemento</th>
+        <th>N.O. possibili</th>
+        <th>Note</th>
+    </tr>
+    <tr>
+        <td>Metalli alcalini (Li, Na, K...)</td>
+        <td>+1</td>
+        <td>Sempre +1</td>
+    </tr>
+    <tr>
+        <td>Metalli alcalino-terrosi (Mg, Ca...)</td>
+        <td>+2</td>
+        <td>Sempre +2</td>
+    </tr>
+    <tr>
+        <td>Alluminio (Al)</td>
+        <td>+3</td>
+        <td>Sempre +3</td>
+    </tr>
+    <tr>
+        <td>Ferro (Fe)</td>
+        <td>+2, +3</td>
+        <td>Ferroso (+2), Ferrico (+3)</td>
+    </tr>
+    <tr>
+        <td>Rame (Cu)</td>
+        <td>+1, +2</td>
+        <td>Rameoso (+1), Rameico (+2)</td>
+    </tr>
+    <tr>
+        <td>Zolfo (S)</td>
+        <td>-2, +4, +6</td>
+        <td>Solforoso (+4), Solforico (+6)</td>
+    </tr>
+    <tr>
+        <td>Azoto (N)</td>
+        <td>-3, +3, +5</td>
+        <td>Nitroso (+3), Nitrico (+5)</td>
+    </tr>
+    <tr>
+        <td>Cloro (Cl)</td>
+        <td>-1, +1, +3, +5, +7</td>
+        <td>4 n.o. positivi!</td>
+    </tr>
+    <tr>
+        <td>Manganese (Mn)</td>
+        <td>+2, +4, +7</td>
+        <td>Manganoso, Manganico, Permanganico</td>
+    </tr>
+    <tr>
+        <td>Cromo (Cr)</td>
+        <td>+3, +6</td>
+        <td>Cromico (+3), Cromato/Dicromato (+6)</td>
+    </tr>
+</table>
+
+<h2 id="ossidi">3. Ossidi</h2>
+
+<p>Gli ossidi sono composti binari formati da un elemento + ossigeno.</p>
+
+<h3>Ossidi Basici (Metallo + O)</h3>
+
+<div class="schema">
+    <strong>Formula generale:</strong> Me₂Oₙ (dove n = n.o. del metallo)
+    <br><br>
+    <strong>Nomenclatura tradizionale:</strong>
+    <br>
+    • Se il metallo ha UN solo n.o.: "ossido di [metallo]"
+    <br>
+    • Se il metallo ha DUE n.o.: "ossido [metallo]-oso" (n.o. minore) / "ossido [metallo]-ico" (n.o. maggiore)
+    <br><br>
+    <strong>Nomenclatura IUPAC:</strong> [prefisso]ossido di [prefisso][metallo]
+</div>
+
+<div class="esempio">
+    <strong>Esempi - Ossidi basici:</strong>
+    <table>
+        <tr>
+            <th>Formula</th>
+            <th>Tradizionale</th>
+            <th>IUPAC</th>
+        </tr>
+        <tr>
+            <td class="formula">Na₂O</td>
+            <td>Ossido di sodio</td>
+            <td>Ossido di disodio</td>
+        </tr>
+        <tr>
+            <td class="formula">CaO</td>
+            <td>Ossido di calcio</td>
+            <td>Ossido di calcio</td>
+        </tr>
+        <tr>
+            <td class="formula">FeO</td>
+            <td>Ossido ferroso</td>
+            <td>Monossido di ferro</td>
+        </tr>
+        <tr>
+            <td class="formula">Fe₂O₃</td>
+            <td>Ossido ferrico</td>
+            <td>Triossido di diferro</td>
+        </tr>
+        <tr>
+            <td class="formula">Cu₂O</td>
+            <td>Ossido rameoso</td>
+            <td>Ossido di dirame</td>
+        </tr>
+        <tr>
+            <td class="formula">CuO</td>
+            <td>Ossido rameico</td>
+            <td>Ossido di rame</td>
+        </tr>
+    </table>
+</div>
+
+<h3>Ossidi Acidi (Anidridi) - Non metallo + O</h3>
+
+<div class="schema">
+    <strong>Nomenclatura tradizionale:</strong>
+    <br>
+    • 2 n.o.: "anidride [nome]-osa" (minore) / "anidride [nome]-ica" (maggiore)
+    <br>
+    • 4 n.o.: ipo-...-osa → ...-osa → ...-ica → per-...-ica
+    <br><br>
+    <strong>Nomenclatura IUPAC:</strong> [prefisso]ossido di [prefisso][non metallo]
+</div>
+
+<div class="esempio">
+    <strong>Esempi - Anidridi:</strong>
+    <table>
+        <tr>
+            <th>Formula</th>
+            <th>N.O.</th>
+            <th>Tradizionale</th>
+            <th>IUPAC</th>
+        </tr>
+        <tr>
+            <td class="formula">SO₂</td>
+            <td>+4</td>
+            <td>Anidride solforosa</td>
+            <td>Diossido di zolfo</td>
+        </tr>
+        <tr>
+            <td class="formula">SO₃</td>
+            <td>+6</td>
+            <td>Anidride solforica</td>
+            <td>Triossido di zolfo</td>
+        </tr>
+        <tr>
+            <td class="formula">CO₂</td>
+            <td>+4</td>
+            <td>Anidride carbonica</td>
+            <td>Diossido di carbonio</td>
+        </tr>
+        <tr>
+            <td class="formula">N₂O₃</td>
+            <td>+3</td>
+            <td>Anidride nitrosa</td>
+            <td>Triossido di diazoto</td>
+        </tr>
+        <tr>
+            <td class="formula">N₂O₅</td>
+            <td>+5</td>
+            <td>Anidride nitrica</td>
+            <td>Pentossido di diazoto</td>
+        </tr>
+        <tr>
+            <td class="formula">Cl₂O</td>
+            <td>+1</td>
+            <td>Anidride ipoclorosa</td>
+            <td>Ossido di dicloro</td>
+        </tr>
+        <tr>
+            <td class="formula">Cl₂O₇</td>
+            <td>+7</td>
+            <td>Anidride perclorica</td>
+            <td>Eptossido di dicloro</td>
+        </tr>
+    </table>
+</div>
+
+<div class="regola">
+    <strong>Schema per 4 numeri di ossidazione (es. Cloro: +1, +3, +5, +7):</strong>
+    <br><br>
+    <table>
+        <tr>
+            <th>N.O.</th>
+            <th>Prefisso</th>
+            <th>Suffisso</th>
+            <th>Esempio</th>
+        </tr>
+        <tr>
+            <td>+1 (minimo)</td>
+            <td>ipo-</td>
+            <td>-osa</td>
+            <td>Anidride ipoclorosa</td>
+        </tr>
+        <tr>
+            <td>+3</td>
+            <td>-</td>
+            <td>-osa</td>
+            <td>Anidride clorosa</td>
+        </tr>
+        <tr>
+            <td>+5</td>
+            <td>-</td>
+            <td>-ica</td>
+            <td>Anidride clorica</td>
+        </tr>
+        <tr>
+            <td>+7 (massimo)</td>
+            <td>per-</td>
+            <td>-ica</td>
+            <td>Anidride perclorica</td>
+        </tr>
+    </table>
+</div>
+
+<h2 id="idrossidi">4. Idrossidi</h2>
+
+<p>Gli idrossidi sono composti formati da metallo + gruppo ossidrile (OH⁻).</p>
+
+<div class="schema">
+    <strong>Formula generale:</strong> Me(OH)ₙ (dove n = n.o. del metallo)
+    <br><br>
+    <strong>Reazione di formazione:</strong> Ossido basico + H₂O → Idrossido
+    <br>
+    Esempio: Na₂O + H₂O → 2 NaOH
+    <br><br>
+    <strong>Nomenclatura tradizionale:</strong> "idrossido [metallo]-oso/-ico"
+    <br>
+    <strong>Nomenclatura IUPAC:</strong> "idrossido di [metallo]"
+</div>
+
+<div class="esempio">
+    <strong>Esempi - Idrossidi:</strong>
+    <table>
+        <tr>
+            <th>Formula</th>
+            <th>Tradizionale</th>
+            <th>IUPAC</th>
+        </tr>
+        <tr>
+            <td class="formula">NaOH</td>
+            <td>Idrossido di sodio</td>
+            <td>Idrossido di sodio</td>
+        </tr>
+        <tr>
+            <td class="formula">Ca(OH)₂</td>
+            <td>Idrossido di calcio</td>
+            <td>Diidrossido di calcio</td>
+        </tr>
+        <tr>
+            <td class="formula">Fe(OH)₂</td>
+            <td>Idrossido ferroso</td>
+            <td>Diidrossido di ferro</td>
+        </tr>
+        <tr>
+            <td class="formula">Fe(OH)₃</td>
+            <td>Idrossido ferrico</td>
+            <td>Triidrossido di ferro</td>
+        </tr>
+        <tr>
+            <td class="formula">Al(OH)₃</td>
+            <td>Idrossido di alluminio</td>
+            <td>Triidrossido di alluminio</td>
+        </tr>
+    </table>
+</div>
+
+<h2 id="acidi">5. Acidi</h2>
+
+<h3>Idracidi (H + Non metallo, senza ossigeno)</h3>
+
+<div class="schema">
+    <strong>Formula generale:</strong> HₙX (dove X = non metallo del gruppo 16 o 17)
+    <br><br>
+    <strong>Nomenclatura:</strong> "acido [nome elemento]-idrico"
+</div>
+
+<div class="esempio">
+    <strong>Esempi - Idracidi:</strong>
+    <table>
+        <tr>
+            <th>Formula</th>
+            <th>Nome</th>
+        </tr>
+        <tr>
+            <td class="formula">HCl</td>
+            <td>Acido cloridrico</td>
+        </tr>
+        <tr>
+            <td class="formula">HBr</td>
+            <td>Acido bromidrico</td>
+        </tr>
+        <tr>
+            <td class="formula">HI</td>
+            <td>Acido iodidrico</td>
+        </tr>
+        <tr>
+            <td class="formula">HF</td>
+            <td>Acido fluoridrico</td>
+        </tr>
+        <tr>
+            <td class="formula">H₂S</td>
+            <td>Acido solfidrico</td>
+        </tr>
+    </table>
+</div>
+
+<h3>Ossiacidi (H + Non metallo + O)</h3>
+
+<div class="schema">
+    <strong>Reazione di formazione:</strong> Anidride + H₂O → Acido
+    <br>
+    Esempio: SO₃ + H₂O → H₂SO₄
+    <br><br>
+    <strong>Nomenclatura:</strong> Si mantiene lo stesso schema dell'anidride!
+    <br>
+    Anidride solforosa → Acido solforoso
+    <br>
+    Anidride solforica → Acido solforico
+</div>
+
+<div class="esempio">
+    <strong>Esempi - Ossiacidi:</strong>
+    <table>
+        <tr>
+            <th>Anidride</th>
+            <th>+ H₂O</th>
+            <th>Acido</th>
+            <th>Nome</th>
+        </tr>
+        <tr>
+            <td class="formula">SO₂</td>
+            <td>→</td>
+            <td class="formula">H₂SO₃</td>
+            <td>Acido solforoso</td>
+        </tr>
+        <tr>
+            <td class="formula">SO₃</td>
+            <td>→</td>
+            <td class="formula">H₂SO₄</td>
+            <td>Acido solforico</td>
+        </tr>
+        <tr>
+            <td class="formula">N₂O₃</td>
+            <td>→</td>
+            <td class="formula">HNO₂</td>
+            <td>Acido nitroso</td>
+        </tr>
+        <tr>
+            <td class="formula">N₂O₅</td>
+            <td>→</td>
+            <td class="formula">HNO₃</td>
+            <td>Acido nitrico</td>
+        </tr>
+        <tr>
+            <td class="formula">CO₂</td>
+            <td>→</td>
+            <td class="formula">H₂CO₃</td>
+            <td>Acido carbonico</td>
+        </tr>
+        <tr>
+            <td class="formula">P₂O₅</td>
+            <td>→</td>
+            <td class="formula">H₃PO₄</td>
+            <td>Acido fosforico</td>
+        </tr>
+        <tr>
+            <td class="formula">Cl₂O</td>
+            <td>→</td>
+            <td class="formula">HClO</td>
+            <td>Acido ipocloroso</td>
+        </tr>
+        <tr>
+            <td class="formula">Cl₂O₃</td>
+            <td>→</td>
+            <td class="formula">HClO₂</td>
+            <td>Acido cloroso</td>
+        </tr>
+        <tr>
+            <td class="formula">Cl₂O₅</td>
+            <td>→</td>
+            <td class="formula">HClO₃</td>
+            <td>Acido clorico</td>
+        </tr>
+        <tr>
+            <td class="formula">Cl₂O₇</td>
+            <td>→</td>
+            <td class="formula">HClO₄</td>
+            <td>Acido perclorico</td>
+        </tr>
+    </table>
+</div>
+
+<h2 id="sali">6. Sali</h2>
+
+<p>I sali derivano dalla reazione tra un acido e una base (reazione di neutralizzazione).</p>
+
+<h3>Sali binari (da idracidi)</h3>
+
+<div class="schema">
+    <strong>Reazione:</strong> Idracido + Idrossido → Sale + H₂O
+    <br>
+    HCl + NaOH → NaCl + H₂O
+    <br><br>
+    <strong>Nomenclatura:</strong> "[nome non metallo]-uro di [metallo]"
+    <br>
+    Desinenza -idrico → -uro
+</div>
+
+<div class="esempio">
+    <strong>Esempi - Sali binari:</strong>
+    <table>
+        <tr>
+            <th>Formula</th>
+            <th>Nome</th>
+            <th>Derivato da</th>
+        </tr>
+        <tr>
+            <td class="formula">NaCl</td>
+            <td>Cloruro di sodio</td>
+            <td>Acido cloridrico</td>
+        </tr>
+        <tr>
+            <td class="formula">KBr</td>
+            <td>Bromuro di potassio</td>
+            <td>Acido bromidrico</td>
+        </tr>
+        <tr>
+            <td class="formula">CaF₂</td>
+            <td>Fluoruro di calcio</td>
+            <td>Acido fluoridrico</td>
+        </tr>
+        <tr>
+            <td class="formula">FeCl₂</td>
+            <td>Cloruro ferroso</td>
+            <td>Acido cloridrico + Fe(OH)₂</td>
+        </tr>
+        <tr>
+            <td class="formula">FeCl₃</td>
+            <td>Cloruro ferrico</td>
+            <td>Acido cloridrico + Fe(OH)₃</td>
+        </tr>
+        <tr>
+            <td class="formula">Na₂S</td>
+            <td>Solfuro di sodio</td>
+            <td>Acido solfidrico</td>
+        </tr>
+    </table>
+</div>
+
+<h3>Sali ternari (da ossiacidi)</h3>
+
+<div class="schema">
+    <strong>Reazione:</strong> Ossiacido + Idrossido → Sale + H₂O
+    <br>
+    H₂SO₄ + 2 NaOH → Na₂SO₄ + 2 H₂O
+    <br><br>
+    <strong>Nomenclatura:</strong> Cambia la desinenza dell'acido:
+    <br>
+    -oso → -ito
+    <br>
+    -ico → -ato
+</div>
+
+<div class="esempio">
+    <strong>Esempi - Sali ternari:</strong>
+    <table>
+        <tr>
+            <th>Acido</th>
+            <th>Sale</th>
+            <th>Nome del sale</th>
+        </tr>
+        <tr>
+            <td>Acido solforoso (H₂SO₃)</td>
+            <td class="formula">Na₂SO₃</td>
+            <td>Solfito di sodio</td>
+        </tr>
+        <tr>
+            <td>Acido solforico (H₂SO₄)</td>
+            <td class="formula">Na₂SO₄</td>
+            <td>Solfato di sodio</td>
+        </tr>
+        <tr>
+            <td>Acido nitroso (HNO₂)</td>
+            <td class="formula">KNO₂</td>
+            <td>Nitrito di potassio</td>
+        </tr>
+        <tr>
+            <td>Acido nitrico (HNO₃)</td>
+            <td class="formula">KNO₃</td>
+            <td>Nitrato di potassio</td>
+        </tr>
+        <tr>
+            <td>Acido carbonico (H₂CO₃)</td>
+            <td class="formula">CaCO₃</td>
+            <td>Carbonato di calcio</td>
+        </tr>
+        <tr>
+            <td>Acido fosforico (H₃PO₄)</td>
+            <td class="formula">Ca₃(PO₄)₂</td>
+            <td>Fosfato di calcio</td>
+        </tr>
+        <tr>
+            <td>Acido ipocloroso (HClO)</td>
+            <td class="formula">NaClO</td>
+            <td>Ipoclorito di sodio</td>
+        </tr>
+        <tr>
+            <td>Acido perclorico (HClO₄)</td>
+            <td class="formula">KClO₄</td>
+            <td>Perclorato di potassio</td>
+        </tr>
+    </table>
+</div>
+
+<div class="regola">
+    <strong>Schema completo delle desinenze per i sali:</strong>
+    <table>
+        <tr>
+            <th>Acido</th>
+            <th>Sale</th>
+        </tr>
+        <tr>
+            <td>-idrico</td>
+            <td>-uro</td>
+        </tr>
+        <tr>
+            <td>ipo-...-oso</td>
+            <td>ipo-...-ito</td>
+        </tr>
+        <tr>
+            <td>-oso</td>
+            <td>-ito</td>
+        </tr>
+        <tr>
+            <td>-ico</td>
+            <td>-ato</td>
+        </tr>
+        <tr>
+            <td>per-...-ico</td>
+            <td>per-...-ato</td>
+        </tr>
+    </table>
+</div>
+
+<h2 id="riepilogo">7. Tabelle Riassuntive</h2>
+
+<h3>Prefissi IUPAC</h3>
+
+<table>
+    <tr>
+        <th>Numero</th>
+        <th>Prefisso</th>
+        <th>Esempio</th>
+    </tr>
+    <tr><td>1</td><td>mono-</td><td>Monossido</td></tr>
+    <tr><td>2</td><td>di-</td><td>Diossido</td></tr>
+    <tr><td>3</td><td>tri-</td><td>Triossido</td></tr>
+    <tr><td>4</td><td>tetra-</td><td>Tetrossido</td></tr>
+    <tr><td>5</td><td>penta-</td><td>Pentossido</td></tr>
+    <tr><td>6</td><td>esa-</td><td>Esossido</td></tr>
+    <tr><td>7</td><td>epta-</td><td>Eptossido</td></tr>
+</table>
+
+<h3>Schema generale - Da Formula a Nome</h3>
+
+<div class="schema">
+    <strong>1. Identifica il tipo di composto:</strong>
+    <ul>
+        <li>Metallo + O → Ossido basico</li>
+        <li>Non metallo + O → Anidride (ossido acido)</li>
+        <li>Metallo + OH → Idrossido</li>
+        <li>H + Non metallo → Idracido</li>
+        <li>H + Non metallo + O → Ossiacido</li>
+        <li>Metallo + Non metallo → Sale binario</li>
+        <li>Metallo + Non metallo + O → Sale ternario</li>
+    </ul>
+
+    <strong>2. Determina il n.o. dell'elemento variabile</strong>
+
+    <strong>3. Applica la desinenza corretta:</strong>
+    <ul>
+        <li>n.o. minore → -oso</li>
+        <li>n.o. maggiore → -ico</li>
+        <li>4 n.o.? → ipo-...-oso, -oso, -ico, per-...-ico</li>
+    </ul>
+</div>
+
+<div class="attenzione">
+    <strong>Errori comuni da evitare:</strong>
+    <ul>
+        <li>Confondere -oso/-ico con -ito/-ato (i primi sono per ossidi/acidi, i secondi per sali!)</li>
+        <li>Dimenticare che CO₂ e "anidride carbonica", non "diossido di carbonio" nella nomenclatura tradizionale</li>
+        <li>Non bilanciare correttamente le cariche nei sali: Fe³⁺ + SO₄²⁻ → Fe₂(SO₄)₃</li>
+    </ul>
+</div>
+
+<div class="trainer-link">
+    <p>Hai capito le regole? Ora mettiti alla prova!</p>
+    <a href="../../nomenclatura.html">Vai al Trainer di Nomenclatura →</a>
+</div>
+
+</body>
+</html>

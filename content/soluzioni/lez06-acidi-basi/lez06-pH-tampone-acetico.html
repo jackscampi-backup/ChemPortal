@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Esame 1-1 - Quesito 7: pH Acido Acetico e Tampone</title>
+    <style>
+        body { font-family: Georgia, serif; max-width: 800px; margin: 40px auto; padding: 20px; line-height: 1.8; }
+        h1 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+        h2 { color: #2980b9; margin-top: 30px; }
+        h3 { color: #8e44ad; margin-top: 25px; }
+        .question { background: #ecf0f1; padding: 15px; border-left: 4px solid #3498db; margin: 20px 0; }
+        .result { background: #d5f5e3; padding: 15px; border-left: 4px solid #27ae60; margin: 20px 0; font-weight: bold; }
+        .formula { background: #fdebd0; padding: 10px; margin: 10px 0; font-family: monospace; }
+        .step { background: #fff; padding: 15px; margin: 15px 0; border-left: 3px solid #9b59b6; }
+        .concept { background: #e8daef; padding: 15px; margin: 15px 0; border-radius: 5px; }
+        .warning { background: #fadbd8; padding: 15px; margin: 15px 0; border-left: 4px solid #e74c3c; }
+        table { border-collapse: collapse; width: 100%; margin: 20px 0; }
+        th, td { border: 1px solid #bdc3c7; padding: 10px; text-align: left; }
+        th { background: #3498db; color: white; }
+    
+    .done-buttons {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+    .mark-btn {
+        padding: 12px 24px;
+        font-size: 1em;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .mark-done {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        color: white;
+    }
+    .mark-done:hover, .mark-done.selected {
+        background: linear-gradient(135deg, #1e7e34, #17a085);
+        transform: scale(1.05);
+    }
+    .mark-review {
+        background: linear-gradient(135deg, #ffc107, #fd7e14);
+        color: white;
+    }
+    .mark-review:hover, .mark-review.selected {
+        background: linear-gradient(135deg, #d39e00, #dc6502);
+        transform: scale(1.05);
+    }
+    .mark-reset {
+        background: #6c757d;
+        color: white;
+    }
+    .mark-reset:hover {
+        background: #545b62;
+    }
+    .mark-btn.selected {
+        box-shadow: 0 0 0 3px rgba(0,0,0,0.2);
+    }
+</style>
+
+<style>
+    .quiz-container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px;
+        padding-bottom: 120px;
+    }
+    .question-section {
+        background: linear-gradient(135deg, #e8f4f8 0%, #d4edda 100%);
+        border: 2px solid #17a2b8;
+        border-radius: 10px;
+        padding: 25px;
+        margin-bottom: 20px;
+    }
+    .question-section h2 {
+        color: #0c5460;
+        margin-top: 0;
+        margin-bottom: 15px;
+    }
+    .show-next-btn {
+        display: block;
+        width: 100%;
+        padding: 15px 30px;
+        font-size: 1.1em;
+        font-weight: bold;
+        color: white;
+        background: linear-gradient(135deg, #007bff, #0056b3);
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        margin: 15px 0;
+        transition: all 0.3s ease;
+    }
+    .show-next-btn:hover {
+        background: linear-gradient(135deg, #0056b3, #004094);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 123, 255, 0.4);
+    }
+    .show-all-btn {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        margin-top: 10px;
+    }
+    .show-all-btn:hover {
+        background: linear-gradient(135deg, #218838, #1db385);
+        box-shadow: 0 4px 12px rgba(40, 167, 69, 0.4);
+    }
+    .step-container {
+        display: none;
+        animation: fadeIn 0.5s ease;
+        margin-bottom: 20px;
+        border: 1px solid #dee2e6;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    .step-container.visible {
+        display: block;
+    }
+    .step-header {
+        background: linear-gradient(135deg, #6c757d, #495057);
+        color: white;
+        padding: 12px 20px;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+    }
+    .step-number-badge {
+        background: white;
+        color: #495057;
+        border-radius: 50%;
+        width: 28px;
+        height: 28px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 12px;
+        font-weight: bold;
+    }
+    .step-content {
+        padding: 20px;
+        background: white;
+    }
+    .progress-bar {
+        background: #e9ecef;
+        border-radius: 10px;
+        height: 8px;
+        margin: 15px 0;
+        overflow: hidden;
+    }
+    .progress-fill {
+        background: linear-gradient(90deg, #28a745, #20c997);
+        height: 100%;
+        border-radius: 10px;
+        transition: width 0.5s ease;
+    }
+    .progress-text {
+        text-align: center;
+        color: #6c757d;
+        font-size: 0.9em;
+        margin-bottom: 15px;
+    }
+    .controls {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: white;
+        padding: 15px 20px;
+        border-top: 2px solid #dee2e6;
+        box-shadow: 0 -4px 12px rgba(0,0,0,0.1);
+        z-index: 1000;
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+    }
+    .quiz-container {
+        padding-bottom: 100px;
+    }
+    .show-next-btn {
+        width: auto;
+        margin: 0;
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .final-answer {
+        background: #d4edda;
+        border: 2px solid #28a745;
+        border-radius: 10px;
+        padding: 20px;
+        margin-top: 20px;
+    }
+    .final-answer h3 {
+        color: #155724;
+        margin-top: 0;
+    }
+
+    .done-buttons {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+    .mark-btn {
+        padding: 12px 24px;
+        font-size: 1em;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .mark-done {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        color: white;
+    }
+    .mark-done:hover, .mark-done.selected {
+        background: linear-gradient(135deg, #1e7e34, #17a085);
+        transform: scale(1.05);
+    }
+    .mark-review {
+        background: linear-gradient(135deg, #ffc107, #fd7e14);
+        color: white;
+    }
+    .mark-review:hover, .mark-review.selected {
+        background: linear-gradient(135deg, #d39e00, #dc6502);
+        transform: scale(1.05);
+    }
+    .mark-reset {
+        background: #6c757d;
+        color: white;
+    }
+    .mark-reset:hover {
+        background: #545b62;
+    }
+    .mark-btn.selected {
+        box-shadow: 0 0 0 3px rgba(0,0,0,0.2);
+    }
+</style>
+</head>
+<body>
+<div class="quiz-container">
+    <h1>Esame 1-1 - Quesito 7: pH di Acido Acetico Prima e Dopo Aggiunta di NaOH</h1>
+
+    <div class="question-section">
+        <h2>Testo dell'esercizio</h2>
+        <p>Risolvi l'esercizio seguente.</p>
+    </div>
+
+    <div class="progress-text" id="progress-text">Passaggio 0 di 4</div>
+    <div class="progress-bar">
+        <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+    </div>
+
+    <div class="controls">
+        <button id="next-btn" class="show-next-btn" onclick="showNextStep()">
+            ▶ Prossimo passaggio
+        </button>
+        <button id="all-btn" class="show-next-btn show-all-btn" onclick="showAllSteps()">
+            ⏩ Mostra tutto
+        </button>
+        <div id="done-buttons" class="done-buttons" style="display: none;">
+            <button id="mark-done" class="mark-btn mark-done" onclick="markExercise('done')">
+                ✓ Fatto
+            </button>
+            <button id="mark-review" class="mark-btn mark-review" onclick="markExercise('review')">
+                ⚠ Da rivedere
+            </button>
+            <button class="mark-btn mark-reset" onclick="resetExercise()">
+                ↺ Ricomincia
+            </button>
+            <button class="mark-btn" style="background: #17a2b8;" onclick="closeExercise()">
+                ✕ Chiudi
+            </button>
+        </div>
+    </div>
+
+    <div id="steps-wrapper">
+        
+        <div id="step-0" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">1</span>
+                Analisi del Problema
+            </div>
+            <div class="step-content">
+                <h1>Esame 1-1 - Quesito 7: pH di Acido Acetico Prima e Dopo Aggiunta di NaOH</h1>
+
+<div class="question">
+<strong>TESTO DEL QUESITO:</strong><br><br>
+A 100 mL di una soluzione acquosa di acido acetico 0,10 M (CH<sub>3</sub>COOH, Ka = 1,8 x 10<sup>-5</sup>) vengono aggiunti 0,24 g di NaOH. Calcolare il pH della soluzione prima e dopo l'aggiunta.<br><br>
+<strong>Dati:</strong><br>
+Volume soluzione = 100 mL = 0,100 L<br>
+Concentrazione acido acetico = 0,10 M<br>
+Ka = 1,8 x 10<sup>-5</sup><br>
+Massa NaOH aggiunta = 0,24 g<br>
+Massa molare NaOH = 40 g/mol
+</div><h2>Analisi del Problema</h2>
+
+<p>Questo esercizio ci chiede di calcolare il pH in due situazioni diverse:</p>
+<ol>
+<li><strong>PRIMA:</strong> il pH di una soluzione contenente solo acido acetico (un acido debole)</li>
+<li><strong>DOPO:</strong> il pH della stessa soluzione dopo aver aggiunto una base forte (NaOH)</li>
+</ol>
+
+<p>La seconda parte e particolarmente interessante perche l'aggiunta di NaOH potrebbe creare una <strong>soluzione tampone</strong>! Vediamo cosa succede.</p>
+
+<div class="concept">
+<strong>Concetto chiave - Acido acetico:</strong><br>
+L'acido acetico (CH<sub>3</sub>COOH) e un acido debole che si dissocia parzialmente in acqua:<br><br>
+CH<sub>3</sub>COOH ⇌ CH<sub>3</sub>COO<sup>-</sup> + H<sup>+</sup><br><br>
+Il valore piccolo di Ka (1,8 x 10<sup>-5</sup>) ci dice che l'equilibrio e molto spostato a sinistra: la maggior parte dell'acido resta in forma indissociata.
+</div>
+
+<hr>
+            </div>
+        </div>
+        
+        <div id="step-1" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">2</span>
+                PARTE 1: pH PRIMA dell'aggiunta di NaOH
+            </div>
+            <div class="step-content">
+                <h2>PARTE 1: pH PRIMA dell'aggiunta di NaOH</h2>
+
+<p>In questa prima parte abbiamo semplicemente una soluzione di acido debole. Dobbiamo calcolare il pH usando la costante di dissociazione Ka.</p>
+
+<h3>Step 1: Impostiamo il problema</h3>
+
+<div class="step">
+<p>Chiamiamo "x" la concentrazione di acido che si dissocia. All'equilibrio avremo:</p>
+
+<table>
+<tr><th>Specie</th><th>Concentrazione iniziale</th><th>Variazione</th><th>Concentrazione all'equilibrio</th></tr>
+<tr><td>CH<sub>3</sub>COOH</td><td>0,10 M</td><td>-x</td><td>0,10 - x</td></tr>
+<tr><td>CH<sub>3</sub>COO<sup>-</sup></td><td>0</td><td>+x</td><td>x</td></tr>
+<tr><td>H<sup>+</sup></td><td>~0</td><td>+x</td><td>x</td></tr>
+</table>
+
+<p>L'espressione della Ka e:</p>
+<div class="formula">Ka = [H<sup>+</sup>] x [CH<sub>3</sub>COO<sup>-</sup>] / [CH<sub>3</sub>COOH] = x<sup>2</sup> / (0,10 - x)</div>
+</div>
+
+<h3>Step 2: Semplificazione</h3>
+
+<div class="step">
+<p>Poiche Ka e molto piccola (1,8 x 10<sup>-5</sup>), possiamo aspettarci che x sia molto minore di 0,10. Verifichiamo se possiamo usare l'approssimazione 0,10 - x ≈ 0,10.</p>
+
+<p>Controlliamo il rapporto C/Ka:</p>
+<div class="formula">C / Ka = 0,10 / (1,8 x 10<sup>-5</sup>) = 5556</div>
+
+<p>Poiche C/Ka >> 100, l'approssimazione e valida! Quindi:</p>
+<div class="formula">Ka ≈ x<sup>2</sup> / 0,10</div>
+</div>
+
+<h3>Step 3: Calcoliamo [H<sup>+</sup>]</h3>
+
+<div class="step">
+<p>Risolviamo per x:</p>
+<div class="formula">x<sup>2</sup> = Ka x 0,10 = 1,8 x 10<sup>-5</sup> x 0,10 = 1,8 x 10<sup>-6</sup></div>
+
+<div class="formula">x = sqrt(1,8 x 10<sup>-6</sup>)</div>
+
+<p>Per calcolare la radice quadrata:</p>
+<p>sqrt(1,8 x 10<sup>-6</sup>) = sqrt(1,8) x sqrt(10<sup>-6</sup>) = 1,34 x 10<sup>-3</sup></p>
+
+<p>Quindi:</p>
+<div class="formula">[H<sup>+</sup>] = 1,34 x 10<sup>-3</sup> M</div>
+
+<p><strong>Verifica dell'approssimazione:</strong> x/C = 1,34 x 10<sup>-3</sup> / 0,10 = 0,0134 = 1,34%</p>
+<p>Poiche 1,34% < 5%, l'approssimazione era corretta!</p>
+</div>
+
+<h3>Step 4: Calcoliamo il pH</h3>
+
+<div class="step">
+<div class="formula">pH = -log[H<sup>+</sup>] = -log(1,34 x 10<sup>-3</sup>)</div>
+
+<p>Scomponiamo il logaritmo:</p>
+<p>-log(1,34 x 10<sup>-3</sup>) = -log(1,34) - log(10<sup>-3</sup>) = -0,127 + 3 = 2,87</p>
+</div>
+
+<div class="result">
+<strong>pH PRIMA dell'aggiunta = 2,87</strong>
+</div>
+
+<hr>
+            </div>
+        </div>
+        
+        <div id="step-2" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">3</span>
+                PARTE 2: pH DOPO l'aggiunta di NaOH
+            </div>
+            <div class="step-content">
+                <h2>PARTE 2: pH DOPO l'aggiunta di NaOH</h2>
+
+<p>Ora aggiungiamo NaOH alla soluzione. L'idrossido di sodio e una base forte che reagira con l'acido acetico. Dobbiamo prima capire quante moli di NaOH stiamo aggiungendo e poi vedere cosa succede.</p>
+
+<h3>Step 1: Calcoliamo le moli delle specie coinvolte</h3>
+
+<div class="step">
+<p><strong>Moli di acido acetico iniziali:</strong></p>
+<div class="formula">n(CH<sub>3</sub>COOH) = C x V = 0,10 mol/L x 0,100 L = 0,010 mol = 10 mmol</div>
+
+<p><strong>Moli di NaOH aggiunte:</strong></p>
+<div class="formula">n(NaOH) = massa / MM = 0,24 g / 40 g/mol = 0,006 mol = 6 mmol</div>
+</div>
+
+<h3>Step 2: Reazione acido-base</h3>
+
+<div class="step">
+<p>Quando NaOH (base forte) incontra CH<sub>3</sub>COOH (acido debole), avviene una reazione di neutralizzazione completa:</p>
+
+<div class="formula">CH<sub>3</sub>COOH + NaOH --> CH<sub>3</sub>COONa + H<sub>2</sub>O</div>
+
+<p>Oppure, in forma ionica netta:</p>
+<div class="formula">CH<sub>3</sub>COOH + OH<sup>-</sup> --> CH<sub>3</sub>COO<sup>-</sup> + H<sub>2</sub>O</div>
+
+<p>Questa reazione e <strong>quantitativa</strong> (va a completamento) perche il prodotto (acetato + acqua) e molto piu stabile dei reagenti.</p>
+</div>
+
+<h3>Step 3: Bilancio delle moli dopo la reazione</h3>
+
+<div class="step">
+<p>Confrontiamo le moli:</p>
+<ul>
+<li>Moli CH<sub>3</sub>COOH iniziali = 10 mmol</li>
+<li>Moli NaOH aggiunte = 6 mmol</li>
+</ul>
+
+<p>Poiche abbiamo piu acido che base, NaOH e il <strong>reagente limitante</strong>. Tutto l'NaOH reagira, consumando una quantita equivalente di acido acetico:</p>
+
+<table>
+<tr><th>Specie</th><th>Prima della reazione</th><th>Dopo la reazione</th></tr>
+<tr><td>CH<sub>3</sub>COOH</td><td>10 mmol</td><td>10 - 6 = 4 mmol</td></tr>
+<tr><td>NaOH</td><td>6 mmol</td><td>0 (reagente limitante)</td></tr>
+<tr><td>CH<sub>3</sub>COO<sup>-</sup></td><td>0</td><td>6 mmol</td></tr>
+</table>
+</div>
+
+<div class="concept">
+<strong>Abbiamo creato un TAMPONE!</strong><br><br>
+Dopo la reazione ci troviamo con una soluzione che contiene sia:<br>
+- Acido debole: CH<sub>3</sub>COOH (4 mmol)<br>
+- Base coniugata: CH<sub>3</sub>COO<sup>-</sup> (6 mmol)<br><br>
+Questa e la definizione di soluzione tampone: un acido debole insieme alla sua base coniugata!
+</div>
+
+<h3>Step 4: Calcoliamo il pH del tampone con l'equazione di Henderson-Hasselbalch</h3>
+
+<div class="step">
+<p>Per una soluzione tampone, il pH si calcola facilmente con l'equazione di Henderson-Hasselbalch:</p>
+
+<div class="formula">pH = pKa + log([base coniugata] / [acido])</div>
+
+<p>Prima calcoliamo pKa:</p>
+<div class="formula">pKa = -log(Ka) = -log(1,8 x 10<sup>-5</sup>)</div>
+<p>pKa = -log(1,8) - log(10<sup>-5</sup>) = -0,26 + 5 = 4,74</p>
+
+<p>Per le concentrazioni, poiche il volume e lo stesso per entrambe le specie (siamo nella stessa soluzione), possiamo usare direttamente il <strong>rapporto delle moli</strong>:</p>
+
+<div class="formula">pH = pKa + log(n<sub>base</sub> / n<sub>acido</sub>) = 4,74 + log(6 / 4)</div>
+
+<p>Calcoliamo:</p>
+<p>log(6/4) = log(1,5) = 0,176</p>
+
+<div class="formula">pH = 4,74 + 0,18 = 4,92</div>
+</div>
+
+<div class="result">
+<strong>pH DOPO l'aggiunta = 4,92</strong>
+</div>
+
+<hr>
+            </div>
+        </div>
+        
+        <div id="step-3" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">4</span>
+                Riepilogo e Discussione
+            </div>
+            <div class="step-content">
+                <h2>Riepilogo e Discussione</h2>
+
+<table>
+<tr><th>Situazione</th><th>pH</th><th>Tipo di soluzione</th></tr>
+<tr><td>PRIMA (solo acido acetico)</td><td>2,87</td><td>Acido debole puro</td></tr>
+<tr><td>DOPO (aggiunta NaOH)</td><td>4,92</td><td>Soluzione tampone</td></tr>
+</table>
+
+<div class="concept">
+<strong>Cosa e successo?</strong><br><br>
+L'aggiunta di NaOH ha fatto aumentare il pH da 2,87 a 4,92 (un aumento di oltre 2 unita). Questo perche:<br><br>
+1. L'NaOH ha neutralizzato parte dell'acido acetico, riducendo la quantita di acido libero<br>
+2. Si e formata la base coniugata (acetato), che "tampona" la soluzione<br>
+3. Il pH risultante (4,92) e vicino al pKa (4,74), tipico di un buon tampone
+</div>
+
+<h3>Verifica: perche il pH e aumentato?</h3>
+
+<p>Possiamo capirlo intuitivamente:</p>
+<ul>
+<li>Prima avevamo 10 mmol di acido che producevano H<sup>+</sup></li>
+<li>Dopo ne abbiamo solo 4 mmol, e in piu c'e l'acetato che "intrappola" parte degli H<sup>+</sup></li>
+<li>Meno H<sup>+</sup> liberi = pH piu alto (soluzione meno acida)</li>
+</ul>
+
+<h3>Nota sul rapporto base/acido</h3>
+
+<p>Il rapporto base/acido nel nostro tampone e 6/4 = 1,5. Poiche questo rapporto e maggiore di 1, il pH e leggermente superiore al pKa. Se avessimo avuto un rapporto 1:1, il pH sarebbe stato esattamente uguale al pKa (4,74).</p>
+
+<div class="result">
+<strong>RISPOSTE FINALI:</strong><br><br>
+- pH PRIMA dell'aggiunta di NaOH: <strong>2,87</strong><br>
+- pH DOPO l'aggiunta di 0,24 g di NaOH: <strong>4,92</strong><br><br>
+La soluzione finale e un tampone acetato.
+</div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+<script>
+    let currentStep = 0;
+    let totalSteps = 0;
+
+    document.addEventListener('DOMContentLoaded', function() {
+        totalSteps = document.querySelectorAll('.step-container').length;
+        updateProgress();
+        updateButtons();
+    });
+
+    function showNextStep() {
+        if (currentStep < totalSteps) {
+            const step = document.getElementById('step-' + currentStep);
+            if (step) {
+                step.classList.add('visible');
+                step.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                currentStep++;
+                updateProgress();
+                updateButtons();
+
+                if (window.parent !== window) {
+                    window.parent.postMessage({type: 'stepShown', step: currentStep, total: totalSteps}, '*');
+                }
+            }
+        }
+    }
+
+    function showAllSteps() {
+        document.querySelectorAll('.step-container').forEach(function(step) {
+            step.classList.add('visible');
+        });
+        currentStep = totalSteps;
+        updateProgress();
+        updateButtons();
+
+        if (window.parent !== window) {
+            window.parent.postMessage({type: 'allStepsShown'}, '*');
+        }
+    }
+
+    function hideAllSteps() {
+        document.querySelectorAll('.step-container').forEach(function(step) {
+            step.classList.remove('visible');
+        });
+        currentStep = 0;
+        updateProgress();
+        updateButtons();
+    }
+
+    function updateProgress() {
+        const pct = totalSteps > 0 ? (currentStep / totalSteps) * 100 : 0;
+        const fill = document.getElementById('progress-fill');
+        const text = document.getElementById('progress-text');
+        if (fill) fill.style.width = pct + '%';
+        if (text) text.textContent = 'Passaggio ' + currentStep + ' di ' + totalSteps;
+    }
+
+    function updateButtons() {
+        const nextBtn = document.getElementById('next-btn');
+        const allBtn = document.getElementById('all-btn');
+        const doneButtons = document.getElementById('done-buttons');
+
+        if (currentStep >= totalSteps) {
+            if (nextBtn) nextBtn.style.display = 'none';
+            if (allBtn) allBtn.style.display = 'none';
+            if (doneButtons) doneButtons.style.display = 'flex';
+        } else {
+            if (nextBtn) nextBtn.style.display = 'block';
+            if (allBtn) allBtn.style.display = 'block';
+            if (doneButtons) doneButtons.style.display = 'none';
+        }
+    }
+
+    function markExercise(status) {
+        // Salva in localStorage
+        const exerciseId = window.location.pathname.split('/').pop().replace('.html', '');
+        let progress = JSON.parse(localStorage.getItem('chemportal_progress') || '{}');
+        if (!progress.exercises) progress.exercises = {};
+        progress.exercises[exerciseId] = status;
+        localStorage.setItem('chemportal_progress', JSON.stringify(progress));
+
+        // Feedback visivo
+        const btn = status === 'done' ? document.getElementById('mark-done') : document.getElementById('mark-review');
+        const otherBtn = status === 'done' ? document.getElementById('mark-review') : document.getElementById('mark-done');
+
+        btn.classList.add('selected');
+        otherBtn.classList.remove('selected');
+
+        // Notifica parent
+        if (window.parent !== window) {
+            window.parent.postMessage({type: 'exerciseMarked', status: status, id: exerciseId}, '*');
+        }
+    }
+
+    function resetExercise() {
+        hideAllSteps();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Messaggi dal parent
+    window.addEventListener('message', function(e) {
+        if (e.data.type === 'showNext') showNextStep();
+        else if (e.data.type === 'showAll') showAllSteps();
+        else if (e.data.type === 'hideAll') hideAllSteps();
+    });
+
+    function closeExercise() {
+        if (window.parent !== window) {
+            // Siamo in iframe, chiedi al parent di chiudere
+            window.parent.postMessage({type: 'closeModal'}, '*');
+        } else {
+            // Standalone: torna alla pagina esercizi
+            const path = window.location.pathname;
+            if (path.includes('/content/soluzioni/')) {
+                window.location.href = '../../esercizi.html';
+            } else {
+                window.history.back();
+            }
+        }
+    }
+</script>
+</body>
+</html>

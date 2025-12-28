@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Esame 8 - Quesito 2: Numeri di Ossidazione</title>
+    <style>
+        body { font-family: Georgia, serif; max-width: 850px; margin: 40px auto; padding: 20px; line-height: 1.8; }
+        h1 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+        h2 { color: #2980b9; margin-top: 30px; }
+        h3 { color: #8e44ad; margin-top: 25px; }
+        .question { background: #ecf0f1; padding: 15px; border-left: 4px solid #3498db; margin: 20px 0; }
+        .result { background: #d5f5e3; padding: 15px; border-left: 4px solid #27ae60; margin: 20px 0; font-weight: bold; }
+        .formula { background: #fdebd0; padding: 10px; margin: 10px 0; font-family: monospace; font-size: 1.1em; }
+        .rule { background: #e8daef; padding: 12px; border-left: 4px solid #8e44ad; margin: 15px 0; }
+        .warning { background: #fadbd8; padding: 12px; border-left: 4px solid #e74c3c; margin: 15px 0; }
+        .structure { background: #d6eaf8; padding: 15px; margin: 15px 0; font-family: monospace; text-align: center; font-size: 1.2em; }
+        table { border-collapse: collapse; width: 100%; margin: 20px 0; }
+        th, td { border: 1px solid #bdc3c7; padding: 10px; text-align: center; }
+        th { background: #3498db; color: white; }
+        tr:nth-child(even) { background: #f8f9fa; }
+        ul { margin: 10px 0; }
+        li { margin: 8px 0; }
+        .highlight { background-color: #f9e79f; padding: 2px 5px; }
+    
+    .done-buttons {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+    .mark-btn {
+        padding: 12px 24px;
+        font-size: 1em;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .mark-done {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        color: white;
+    }
+    .mark-done:hover, .mark-done.selected {
+        background: linear-gradient(135deg, #1e7e34, #17a085);
+        transform: scale(1.05);
+    }
+    .mark-review {
+        background: linear-gradient(135deg, #ffc107, #fd7e14);
+        color: white;
+    }
+    .mark-review:hover, .mark-review.selected {
+        background: linear-gradient(135deg, #d39e00, #dc6502);
+        transform: scale(1.05);
+    }
+    .mark-reset {
+        background: #6c757d;
+        color: white;
+    }
+    .mark-reset:hover {
+        background: #545b62;
+    }
+    .mark-btn.selected {
+        box-shadow: 0 0 0 3px rgba(0,0,0,0.2);
+    }
+</style>
+
+<style>
+    .quiz-container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px;
+        padding-bottom: 120px;
+    }
+    .question-section {
+        background: linear-gradient(135deg, #e8f4f8 0%, #d4edda 100%);
+        border: 2px solid #17a2b8;
+        border-radius: 10px;
+        padding: 25px;
+        margin-bottom: 20px;
+    }
+    .question-section h2 {
+        color: #0c5460;
+        margin-top: 0;
+        margin-bottom: 15px;
+    }
+    .show-next-btn {
+        display: block;
+        width: 100%;
+        padding: 15px 30px;
+        font-size: 1.1em;
+        font-weight: bold;
+        color: white;
+        background: linear-gradient(135deg, #007bff, #0056b3);
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        margin: 15px 0;
+        transition: all 0.3s ease;
+    }
+    .show-next-btn:hover {
+        background: linear-gradient(135deg, #0056b3, #004094);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 123, 255, 0.4);
+    }
+    .show-all-btn {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        margin-top: 10px;
+    }
+    .show-all-btn:hover {
+        background: linear-gradient(135deg, #218838, #1db385);
+        box-shadow: 0 4px 12px rgba(40, 167, 69, 0.4);
+    }
+    .step-container {
+        display: none;
+        animation: fadeIn 0.5s ease;
+        margin-bottom: 20px;
+        border: 1px solid #dee2e6;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    .step-container.visible {
+        display: block;
+    }
+    .step-header {
+        background: linear-gradient(135deg, #6c757d, #495057);
+        color: white;
+        padding: 12px 20px;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+    }
+    .step-number-badge {
+        background: white;
+        color: #495057;
+        border-radius: 50%;
+        width: 28px;
+        height: 28px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 12px;
+        font-weight: bold;
+    }
+    .step-content {
+        padding: 20px;
+        background: white;
+    }
+    .progress-bar {
+        background: #e9ecef;
+        border-radius: 10px;
+        height: 8px;
+        margin: 15px 0;
+        overflow: hidden;
+    }
+    .progress-fill {
+        background: linear-gradient(90deg, #28a745, #20c997);
+        height: 100%;
+        border-radius: 10px;
+        transition: width 0.5s ease;
+    }
+    .progress-text {
+        text-align: center;
+        color: #6c757d;
+        font-size: 0.9em;
+        margin-bottom: 15px;
+    }
+    .controls {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: white;
+        padding: 15px 20px;
+        border-top: 2px solid #dee2e6;
+        box-shadow: 0 -4px 12px rgba(0,0,0,0.1);
+        z-index: 1000;
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+    }
+    .quiz-container {
+        padding-bottom: 100px;
+    }
+    .show-next-btn {
+        width: auto;
+        margin: 0;
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .final-answer {
+        background: #d4edda;
+        border: 2px solid #28a745;
+        border-radius: 10px;
+        padding: 20px;
+        margin-top: 20px;
+    }
+    .final-answer h3 {
+        color: #155724;
+        margin-top: 0;
+    }
+
+    .done-buttons {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+    .mark-btn {
+        padding: 12px 24px;
+        font-size: 1em;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .mark-done {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        color: white;
+    }
+    .mark-done:hover, .mark-done.selected {
+        background: linear-gradient(135deg, #1e7e34, #17a085);
+        transform: scale(1.05);
+    }
+    .mark-review {
+        background: linear-gradient(135deg, #ffc107, #fd7e14);
+        color: white;
+    }
+    .mark-review:hover, .mark-review.selected {
+        background: linear-gradient(135deg, #d39e00, #dc6502);
+        transform: scale(1.05);
+    }
+    .mark-reset {
+        background: #6c757d;
+        color: white;
+    }
+    .mark-reset:hover {
+        background: #545b62;
+    }
+    .mark-btn.selected {
+        box-shadow: 0 0 0 3px rgba(0,0,0,0.2);
+    }
+</style>
+</head>
+<body>
+<div class="quiz-container">
+    <h1>Esame 8 - Quesito 2: Numeri di Ossidazione</h1>
+
+    <div class="question-section">
+        <h2>Testo dell'esercizio</h2>
+        <p>Risolvi l'esercizio seguente.</p>
+    </div>
+
+    <div class="progress-text" id="progress-text">Passaggio 0 di 9</div>
+    <div class="progress-bar">
+        <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+    </div>
+
+    <div class="controls">
+        <button id="next-btn" class="show-next-btn" onclick="showNextStep()">
+            ▶ Prossimo passaggio
+        </button>
+        <button id="all-btn" class="show-next-btn show-all-btn" onclick="showAllSteps()">
+            ⏩ Mostra tutto
+        </button>
+        <div id="done-buttons" class="done-buttons" style="display: none;">
+            <button id="mark-done" class="mark-btn mark-done" onclick="markExercise('done')">
+                ✓ Fatto
+            </button>
+            <button id="mark-review" class="mark-btn mark-review" onclick="markExercise('review')">
+                ⚠ Da rivedere
+            </button>
+            <button class="mark-btn mark-reset" onclick="resetExercise()">
+                ↺ Ricomincia
+            </button>
+            <button class="mark-btn" style="background: #17a2b8;" onclick="closeExercise()">
+                ✕ Chiudi
+            </button>
+        </div>
+    </div>
+
+    <div id="steps-wrapper">
+        
+        <div id="step-0" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">1</span>
+                Premessa: Le Regole per Assegnare i Numeri di Ossi...
+            </div>
+            <div class="step-content">
+                <h1>Esame 8 - Quesito 2: Numeri di Ossidazione</h1>
+
+<div class="question">
+<strong>TESTO DEL QUESITO:</strong><br><br>
+Assegnare ad ogni atomo il numero di ossidazione nelle seguenti specie:
+<ol>
+    <li>C<sub>3</sub>H<sub>6</sub>O (acetone o propanale)</li>
+    <li>H<sub>2</sub>O<sub>2</sub> (acqua ossigenata)</li>
+    <li>Idrogenofosfato di Magnesio (MgHPO<sub>4</sub>)</li>
+    <li>Acido lattico: CH<sub>3</sub>-CHOH-COOH</li>
+    <li>Serina (amminoacido): H<sub>2</sub>N-CH(CH<sub>2</sub>OH)-COOH</li>
+    <li>Alanina (amminoacido): H<sub>3</sub>C-CH(NH<sub>2</sub>)-COOH</li>
+</ol>
+</div><h2>Premessa: Le Regole per Assegnare i Numeri di Ossidazione</h2>
+
+<p>Prima di affrontare gli esercizi, fermati un attimo a capire <strong>cosa sono</strong> i numeri di ossidazione e <strong>come si assegnano</strong>. Il numero di ossidazione (n.o.) rappresenta la carica che un atomo <em>avrebbe</em> se tutti i legami fossero ionici, cioe se gli elettroni di legame appartenessero completamente all'atomo piu elettronegativo.</p>
+
+<div class="rule">
+<strong>REGOLE FONDAMENTALI per assegnare i numeri di ossidazione:</strong>
+<ol>
+    <li><strong>Elementi allo stato elementare:</strong> n.o. = 0 (es. Fe, O<sub>2</sub>, N<sub>2</sub>, H<sub>2</sub>)</li>
+    <li><strong>Ioni monoatomici:</strong> n.o. = carica dello ione (es. Na<sup>+</sup> ha n.o. = +1, Cl<sup>-</sup> ha n.o. = -1)</li>
+    <li><strong>Idrogeno:</strong> n.o. = <strong>+1</strong> (quasi sempre), tranne negli idruri metallici dove e -1</li>
+    <li><strong>Ossigeno:</strong> n.o. = <strong>-2</strong> (quasi sempre), tranne nei perossidi (-1) e nel fluoruro di ossigeno (+2)</li>
+    <li><strong>Fluoro:</strong> sempre n.o. = <strong>-1</strong> (e il piu elettronegativo)</li>
+    <li><strong>Metalli alcalini (Gruppo 1):</strong> sempre n.o. = +1</li>
+    <li><strong>Metalli alcalino-terrosi (Gruppo 2):</strong> sempre n.o. = +2</li>
+    <li><strong>La somma dei n.o. in una molecola neutra deve essere ZERO</strong></li>
+    <li><strong>La somma dei n.o. in uno ione poliatomico deve essere uguale alla carica dello ione</strong></li>
+</ol>
+</div>
+
+<div class="warning">
+<strong>ATTENZIONE - Composti organici:</strong><br>
+Nei composti organici, <strong>ogni atomo di carbonio puo avere un diverso numero di ossidazione</strong> a seconda dei suoi legami! Non esiste "il" numero di ossidazione del carbonio nella molecola, ma bisogna calcolarlo per ciascun atomo di C separatamente, considerando:
+<ul>
+    <li>Legame C-H: il carbonio "prende" l'elettrone (H e meno elettronegativo), quindi ogni H porta +1 al n.o. del C</li>
+    <li>Legame C-C: gli elettroni si dividono equamente (stessa elettronegativita), contributo = 0</li>
+    <li>Legame C-O, C-N, C-Cl: il carbonio "perde" gli elettroni (O, N, Cl piu elettronegativi), ogni legame porta -1 al n.o. del C (per legame doppio -2)</li>
+</ul>
+</div>
+
+<hr>
+            </div>
+        </div>
+        
+        <div id="step-1" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">2</span>
+                Esercizio 1: C3H6O (acetone o propanale)
+            </div>
+            <div class="step-content">
+                <h2>Esercizio 1: C<sub>3</sub>H<sub>6</sub>O (acetone o propanale)</h2>
+
+<p>Il testo dice "acetone o propanale", ma attenzione: sono due molecole diverse! L'acetone e il <strong>propan-2-one</strong> (chetone), mentre il propanale e un'aldeide. Hanno la stessa formula bruta ma struttura diversa. Risolviamo per entrambi, cosi impari a gestire queste situazioni.</p>
+
+<h3>Caso A: Acetone (propan-2-one)</h3>
+
+<div class="structure">
+CH<sub>3</sub> - C(=O) - CH<sub>3</sub>
+</div>
+
+<p>Nell'acetone abbiamo:</p>
+<ul>
+    <li>Due gruppi metilici CH<sub>3</sub> (i carboni alle estremita)</li>
+    <li>Un carbonio centrale legato con doppio legame all'ossigeno (gruppo carbonilico C=O)</li>
+</ul>
+
+<p><strong>Assegnazione per H e O:</strong></p>
+<ul>
+    <li>Idrogeno: n.o. = <strong>+1</strong> (come sempre)</li>
+    <li>Ossigeno: n.o. = <strong>-2</strong> (come sempre)</li>
+</ul>
+
+<p><strong>Calcolo n.o. dei carboni:</strong></p>
+
+<p><strong>Carboni dei gruppi CH<sub>3</sub> (2 carboni equivalenti):</strong></p>
+<p>Ciascun C del metile e legato a:</p>
+<ul>
+    <li>3 atomi di H (legame C-H: il C "prende" l'elettrone, contributo = -1 ciascuno, totale = -3)</li>
+    <li>1 atomo di C (legame C-C: nessun contributo, totale = 0)</li>
+</ul>
+<p>Quindi: n.o.(C del CH<sub>3</sub>) = <strong>-3</strong></p>
+
+<p><strong>Carbonio centrale (C=O):</strong></p>
+<p>Questo C e legato a:</p>
+<ul>
+    <li>2 atomi di C (legami C-C: nessun contributo)</li>
+    <li>1 atomo di O con doppio legame (2 legami con elemento piu elettronegativo: +2)</li>
+</ul>
+<p>Quindi: n.o.(C centrale) = <strong>+2</strong></p>
+
+<p><strong>Verifica:</strong> 2 x (-3) + (+2) + 6 x (+1) + (-2) = -6 + 2 + 6 - 2 = 0 &#10003;</p>
+
+<div class="result">
+<strong>Acetone (CH<sub>3</sub>-CO-CH<sub>3</sub>):</strong><br>
+- H: +1<br>
+- O: -2<br>
+- C dei gruppi CH<sub>3</sub>: -3<br>
+- C del gruppo C=O: +2
+</div>
+
+<h3>Caso B: Propanale (aldeide)</h3>
+
+<div class="structure">
+CH<sub>3</sub> - CH<sub>2</sub> - CHO
+</div>
+
+<p>Nel propanale abbiamo tre carboni diversi:</p>
+
+<p><strong>Carbonio 1 (CH<sub>3</sub>):</strong></p>
+<ul>
+    <li>Legato a 3 H (-3) e 1 C (0)</li>
+    <li>n.o. = <strong>-3</strong></li>
+</ul>
+
+<p><strong>Carbonio 2 (CH<sub>2</sub>):</strong></p>
+<ul>
+    <li>Legato a 2 H (-2) e 2 C (0)</li>
+    <li>n.o. = <strong>-2</strong></li>
+</ul>
+
+<p><strong>Carbonio 3 (CHO - gruppo aldeidico):</strong></p>
+<ul>
+    <li>Legato a 1 H (-1), 1 C (0), e O con doppio legame (+2)</li>
+    <li>n.o. = -1 + 0 + 2 = <strong>+1</strong></li>
+</ul>
+
+<p><strong>Verifica:</strong> (-3) + (-2) + (+1) + 6 x (+1) + (-2) = -3 - 2 + 1 + 6 - 2 = 0 &#10003;</p>
+
+<div class="result">
+<strong>Propanale (CH<sub>3</sub>-CH<sub>2</sub>-CHO):</strong><br>
+- H: +1<br>
+- O: -2<br>
+- C del CH<sub>3</sub>: -3<br>
+- C del CH<sub>2</sub>: -2<br>
+- C del CHO: +1
+</div>
+
+<hr>
+            </div>
+        </div>
+        
+        <div id="step-2" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">3</span>
+                Esercizio 2: H2O2 (acqua ossigenata)
+            </div>
+            <div class="step-content">
+                <h2>Esercizio 2: H<sub>2</sub>O<sub>2</sub> (acqua ossigenata)</h2>
+
+<p>L'acqua ossigenata e un caso speciale! E un <strong>perossido</strong>, quindi l'ossigeno NON ha il suo solito numero di ossidazione -2.</p>
+
+<div class="structure">
+H - O - O - H
+</div>
+
+<p>La molecola ha un legame O-O (legame perossidico). In questo legame, gli elettroni sono condivisi equamente tra i due ossigeni (stessa elettronegativita), quindi non contribuisce al n.o.</p>
+
+<p><strong>Ragionamento:</strong></p>
+<ul>
+    <li>H ha n.o. = +1 (come sempre)</li>
+    <li>La molecola e neutra, quindi la somma dei n.o. deve essere 0</li>
+    <li>2 x (+1) + 2 x (n.o. di O) = 0</li>
+    <li>2 + 2 x (n.o. di O) = 0</li>
+    <li>n.o. di O = <strong>-1</strong></li>
+</ul>
+
+<p>Questo e tipico dei perossidi: ogni ossigeno ha n.o. = -1 perche c'e un legame O-O che non contribuisce.</p>
+
+<div class="result">
+<strong>H<sub>2</sub>O<sub>2</sub> (acqua ossigenata):</strong><br>
+- H: +1<br>
+- O: -1 (eccezione! E un perossido)
+</div>
+
+<hr>
+            </div>
+        </div>
+        
+        <div id="step-3" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">4</span>
+                Esercizio 3: MgHPO4 (Idrogenofosfato di Magnesio)
+            </div>
+            <div class="step-content">
+                <h2>Esercizio 3: MgHPO<sub>4</sub> (Idrogenofosfato di Magnesio)</h2>
+
+<p>Questo e un sale ionico, quindi ragioniamo per componenti:</p>
+
+<div class="structure">
+Mg<sup>2+</sup> + HPO<sub>4</sub><sup>2-</sup>
+</div>
+
+<p><strong>Magnesio:</strong> E un metallo alcalino-terroso (Gruppo 2), quindi ha sempre n.o. = <strong>+2</strong></p>
+
+<p><strong>Idrogeno:</strong> n.o. = <strong>+1</strong></p>
+
+<p><strong>Ossigeno:</strong> n.o. = <strong>-2</strong> (caso normale, non e un perossido)</p>
+
+<p><strong>Fosforo:</strong> Lo calcoliamo dalla regola che la somma deve dare la carica dello ione. L'anione e HPO<sub>4</sub><sup>2-</sup>:</p>
+
+<p>(+1) + n.o.(P) + 4 x (-2) = -2</p>
+<p>1 + n.o.(P) - 8 = -2</p>
+<p>n.o.(P) = -2 - 1 + 8 = <strong>+5</strong></p>
+
+<p><strong>Verifica sulla molecola neutra:</strong> (+2) + (+1) + (+5) + 4 x (-2) = 2 + 1 + 5 - 8 = 0 &#10003;</p>
+
+<div class="result">
+<strong>MgHPO<sub>4</sub>:</strong><br>
+- Mg: +2<br>
+- H: +1<br>
+- P: +5<br>
+- O: -2
+</div>
+
+<hr>
+            </div>
+        </div>
+        
+        <div id="step-4" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">5</span>
+                Esercizio 4: Acido lattico (CH3-CHOH-COOH)
+            </div>
+            <div class="step-content">
+                <h2>Esercizio 4: Acido lattico (CH<sub>3</sub>-CHOH-COOH)</h2>
+
+<p>L'acido lattico ha tre atomi di carbonio diversi. Vediamoli uno per uno:</p>
+
+<div class="structure">
+CH<sub>3</sub> - CHOH - COOH
+</div>
+
+<p><strong>Per tutti:</strong></p>
+<ul>
+    <li>H: n.o. = <strong>+1</strong></li>
+    <li>O: n.o. = <strong>-2</strong></li>
+</ul>
+
+<p><strong>Carbonio 1 (CH<sub>3</sub>):</strong></p>
+<ul>
+    <li>Legato a 3 H (contributo -3) e 1 C (contributo 0)</li>
+    <li>n.o. = <strong>-3</strong></li>
+</ul>
+
+<p><strong>Carbonio 2 (CHOH):</strong></p>
+<ul>
+    <li>Legato a 1 H (contributo -1)</li>
+    <li>Legato a 2 C (contributo 0)</li>
+    <li>Legato a 1 O del gruppo -OH (contributo +1, legame singolo con elemento piu elettronegativo)</li>
+</ul>
+<p>n.o. = -1 + 0 + 1 = <strong>0</strong></p>
+
+<p><strong>Carbonio 3 (COOH - gruppo carbossilico):</strong></p>
+<ul>
+    <li>Legato a 1 C (contributo 0)</li>
+    <li>Legato a 1 O con doppio legame (contributo +2)</li>
+    <li>Legato a 1 O del gruppo -OH (contributo +1)</li>
+</ul>
+<p>n.o. = 0 + 2 + 1 = <strong>+3</strong></p>
+
+<p><strong>Verifica:</strong></p>
+<p>Formula molecolare: C<sub>3</sub>H<sub>6</sub>O<sub>3</sub></p>
+<p>Somma n.o. carboni: (-3) + (0) + (+3) = 0</p>
+<p>Somma totale: 0 + 6 x (+1) + 3 x (-2) = 0 + 6 - 6 = 0 &#10003;</p>
+
+<div class="result">
+<strong>Acido lattico (CH<sub>3</sub>-CHOH-COOH):</strong><br>
+- H: +1<br>
+- O: -2<br>
+- C del CH<sub>3</sub>: -3<br>
+- C del CHOH: 0<br>
+- C del COOH: +3
+</div>
+
+<hr>
+            </div>
+        </div>
+        
+        <div id="step-5" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">6</span>
+                Esercizio 5: Serina (H2N-CH(CH2OH)-COOH)
+            </div>
+            <div class="step-content">
+                <h2>Esercizio 5: Serina (H<sub>2</sub>N-CH(CH<sub>2</sub>OH)-COOH)</h2>
+
+<p>La serina e un amminoacido con tre atomi di carbonio. Vediamo la struttura:</p>
+
+<div class="structure">
+H<sub>2</sub>N - CH(CH<sub>2</sub>OH) - COOH
+</div>
+
+<p><strong>Per tutti:</strong></p>
+<ul>
+    <li>H: n.o. = <strong>+1</strong></li>
+    <li>O: n.o. = <strong>-2</strong></li>
+    <li>N: lo calcoleremo, ma in genere nei composti organici e <strong>-3</strong> (piu elettronegativo del C, meno di O)</li>
+</ul>
+
+<p><strong>Azoto (N del gruppo amminico NH<sub>2</sub>):</strong></p>
+<p>L'azoto e legato a 2 H e 1 C. E piu elettronegativo di H e C, quindi "prende" gli elettroni da entrambi.</p>
+<p>Calcoliamolo: nei gruppi amminici, N ha tipicamente n.o. = <strong>-3</strong></p>
+
+<p><strong>Carbonio 1 (il C centrale, legato a NH<sub>2</sub>):</strong></p>
+<ul>
+    <li>Legato a 1 N (contributo +1, N piu elettronegativo)</li>
+    <li>Legato a 1 H (contributo -1)</li>
+    <li>Legato a 2 C (contributo 0)</li>
+</ul>
+<p>n.o. = +1 - 1 + 0 = <strong>0</strong></p>
+
+<p><strong>Carbonio 2 (CH<sub>2</sub>OH):</strong></p>
+<ul>
+    <li>Legato a 2 H (contributo -2)</li>
+    <li>Legato a 1 C (contributo 0)</li>
+    <li>Legato a 1 O del gruppo -OH (contributo +1)</li>
+</ul>
+<p>n.o. = -2 + 0 + 1 = <strong>-1</strong></p>
+
+<p><strong>Carbonio 3 (COOH - gruppo carbossilico):</strong></p>
+<ul>
+    <li>Legato a 1 C (contributo 0)</li>
+    <li>Legato a 1 O con doppio legame (contributo +2)</li>
+    <li>Legato a 1 O del gruppo -OH (contributo +1)</li>
+</ul>
+<p>n.o. = 0 + 2 + 1 = <strong>+3</strong></p>
+
+<p><strong>Verifica:</strong></p>
+<p>Formula molecolare: C<sub>3</sub>H<sub>7</sub>NO<sub>3</sub></p>
+<p>Somma: 3 C + 7 H + 1 N + 3 O</p>
+<p>= [(0) + (-1) + (+3)] + 7 x (+1) + (-3) + 3 x (-2)</p>
+<p>= 2 + 7 - 3 - 6 = 0 &#10003;</p>
+
+<div class="result">
+<strong>Serina (H<sub>2</sub>N-CH(CH<sub>2</sub>OH)-COOH):</strong><br>
+- H: +1<br>
+- O: -2<br>
+- N: -3<br>
+- C centrale (legato a NH<sub>2</sub>): 0<br>
+- C del CH<sub>2</sub>OH: -1<br>
+- C del COOH: +3
+</div>
+
+<hr>
+            </div>
+        </div>
+        
+        <div id="step-6" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">7</span>
+                Esercizio 6: Alanina (H3C-CH(NH2)-COOH)
+            </div>
+            <div class="step-content">
+                <h2>Esercizio 6: Alanina (H<sub>3</sub>C-CH(NH<sub>2</sub>)-COOH)</h2>
+
+<p>L'alanina e un altro amminoacido, con tre carboni:</p>
+
+<div class="structure">
+CH<sub>3</sub> - CH(NH<sub>2</sub>) - COOH
+</div>
+
+<p><strong>Per tutti:</strong></p>
+<ul>
+    <li>H: n.o. = <strong>+1</strong></li>
+    <li>O: n.o. = <strong>-2</strong></li>
+    <li>N: n.o. = <strong>-3</strong> (come nei gruppi amminici)</li>
+</ul>
+
+<p><strong>Carbonio 1 (CH<sub>3</sub>):</strong></p>
+<ul>
+    <li>Legato a 3 H (contributo -3)</li>
+    <li>Legato a 1 C (contributo 0)</li>
+</ul>
+<p>n.o. = <strong>-3</strong></p>
+
+<p><strong>Carbonio 2 (C centrale, legato a NH<sub>2</sub>):</strong></p>
+<ul>
+    <li>Legato a 1 H (contributo -1)</li>
+    <li>Legato a 2 C (contributo 0)</li>
+    <li>Legato a 1 N del gruppo amminico (contributo +1)</li>
+</ul>
+<p>n.o. = -1 + 0 + 1 = <strong>0</strong></p>
+
+<p><strong>Carbonio 3 (COOH - gruppo carbossilico):</strong></p>
+<ul>
+    <li>Legato a 1 C (contributo 0)</li>
+    <li>Legato a 1 O con doppio legame (contributo +2)</li>
+    <li>Legato a 1 O del gruppo -OH (contributo +1)</li>
+</ul>
+<p>n.o. = 0 + 2 + 1 = <strong>+3</strong></p>
+
+<p><strong>Verifica:</strong></p>
+<p>Formula molecolare: C<sub>3</sub>H<sub>7</sub>NO<sub>2</sub></p>
+<p>Somma: [(-3) + (0) + (+3)] + 7 x (+1) + (-3) + 2 x (-2)</p>
+<p>= 0 + 7 - 3 - 4 = 0 &#10003;</p>
+
+<div class="result">
+<strong>Alanina (CH<sub>3</sub>-CH(NH<sub>2</sub>)-COOH):</strong><br>
+- H: +1<br>
+- O: -2<br>
+- N: -3<br>
+- C del CH<sub>3</sub>: -3<br>
+- C centrale (legato a NH<sub>2</sub>): 0<br>
+- C del COOH: +3
+</div>
+
+<hr>
+            </div>
+        </div>
+        
+        <div id="step-7" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">8</span>
+                Riepilogo Finale
+            </div>
+            <div class="step-content">
+                <h2>Riepilogo Finale</h2>
+
+<table>
+    <tr>
+        <th>Composto</th>
+        <th>Atomo</th>
+        <th>N. Ossidazione</th>
+    </tr>
+    <tr>
+        <td rowspan="4"><strong>Acetone</strong></td>
+        <td>H</td>
+        <td>+1</td>
+    </tr>
+    <tr>
+        <td>O</td>
+        <td>-2</td>
+    </tr>
+    <tr>
+        <td>C (CH<sub>3</sub>)</td>
+        <td>-3</td>
+    </tr>
+    <tr>
+        <td>C (C=O)</td>
+        <td>+2</td>
+    </tr>
+    <tr>
+        <td rowspan="2"><strong>H<sub>2</sub>O<sub>2</sub></strong></td>
+        <td>H</td>
+        <td>+1</td>
+    </tr>
+    <tr>
+        <td>O</td>
+        <td><span class="highlight">-1 (perossido!)</span></td>
+    </tr>
+    <tr>
+        <td rowspan="4"><strong>MgHPO<sub>4</sub></strong></td>
+        <td>Mg</td>
+        <td>+2</td>
+    </tr>
+    <tr>
+        <td>H</td>
+        <td>+1</td>
+    </tr>
+    <tr>
+        <td>P</td>
+        <td>+5</td>
+    </tr>
+    <tr>
+        <td>O</td>
+        <td>-2</td>
+    </tr>
+    <tr>
+        <td rowspan="5"><strong>Acido lattico</strong></td>
+        <td>H</td>
+        <td>+1</td>
+    </tr>
+    <tr>
+        <td>O</td>
+        <td>-2</td>
+    </tr>
+    <tr>
+        <td>C (CH<sub>3</sub>)</td>
+        <td>-3</td>
+    </tr>
+    <tr>
+        <td>C (CHOH)</td>
+        <td>0</td>
+    </tr>
+    <tr>
+        <td>C (COOH)</td>
+        <td>+3</td>
+    </tr>
+    <tr>
+        <td rowspan="6"><strong>Serina</strong></td>
+        <td>H</td>
+        <td>+1</td>
+    </tr>
+    <tr>
+        <td>O</td>
+        <td>-2</td>
+    </tr>
+    <tr>
+        <td>N</td>
+        <td>-3</td>
+    </tr>
+    <tr>
+        <td>C (centrale)</td>
+        <td>0</td>
+    </tr>
+    <tr>
+        <td>C (CH<sub>2</sub>OH)</td>
+        <td>-1</td>
+    </tr>
+    <tr>
+        <td>C (COOH)</td>
+        <td>+3</td>
+    </tr>
+    <tr>
+        <td rowspan="6"><strong>Alanina</strong></td>
+        <td>H</td>
+        <td>+1</td>
+    </tr>
+    <tr>
+        <td>O</td>
+        <td>-2</td>
+    </tr>
+    <tr>
+        <td>N</td>
+        <td>-3</td>
+    </tr>
+    <tr>
+        <td>C (CH<sub>3</sub>)</td>
+        <td>-3</td>
+    </tr>
+    <tr>
+        <td>C (centrale)</td>
+        <td>0</td>
+    </tr>
+    <tr>
+        <td>C (COOH)</td>
+        <td>+3</td>
+    </tr>
+</table>
+            </div>
+        </div>
+        
+        <div id="step-8" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">9</span>
+                Concetti Chiave da Ricordare
+            </div>
+            <div class="step-content">
+                <h2>Concetti Chiave da Ricordare</h2>
+
+<div class="rule">
+<strong>Per i composti inorganici:</strong>
+<ul>
+    <li>Applica le regole standard (H = +1, O = -2, metalli con n.o. fissi)</li>
+    <li>Usa la regola della somma = 0 (o = carica ione) per trovare l'elemento incognito</li>
+    <li>Ricorda le eccezioni: perossidi (O = -1), idruri metallici (H = -1)</li>
+</ul>
+</div>
+
+<div class="rule">
+<strong>Per i composti organici:</strong>
+<ul>
+    <li>Ogni carbonio puo avere un n.o. diverso!</li>
+    <li>Legame C-H: contributo -1 al C (il C "prende" l'elettrone da H)</li>
+    <li>Legame C-C: contributo 0 (elettronegativita uguale)</li>
+    <li>Legame C-O o C-N: contributo +1 (o +2 per doppio legame) al C</li>
+    <li>Gruppi tipici: CH<sub>3</sub> = -3, CH<sub>2</sub> = -2, COOH = +3, CHO = +1</li>
+</ul>
+</div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+<script>
+    let currentStep = 0;
+    let totalSteps = 0;
+
+    document.addEventListener('DOMContentLoaded', function() {
+        totalSteps = document.querySelectorAll('.step-container').length;
+        updateProgress();
+        updateButtons();
+    });
+
+    function showNextStep() {
+        if (currentStep < totalSteps) {
+            const step = document.getElementById('step-' + currentStep);
+            if (step) {
+                step.classList.add('visible');
+                step.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                currentStep++;
+                updateProgress();
+                updateButtons();
+
+                if (window.parent !== window) {
+                    window.parent.postMessage({type: 'stepShown', step: currentStep, total: totalSteps}, '*');
+                }
+            }
+        }
+    }
+
+    function showAllSteps() {
+        document.querySelectorAll('.step-container').forEach(function(step) {
+            step.classList.add('visible');
+        });
+        currentStep = totalSteps;
+        updateProgress();
+        updateButtons();
+
+        if (window.parent !== window) {
+            window.parent.postMessage({type: 'allStepsShown'}, '*');
+        }
+    }
+
+    function hideAllSteps() {
+        document.querySelectorAll('.step-container').forEach(function(step) {
+            step.classList.remove('visible');
+        });
+        currentStep = 0;
+        updateProgress();
+        updateButtons();
+    }
+
+    function updateProgress() {
+        const pct = totalSteps > 0 ? (currentStep / totalSteps) * 100 : 0;
+        const fill = document.getElementById('progress-fill');
+        const text = document.getElementById('progress-text');
+        if (fill) fill.style.width = pct + '%';
+        if (text) text.textContent = 'Passaggio ' + currentStep + ' di ' + totalSteps;
+    }
+
+    function updateButtons() {
+        const nextBtn = document.getElementById('next-btn');
+        const allBtn = document.getElementById('all-btn');
+        const doneButtons = document.getElementById('done-buttons');
+
+        if (currentStep >= totalSteps) {
+            if (nextBtn) nextBtn.style.display = 'none';
+            if (allBtn) allBtn.style.display = 'none';
+            if (doneButtons) doneButtons.style.display = 'flex';
+        } else {
+            if (nextBtn) nextBtn.style.display = 'block';
+            if (allBtn) allBtn.style.display = 'block';
+            if (doneButtons) doneButtons.style.display = 'none';
+        }
+    }
+
+    function markExercise(status) {
+        // Salva in localStorage
+        const exerciseId = window.location.pathname.split('/').pop().replace('.html', '');
+        let progress = JSON.parse(localStorage.getItem('chemportal_progress') || '{}');
+        if (!progress.exercises) progress.exercises = {};
+        progress.exercises[exerciseId] = status;
+        localStorage.setItem('chemportal_progress', JSON.stringify(progress));
+
+        // Feedback visivo
+        const btn = status === 'done' ? document.getElementById('mark-done') : document.getElementById('mark-review');
+        const otherBtn = status === 'done' ? document.getElementById('mark-review') : document.getElementById('mark-done');
+
+        btn.classList.add('selected');
+        otherBtn.classList.remove('selected');
+
+        // Notifica parent
+        if (window.parent !== window) {
+            window.parent.postMessage({type: 'exerciseMarked', status: status, id: exerciseId}, '*');
+        }
+    }
+
+    function resetExercise() {
+        hideAllSteps();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Messaggi dal parent
+    window.addEventListener('message', function(e) {
+        if (e.data.type === 'showNext') showNextStep();
+        else if (e.data.type === 'showAll') showAllSteps();
+        else if (e.data.type === 'hideAll') hideAllSteps();
+    });
+
+    function closeExercise() {
+        if (window.parent !== window) {
+            // Siamo in iframe, chiedi al parent di chiudere
+            window.parent.postMessage({type: 'closeModal'}, '*');
+        } else {
+            // Standalone: torna alla pagina esercizi
+            const path = window.location.pathname;
+            if (path.includes('/content/soluzioni/')) {
+                window.location.href = '../../esercizi.html';
+            } else {
+                window.history.back();
+            }
+        }
+    }
+</script>
+</body>
+</html>

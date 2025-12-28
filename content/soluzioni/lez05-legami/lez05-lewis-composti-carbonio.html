@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Esame 10 - Strutture di Lewis dei composti del carbonio</title>
+    <style>
+        body { font-family: Georgia, serif; max-width: 850px; margin: 40px auto; padding: 20px; line-height: 1.7; }
+        h1 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+        h2 { color: #2980b9; margin-top: 35px; border-bottom: 1px solid #bdc3c7; padding-bottom: 5px; }
+        h3 { color: #8e44ad; margin-top: 25px; }
+        .question { background: #ecf0f1; padding: 15px; border-left: 4px solid #3498db; margin: 20px 0; }
+        .result { background: #d5f5e3; padding: 15px; border-left: 4px solid #27ae60; margin: 20px 0; }
+        .formula { background: #fdebd0; padding: 10px; margin: 10px 0; font-family: monospace; font-size: 1.1em; }
+        .lewis-box { background: #fff; border: 2px solid #3498db; padding: 20px; margin: 15px 0; text-align: center; font-family: "Courier New", monospace; font-size: 1.2em; line-height: 1.8; }
+        .concept { background: #e8f6f3; padding: 12px; border-left: 4px solid #1abc9c; margin: 15px 0; }
+        .warning { background: #fdf2e9; padding: 12px; border-left: 4px solid #e67e22; margin: 15px 0; }
+        table { border-collapse: collapse; width: 100%; margin: 20px 0; }
+        th, td { border: 1px solid #bdc3c7; padding: 12px; text-align: center; }
+        th { background: #3498db; color: white; }
+        .summary-table td { text-align: left; padding-left: 15px; }
+        ul { margin: 10px 0; }
+        li { margin: 8px 0; }
+    
+    .done-buttons {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+    .mark-btn {
+        padding: 12px 24px;
+        font-size: 1em;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .mark-done {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        color: white;
+    }
+    .mark-done:hover, .mark-done.selected {
+        background: linear-gradient(135deg, #1e7e34, #17a085);
+        transform: scale(1.05);
+    }
+    .mark-review {
+        background: linear-gradient(135deg, #ffc107, #fd7e14);
+        color: white;
+    }
+    .mark-review:hover, .mark-review.selected {
+        background: linear-gradient(135deg, #d39e00, #dc6502);
+        transform: scale(1.05);
+    }
+    .mark-reset {
+        background: #6c757d;
+        color: white;
+    }
+    .mark-reset:hover {
+        background: #545b62;
+    }
+    .mark-btn.selected {
+        box-shadow: 0 0 0 3px rgba(0,0,0,0.2);
+    }
+</style>
+
+<style>
+    .quiz-container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px;
+        padding-bottom: 120px;
+    }
+    .question-section {
+        background: linear-gradient(135deg, #e8f4f8 0%, #d4edda 100%);
+        border: 2px solid #17a2b8;
+        border-radius: 10px;
+        padding: 25px;
+        margin-bottom: 20px;
+    }
+    .question-section h2 {
+        color: #0c5460;
+        margin-top: 0;
+        margin-bottom: 15px;
+    }
+    .show-next-btn {
+        display: block;
+        width: 100%;
+        padding: 15px 30px;
+        font-size: 1.1em;
+        font-weight: bold;
+        color: white;
+        background: linear-gradient(135deg, #007bff, #0056b3);
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        margin: 15px 0;
+        transition: all 0.3s ease;
+    }
+    .show-next-btn:hover {
+        background: linear-gradient(135deg, #0056b3, #004094);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 123, 255, 0.4);
+    }
+    .show-all-btn {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        margin-top: 10px;
+    }
+    .show-all-btn:hover {
+        background: linear-gradient(135deg, #218838, #1db385);
+        box-shadow: 0 4px 12px rgba(40, 167, 69, 0.4);
+    }
+    .step-container {
+        display: none;
+        animation: fadeIn 0.5s ease;
+        margin-bottom: 20px;
+        border: 1px solid #dee2e6;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    .step-container.visible {
+        display: block;
+    }
+    .step-header {
+        background: linear-gradient(135deg, #6c757d, #495057);
+        color: white;
+        padding: 12px 20px;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+    }
+    .step-number-badge {
+        background: white;
+        color: #495057;
+        border-radius: 50%;
+        width: 28px;
+        height: 28px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 12px;
+        font-weight: bold;
+    }
+    .step-content {
+        padding: 20px;
+        background: white;
+    }
+    .progress-bar {
+        background: #e9ecef;
+        border-radius: 10px;
+        height: 8px;
+        margin: 15px 0;
+        overflow: hidden;
+    }
+    .progress-fill {
+        background: linear-gradient(90deg, #28a745, #20c997);
+        height: 100%;
+        border-radius: 10px;
+        transition: width 0.5s ease;
+    }
+    .progress-text {
+        text-align: center;
+        color: #6c757d;
+        font-size: 0.9em;
+        margin-bottom: 15px;
+    }
+    .controls {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: white;
+        padding: 15px 20px;
+        border-top: 2px solid #dee2e6;
+        box-shadow: 0 -4px 12px rgba(0,0,0,0.1);
+        z-index: 1000;
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+    }
+    .quiz-container {
+        padding-bottom: 100px;
+    }
+    .show-next-btn {
+        width: auto;
+        margin: 0;
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .final-answer {
+        background: #d4edda;
+        border: 2px solid #28a745;
+        border-radius: 10px;
+        padding: 20px;
+        margin-top: 20px;
+    }
+    .final-answer h3 {
+        color: #155724;
+        margin-top: 0;
+    }
+
+    .done-buttons {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+    .mark-btn {
+        padding: 12px 24px;
+        font-size: 1em;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .mark-done {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        color: white;
+    }
+    .mark-done:hover, .mark-done.selected {
+        background: linear-gradient(135deg, #1e7e34, #17a085);
+        transform: scale(1.05);
+    }
+    .mark-review {
+        background: linear-gradient(135deg, #ffc107, #fd7e14);
+        color: white;
+    }
+    .mark-review:hover, .mark-review.selected {
+        background: linear-gradient(135deg, #d39e00, #dc6502);
+        transform: scale(1.05);
+    }
+    .mark-reset {
+        background: #6c757d;
+        color: white;
+    }
+    .mark-reset:hover {
+        background: #545b62;
+    }
+    .mark-btn.selected {
+        box-shadow: 0 0 0 3px rgba(0,0,0,0.2);
+    }
+</style>
+</head>
+<body>
+<div class="quiz-container">
+    <h1>Strutture di Lewis dei Composti del Carbonio</h1>
+
+    <div class="question-section">
+        <h2>Testo dell'esercizio</h2>
+        <p>Risolvi l'esercizio seguente.</p>
+    </div>
+
+    <div class="progress-text" id="progress-text">Passaggio 0 di 7</div>
+    <div class="progress-bar">
+        <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+    </div>
+
+    <div class="controls">
+        <button id="next-btn" class="show-next-btn" onclick="showNextStep()">
+            ▶ Prossimo passaggio
+        </button>
+        <button id="all-btn" class="show-next-btn show-all-btn" onclick="showAllSteps()">
+            ⏩ Mostra tutto
+        </button>
+        <div id="done-buttons" class="done-buttons" style="display: none;">
+            <button id="mark-done" class="mark-btn mark-done" onclick="markExercise('done')">
+                ✓ Fatto
+            </button>
+            <button id="mark-review" class="mark-btn mark-review" onclick="markExercise('review')">
+                ⚠ Da rivedere
+            </button>
+            <button class="mark-btn mark-reset" onclick="resetExercise()">
+                ↺ Ricomincia
+            </button>
+            <button class="mark-btn" style="background: #17a2b8;" onclick="closeExercise()">
+                ✕ Chiudi
+            </button>
+        </div>
+    </div>
+
+    <div id="steps-wrapper">
+        
+        <div id="step-0" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">1</span>
+                1. CO2 - Anidride Carbonica
+            </div>
+            <div class="step-content">
+                <h1>Strutture di Lewis dei Composti del Carbonio</h1>
+
+<div class="question">
+<strong>QUESITO 3:</strong><br>
+Delle seguenti sostanze, descrivere le strutture di Lewis, la geometria molecolare e l'ibridizzazione degli atomi che la determinano:
+<ul>
+    <li>CO<sub>2</sub> (anidride carbonica)</li>
+    <li>Ione bicarbonato (HCO<sub>3</sub><sup>-</sup>)</li>
+    <li>H<sub>2</sub>CO (formaldeide)</li>
+    <li>H<sub>2</sub>CO<sub>2</sub> (acido formico HCOOH)</li>
+    <li>H<sub>2</sub>CO<sub>3</sub> (acido carbonico)</li>
+    <li>H<sub>2</sub>C<sub>2</sub>O<sub>4</sub> (acido ossalico)</li>
+</ul>
+</div>
+
+<div class="concept">
+<strong>Ripassino veloce prima di iniziare:</strong><br><br>
+Per costruire una struttura di Lewis dobbiamo:
+<ol>
+    <li><strong>Contare gli elettroni di valenza</strong> di tutti gli atomi</li>
+    <li><strong>Disegnare lo scheletro</strong> della molecola (l'atomo meno elettronegativo sta al centro, mai l'idrogeno)</li>
+    <li><strong>Distribuire i legami</strong> e i doppietti solitari per completare l'ottetto di tutti</li>
+    <li><strong>Verificare l'ibridizzazione</strong>: si conta il numero di "domini elettronici" (legami + doppietti solitari) attorno all'atomo centrale</li>
+    <li><strong>Determinare la geometria</strong> usando la teoria VSEPR</li>
+</ol>
+<br>
+<strong>Elettroni di valenza degli elementi coinvolti:</strong><br>
+- C (gruppo 14): 4 elettroni di valenza<br>
+- O (gruppo 16): 6 elettroni di valenza<br>
+- H (gruppo 1): 1 elettrone di valenza
+</div>
+
+<!-- ==================== CO2 ==================== --><h2>1. CO<sub>2</sub> - Anidride Carbonica</h2>
+
+<h3>Conteggio elettroni di valenza</h3>
+<p>Partiamo sempre dal conteggio degli elettroni. Quanti elettroni di valenza abbiamo in totale nella molecola CO<sub>2</sub>?</p>
+<div class="formula">
+C: 1 x 4 = 4 elettroni<br>
+O: 2 x 6 = 12 elettroni<br>
+<strong>Totale: 16 elettroni</strong> (ovvero 8 coppie)
+</div>
+
+<h3>Costruzione della struttura di Lewis</h3>
+<p>Il carbonio e' l'atomo centrale (e' meno elettronegativo dell'ossigeno). Ora dobbiamo distribuire 16 elettroni in modo che tutti gli atomi raggiungano l'ottetto.</p>
+
+<p>Se mettessimo solo legami singoli, avremmo:</p>
+<div class="lewis-box">
+O - C - O (legami singoli)
+</div>
+<p>Questo userebbe 4 elettroni (2 legami x 2 elettroni). Ne resterebbero 12, cioe' 6 coppie solitarie. Ma se le mettiamo sugli ossigeni (3 coppie ciascuno), il carbonio resterebbe con solo 4 elettroni, senza completare l'ottetto!</p>
+
+<p><strong>Soluzione:</strong> Dobbiamo formare <strong>doppi legami</strong>. Ogni ossigeno forma un doppio legame con il carbonio:</p>
+
+<div class="lewis-box">
+    :O::C::O:<br><br>
+oppure in forma estesa:<br><br>
+    O = C = O<br>
+    con 2 doppietti solitari su ogni O
+</div>
+
+<h3>Verifica dell'ottetto</h3>
+<ul>
+    <li><strong>Carbonio:</strong> 4 legami (2 doppi legami = 4 coppie di elettroni) = 8 elettroni. Ottetto completo!</li>
+    <li><strong>Ogni ossigeno:</strong> 2 legami (doppio legame) + 2 doppietti solitari = 8 elettroni. Ottetto completo!</li>
+</ul>
+
+<h3>Ibridizzazione del carbonio</h3>
+<p>Per determinare l'ibridizzazione, contiamo i <strong>domini elettronici</strong> attorno al carbonio. Un dominio elettronico puo' essere un legame singolo, doppio, triplo, oppure un doppietto solitario.</p>
+<div class="formula">
+Carbonio: 2 domini (un doppio legame a sinistra + un doppio legame a destra)<br>
+<strong>2 domini = ibridizzazione sp</strong>
+</div>
+
+<h3>Geometria molecolare</h3>
+<p>Con 2 domini elettronici, la geometria e' <strong>lineare</strong>. I due legami si dispongono a 180 gradi l'uno dall'altro per minimizzare la repulsione.</p>
+
+<div class="result">
+<strong>CO<sub>2</sub> - Riepilogo:</strong><br>
+- Struttura di Lewis: O=C=O (con 2 doppietti solitari su ogni O)<br>
+- Ibridizzazione del C: <strong>sp</strong><br>
+- Geometria: <strong>lineare</strong><br>
+- Angolo di legame: <strong>180 gradi</strong><br>
+- Molecola <strong>apolare</strong> (i due dipoli C-O si annullano)
+</div>
+
+<!-- ==================== HCO3- ==================== -->
+            </div>
+        </div>
+        
+        <div id="step-1" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">2</span>
+                2. HCO3- - Ione Bicarbonato
+            </div>
+            <div class="step-content">
+                <h2>2. HCO<sub>3</sub><sup>-</sup> - Ione Bicarbonato</h2>
+
+<h3>Conteggio elettroni di valenza</h3>
+<p>Attenzione! Questo e' uno <strong>ione negativo</strong>, quindi dobbiamo aggiungere un elettrone in piu' al conteggio:</p>
+<div class="formula">
+H: 1 x 1 = 1 elettrone<br>
+C: 1 x 4 = 4 elettroni<br>
+O: 3 x 6 = 18 elettroni<br>
+Carica negativa: +1 elettrone<br>
+<strong>Totale: 24 elettroni</strong> (12 coppie)
+</div>
+
+<h3>Costruzione della struttura di Lewis</h3>
+<p>Il carbonio e' l'atomo centrale. L'idrogeno si lega a uno degli ossigeni (formando il gruppo -OH tipico degli acidi). Gli altri due ossigeni si legano direttamente al carbonio.</p>
+
+<p>Per completare l'ottetto del carbonio, abbiamo bisogno di un doppio legame con uno degli ossigeni:</p>
+
+<div class="lewis-box">
+        O<sup>-</sup><br>
+        |<br>
+    O = C - O - H<br>
+<br>
+con doppietti solitari sugli ossigeni
+</div>
+
+<h3>Strutture di risonanza</h3>
+<p>Il doppio legame puo' trovarsi su due posizioni diverse, quindi esistono <strong>strutture di risonanza</strong>:</p>
+
+<div class="lewis-box">
+    <strong>Struttura 1:</strong><br>
+        O<sup>-</sup><br>
+        |<br>
+    O = C - O - H<br>
+<br>
+    <strong>Struttura 2:</strong><br>
+        O<br>
+        ||<br>
+  <sup>-</sup>O - C - O - H
+</div>
+
+<p>Nella realta', la molecola e' un <strong>ibrido di risonanza</strong>: la carica negativa e il carattere di doppio legame sono <em>delocalizzati</em> tra i due ossigeni che non portano l'idrogeno.</p>
+
+<h3>Ibridizzazione del carbonio</h3>
+<div class="formula">
+Carbonio: 3 domini elettronici (3 legami sigma: uno verso O=, uno verso O<sup>-</sup>, uno verso O-H)<br>
+<strong>3 domini = ibridizzazione sp<sup>2</sup></strong>
+</div>
+
+<h3>Geometria molecolare</h3>
+<p>Con 3 domini elettronici, la geometria attorno al carbonio e' <strong>trigonale planare</strong>.</p>
+
+<div class="result">
+<strong>HCO<sub>3</sub><sup>-</sup> - Riepilogo:</strong><br>
+- Struttura di Lewis: presenta risonanza tra i 2 ossigeni non legati all'H<br>
+- Ibridizzazione del C: <strong>sp<sup>2</sup></strong><br>
+- Geometria attorno a C: <strong>trigonale planare</strong><br>
+- Angoli di legame: circa <strong>120 gradi</strong>
+</div>
+
+<!-- ==================== H2CO ==================== -->
+            </div>
+        </div>
+        
+        <div id="step-2" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">3</span>
+                3. H2CO - Formaldeide
+            </div>
+            <div class="step-content">
+                <h2>3. H<sub>2</sub>CO - Formaldeide</h2>
+
+<h3>Conteggio elettroni di valenza</h3>
+<div class="formula">
+H: 2 x 1 = 2 elettroni<br>
+C: 1 x 4 = 4 elettroni<br>
+O: 1 x 6 = 6 elettroni<br>
+<strong>Totale: 12 elettroni</strong> (6 coppie)
+</div>
+
+<h3>Costruzione della struttura di Lewis</h3>
+<p>Il carbonio e' centrale. I due idrogeni si legano al carbonio, e l'ossigeno forma un doppio legame con il carbonio per completare l'ottetto di entrambi.</p>
+
+<div class="lewis-box">
+        H<br>
+        |<br>
+        C = O<br>
+        |<br>
+        H<br>
+<br>
+L'ossigeno ha 2 doppietti solitari
+</div>
+
+<h3>Verifica dell'ottetto</h3>
+<ul>
+    <li><strong>Carbonio:</strong> 2 legami singoli (con H) + 1 doppio legame (con O) = 4 legami = 8 elettroni. OK!</li>
+    <li><strong>Ossigeno:</strong> 1 doppio legame + 2 doppietti solitari = 8 elettroni. OK!</li>
+    <li><strong>Idrogeni:</strong> 1 legame ciascuno = 2 elettroni. OK! (l'H si accontenta di 2)</li>
+</ul>
+
+<h3>Ibridizzazione del carbonio</h3>
+<div class="formula">
+Carbonio: 3 domini elettronici (legame con O, legame con H, legame con H)<br>
+Nota: il doppio legame conta come UN solo dominio!<br>
+<strong>3 domini = ibridizzazione sp<sup>2</sup></strong>
+</div>
+
+<h3>Geometria molecolare</h3>
+<p>Con 3 domini tutti leganti, la geometria e' <strong>trigonale planare</strong>. La molecola e' completamente piatta.</p>
+
+<div class="result">
+<strong>H<sub>2</sub>CO (formaldeide) - Riepilogo:</strong><br>
+- Struttura di Lewis: C centrale con doppio legame a O e singoli legami a 2 H<br>
+- Ibridizzazione del C: <strong>sp<sup>2</sup></strong><br>
+- Geometria: <strong>trigonale planare</strong><br>
+- Angoli di legame: circa <strong>120 gradi</strong><br>
+- Molecola <strong>polare</strong> (il doppio legame C=O crea un dipolo)
+</div>
+
+<!-- ==================== HCOOH ==================== -->
+            </div>
+        </div>
+        
+        <div id="step-3" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">4</span>
+                4. H2CO2 - Acido Formico (HCOOH)
+            </div>
+            <div class="step-content">
+                <h2>4. H<sub>2</sub>CO<sub>2</sub> - Acido Formico (HCOOH)</h2>
+
+<h3>Conteggio elettroni di valenza</h3>
+<p>L'acido formico ha formula HCOOH, che possiamo scrivere come H-C(=O)-O-H. Quindi abbiamo:</p>
+<div class="formula">
+H: 2 x 1 = 2 elettroni<br>
+C: 1 x 4 = 4 elettroni<br>
+O: 2 x 6 = 12 elettroni<br>
+<strong>Totale: 18 elettroni</strong> (9 coppie)
+</div>
+
+<h3>Costruzione della struttura di Lewis</h3>
+<p>La struttura dell'acido formico e': un idrogeno legato direttamente al carbonio, il carbonio forma un doppio legame con un ossigeno (gruppo carbonilico C=O) e un legame singolo con un altro ossigeno che porta l'idrogeno acido (gruppo -OH).</p>
+
+<div class="lewis-box">
+        O<br>
+        ||<br>
+    H - C - O - H<br>
+<br>
+L'ossigeno del C=O ha 2 doppietti solitari<br>
+L'ossigeno del -OH ha 2 doppietti solitari
+</div>
+
+<h3>Verifica dell'ottetto</h3>
+<ul>
+    <li><strong>Carbonio:</strong> 1 legame C-H + 1 doppio legame C=O + 1 legame C-O = 4 legami = 8 elettroni. OK!</li>
+    <li><strong>Ossigeno carbonilico:</strong> doppio legame + 2 doppietti = 8 elettroni. OK!</li>
+    <li><strong>Ossigeno ossidrilico:</strong> 2 legami singoli (C-O e O-H) + 2 doppietti = 8 elettroni. OK!</li>
+</ul>
+
+<h3>Ibridizzazione del carbonio</h3>
+<div class="formula">
+Carbonio: 3 domini elettronici<br>
+(1 legame a H, 1 doppio legame a O, 1 legame singolo a O-H)<br>
+<strong>3 domini = ibridizzazione sp<sup>2</sup></strong>
+</div>
+
+<h3>Geometria molecolare</h3>
+<p>Attorno al carbonio abbiamo 3 domini, quindi geometria <strong>trigonale planare</strong> per il carbonio.</p>
+<p>L'ossigeno del gruppo -OH ha 4 domini (2 legami + 2 doppietti), quindi geometria tetraedrica, ma siccome ha 2 doppietti solitari, la forma risultante e' <strong>angolare/piegata</strong>.</p>
+
+<div class="result">
+<strong>HCOOH (acido formico) - Riepilogo:</strong><br>
+- Struttura di Lewis: H-C(=O)-O-H con doppietti solitari sugli ossigeni<br>
+- Ibridizzazione del C: <strong>sp<sup>2</sup></strong><br>
+- Geometria attorno a C: <strong>trigonale planare</strong><br>
+- Angoli attorno a C: circa <strong>120 gradi</strong><br>
+- Molecola <strong>polare</strong>
+</div>
+
+<!-- ==================== H2CO3 ==================== -->
+            </div>
+        </div>
+        
+        <div id="step-4" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">5</span>
+                5. H2CO3 - Acido Carbonico
+            </div>
+            <div class="step-content">
+                <h2>5. H<sub>2</sub>CO<sub>3</sub> - Acido Carbonico</h2>
+
+<h3>Conteggio elettroni di valenza</h3>
+<p>L'acido carbonico ha formula (HO)<sub>2</sub>C=O, cioe' due gruppi -OH legati al carbonio che porta anche un doppio legame con ossigeno.</p>
+<div class="formula">
+H: 2 x 1 = 2 elettroni<br>
+C: 1 x 4 = 4 elettroni<br>
+O: 3 x 6 = 18 elettroni<br>
+<strong>Totale: 24 elettroni</strong> (12 coppie)
+</div>
+
+<h3>Costruzione della struttura di Lewis</h3>
+
+<div class="lewis-box">
+            O<br>
+            ||<br>
+    H - O - C - O - H<br>
+<br>
+L'ossigeno centrale (C=O) ha 2 doppietti solitari<br>
+Ogni ossigeno dei gruppi -OH ha 2 doppietti solitari
+</div>
+
+<h3>Verifica dell'ottetto</h3>
+<ul>
+    <li><strong>Carbonio:</strong> 2 legami singoli (ai due O-H) + 1 doppio legame (a O) = 4 legami = 8 elettroni. OK!</li>
+    <li><strong>Ossigeno carbonilico:</strong> doppio legame + 2 doppietti = 8 elettroni. OK!</li>
+    <li><strong>Ossigeni ossidrilici:</strong> 2 legami singoli + 2 doppietti = 8 elettroni ciascuno. OK!</li>
+</ul>
+
+<h3>Strutture di risonanza</h3>
+<p>L'acido carbonico presenta <strong>risonanza</strong> perche' il doppio legame puo' essere delocalizzato tra i tre ossigeni:</p>
+
+<div class="lewis-box">
+<strong>Struttura 1:</strong> HO-C(=O)-OH (doppio legame sull'O centrale)<br>
+<strong>Struttura 2:</strong> HO-C(-O<sup>-</sup>)=O<sup>+</sup>H (contributo minore)<br>
+<strong>Struttura 3:</strong> <sup>+</sup>HO=C(-O<sup>-</sup>)-OH (contributo minore)
+</div>
+
+<p>La struttura principale e' la prima, le altre contribuiscono alla delocalizzazione elettronica.</p>
+
+<h3>Ibridizzazione del carbonio</h3>
+<div class="formula">
+Carbonio: 3 domini elettronici<br>
+(doppio legame a O + legame singolo a O-H + legame singolo a O-H)<br>
+<strong>3 domini = ibridizzazione sp<sup>2</sup></strong>
+</div>
+
+<h3>Geometria molecolare</h3>
+<p>Attorno al carbonio la geometria e' <strong>trigonale planare</strong>.</p>
+
+<div class="result">
+<strong>H<sub>2</sub>CO<sub>3</sub> (acido carbonico) - Riepilogo:</strong><br>
+- Struttura di Lewis: (HO)<sub>2</sub>C=O con doppietti solitari sugli ossigeni<br>
+- Ibridizzazione del C: <strong>sp<sup>2</sup></strong><br>
+- Geometria attorno a C: <strong>trigonale planare</strong><br>
+- Angoli attorno a C: circa <strong>120 gradi</strong><br>
+- Presenta risonanza<br>
+- Molecola <strong>polare</strong> e instabile (si decompone in CO<sub>2</sub> + H<sub>2</sub>O)
+</div>
+
+<!-- ==================== H2C2O4 ==================== -->
+            </div>
+        </div>
+        
+        <div id="step-5" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">6</span>
+                6. H2C2O4 - Acido Ossalico
+            </div>
+            <div class="step-content">
+                <h2>6. H<sub>2</sub>C<sub>2</sub>O<sub>4</sub> - Acido Ossalico</h2>
+
+<h3>Conteggio elettroni di valenza</h3>
+<p>L'acido ossalico e' HOOC-COOH, cioe' due gruppi carbossilici (-COOH) uniti direttamente attraverso i due carboni.</p>
+<div class="formula">
+H: 2 x 1 = 2 elettroni<br>
+C: 2 x 4 = 8 elettroni<br>
+O: 4 x 6 = 24 elettroni<br>
+<strong>Totale: 34 elettroni</strong> (17 coppie)
+</div>
+
+<h3>Costruzione della struttura di Lewis</h3>
+<p>La molecola e' simmetrica: ogni carbonio ha un doppio legame con un ossigeno carbonilico e un legame singolo con un gruppo -OH. I due carboni sono uniti da un legame singolo C-C.</p>
+
+<div class="lewis-box">
+    O           O<br>
+    ||          ||<br>
+H-O-C  ---  C-O-H<br>
+<br>
+I due carboni sono legati tra loro con un legame singolo<br>
+Ogni O carbonilico ha 2 doppietti solitari<br>
+Ogni O ossidrilico ha 2 doppietti solitari
+</div>
+
+<p>In forma piu' esplicita:</p>
+<div class="lewis-box">
+        O       O<br>
+        ||      ||<br>
+    H-O-C------C-O-H
+</div>
+
+<h3>Verifica dell'ottetto</h3>
+<ul>
+    <li><strong>Ogni carbonio:</strong> 1 legame C-C + 1 doppio legame C=O + 1 legame C-O = 4 legami = 8 elettroni. OK!</li>
+    <li><strong>Ossigeni carbonilici:</strong> doppio legame + 2 doppietti = 8 elettroni ciascuno. OK!</li>
+    <li><strong>Ossigeni ossidrilici:</strong> 2 legami singoli + 2 doppietti = 8 elettroni ciascuno. OK!</li>
+</ul>
+
+<h3>Ibridizzazione dei carboni</h3>
+<div class="formula">
+Ogni carbonio: 3 domini elettronici<br>
+(legame C-C, doppio legame C=O, legame C-O)<br>
+<strong>3 domini = ibridizzazione sp<sup>2</sup></strong> per entrambi i carboni
+</div>
+
+<h3>Geometria molecolare</h3>
+<p>Attorno a ciascun carbonio la geometria e' <strong>trigonale planare</strong>.</p>
+<p>La molecola nel suo complesso puo' assumere conformazioni diverse a seconda della rotazione attorno al legame C-C:</p>
+<ul>
+    <li><strong>Conformazione planare trans:</strong> i due gruppi C=O sono dalla stessa parte</li>
+    <li><strong>Conformazione planare cis:</strong> i due gruppi C=O sono da parti opposte</li>
+</ul>
+
+<div class="result">
+<strong>H<sub>2</sub>C<sub>2</sub>O<sub>4</sub> (acido ossalico) - Riepilogo:</strong><br>
+- Struttura di Lewis: HOOC-COOH, due gruppi carbossilici uniti<br>
+- Ibridizzazione di entrambi i C: <strong>sp<sup>2</sup></strong><br>
+- Geometria attorno a ogni C: <strong>trigonale planare</strong><br>
+- Angoli attorno ai C: circa <strong>120 gradi</strong><br>
+- Legame C-C singolo permette rotazione<br>
+- Molecola <strong>polare</strong>
+</div>
+
+<!-- ==================== TABELLA RIASSUNTIVA ==================== -->
+            </div>
+        </div>
+        
+        <div id="step-6" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">7</span>
+                Tabella Riassuntiva
+            </div>
+            <div class="step-content">
+                <h2>Tabella Riassuntiva</h2>
+
+<table class="summary-table">
+<tr>
+    <th>Molecola</th>
+    <th>Elettroni di valenza</th>
+    <th>Ibridizzazione C</th>
+    <th>Geometria</th>
+    <th>Angoli</th>
+</tr>
+<tr>
+    <td><strong>CO<sub>2</sub></strong></td>
+    <td>16</td>
+    <td>sp</td>
+    <td>Lineare</td>
+    <td>180</td>
+</tr>
+<tr>
+    <td><strong>HCO<sub>3</sub><sup>-</sup></strong></td>
+    <td>24</td>
+    <td>sp<sup>2</sup></td>
+    <td>Trigonale planare</td>
+    <td>~120</td>
+</tr>
+<tr>
+    <td><strong>H<sub>2</sub>CO</strong></td>
+    <td>12</td>
+    <td>sp<sup>2</sup></td>
+    <td>Trigonale planare</td>
+    <td>~120</td>
+</tr>
+<tr>
+    <td><strong>HCOOH</strong></td>
+    <td>18</td>
+    <td>sp<sup>2</sup></td>
+    <td>Trigonale planare</td>
+    <td>~120</td>
+</tr>
+<tr>
+    <td><strong>H<sub>2</sub>CO<sub>3</sub></strong></td>
+    <td>24</td>
+    <td>sp<sup>2</sup></td>
+    <td>Trigonale planare</td>
+    <td>~120</td>
+</tr>
+<tr>
+    <td><strong>H<sub>2</sub>C<sub>2</sub>O<sub>4</sub></strong></td>
+    <td>34</td>
+    <td>sp<sup>2</sup> (entrambi)</td>
+    <td>Trigonale planare</td>
+    <td>~120</td>
+</tr>
+</table>
+
+<div class="concept">
+<h3>Osservazione importante</h3>
+<p>Nota come quasi tutte queste molecole hanno il carbonio con ibridizzazione <strong>sp<sup>2</sup></strong>! L'unica eccezione e' la CO<sub>2</sub> dove il carbonio e' <strong>sp</strong>.</p>
+<p>La regola e' semplice:</p>
+<ul>
+    <li><strong>2 domini</strong> attorno al carbonio = sp = geometria lineare</li>
+    <li><strong>3 domini</strong> attorno al carbonio = sp<sup>2</sup> = geometria trigonale planare</li>
+    <li><strong>4 domini</strong> attorno al carbonio = sp<sup>3</sup> = geometria tetraedrica</li>
+</ul>
+<p>Quando il carbonio forma doppi legami (come C=O), tipicamente ha 3 domini, quindi e' sp<sup>2</sup>. Solo quando forma due doppi legami in direzioni opposte (come in CO<sub>2</sub>) o un triplo legame, allora e' sp.</p>
+</div>
+
+<div class="warning">
+<strong>Attenzione all'esame:</strong> Ricorda che per determinare l'ibridizzazione devi contare i <em>domini elettronici</em>, non il numero di atomi legati! Un doppio legame conta come UN solo dominio, cosi' come un triplo legame. Anche un doppietto solitario conta come un dominio.
+</div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+<script>
+    let currentStep = 0;
+    let totalSteps = 0;
+
+    document.addEventListener('DOMContentLoaded', function() {
+        totalSteps = document.querySelectorAll('.step-container').length;
+        updateProgress();
+        updateButtons();
+    });
+
+    function showNextStep() {
+        if (currentStep < totalSteps) {
+            const step = document.getElementById('step-' + currentStep);
+            if (step) {
+                step.classList.add('visible');
+                step.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                currentStep++;
+                updateProgress();
+                updateButtons();
+
+                if (window.parent !== window) {
+                    window.parent.postMessage({type: 'stepShown', step: currentStep, total: totalSteps}, '*');
+                }
+            }
+        }
+    }
+
+    function showAllSteps() {
+        document.querySelectorAll('.step-container').forEach(function(step) {
+            step.classList.add('visible');
+        });
+        currentStep = totalSteps;
+        updateProgress();
+        updateButtons();
+
+        if (window.parent !== window) {
+            window.parent.postMessage({type: 'allStepsShown'}, '*');
+        }
+    }
+
+    function hideAllSteps() {
+        document.querySelectorAll('.step-container').forEach(function(step) {
+            step.classList.remove('visible');
+        });
+        currentStep = 0;
+        updateProgress();
+        updateButtons();
+    }
+
+    function updateProgress() {
+        const pct = totalSteps > 0 ? (currentStep / totalSteps) * 100 : 0;
+        const fill = document.getElementById('progress-fill');
+        const text = document.getElementById('progress-text');
+        if (fill) fill.style.width = pct + '%';
+        if (text) text.textContent = 'Passaggio ' + currentStep + ' di ' + totalSteps;
+    }
+
+    function updateButtons() {
+        const nextBtn = document.getElementById('next-btn');
+        const allBtn = document.getElementById('all-btn');
+        const doneButtons = document.getElementById('done-buttons');
+
+        if (currentStep >= totalSteps) {
+            if (nextBtn) nextBtn.style.display = 'none';
+            if (allBtn) allBtn.style.display = 'none';
+            if (doneButtons) doneButtons.style.display = 'flex';
+        } else {
+            if (nextBtn) nextBtn.style.display = 'block';
+            if (allBtn) allBtn.style.display = 'block';
+            if (doneButtons) doneButtons.style.display = 'none';
+        }
+    }
+
+    function markExercise(status) {
+        // Salva in localStorage
+        const exerciseId = window.location.pathname.split('/').pop().replace('.html', '');
+        let progress = JSON.parse(localStorage.getItem('chemportal_progress') || '{}');
+        if (!progress.exercises) progress.exercises = {};
+        progress.exercises[exerciseId] = status;
+        localStorage.setItem('chemportal_progress', JSON.stringify(progress));
+
+        // Feedback visivo
+        const btn = status === 'done' ? document.getElementById('mark-done') : document.getElementById('mark-review');
+        const otherBtn = status === 'done' ? document.getElementById('mark-review') : document.getElementById('mark-done');
+
+        btn.classList.add('selected');
+        otherBtn.classList.remove('selected');
+
+        // Notifica parent
+        if (window.parent !== window) {
+            window.parent.postMessage({type: 'exerciseMarked', status: status, id: exerciseId}, '*');
+        }
+    }
+
+    function resetExercise() {
+        hideAllSteps();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Messaggi dal parent
+    window.addEventListener('message', function(e) {
+        if (e.data.type === 'showNext') showNextStep();
+        else if (e.data.type === 'showAll') showAllSteps();
+        else if (e.data.type === 'hideAll') hideAllSteps();
+    });
+
+    function closeExercise() {
+        if (window.parent !== window) {
+            // Siamo in iframe, chiedi al parent di chiudere
+            window.parent.postMessage({type: 'closeModal'}, '*');
+        } else {
+            // Standalone: torna alla pagina esercizi
+            const path = window.location.pathname;
+            if (path.includes('/content/soluzioni/')) {
+                window.location.href = '../../esercizi.html';
+            } else {
+                window.history.back();
+            }
+        }
+    }
+</script>
+</body>
+</html>

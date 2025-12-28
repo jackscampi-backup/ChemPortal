@@ -1,0 +1,1120 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Esame 4-1 - Esercizio 3: Strutture di Lewis, Geometria e Ibridizzazione</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 2cm;
+        }
+        body {
+            font-family: 'Georgia', serif;
+            font-size: 11pt;
+            line-height: 1.6;
+            color: #1a1a1a;
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+            font-size: 1.6em;
+            margin-bottom: 20px;
+        }
+        h2 {
+            color: #2980b9;
+            margin-top: 30px;
+            font-size: 1.3em;
+            border-left: 4px solid #3498db;
+            padding-left: 10px;
+        }
+        h3 {
+            color: #16a085;
+            font-size: 1.1em;
+            margin-top: 15px;
+        }
+        .intro {
+            background: linear-gradient(135deg, #e8f4f8 0%, #d4edda 100%);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            border-left: 5px solid #28a745;
+        }
+        .molecola {
+            background: #fafafa;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+            page-break-inside: avoid;
+        }
+        .lewis-box {
+            background: #fff;
+            border: 2px solid #3498db;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 12pt;
+            white-space: pre;
+            line-height: 1.3;
+            text-align: center;
+        }
+        .calcolo {
+            background: #fff3cd;
+            padding: 12px;
+            border-radius: 6px;
+            margin: 10px 0;
+            border-left: 4px solid #ffc107;
+        }
+        .geometria {
+            background: #d1ecf1;
+            padding: 12px;
+            border-radius: 6px;
+            margin: 10px 0;
+            border-left: 4px solid #17a2b8;
+        }
+        .ibridazione {
+            background: #d4edda;
+            padding: 12px;
+            border-radius: 6px;
+            margin: 10px 0;
+            border-left: 4px solid #28a745;
+        }
+        .riassunto {
+            background: #e2e3e5;
+            padding: 12px;
+            border-radius: 6px;
+            margin: 15px 0;
+            border-left: 4px solid #6c757d;
+        }
+        .formula {
+            font-family: 'Courier New', monospace;
+            background: #f8f9fa;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        .importante {
+            color: #c0392b;
+            font-weight: bold;
+        }
+        .nota {
+            background: #ffeaa7;
+            padding: 10px;
+            border-radius: 6px;
+            margin: 10px 0;
+            font-size: 0.95em;
+        }
+        ul {
+            margin: 10px 0;
+            padding-left: 25px;
+        }
+        li {
+            margin: 5px 0;
+        }
+    
+    .done-buttons {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+    .mark-btn {
+        padding: 12px 24px;
+        font-size: 1em;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .mark-done {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        color: white;
+    }
+    .mark-done:hover, .mark-done.selected {
+        background: linear-gradient(135deg, #1e7e34, #17a085);
+        transform: scale(1.05);
+    }
+    .mark-review {
+        background: linear-gradient(135deg, #ffc107, #fd7e14);
+        color: white;
+    }
+    .mark-review:hover, .mark-review.selected {
+        background: linear-gradient(135deg, #d39e00, #dc6502);
+        transform: scale(1.05);
+    }
+    .mark-reset {
+        background: #6c757d;
+        color: white;
+    }
+    .mark-reset:hover {
+        background: #545b62;
+    }
+    .mark-btn.selected {
+        box-shadow: 0 0 0 3px rgba(0,0,0,0.2);
+    }
+</style>
+
+<style>
+    .quiz-container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px;
+        padding-bottom: 120px;
+    }
+    .question-section {
+        background: linear-gradient(135deg, #e8f4f8 0%, #d4edda 100%);
+        border: 2px solid #17a2b8;
+        border-radius: 10px;
+        padding: 25px;
+        margin-bottom: 20px;
+    }
+    .question-section h2 {
+        color: #0c5460;
+        margin-top: 0;
+        margin-bottom: 15px;
+    }
+    .show-next-btn {
+        display: block;
+        width: 100%;
+        padding: 15px 30px;
+        font-size: 1.1em;
+        font-weight: bold;
+        color: white;
+        background: linear-gradient(135deg, #007bff, #0056b3);
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        margin: 15px 0;
+        transition: all 0.3s ease;
+    }
+    .show-next-btn:hover {
+        background: linear-gradient(135deg, #0056b3, #004094);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 123, 255, 0.4);
+    }
+    .show-all-btn {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        margin-top: 10px;
+    }
+    .show-all-btn:hover {
+        background: linear-gradient(135deg, #218838, #1db385);
+        box-shadow: 0 4px 12px rgba(40, 167, 69, 0.4);
+    }
+    .step-container {
+        display: none;
+        animation: fadeIn 0.5s ease;
+        margin-bottom: 20px;
+        border: 1px solid #dee2e6;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    .step-container.visible {
+        display: block;
+    }
+    .step-header {
+        background: linear-gradient(135deg, #6c757d, #495057);
+        color: white;
+        padding: 12px 20px;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+    }
+    .step-number-badge {
+        background: white;
+        color: #495057;
+        border-radius: 50%;
+        width: 28px;
+        height: 28px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 12px;
+        font-weight: bold;
+    }
+    .step-content {
+        padding: 20px;
+        background: white;
+    }
+    .progress-bar {
+        background: #e9ecef;
+        border-radius: 10px;
+        height: 8px;
+        margin: 15px 0;
+        overflow: hidden;
+    }
+    .progress-fill {
+        background: linear-gradient(90deg, #28a745, #20c997);
+        height: 100%;
+        border-radius: 10px;
+        transition: width 0.5s ease;
+    }
+    .progress-text {
+        text-align: center;
+        color: #6c757d;
+        font-size: 0.9em;
+        margin-bottom: 15px;
+    }
+    .controls {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: white;
+        padding: 15px 20px;
+        border-top: 2px solid #dee2e6;
+        box-shadow: 0 -4px 12px rgba(0,0,0,0.1);
+        z-index: 1000;
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+    }
+    .quiz-container {
+        padding-bottom: 100px;
+    }
+    .show-next-btn {
+        width: auto;
+        margin: 0;
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .final-answer {
+        background: #d4edda;
+        border: 2px solid #28a745;
+        border-radius: 10px;
+        padding: 20px;
+        margin-top: 20px;
+    }
+    .final-answer h3 {
+        color: #155724;
+        margin-top: 0;
+    }
+
+    .done-buttons {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+    .mark-btn {
+        padding: 12px 24px;
+        font-size: 1em;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .mark-done {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        color: white;
+    }
+    .mark-done:hover, .mark-done.selected {
+        background: linear-gradient(135deg, #1e7e34, #17a085);
+        transform: scale(1.05);
+    }
+    .mark-review {
+        background: linear-gradient(135deg, #ffc107, #fd7e14);
+        color: white;
+    }
+    .mark-review:hover, .mark-review.selected {
+        background: linear-gradient(135deg, #d39e00, #dc6502);
+        transform: scale(1.05);
+    }
+    .mark-reset {
+        background: #6c757d;
+        color: white;
+    }
+    .mark-reset:hover {
+        background: #545b62;
+    }
+    .mark-btn.selected {
+        box-shadow: 0 0 0 3px rgba(0,0,0,0.2);
+    }
+</style>
+</head>
+<body>
+<div class="quiz-container">
+    <h1>Esame 4-1 - Esercizio 3: Strutture di Lewis, Geometria Molecolare e Ibridizzazione</h1>
+
+    <div class="question-section">
+        <h2>Testo dell'esercizio</h2>
+        <p>Risolvi l'esercizio seguente.</p>
+    </div>
+
+    <div class="progress-text" id="progress-text">Passaggio 0 di 8</div>
+    <div class="progress-bar">
+        <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+    </div>
+
+    <div class="controls">
+        <button id="next-btn" class="show-next-btn" onclick="showNextStep()">
+            ▶ Prossimo passaggio
+        </button>
+        <button id="all-btn" class="show-next-btn show-all-btn" onclick="showAllSteps()">
+            ⏩ Mostra tutto
+        </button>
+        <div id="done-buttons" class="done-buttons" style="display: none;">
+            <button id="mark-done" class="mark-btn mark-done" onclick="markExercise('done')">
+                ✓ Fatto
+            </button>
+            <button id="mark-review" class="mark-btn mark-review" onclick="markExercise('review')">
+                ⚠ Da rivedere
+            </button>
+            <button class="mark-btn mark-reset" onclick="resetExercise()">
+                ↺ Ricomincia
+            </button>
+            <button class="mark-btn" style="background: #17a2b8;" onclick="closeExercise()">
+                ✕ Chiudi
+            </button>
+        </div>
+    </div>
+
+    <div id="steps-wrapper">
+        
+        <div id="step-0" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">1</span>
+                Premessa Metodologica
+            </div>
+            <div class="step-content">
+                <h1>Esame 4-1 - Esercizio 3: Strutture di Lewis, Geometria Molecolare e Ibridizzazione</h1>
+
+<div class="intro">
+    <strong>Testo dell'esercizio:</strong> Delle seguenti sostanze, riportare le strutture di Lewis, la geometria molecolare e l'ibridizzazione degli atomi che la determinano: <strong>SO2, HClO4, HCOOH, P2O5, P2O3, NaN3</strong>.
+</div><h2>Premessa Metodologica</h2>
+
+<p>Per risolvere questo esercizio seguiremo sempre lo stesso procedimento per ogni molecola:</p>
+
+<ol>
+    <li><strong>Contare gli elettroni di valenza totali</strong> disponibili nella molecola</li>
+    <li><strong>Identificare l'atomo centrale</strong> (generalmente il meno elettronegativo, escluso H)</li>
+    <li><strong>Disegnare la struttura di Lewis</strong> distribuendo i legami e le coppie solitarie</li>
+    <li><strong>Applicare la teoria VSEPR</strong> per determinare la geometria</li>
+    <li><strong>Dedurre l'ibridizzazione</strong> dall'arrangiamento dei gruppi elettronici</li>
+</ol>
+
+<p>Ricordiamo gli elettroni di valenza degli elementi coinvolti:</p>
+<ul>
+    <li><strong>H</strong> (gruppo 1): 1 elettrone</li>
+    <li><strong>C</strong> (gruppo 14): 4 elettroni</li>
+    <li><strong>N</strong> (gruppo 15): 5 elettroni</li>
+    <li><strong>O</strong> (gruppo 16): 6 elettroni</li>
+    <li><strong>P</strong> (gruppo 15): 5 elettroni</li>
+    <li><strong>S</strong> (gruppo 16): 6 elettroni</li>
+    <li><strong>Cl</strong> (gruppo 17): 7 elettroni</li>
+    <li><strong>Na</strong> (gruppo 1): 1 elettrone</li>
+</ul>
+
+<!-- MOLECOLA 1: SO2 -->
+<div class="molecola">
+            </div>
+        </div>
+        
+        <div id="step-1" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">2</span>
+                1. Biossido di Zolfo (SO2)
+            </div>
+            <div class="step-content">
+                <h2>1. Biossido di Zolfo (SO2)</h2>
+
+<h3>Conteggio degli elettroni di valenza</h3>
+<div class="calcolo">
+    <p>Lo zolfo appartiene al gruppo 16, quindi ha 6 elettroni di valenza. Ogni ossigeno, anch'esso del gruppo 16, contribuisce con 6 elettroni.</p>
+    <p><strong>Elettroni totali = 1 × S + 2 × O = 6 + 2(6) = 6 + 12 = 18 elettroni</strong></p>
+</div>
+
+<h3>Identificazione dell'atomo centrale</h3>
+<p>Lo zolfo e' l'atomo centrale perche' e' meno elettronegativo dell'ossigeno. Gli ossigeni si legano allo zolfo.</p>
+
+<h3>Struttura di Lewis</h3>
+<p>Con 18 elettroni disponibili, dobbiamo formare i legami S-O e distribuire le coppie solitarie. La molecola SO2 presenta una <strong>risonanza</strong>: lo zolfo forma un doppio legame con un ossigeno e un legame singolo con l'altro, poi le strutture si scambiano. In media, ogni legame S-O ha carattere di legame 1.5.</p>
+
+<div class="lewis-box">
+        ..          ..
+        O           O
+       //           |
+       S      o     S
+       |           //
+       O           O
+      ..          ..
+
+  (Strutture di risonanza)
+
+  Rappresentazione media:
+
+         ..
+         O
+        /
+       S:
+        \
+         O
+         ..
+</div>
+
+<p>Ogni ossigeno ha 2 coppie solitarie (4 elettroni non condivisi). Lo zolfo centrale ha <strong>1 coppia solitaria</strong>.</p>
+
+<p>Verifica: 2 legami (doppi in media) = 4 elettroni di legame × 2 = 8 elettroni nei legami. Lo zolfo ha 2 elettroni solitari, ogni O ha 4 elettroni solitari: 2 + 4 + 4 = 10. Totale: 8 + 10 = 18 elettroni. Corretto!</p>
+
+<h3>Geometria VSEPR</h3>
+<div class="geometria">
+    <p>Intorno allo zolfo centrale abbiamo:</p>
+    <ul>
+        <li>2 gruppi leganti (i due ossigeni)</li>
+        <li>1 coppia solitaria</li>
+    </ul>
+    <p><strong>Totale: 3 gruppi elettronici</strong></p>
+    <p>La geometria elettronica e' <strong>trigonale planare</strong>, ma siccome uno dei tre gruppi e' una coppia solitaria (non visibile), la <strong>geometria molecolare</strong> e' <span class="importante">ANGOLARE (o piegata)</span>.</p>
+</div>
+
+<h3>Ibridizzazione</h3>
+<div class="ibridazione">
+    <p>Con 3 gruppi elettronici intorno allo zolfo, l'ibridizzazione e' <strong>sp2</strong>.</p>
+    <p>Gli orbitali sp2 si dispongono a 120 gradi nel piano. La coppia solitaria occupa uno di questi orbitali, mentre gli altri due formano i legami con gli ossigeni.</p>
+</div>
+
+<h3>Angolo di legame</h3>
+<p>L'angolo O-S-O teorico sarebbe 120 gradi, ma la coppia solitaria esercita una repulsione maggiore, quindi l'angolo reale e' leggermente inferiore: circa <strong>119 gradi</strong>.</p>
+
+<div class="riassunto">
+    <strong>RIASSUNTO SO2:</strong>
+    <ul>
+        <li>Elettroni di valenza: 18</li>
+        <li>Geometria elettronica: Trigonale planare</li>
+        <li>Geometria molecolare: <strong>Angolare (piegata)</strong></li>
+        <li>Ibridizzazione S: <strong>sp2</strong></li>
+        <li>Angolo di legame: circa 119 gradi</li>
+    </ul>
+</div>
+</div>
+
+<!-- MOLECOLA 2: HClO4 -->
+<div class="molecola">
+            </div>
+        </div>
+        
+        <div id="step-2" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">3</span>
+                2. Acido Perclorico (HClO4)
+            </div>
+            <div class="step-content">
+                <h2>2. Acido Perclorico (HClO4)</h2>
+
+<h3>Conteggio degli elettroni di valenza</h3>
+<div class="calcolo">
+    <p>L'idrogeno ha 1 elettrone, il cloro (gruppo 17) ha 7 elettroni, e ogni ossigeno (gruppo 16) ha 6 elettroni.</p>
+    <p><strong>Elettroni totali = 1 × H + 1 × Cl + 4 × O = 1 + 7 + 4(6) = 1 + 7 + 24 = 32 elettroni</strong></p>
+</div>
+
+<h3>Identificazione dell'atomo centrale</h3>
+<p>Il cloro e' l'atomo centrale. Gli ossigeni si legano al cloro. L'idrogeno si lega a uno degli ossigeni (formando il gruppo -OH tipico degli ossiacidi).</p>
+
+<h3>Struttura di Lewis</h3>
+<p>Nell'acido perclorico, il cloro e' al suo massimo stato di ossidazione (+7). Il cloro forma:</p>
+<ul>
+    <li>3 doppi legami con 3 ossigeni</li>
+    <li>1 legame singolo con l'ossigeno che porta l'idrogeno (gruppo OH)</li>
+</ul>
+
+<div class="lewis-box">
+             O:
+             ||
+    :O = Cl - O - H
+             ||
+             O:
+
+  Oppure in forma espansa:
+
+         ..
+         O
+         ||
+  ..     ||     ..
+  O  ==  Cl  == O
+         |
+         O - H
+         ..
+</div>
+
+<p>Ogni ossigeno con doppio legame ha 2 coppie solitarie. L'ossigeno legato all'idrogeno ha anch'esso 2 coppie solitarie.</p>
+
+<p>Verifica: 3 doppi legami (3 × 4 = 12 elettroni) + 1 legame Cl-O singolo (2 elettroni) + 1 legame O-H (2 elettroni) = 16 elettroni di legame. Coppie solitarie: 4 ossigeni × 4 elettroni = 16 elettroni. Totale: 16 + 16 = 32 elettroni. Corretto!</p>
+
+<h3>Geometria VSEPR</h3>
+<div class="geometria">
+    <p>Intorno al cloro centrale abbiamo:</p>
+    <ul>
+        <li>4 gruppi leganti (i quattro ossigeni)</li>
+        <li>0 coppie solitarie sul cloro</li>
+    </ul>
+    <p><strong>Totale: 4 gruppi elettronici</strong></p>
+    <p>La geometria elettronica e molecolare coincidono: <span class="importante">TETRAEDRICA</span>.</p>
+</div>
+
+<h3>Ibridizzazione</h3>
+<div class="ibridazione">
+    <p>Con 4 gruppi elettronici intorno al cloro, l'ibridizzazione e' <strong>sp3</strong>.</p>
+    <p>I quattro orbitali sp3 puntano verso i vertici di un tetraedro.</p>
+</div>
+
+<h3>Angolo di legame</h3>
+<p>L'angolo O-Cl-O e' di circa <strong>109.5 gradi</strong> (angolo tetraedrico ideale), con piccole variazioni dovute alla differenza tra i legami singoli e doppi.</p>
+
+<div class="riassunto">
+    <strong>RIASSUNTO HClO4:</strong>
+    <ul>
+        <li>Elettroni di valenza: 32</li>
+        <li>Geometria elettronica: Tetraedrica</li>
+        <li>Geometria molecolare: <strong>Tetraedrica</strong></li>
+        <li>Ibridizzazione Cl: <strong>sp3</strong></li>
+        <li>Ibridizzazione O (del gruppo OH): <strong>sp3</strong></li>
+        <li>Angolo di legame: circa 109.5 gradi</li>
+    </ul>
+</div>
+</div>
+
+<!-- MOLECOLA 3: HCOOH -->
+<div class="molecola">
+            </div>
+        </div>
+        
+        <div id="step-3" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">4</span>
+                3. Acido Formico (HCOOH)
+            </div>
+            <div class="step-content">
+                <h2>3. Acido Formico (HCOOH)</h2>
+
+<h3>Conteggio degli elettroni di valenza</h3>
+<div class="calcolo">
+    <p>Questa molecola contiene 2 idrogeni, 1 carbonio e 2 ossigeni.</p>
+    <p><strong>Elettroni totali = 2 × H + 1 × C + 2 × O = 2(1) + 4 + 2(6) = 2 + 4 + 12 = 18 elettroni</strong></p>
+</div>
+
+<h3>Struttura della molecola</h3>
+<p>L'acido formico e' il piu' semplice acido carbossilico. Ha la struttura H-C(=O)-O-H, cioe':</p>
+<ul>
+    <li>Un carbonio centrale</li>
+    <li>Un ossigeno legato con doppio legame al carbonio (ossigeno carbonilico)</li>
+    <li>Un gruppo -OH legato al carbonio (gruppo ossidrilico)</li>
+    <li>Un idrogeno legato direttamente al carbonio</li>
+</ul>
+
+<h3>Struttura di Lewis</h3>
+<div class="lewis-box">
+            O:
+            ||
+       H -- C -- O -- H
+
+  Forma espansa:
+
+       ..
+       O
+       ||
+  H -- C -- O -- H
+            ..
+</div>
+
+<p>L'ossigeno carbonilico (=O) ha 2 coppie solitarie. L'ossigeno del gruppo OH ha anch'esso 2 coppie solitarie.</p>
+
+<p>Verifica: Legami: C-H (2 el), C=O (4 el), C-O (2 el), O-H (2 el) = 10 elettroni di legame. Coppie solitarie: 2 ossigeni × 4 elettroni = 8 elettroni. Totale: 10 + 8 = 18 elettroni. Corretto!</p>
+
+<h3>Geometria VSEPR</h3>
+<div class="geometria">
+    <p><strong>Intorno al carbonio:</strong></p>
+    <ul>
+        <li>3 gruppi leganti: 1 H, 1 ossigeno (=O), 1 ossigeno (-OH)</li>
+        <li>0 coppie solitarie</li>
+    </ul>
+    <p><strong>Totale: 3 gruppi elettronici intorno a C</strong></p>
+    <p>Geometria del carbonio: <span class="importante">TRIGONALE PLANARE</span></p>
+
+    <p><strong>Intorno all'ossigeno del gruppo OH:</strong></p>
+    <ul>
+        <li>2 gruppi leganti: 1 C, 1 H</li>
+        <li>2 coppie solitarie</li>
+    </ul>
+    <p><strong>Totale: 4 gruppi elettronici intorno a O</strong></p>
+    <p>Geometria molecolare dell'ossigeno: <span class="importante">ANGOLARE (piegata)</span></p>
+</div>
+
+<h3>Ibridizzazione</h3>
+<div class="ibridazione">
+    <p><strong>Carbonio:</strong> con 3 gruppi elettronici, l'ibridizzazione e' <strong>sp2</strong>. Il carbonio e' planare.</p>
+    <p><strong>Ossigeno del gruppo OH:</strong> con 4 gruppi elettronici (2 legami + 2 coppie solitarie), l'ibridizzazione e' <strong>sp3</strong>.</p>
+    <p><strong>Ossigeno carbonilico (=O):</strong> anch'esso e' ibridizzato <strong>sp2</strong> per formare il doppio legame con il carbonio.</p>
+</div>
+
+<h3>Angoli di legame</h3>
+<ul>
+    <li>Angoli intorno al C (H-C-O, O-C-O): circa <strong>120 gradi</strong></li>
+    <li>Angolo C-O-H: circa <strong>104-109 gradi</strong> (influenzato dalle coppie solitarie)</li>
+</ul>
+
+<div class="riassunto">
+    <strong>RIASSUNTO HCOOH:</strong>
+    <ul>
+        <li>Elettroni di valenza: 18</li>
+        <li>Geometria del C: <strong>Trigonale planare</strong></li>
+        <li>Geometria dell'O (OH): <strong>Angolare</strong></li>
+        <li>Ibridizzazione C: <strong>sp2</strong></li>
+        <li>Ibridizzazione O (carbonilico): <strong>sp2</strong></li>
+        <li>Ibridizzazione O (OH): <strong>sp3</strong></li>
+        <li>Angoli intorno a C: circa 120 gradi</li>
+    </ul>
+</div>
+</div>
+
+<!-- MOLECOLA 4: P2O5 -->
+<div class="molecola">
+            </div>
+        </div>
+        
+        <div id="step-4" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">5</span>
+                4. Pentossido di Difosforo (P2O5)
+            </div>
+            <div class="step-content">
+                <h2>4. Pentossido di Difosforo (P2O5)</h2>
+
+<h3>Premessa importante</h3>
+<div class="nota">
+    <p>La formula P2O5 rappresenta la <strong>formula minima</strong>. La molecola reale esiste come <strong>P4O10</strong> (dimero). Tuttavia, per scopi didattici, analizziamo una unita' P2O5 considerando come il fosforo si lega agli ossigeni.</p>
+</div>
+
+<h3>Conteggio degli elettroni di valenza</h3>
+<div class="calcolo">
+    <p>Il fosforo (gruppo 15) ha 5 elettroni di valenza. L'ossigeno (gruppo 16) ha 6 elettroni.</p>
+    <p><strong>Per P2O5: Elettroni = 2 × P + 5 × O = 2(5) + 5(6) = 10 + 30 = 40 elettroni</strong></p>
+</div>
+
+<h3>Struttura</h3>
+<p>Nella struttura reale P4O10, ogni atomo di fosforo e':</p>
+<ul>
+    <li>Legato a 4 ossigeni</li>
+    <li>1 ossigeno con doppio legame (terminale)</li>
+    <li>3 ossigeni a ponte (che collegano due atomi di P)</li>
+</ul>
+
+<p>Per un singolo P in questa struttura, consideriamo che il fosforo forma 4 legami con gli ossigeni.</p>
+
+<h3>Struttura di Lewis (unita' semplificata)</h3>
+<div class="lewis-box">
+           O                   O
+           ||                  ||
+    :O -- P -- O -- P -- O:
+           |                   |
+           O                   O
+          ..                  ..
+
+  (Rappresentazione semplificata dell'unita' P2O5)
+</div>
+
+<p>Ogni fosforo ha:</p>
+<ul>
+    <li>1 doppio legame con un ossigeno terminale</li>
+    <li>3 legami singoli con ossigeni (alcuni a ponte)</li>
+</ul>
+
+<h3>Geometria VSEPR</h3>
+<div class="geometria">
+    <p>Intorno a ciascun fosforo:</p>
+    <ul>
+        <li>4 gruppi leganti (i quattro ossigeni)</li>
+        <li>0 coppie solitarie</li>
+    </ul>
+    <p><strong>Totale: 4 gruppi elettronici</strong></p>
+    <p>Geometria di ciascun P: <span class="importante">TETRAEDRICA</span></p>
+</div>
+
+<h3>Ibridizzazione</h3>
+<div class="ibridazione">
+    <p>Con 4 gruppi elettronici, ciascun fosforo ha ibridizzazione <strong>sp3</strong>.</p>
+    <p>Gli ossigeni a ponte hanno ibridizzazione <strong>sp3</strong> (2 legami + 2 coppie solitarie).</p>
+    <p>Gli ossigeni terminali con doppio legame hanno ibridizzazione <strong>sp2</strong>.</p>
+</div>
+
+<h3>Angoli di legame</h3>
+<p>Gli angoli O-P-O sono circa <strong>109.5 gradi</strong> (tetraedrici).</p>
+
+<div class="riassunto">
+    <strong>RIASSUNTO P2O5:</strong>
+    <ul>
+        <li>Elettroni di valenza (per P2O5): 40</li>
+        <li>Geometria di ogni P: <strong>Tetraedrica</strong></li>
+        <li>Ibridizzazione P: <strong>sp3</strong></li>
+        <li>Ibridizzazione O (a ponte): <strong>sp3</strong></li>
+        <li>Ibridizzazione O (terminale): <strong>sp2</strong></li>
+        <li>Angoli O-P-O: circa 109.5 gradi</li>
+    </ul>
+</div>
+</div>
+
+<!-- MOLECOLA 5: P2O3 -->
+<div class="molecola">
+            </div>
+        </div>
+        
+        <div id="step-5" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">6</span>
+                5. Triossido di Difosforo (P2O3)
+            </div>
+            <div class="step-content">
+                <h2>5. Triossido di Difosforo (P2O3)</h2>
+
+<h3>Premessa</h3>
+<div class="nota">
+    <p>Analogamente a P2O5, la formula P2O3 e' la formula minima. La molecola reale e' <strong>P4O6</strong>. Il fosforo qui e' nello stato di ossidazione +3 (invece di +5 come in P2O5).</p>
+</div>
+
+<h3>Conteggio degli elettroni di valenza</h3>
+<div class="calcolo">
+    <p><strong>Per P2O3: Elettroni = 2 × P + 3 × O = 2(5) + 3(6) = 10 + 18 = 28 elettroni</strong></p>
+</div>
+
+<h3>Struttura</h3>
+<p>In P4O6, ogni atomo di fosforo e' legato a 3 ossigeni a ponte. Non ci sono ossigeni terminali con doppio legame (a differenza di P4O10). Ogni fosforo mantiene una coppia solitaria.</p>
+
+<h3>Struttura di Lewis (unita' semplificata)</h3>
+<div class="lewis-box">
+          ..             ..
+          P -- O -- P
+         / \         / \
+        O   O       O   O
+
+  (Ogni P ha una coppia solitaria non mostrata esplicitamente)
+
+  Singolo fosforo:
+
+       :P -- O
+       / \
+      O   O
+</div>
+
+<p>Ogni fosforo:</p>
+<ul>
+    <li>Ha 3 legami singoli con ossigeni</li>
+    <li>Mantiene 1 coppia solitaria</li>
+</ul>
+
+<h3>Geometria VSEPR</h3>
+<div class="geometria">
+    <p>Intorno a ciascun fosforo:</p>
+    <ul>
+        <li>3 gruppi leganti (tre ossigeni)</li>
+        <li>1 coppia solitaria</li>
+    </ul>
+    <p><strong>Totale: 4 gruppi elettronici</strong></p>
+    <p>Geometria elettronica: Tetraedrica</p>
+    <p>Geometria molecolare (visibile): <span class="importante">PIRAMIDALE TRIGONALE</span></p>
+</div>
+
+<h3>Ibridizzazione</h3>
+<div class="ibridazione">
+    <p>Con 4 gruppi elettronici (3 legami + 1 coppia solitaria), ciascun fosforo ha ibridizzazione <strong>sp3</strong>.</p>
+    <p>Gli ossigeni a ponte hanno anch'essi ibridizzazione <strong>sp3</strong>.</p>
+</div>
+
+<h3>Angoli di legame</h3>
+<p>Gli angoli O-P-O sono leggermente inferiori a 109.5 gradi a causa della repulsione della coppia solitaria, circa <strong>100-104 gradi</strong>.</p>
+
+<div class="riassunto">
+    <strong>RIASSUNTO P2O3:</strong>
+    <ul>
+        <li>Elettroni di valenza (per P2O3): 28</li>
+        <li>Geometria elettronica di P: Tetraedrica</li>
+        <li>Geometria molecolare di P: <strong>Piramidale trigonale</strong></li>
+        <li>Ibridizzazione P: <strong>sp3</strong></li>
+        <li>Ibridizzazione O: <strong>sp3</strong></li>
+        <li>Angoli O-P-O: circa 100-104 gradi</li>
+    </ul>
+</div>
+</div>
+
+<!-- MOLECOLA 6: NaN3 -->
+<div class="molecola">
+            </div>
+        </div>
+        
+        <div id="step-6" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">7</span>
+                6. Azoturo di Sodio (NaN3)
+            </div>
+            <div class="step-content">
+                <h2>6. Azoturo di Sodio (NaN3)</h2>
+
+<h3>Natura del composto</h3>
+<div class="nota">
+    <p><strong>ATTENZIONE:</strong> NaN3 e' un <strong>composto ionico</strong>, non una molecola covalente! E' formato dal catione sodio Na+ e dall'anione azoturo N3-. Dobbiamo analizzare separatamente lo ione azide N3-.</p>
+</div>
+
+<h3>Struttura ionica</h3>
+<p>Il sodio, essendo un metallo alcalino (gruppo 1), perde facilmente il suo unico elettrone di valenza per formare Na+. L'anione azoturo N3- e' formato da tre atomi di azoto legati in modo covalente.</p>
+
+<h3>Conteggio degli elettroni di valenza dello ione N3-</h3>
+<div class="calcolo">
+    <p>Ogni azoto (gruppo 15) ha 5 elettroni di valenza. Lo ione ha una carica negativa, quindi c'e' 1 elettrone in piu'.</p>
+    <p><strong>Elettroni totali N3- = 3 × N + 1 (carica) = 3(5) + 1 = 15 + 1 = 16 elettroni</strong></p>
+</div>
+
+<h3>Struttura di Lewis dell'anione N3-</h3>
+<p>Lo ione azide ha una struttura lineare con l'azoto centrale legato ai due azoti terminali. Presenta strutture di risonanza:</p>
+
+<div class="lewis-box">
+  Strutture di risonanza dell'anione N3-:
+
+  [-]                          [-]
+  :N = N = N:    &lt;-&gt;    :N - N = N:
+
+                 &lt;-&gt;
+
+        [-]
+  :N = N - N:
+
+  Struttura media (la piu' rappresentativa):
+
+        [-]
+  [:N = N = N:]
+</div>
+
+<p>Nella struttura di risonanza principale, l'azoto centrale forma doppi legami con entrambi gli azoti terminali. La carica negativa e' delocalizzata.</p>
+
+<p>Verifica: Con 16 elettroni: 2 doppi legami (8 elettroni) + 2 coppie solitarie sull'azoto centrale (0 in questa struttura di risonanza, ma contando tutte: 4 elettroni su ogni N terminale) = 8 + 8 = 16 elettroni. Corretto!</p>
+
+<h3>Geometria VSEPR dello ione N3-</h3>
+<div class="geometria">
+    <p>Intorno all'azoto centrale:</p>
+    <ul>
+        <li>2 gruppi leganti (i due azoti terminali)</li>
+        <li>0 coppie solitarie (nella struttura di risonanza principale)</li>
+    </ul>
+    <p><strong>Totale: 2 gruppi elettronici</strong></p>
+    <p>Geometria: <span class="importante">LINEARE</span></p>
+</div>
+
+<h3>Ibridizzazione</h3>
+<div class="ibridazione">
+    <p><strong>Azoto centrale:</strong> con 2 gruppi elettronici, l'ibridizzazione e' <strong>sp</strong>.</p>
+    <p><strong>Azoti terminali:</strong> partecipano al doppio legame, quindi sono anch'essi ibridizzati <strong>sp</strong> (o sp2 considerando le coppie solitarie, ma la geometria resta lineare per la molecola).</p>
+</div>
+
+<h3>Angolo di legame</h3>
+<p>L'angolo N-N-N e' esattamente <strong>180 gradi</strong> (geometria lineare).</p>
+
+<div class="riassunto">
+    <strong>RIASSUNTO NaN3:</strong>
+    <ul>
+        <li>Tipo di composto: <strong>Ionico</strong> (Na+ e N3-)</li>
+        <li>Elettroni di valenza N3-: 16</li>
+        <li>Geometria N3-: <strong>Lineare</strong></li>
+        <li>Ibridizzazione N centrale: <strong>sp</strong></li>
+        <li>Angolo N-N-N: <strong>180 gradi</strong></li>
+    </ul>
+</div>
+</div>
+            </div>
+        </div>
+        
+        <div id="step-7" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">8</span>
+                Tabella Riassuntiva Finale
+            </div>
+            <div class="step-content">
+                <h2>Tabella Riassuntiva Finale</h2>
+
+<table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+    <thead>
+        <tr style="background: #3498db; color: white;">
+            <th style="padding: 10px; border: 1px solid #ddd;">Molecola</th>
+            <th style="padding: 10px; border: 1px solid #ddd;">e- valenza</th>
+            <th style="padding: 10px; border: 1px solid #ddd;">Geometria Molecolare</th>
+            <th style="padding: 10px; border: 1px solid #ddd;">Ibridizzazione</th>
+            <th style="padding: 10px; border: 1px solid #ddd;">Angoli</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr style="background: #f8f9fa;">
+            <td style="padding: 8px; border: 1px solid #ddd;"><strong>SO2</strong></td>
+            <td style="padding: 8px; border: 1px solid #ddd;">18</td>
+            <td style="padding: 8px; border: 1px solid #ddd;">Angolare</td>
+            <td style="padding: 8px; border: 1px solid #ddd;">S: sp2</td>
+            <td style="padding: 8px; border: 1px solid #ddd;">~119 gradi</td>
+        </tr>
+        <tr>
+            <td style="padding: 8px; border: 1px solid #ddd;"><strong>HClO4</strong></td>
+            <td style="padding: 8px; border: 1px solid #ddd;">32</td>
+            <td style="padding: 8px; border: 1px solid #ddd;">Tetraedrica</td>
+            <td style="padding: 8px; border: 1px solid #ddd;">Cl: sp3</td>
+            <td style="padding: 8px; border: 1px solid #ddd;">~109.5 gradi</td>
+        </tr>
+        <tr style="background: #f8f9fa;">
+            <td style="padding: 8px; border: 1px solid #ddd;"><strong>HCOOH</strong></td>
+            <td style="padding: 8px; border: 1px solid #ddd;">18</td>
+            <td style="padding: 8px; border: 1px solid #ddd;">Trigonale planare (C)</td>
+            <td style="padding: 8px; border: 1px solid #ddd;">C: sp2, O(OH): sp3</td>
+            <td style="padding: 8px; border: 1px solid #ddd;">~120 gradi (C)</td>
+        </tr>
+        <tr>
+            <td style="padding: 8px; border: 1px solid #ddd;"><strong>P2O5</strong></td>
+            <td style="padding: 8px; border: 1px solid #ddd;">40</td>
+            <td style="padding: 8px; border: 1px solid #ddd;">Tetraedrica (P)</td>
+            <td style="padding: 8px; border: 1px solid #ddd;">P: sp3</td>
+            <td style="padding: 8px; border: 1px solid #ddd;">~109.5 gradi</td>
+        </tr>
+        <tr style="background: #f8f9fa;">
+            <td style="padding: 8px; border: 1px solid #ddd;"><strong>P2O3</strong></td>
+            <td style="padding: 8px; border: 1px solid #ddd;">28</td>
+            <td style="padding: 8px; border: 1px solid #ddd;">Piramidale trigonale (P)</td>
+            <td style="padding: 8px; border: 1px solid #ddd;">P: sp3</td>
+            <td style="padding: 8px; border: 1px solid #ddd;">~100-104 gradi</td>
+        </tr>
+        <tr>
+            <td style="padding: 8px; border: 1px solid #ddd;"><strong>NaN3 (N3-)</strong></td>
+            <td style="padding: 8px; border: 1px solid #ddd;">16</td>
+            <td style="padding: 8px; border: 1px solid #ddd;">Lineare</td>
+            <td style="padding: 8px; border: 1px solid #ddd;">N centrale: sp</td>
+            <td style="padding: 8px; border: 1px solid #ddd;">180 gradi</td>
+        </tr>
+    </tbody>
+</table>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+<script>
+    let currentStep = 0;
+    let totalSteps = 0;
+
+    document.addEventListener('DOMContentLoaded', function() {
+        totalSteps = document.querySelectorAll('.step-container').length;
+        updateProgress();
+        updateButtons();
+    });
+
+    function showNextStep() {
+        if (currentStep < totalSteps) {
+            const step = document.getElementById('step-' + currentStep);
+            if (step) {
+                step.classList.add('visible');
+                step.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                currentStep++;
+                updateProgress();
+                updateButtons();
+
+                if (window.parent !== window) {
+                    window.parent.postMessage({type: 'stepShown', step: currentStep, total: totalSteps}, '*');
+                }
+            }
+        }
+    }
+
+    function showAllSteps() {
+        document.querySelectorAll('.step-container').forEach(function(step) {
+            step.classList.add('visible');
+        });
+        currentStep = totalSteps;
+        updateProgress();
+        updateButtons();
+
+        if (window.parent !== window) {
+            window.parent.postMessage({type: 'allStepsShown'}, '*');
+        }
+    }
+
+    function hideAllSteps() {
+        document.querySelectorAll('.step-container').forEach(function(step) {
+            step.classList.remove('visible');
+        });
+        currentStep = 0;
+        updateProgress();
+        updateButtons();
+    }
+
+    function updateProgress() {
+        const pct = totalSteps > 0 ? (currentStep / totalSteps) * 100 : 0;
+        const fill = document.getElementById('progress-fill');
+        const text = document.getElementById('progress-text');
+        if (fill) fill.style.width = pct + '%';
+        if (text) text.textContent = 'Passaggio ' + currentStep + ' di ' + totalSteps;
+    }
+
+    function updateButtons() {
+        const nextBtn = document.getElementById('next-btn');
+        const allBtn = document.getElementById('all-btn');
+        const doneButtons = document.getElementById('done-buttons');
+
+        if (currentStep >= totalSteps) {
+            if (nextBtn) nextBtn.style.display = 'none';
+            if (allBtn) allBtn.style.display = 'none';
+            if (doneButtons) doneButtons.style.display = 'flex';
+        } else {
+            if (nextBtn) nextBtn.style.display = 'block';
+            if (allBtn) allBtn.style.display = 'block';
+            if (doneButtons) doneButtons.style.display = 'none';
+        }
+    }
+
+    function markExercise(status) {
+        // Salva in localStorage
+        const exerciseId = window.location.pathname.split('/').pop().replace('.html', '');
+        let progress = JSON.parse(localStorage.getItem('chemportal_progress') || '{}');
+        if (!progress.exercises) progress.exercises = {};
+        progress.exercises[exerciseId] = status;
+        localStorage.setItem('chemportal_progress', JSON.stringify(progress));
+
+        // Feedback visivo
+        const btn = status === 'done' ? document.getElementById('mark-done') : document.getElementById('mark-review');
+        const otherBtn = status === 'done' ? document.getElementById('mark-review') : document.getElementById('mark-done');
+
+        btn.classList.add('selected');
+        otherBtn.classList.remove('selected');
+
+        // Notifica parent
+        if (window.parent !== window) {
+            window.parent.postMessage({type: 'exerciseMarked', status: status, id: exerciseId}, '*');
+        }
+    }
+
+    function resetExercise() {
+        hideAllSteps();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Messaggi dal parent
+    window.addEventListener('message', function(e) {
+        if (e.data.type === 'showNext') showNextStep();
+        else if (e.data.type === 'showAll') showAllSteps();
+        else if (e.data.type === 'hideAll') hideAllSteps();
+    });
+
+    function closeExercise() {
+        if (window.parent !== window) {
+            // Siamo in iframe, chiedi al parent di chiudere
+            window.parent.postMessage({type: 'closeModal'}, '*');
+        } else {
+            // Standalone: torna alla pagina esercizi
+            const path = window.location.pathname;
+            if (path.includes('/content/soluzioni/')) {
+                window.location.href = '../../esercizi.html';
+            } else {
+                window.history.back();
+            }
+        }
+    }
+</script>
+</body>
+</html>

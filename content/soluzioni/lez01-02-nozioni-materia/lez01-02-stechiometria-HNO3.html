@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Esame 4-1 | Esercizio 6 - Stechiometria con Acido Nitrico</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 2cm;
+        }
+        body {
+            font-family: 'Georgia', serif;
+            font-size: 11pt;
+            line-height: 1.6;
+            color: #1a1a1a;
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            border-bottom: 3px solid #2c5aa0;
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+        }
+        .header h1 {
+            color: #2c5aa0;
+            margin: 0;
+            font-size: 1.5em;
+        }
+        .header .subtitle {
+            color: #666;
+            font-style: italic;
+            margin-top: 5px;
+        }
+        .problem-box {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-left: 4px solid #2c5aa0;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        .problem-box h3 {
+            color: #2c5aa0;
+            margin-top: 0;
+        }
+        .data-box {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            padding: 12px 18px;
+            border-radius: 6px;
+            margin: 15px 0;
+        }
+        .reaction-box {
+            background: #e7f3ff;
+            border: 2px solid #2c5aa0;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 1.1em;
+            margin: 20px 0;
+        }
+        h2 {
+            color: #2c5aa0;
+            border-bottom: 2px solid #e9ecef;
+            padding-bottom: 8px;
+            margin-top: 30px;
+        }
+        h3 {
+            color: #495057;
+            margin-top: 25px;
+        }
+        .step {
+            background: #ffffff;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 18px;
+            margin: 15px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .step-title {
+            font-weight: bold;
+            color: #2c5aa0;
+            font-size: 1.1em;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+        }
+        .step-number {
+            background: #2c5aa0;
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            font-size: 0.9em;
+        }
+        .formula {
+            background: #f8f9fa;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            margin: 10px 0;
+            border-left: 3px solid #6c757d;
+        }
+        .result-box {
+            background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+            border: 2px solid #28a745;
+            padding: 18px;
+            border-radius: 8px;
+            margin: 25px 0;
+        }
+        .result-box .final {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #155724;
+        }
+        .explanation {
+            color: #495057;
+            font-style: italic;
+            margin: 10px 0;
+            padding-left: 15px;
+            border-left: 2px solid #adb5bd;
+        }
+        .highlight {
+            background: #fff3cd;
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+        .concept-box {
+            background: #e8f4f8;
+            border: 1px solid #17a2b8;
+            border-radius: 6px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        .concept-box strong {
+            color: #0c5460;
+        }
+        .arrow {
+            color: #2c5aa0;
+            font-weight: bold;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        th, td {
+            border: 1px solid #dee2e6;
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background: #2c5aa0;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        .substep {
+            background: #f8f9fa;
+            border-left: 3px solid #17a2b8;
+            padding: 12px;
+            margin: 12px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .substep-title {
+            font-weight: bold;
+            color: #0c5460;
+            margin-bottom: 8px;
+        }
+    
+    .done-buttons {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+    .mark-btn {
+        padding: 12px 24px;
+        font-size: 1em;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .mark-done {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        color: white;
+    }
+    .mark-done:hover, .mark-done.selected {
+        background: linear-gradient(135deg, #1e7e34, #17a085);
+        transform: scale(1.05);
+    }
+    .mark-review {
+        background: linear-gradient(135deg, #ffc107, #fd7e14);
+        color: white;
+    }
+    .mark-review:hover, .mark-review.selected {
+        background: linear-gradient(135deg, #d39e00, #dc6502);
+        transform: scale(1.05);
+    }
+    .mark-reset {
+        background: #6c757d;
+        color: white;
+    }
+    .mark-reset:hover {
+        background: #545b62;
+    }
+    .mark-btn.selected {
+        box-shadow: 0 0 0 3px rgba(0,0,0,0.2);
+    }
+</style>
+
+<style>
+    .quiz-container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px;
+        padding-bottom: 120px;
+    }
+    .question-section {
+        background: linear-gradient(135deg, #e8f4f8 0%, #d4edda 100%);
+        border: 2px solid #17a2b8;
+        border-radius: 10px;
+        padding: 25px;
+        margin-bottom: 20px;
+    }
+    .question-section h2 {
+        color: #0c5460;
+        margin-top: 0;
+        margin-bottom: 15px;
+    }
+    .show-next-btn {
+        display: block;
+        width: 100%;
+        padding: 15px 30px;
+        font-size: 1.1em;
+        font-weight: bold;
+        color: white;
+        background: linear-gradient(135deg, #007bff, #0056b3);
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        margin: 15px 0;
+        transition: all 0.3s ease;
+    }
+    .show-next-btn:hover {
+        background: linear-gradient(135deg, #0056b3, #004094);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 123, 255, 0.4);
+    }
+    .show-all-btn {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        margin-top: 10px;
+    }
+    .show-all-btn:hover {
+        background: linear-gradient(135deg, #218838, #1db385);
+        box-shadow: 0 4px 12px rgba(40, 167, 69, 0.4);
+    }
+    .step-container {
+        display: none;
+        animation: fadeIn 0.5s ease;
+        margin-bottom: 20px;
+        border: 1px solid #dee2e6;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    .step-container.visible {
+        display: block;
+    }
+    .step-header {
+        background: linear-gradient(135deg, #6c757d, #495057);
+        color: white;
+        padding: 12px 20px;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+    }
+    .step-number-badge {
+        background: white;
+        color: #495057;
+        border-radius: 50%;
+        width: 28px;
+        height: 28px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 12px;
+        font-weight: bold;
+    }
+    .step-content {
+        padding: 20px;
+        background: white;
+    }
+    .progress-bar {
+        background: #e9ecef;
+        border-radius: 10px;
+        height: 8px;
+        margin: 15px 0;
+        overflow: hidden;
+    }
+    .progress-fill {
+        background: linear-gradient(90deg, #28a745, #20c997);
+        height: 100%;
+        border-radius: 10px;
+        transition: width 0.5s ease;
+    }
+    .progress-text {
+        text-align: center;
+        color: #6c757d;
+        font-size: 0.9em;
+        margin-bottom: 15px;
+    }
+    .controls {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: white;
+        padding: 15px 20px;
+        border-top: 2px solid #dee2e6;
+        box-shadow: 0 -4px 12px rgba(0,0,0,0.1);
+        z-index: 1000;
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+    }
+    .quiz-container {
+        padding-bottom: 100px;
+    }
+    .show-next-btn {
+        width: auto;
+        margin: 0;
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .final-answer {
+        background: #d4edda;
+        border: 2px solid #28a745;
+        border-radius: 10px;
+        padding: 20px;
+        margin-top: 20px;
+    }
+    .final-answer h3 {
+        color: #155724;
+        margin-top: 0;
+    }
+
+    .done-buttons {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+    .mark-btn {
+        padding: 12px 24px;
+        font-size: 1em;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .mark-done {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        color: white;
+    }
+    .mark-done:hover, .mark-done.selected {
+        background: linear-gradient(135deg, #1e7e34, #17a085);
+        transform: scale(1.05);
+    }
+    .mark-review {
+        background: linear-gradient(135deg, #ffc107, #fd7e14);
+        color: white;
+    }
+    .mark-review:hover, .mark-review.selected {
+        background: linear-gradient(135deg, #d39e00, #dc6502);
+        transform: scale(1.05);
+    }
+    .mark-reset {
+        background: #6c757d;
+        color: white;
+    }
+    .mark-reset:hover {
+        background: #545b62;
+    }
+    .mark-btn.selected {
+        box-shadow: 0 0 0 3px rgba(0,0,0,0.2);
+    }
+</style>
+</head>
+<body>
+<div class="quiz-container">
+    <h1>Esame 4-1 | Esercizio 6</h1>
+
+    <div class="question-section">
+        <h2>Testo dell'esercizio</h2>
+        <p>Risolvi l'esercizio seguente.</p>
+    </div>
+
+    <div class="progress-text" id="progress-text">Passaggio 0 di 3</div>
+    <div class="progress-bar">
+        <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+    </div>
+
+    <div class="controls">
+        <button id="next-btn" class="show-next-btn" onclick="showNextStep()">
+            ▶ Prossimo passaggio
+        </button>
+        <button id="all-btn" class="show-next-btn show-all-btn" onclick="showAllSteps()">
+            ⏩ Mostra tutto
+        </button>
+        <div id="done-buttons" class="done-buttons" style="display: none;">
+            <button id="mark-done" class="mark-btn mark-done" onclick="markExercise('done')">
+                ✓ Fatto
+            </button>
+            <button id="mark-review" class="mark-btn mark-review" onclick="markExercise('review')">
+                ⚠ Da rivedere
+            </button>
+            <button class="mark-btn mark-reset" onclick="resetExercise()">
+                ↺ Ricomincia
+            </button>
+            <button class="mark-btn" style="background: #17a2b8;" onclick="closeExercise()">
+                ✕ Chiudi
+            </button>
+        </div>
+    </div>
+
+    <div id="steps-wrapper">
+        
+        <div id="step-0" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">1</span>
+                Strategia Risolutiva
+            </div>
+            <div class="step-content">
+                <div class="header">
+        <h1>Esame 4-1 | Esercizio 6</h1>
+        <div class="subtitle">Stechiometria - Dissoluzione del Rame in Acido Nitrico</div>
+    </div>
+
+    <div class="problem-box">
+        <h3>Testo dell'esercizio</h3>
+        <p>Calcolare il <strong>volume di una soluzione di acido nitrico 2,5 M</strong> necessario per portare in soluzione <strong>1 g di rame metallico</strong> secondo la reazione:</p>
+        <p style="text-align: center; font-size: 1.1em;">Cu + HNO₃ → Cu(NO₃)₂ + NO + H₂O</p>
+    </div>
+
+    <div class="data-box">
+        <strong>Dati forniti:</strong><br>
+        - Massa di rame Cu = 1 g<br>
+        - Massa molare del rame MM(Cu) = 63,5 g/mol<br>
+        - Concentrazione della soluzione di HNO₃ = 2,5 M (molare)
+    </div><h2>Strategia Risolutiva</h2>
+
+    <p>Questo esercizio richiede di calcolare il volume di una soluzione acida necessario per dissolvere un metallo. La strategia da seguire prevede tre passaggi fondamentali:</p>
+
+    <ol>
+        <li><strong>Bilanciare la reazione redox</strong> per conoscere i rapporti stechiometrici corretti</li>
+        <li><strong>Calcolare le moli di rame</strong> a partire dalla massa fornita</li>
+        <li><strong>Calcolare le moli di acido nitrico</strong> richieste usando i coefficienti stechiometrici</li>
+        <li><strong>Calcolare il volume</strong> della soluzione usando la formula della molarita</strong></li>
+    </ol>
+            </div>
+        </div>
+        
+        <div id="step-1" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">2</span>
+                Svolgimento Dettagliato
+            </div>
+            <div class="step-content">
+                <h2>Svolgimento Dettagliato</h2>
+
+    <div class="step">
+        <div class="step-title"><span class="step-number">1</span>Bilanciamento della reazione redox</div>
+
+        <p>La reazione tra rame metallico e acido nitrico diluito e una tipica reazione redox. Scriviamo la reazione non bilanciata:</p>
+
+        <div class="formula">
+            Cu + HNO₃ → Cu(NO₃)₂ + NO + H₂O
+        </div>
+
+        <p>Per bilanciarla, dobbiamo identificare cosa si ossida e cosa si riduce.</p>
+
+        <div class="concept-box">
+            <strong>Analisi dei numeri di ossidazione:</strong><br><br>
+            - Il <strong>rame Cu</strong> passa da 0 (metallo) a +2 in Cu(NO₃)₂: si <strong>ossida</strong> perdendo 2 elettroni<br>
+            - L'<strong>azoto N</strong> in HNO₃ ha numero di ossidazione +5, mentre in NO ha numero di ossidazione +2: si <strong>riduce</strong> acquistando 3 elettroni
+        </div>
+
+        <p>Scriviamo le semireazioni:</p>
+
+        <div class="substep">
+            <div class="substep-title">Semireazione di ossidazione:</div>
+            <div class="formula">
+                Cu → Cu²⁺ + 2e⁻
+            </div>
+            <p>Il rame metallico perde 2 elettroni trasformandosi in ione rameico.</p>
+        </div>
+
+        <div class="substep">
+            <div class="substep-title">Semireazione di riduzione:</div>
+            <div class="formula">
+                N⁺⁵ + 3e⁻ → N⁺²
+            </div>
+            <p>L'azoto dell'acido nitrico (numero di ossidazione +5) acquista 3 elettroni e si riduce a monossido di azoto (numero di ossidazione +2).</p>
+        </div>
+
+        <p>Per bilanciare gli elettroni scambiati, dobbiamo trovare il minimo comune multiplo tra 2 e 3, che e <strong>6</strong>. Quindi moltiplichiamo:</p>
+
+        <div class="formula">
+            Ossidazione: 3 × (Cu → Cu²⁺ + 2e⁻) → 3Cu → 3Cu²⁺ + 6e⁻<br>
+            Riduzione: 2 × (N⁺⁵ + 3e⁻ → N⁺²) → 2N⁺⁵ + 6e⁻ → 2N⁺²
+        </div>
+
+        <p class="explanation">In questo modo abbiamo 6 elettroni ceduti dal rame e 6 elettroni acquistati dall'azoto: il bilancio elettronico e rispettato.</p>
+
+        <p>Questo ci dice che servono <strong>3 atomi di rame</strong> per ogni <strong>2 molecole di NO</strong> prodotte. Ma attenzione: l'azoto dell'acido nitrico non va tutto a formare NO! Una parte resta nei gruppi nitrato del sale Cu(NO₃)₂.</p>
+
+        <p>Scriviamo la reazione bilanciata completa:</p>
+
+        <div class="reaction-box">
+            <strong>Reazione bilanciata:</strong><br><br>
+            3Cu + 8HNO₃ → 3Cu(NO₃)₂ + 2NO + 4H₂O
+        </div>
+
+        <p>Verifichiamo il bilanciamento:</p>
+
+        <table>
+            <tr>
+                <th>Elemento</th>
+                <th>Reagenti</th>
+                <th>Prodotti</th>
+            </tr>
+            <tr>
+                <td>Cu</td>
+                <td>3</td>
+                <td>3 (in Cu(NO₃)₂)</td>
+            </tr>
+            <tr>
+                <td>H</td>
+                <td>8</td>
+                <td>8 (in 4H₂O)</td>
+            </tr>
+            <tr>
+                <td>N</td>
+                <td>8</td>
+                <td>6 (in 3Cu(NO₃)₂) + 2 (in 2NO) = 8</td>
+            </tr>
+            <tr>
+                <td>O</td>
+                <td>24</td>
+                <td>18 (in 3Cu(NO₃)₂) + 2 (in 2NO) + 4 (in 4H₂O) = 24</td>
+            </tr>
+        </table>
+
+        <p class="explanation">Tutti gli elementi sono bilanciati. La reazione e corretta!</p>
+
+        <div class="concept-box">
+            <strong>Nota importante:</strong> Degli 8 atomi di azoto forniti dall'acido nitrico, 6 finiscono nei gruppi nitrato del sale (3 molecole di Cu(NO₃)₂, ciascuna con 2 gruppi NO₃⁻), mentre solo 2 si riducono a NO. Questo e tipico delle reazioni dell'acido nitrico: parte dell'azoto funge da ossidante (e si riduce a NO), parte forma il sale come controione.
+        </div>
+    </div>
+
+    <div class="step">
+        <div class="step-title"><span class="step-number">2</span>Calcolo delle moli di rame</div>
+
+        <p>Ora che conosciamo la reazione bilanciata, possiamo procedere con i calcoli stechiometrici. Per prima cosa, calcoliamo quante moli di rame abbiamo a disposizione.</p>
+
+        <p>La formula per convertire grammi in moli e:</p>
+
+        <div class="formula">
+            n = m / MM
+        </div>
+
+        <p class="explanation">Dove n sono le moli, m e la massa in grammi e MM e la massa molare in g/mol.</p>
+
+        <p>Sostituiamo i valori forniti:</p>
+
+        <div class="formula">
+            n(Cu) = 1 g / 63,5 g/mol = <strong>0,01575 mol</strong>
+        </div>
+
+        <p>Possiamo anche scrivere questo valore come:</p>
+
+        <div class="formula">
+            n(Cu) = 1,575 × 10⁻² mol ≈ <strong>0,0157 mol</strong>
+        </div>
+
+        <p class="explanation">Abbiamo quindi circa 0,0157 moli di rame metallico da portare in soluzione.</p>
+    </div>
+
+    <div class="step">
+        <div class="step-title"><span class="step-number">3</span>Calcolo delle moli di acido nitrico necessarie</div>
+
+        <p>Dalla reazione bilanciata sappiamo che:</p>
+
+        <div class="reaction-box">
+            <strong>3</strong>Cu + <strong>8</strong>HNO₃ → 3Cu(NO₃)₂ + 2NO + 4H₂O
+        </div>
+
+        <p>Il rapporto stechiometrico tra rame e acido nitrico e quindi:</p>
+
+        <div class="formula">
+            Cu : HNO₃ = 3 : 8
+        </div>
+
+        <p>Questo significa che per ogni 3 moli di rame servono 8 moli di acido nitrico. In altre parole, <strong>per ogni mole di rame servono 8/3 moli di acido nitrico</strong>.</p>
+
+        <p>Impostiamo la proporzione:</p>
+
+        <div class="formula">
+            n(Cu) : n(HNO₃) = 3 : 8
+        </div>
+
+        <p>Da cui:</p>
+
+        <div class="formula">
+            n(HNO₃) = n(Cu) × (8/3)
+        </div>
+
+        <p>Sostituendo il valore delle moli di rame calcolato precedentemente:</p>
+
+        <div class="formula">
+            n(HNO₃) = 0,01575 mol × (8/3)<br><br>
+            n(HNO₃) = 0,01575 mol × 2,667<br><br>
+            n(HNO₃) = <strong>0,042 mol</strong>
+        </div>
+
+        <p class="explanation">Servono quindi 0,042 moli di acido nitrico per dissolvere completamente 1 grammo di rame metallico.</p>
+    </div>
+
+    <div class="step">
+        <div class="step-title"><span class="step-number">4</span>Calcolo del volume della soluzione di acido nitrico</div>
+
+        <p>Ora che conosciamo le moli di HNO₃ necessarie, possiamo calcolare il volume della soluzione 2,5 M che le contiene.</p>
+
+        <p>Ricordiamo la definizione di molarita:</p>
+
+        <div class="formula">
+            M = n / V
+        </div>
+
+        <p class="explanation">Dove M e la molarita (mol/L), n sono le moli di soluto e V e il volume della soluzione in litri.</p>
+
+        <p>Invertiamo la formula per ricavare il volume:</p>
+
+        <div class="formula">
+            V = n / M
+        </div>
+
+        <p>Sostituiamo i valori:</p>
+
+        <div class="formula">
+            V = 0,042 mol / 2,5 mol/L<br><br>
+            V = <strong>0,0168 L</strong>
+        </div>
+
+        <p>Convertiamo in millilitri per avere un valore piu pratico:</p>
+
+        <div class="formula">
+            V = 0,0168 L × 1000 mL/L = <strong>16,8 mL</strong>
+        </div>
+    </div>
+
+    <div class="result-box">
+        <strong>RISULTATO FINALE</strong><br><br>
+        <span class="final">Il volume di soluzione di acido nitrico 2,5 M necessario e:</span><br><br>
+        <span class="final" style="font-size: 1.4em;">V = 16,8 mL = 0,0168 L</span>
+    </div>
+            </div>
+        </div>
+        
+        <div id="step-2" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">3</span>
+                Riepilogo del Problema
+            </div>
+            <div class="step-content">
+                <h2>Riepilogo del Problema</h2>
+
+    <table>
+        <tr>
+            <th>Grandezza</th>
+            <th>Valore</th>
+        </tr>
+        <tr>
+            <td>Massa di rame</td>
+            <td>1 g</td>
+        </tr>
+        <tr>
+            <td>Moli di rame</td>
+            <td>0,0157 mol</td>
+        </tr>
+        <tr>
+            <td>Rapporto stechiometrico Cu:HNO₃</td>
+            <td>3:8</td>
+        </tr>
+        <tr>
+            <td>Moli di HNO₃ necessarie</td>
+            <td>0,042 mol</td>
+        </tr>
+        <tr>
+            <td>Concentrazione HNO₃</td>
+            <td>2,5 M</td>
+        </tr>
+        <tr>
+            <td><strong>Volume soluzione HNO₃</strong></td>
+            <td><strong>16,8 mL</strong></td>
+        </tr>
+    </table>
+
+    <div class="concept-box">
+        <strong>Nota didattica:</strong> Questa reazione e un classico esempio di dissoluzione di un metallo in acido nitrico diluito. L'acido nitrico agisce sia come acido (fornendo H⁺) sia come ossidante (l'azoto si riduce da +5 a +2). Il prodotto gassoso NO (monossido di azoto) e incolore ma, a contatto con l'aria, si ossida rapidamente a NO₂ (biossido di azoto), che e un gas di colore bruno-rossastro. Questo spiega perche, quando si scioglie rame in acido nitrico, si osservano inizialmente fumi biancastri che diventano rapidamente marroni.
+    </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+<script>
+    let currentStep = 0;
+    let totalSteps = 0;
+
+    document.addEventListener('DOMContentLoaded', function() {
+        totalSteps = document.querySelectorAll('.step-container').length;
+        updateProgress();
+        updateButtons();
+    });
+
+    function showNextStep() {
+        if (currentStep < totalSteps) {
+            const step = document.getElementById('step-' + currentStep);
+            if (step) {
+                step.classList.add('visible');
+                step.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                currentStep++;
+                updateProgress();
+                updateButtons();
+
+                if (window.parent !== window) {
+                    window.parent.postMessage({type: 'stepShown', step: currentStep, total: totalSteps}, '*');
+                }
+            }
+        }
+    }
+
+    function showAllSteps() {
+        document.querySelectorAll('.step-container').forEach(function(step) {
+            step.classList.add('visible');
+        });
+        currentStep = totalSteps;
+        updateProgress();
+        updateButtons();
+
+        if (window.parent !== window) {
+            window.parent.postMessage({type: 'allStepsShown'}, '*');
+        }
+    }
+
+    function hideAllSteps() {
+        document.querySelectorAll('.step-container').forEach(function(step) {
+            step.classList.remove('visible');
+        });
+        currentStep = 0;
+        updateProgress();
+        updateButtons();
+    }
+
+    function updateProgress() {
+        const pct = totalSteps > 0 ? (currentStep / totalSteps) * 100 : 0;
+        const fill = document.getElementById('progress-fill');
+        const text = document.getElementById('progress-text');
+        if (fill) fill.style.width = pct + '%';
+        if (text) text.textContent = 'Passaggio ' + currentStep + ' di ' + totalSteps;
+    }
+
+    function updateButtons() {
+        const nextBtn = document.getElementById('next-btn');
+        const allBtn = document.getElementById('all-btn');
+        const doneButtons = document.getElementById('done-buttons');
+
+        if (currentStep >= totalSteps) {
+            if (nextBtn) nextBtn.style.display = 'none';
+            if (allBtn) allBtn.style.display = 'none';
+            if (doneButtons) doneButtons.style.display = 'flex';
+        } else {
+            if (nextBtn) nextBtn.style.display = 'block';
+            if (allBtn) allBtn.style.display = 'block';
+            if (doneButtons) doneButtons.style.display = 'none';
+        }
+    }
+
+    function markExercise(status) {
+        // Salva in localStorage
+        const exerciseId = window.location.pathname.split('/').pop().replace('.html', '');
+        let progress = JSON.parse(localStorage.getItem('chemportal_progress') || '{}');
+        if (!progress.exercises) progress.exercises = {};
+        progress.exercises[exerciseId] = status;
+        localStorage.setItem('chemportal_progress', JSON.stringify(progress));
+
+        // Feedback visivo
+        const btn = status === 'done' ? document.getElementById('mark-done') : document.getElementById('mark-review');
+        const otherBtn = status === 'done' ? document.getElementById('mark-review') : document.getElementById('mark-done');
+
+        btn.classList.add('selected');
+        otherBtn.classList.remove('selected');
+
+        // Notifica parent
+        if (window.parent !== window) {
+            window.parent.postMessage({type: 'exerciseMarked', status: status, id: exerciseId}, '*');
+        }
+    }
+
+    function resetExercise() {
+        hideAllSteps();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Messaggi dal parent
+    window.addEventListener('message', function(e) {
+        if (e.data.type === 'showNext') showNextStep();
+        else if (e.data.type === 'showAll') showAllSteps();
+        else if (e.data.type === 'hideAll') hideAllSteps();
+    });
+
+    function closeExercise() {
+        if (window.parent !== window) {
+            // Siamo in iframe, chiedi al parent di chiudere
+            window.parent.postMessage({type: 'closeModal'}, '*');
+        } else {
+            // Standalone: torna alla pagina esercizi
+            const path = window.location.pathname;
+            if (path.includes('/content/soluzioni/')) {
+                window.location.href = '../../esercizi.html';
+            } else {
+                window.history.back();
+            }
+        }
+    }
+</script>
+</body>
+</html>

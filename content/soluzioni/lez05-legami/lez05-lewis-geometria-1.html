@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Esame 3-1 | Esercizio 3 - Strutture di Lewis e Geometria Molecolare</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 2cm 1.5cm;
+        }
+        body {
+            font-family: 'Georgia', serif;
+            font-size: 11pt;
+            line-height: 1.5;
+            color: #1a1a1a;
+            max-width: 100%;
+        }
+        .header {
+            text-align: center;
+            border-bottom: 3px solid #2c3e50;
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+        }
+        .header h1 {
+            color: #2c3e50;
+            margin: 0;
+            font-size: 20pt;
+        }
+        .header .subtitle {
+            color: #7f8c8d;
+            font-size: 11pt;
+            margin-top: 5px;
+        }
+        .exercise-box {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-left: 4px solid #3498db;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        .exercise-box h2 {
+            color: #2980b9;
+            margin: 0 0 10px 0;
+            font-size: 13pt;
+        }
+        .molecule-section {
+            background: #ffffff;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            page-break-inside: avoid;
+        }
+        .molecule-section h3 {
+            color: #e74c3c;
+            border-bottom: 2px solid #e74c3c;
+            padding-bottom: 8px;
+            margin-top: 0;
+            font-size: 14pt;
+        }
+        .subsection {
+            margin: 15px 0;
+            padding: 10px 15px;
+            background: #f8f9fa;
+            border-radius: 5px;
+        }
+        .subsection h4 {
+            color: #27ae60;
+            margin: 0 0 10px 0;
+            font-size: 11pt;
+        }
+        .lewis-structure {
+            font-family: 'Courier New', monospace;
+            font-size: 12pt;
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 15px 20px;
+            border-radius: 5px;
+            white-space: pre;
+            line-height: 1.3;
+            display: inline-block;
+            margin: 10px 0;
+        }
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .info-item {
+            background: #fff3cd;
+            padding: 10px 15px;
+            border-radius: 5px;
+            border-left: 3px solid #ffc107;
+        }
+        .info-item.geometry {
+            background: #d4edda;
+            border-left-color: #28a745;
+        }
+        .info-item.hybridization {
+            background: #cce5ff;
+            border-left-color: #007bff;
+        }
+        .info-item.angles {
+            background: #f8d7da;
+            border-left-color: #dc3545;
+        }
+        .info-label {
+            font-weight: bold;
+            color: #495057;
+            font-size: 10pt;
+        }
+        .info-value {
+            font-size: 11pt;
+            margin-top: 3px;
+        }
+        .explanation {
+            text-align: justify;
+            margin: 10px 0;
+        }
+        .highlight {
+            background: #fff9c4;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+        .formula {
+            font-family: 'Times New Roman', serif;
+            font-style: italic;
+        }
+        .step {
+            margin: 8px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+        .step::before {
+            content: "►";
+            position: absolute;
+            left: 0;
+            color: #3498db;
+        }
+        .resonance-note {
+            background: #e8daef;
+            border: 1px dashed #9b59b6;
+            padding: 10px 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .summary-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 10pt;
+        }
+        .summary-table th {
+            background: #2c3e50;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+        .summary-table td {
+            border: 1px solid #dee2e6;
+            padding: 8px 10px;
+            text-align: center;
+        }
+        .summary-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 15px;
+            border-top: 2px solid #dee2e6;
+            color: #6c757d;
+            font-size: 9pt;
+        }
+    
+    .done-buttons {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+    .mark-btn {
+        padding: 12px 24px;
+        font-size: 1em;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .mark-done {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        color: white;
+    }
+    .mark-done:hover, .mark-done.selected {
+        background: linear-gradient(135deg, #1e7e34, #17a085);
+        transform: scale(1.05);
+    }
+    .mark-review {
+        background: linear-gradient(135deg, #ffc107, #fd7e14);
+        color: white;
+    }
+    .mark-review:hover, .mark-review.selected {
+        background: linear-gradient(135deg, #d39e00, #dc6502);
+        transform: scale(1.05);
+    }
+    .mark-reset {
+        background: #6c757d;
+        color: white;
+    }
+    .mark-reset:hover {
+        background: #545b62;
+    }
+    .mark-btn.selected {
+        box-shadow: 0 0 0 3px rgba(0,0,0,0.2);
+    }
+</style>
+
+<style>
+    .quiz-container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px;
+        padding-bottom: 120px;
+    }
+    .question-section {
+        background: linear-gradient(135deg, #e8f4f8 0%, #d4edda 100%);
+        border: 2px solid #17a2b8;
+        border-radius: 10px;
+        padding: 25px;
+        margin-bottom: 20px;
+    }
+    .question-section h2 {
+        color: #0c5460;
+        margin-top: 0;
+        margin-bottom: 15px;
+    }
+    .show-next-btn {
+        display: block;
+        width: 100%;
+        padding: 15px 30px;
+        font-size: 1.1em;
+        font-weight: bold;
+        color: white;
+        background: linear-gradient(135deg, #007bff, #0056b3);
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        margin: 15px 0;
+        transition: all 0.3s ease;
+    }
+    .show-next-btn:hover {
+        background: linear-gradient(135deg, #0056b3, #004094);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 123, 255, 0.4);
+    }
+    .show-all-btn {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        margin-top: 10px;
+    }
+    .show-all-btn:hover {
+        background: linear-gradient(135deg, #218838, #1db385);
+        box-shadow: 0 4px 12px rgba(40, 167, 69, 0.4);
+    }
+    .step-container {
+        display: none;
+        animation: fadeIn 0.5s ease;
+        margin-bottom: 20px;
+        border: 1px solid #dee2e6;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    .step-container.visible {
+        display: block;
+    }
+    .step-header {
+        background: linear-gradient(135deg, #6c757d, #495057);
+        color: white;
+        padding: 12px 20px;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+    }
+    .step-number-badge {
+        background: white;
+        color: #495057;
+        border-radius: 50%;
+        width: 28px;
+        height: 28px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 12px;
+        font-weight: bold;
+    }
+    .step-content {
+        padding: 20px;
+        background: white;
+    }
+    .progress-bar {
+        background: #e9ecef;
+        border-radius: 10px;
+        height: 8px;
+        margin: 15px 0;
+        overflow: hidden;
+    }
+    .progress-fill {
+        background: linear-gradient(90deg, #28a745, #20c997);
+        height: 100%;
+        border-radius: 10px;
+        transition: width 0.5s ease;
+    }
+    .progress-text {
+        text-align: center;
+        color: #6c757d;
+        font-size: 0.9em;
+        margin-bottom: 15px;
+    }
+    .controls {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: white;
+        padding: 15px 20px;
+        border-top: 2px solid #dee2e6;
+        box-shadow: 0 -4px 12px rgba(0,0,0,0.1);
+        z-index: 1000;
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+    }
+    .quiz-container {
+        padding-bottom: 100px;
+    }
+    .show-next-btn {
+        width: auto;
+        margin: 0;
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .final-answer {
+        background: #d4edda;
+        border: 2px solid #28a745;
+        border-radius: 10px;
+        padding: 20px;
+        margin-top: 20px;
+    }
+    .final-answer h3 {
+        color: #155724;
+        margin-top: 0;
+    }
+
+    .done-buttons {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+    .mark-btn {
+        padding: 12px 24px;
+        font-size: 1em;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .mark-done {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        color: white;
+    }
+    .mark-done:hover, .mark-done.selected {
+        background: linear-gradient(135deg, #1e7e34, #17a085);
+        transform: scale(1.05);
+    }
+    .mark-review {
+        background: linear-gradient(135deg, #ffc107, #fd7e14);
+        color: white;
+    }
+    .mark-review:hover, .mark-review.selected {
+        background: linear-gradient(135deg, #d39e00, #dc6502);
+        transform: scale(1.05);
+    }
+    .mark-reset {
+        background: #6c757d;
+        color: white;
+    }
+    .mark-reset:hover {
+        background: #545b62;
+    }
+    .mark-btn.selected {
+        box-shadow: 0 0 0 3px rgba(0,0,0,0.2);
+    }
+</style>
+</head>
+<body>
+<div class="quiz-container">
+    <h1>Strutture di Lewis e Geometria Molecolare</h1>
+
+    <div class="question-section">
+        <h2>Testo dell'esercizio</h2>
+        <div class="question-text">
+    <h2>Testo dell'esercizio</h2>
+    <p>Delle seguenti sostanze, descrivere le <strong>strutture di Lewis</strong>, la <strong>geometria molecolare</strong> e l'<strong>ibridizzazione</strong> degli atomi che la determinano: CO<sub>2</sub>, ione bicarbonato (HCO<sub>3</sub><sup>-</sup>), H<sub>2</sub>CO (formaldeide), H<sub>2</sub>CO<sub>2</sub> (acido formico HCOOH), H<sub>2</sub>CO<sub>3</sub> (acido carbonico), ozono (O<sub>3</sub>).</p>
+</div>
+    </div>
+
+    <div class="progress-text" id="progress-text">Passaggio 0 di 6</div>
+    <div class="progress-bar">
+        <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+    </div>
+
+    <div class="controls">
+        <button id="next-btn" class="show-next-btn" onclick="showNextStep()">
+            ▶ Prossimo passaggio
+        </button>
+        <button id="all-btn" class="show-next-btn show-all-btn" onclick="showAllSteps()">
+            ⏩ Mostra tutto
+        </button>
+        <div id="done-buttons" class="done-buttons" style="display: none;">
+            <button id="mark-done" class="mark-btn mark-done" onclick="markExercise('done')">
+                ✓ Fatto
+            </button>
+            <button id="mark-review" class="mark-btn mark-review" onclick="markExercise('review')">
+                ⚠ Da rivedere
+            </button>
+            <button class="mark-btn mark-reset" onclick="resetExercise()">
+                ↺ Ricomincia
+            </button>
+            <button class="mark-btn" style="background: #17a2b8;" onclick="closeExercise()">
+                ✕ Chiudi
+            </button>
+        </div>
+    </div>
+
+    <div id="steps-wrapper">
+        
+        <div id="step-0" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">1</span>
+                1. Anidride Carbonica - CO2
+            </div>
+            <div class="step-content">
+                <h3>1. Anidride Carbonica - CO<sub>2</sub></h3>
+
+    <div class="subsection">
+        <h4>Conteggio degli elettroni di valenza</h4>
+        <p class="explanation">
+            Per costruire la struttura di Lewis, dobbiamo prima sapere quanti elettroni di valenza abbiamo a disposizione. Il carbonio si trova nel gruppo 14 (o IV A) della tavola periodica, quindi possiede <span class="highlight">4 elettroni di valenza</span>. L'ossigeno si trova nel gruppo 16 (o VI A), quindi possiede <span class="highlight">6 elettroni di valenza</span>.
+        </p>
+        <div class="step">Carbonio (C): 1 atomo x 4 elettroni = 4 elettroni</div>
+        <div class="step">Ossigeno (O): 2 atomi x 6 elettroni = 12 elettroni</div>
+        <div class="step"><strong>Totale: 4 + 12 = 16 elettroni di valenza</strong></div>
+    </div>
+
+    <div class="subsection">
+        <h4>Struttura di Lewis</h4>
+        <p class="explanation">
+            Il carbonio e' l'atomo centrale perche' e' il meno elettronegativo (escludendo l'idrogeno, che non e' presente qui). Per soddisfare l'ottetto di tutti gli atomi con soli 16 elettroni, dobbiamo formare dei <span class="highlight">doppi legami</span> tra il carbonio e ciascun ossigeno. Ogni doppio legame utilizza 4 elettroni. I restanti elettroni vanno come coppie solitarie sugli ossigeni.
+        </p>
+        <div class="lewis-structure">
+         ..      ..
+    O = C = O
+         ..      ..
+</div>
+        <p class="explanation">
+            Verifichiamo: ogni doppio legame usa 4 elettroni (2 x 4 = 8 elettroni nei legami). Ogni ossigeno ha 2 coppie solitarie (2 x 4 = 8 elettroni solitari). Totale: 8 + 8 = 16 elettroni. Perfetto!
+        </p>
+        <p class="explanation">
+            Il carbonio ha 4 elettroni di legame per lato (2 legami doppi = 8 elettroni condivisi = 4 propri), quindi soddisfa l'ottetto. Ogni ossigeno ha 4 elettroni di legame + 4 elettroni solitari = ottetto completo.
+        </p>
+    </div>
+
+    <div class="info-grid">
+        <div class="info-item geometry">
+            <div class="info-label">Geometria VSEPR</div>
+            <div class="info-value"><strong>Lineare</strong> - L'atomo centrale (C) ha 2 domini elettronici (i due doppi legami contano come 2 domini). Due domini si dispongono il piu' lontano possibile: a 180 gradi.</div>
+        </div>
+        <div class="info-item hybridization">
+            <div class="info-label">Ibridizzazione del Carbonio</div>
+            <div class="info-value"><strong>sp</strong> - Due domini elettronici richiedono 2 orbitali ibridi. Il carbonio mescola 1 orbitale s + 1 orbitale p = 2 orbitali sp. I 2 orbitali p rimanenti formano i legami pi greco.</div>
+        </div>
+        <div class="info-item angles">
+            <div class="info-label">Angoli di legame</div>
+            <div class="info-value"><strong>180 gradi</strong> - Angolo caratteristico della geometria lineare.</div>
+        </div>
+        <div class="info-item">
+            <div class="info-label">Polarita'</div>
+            <div class="info-value"><strong>Apolare</strong> - I due legami C=O sono polari, ma essendo disposti a 180 gradi i loro momenti dipolari si annullano.</div>
+        </div>
+    </div>
+</div>
+
+<!-- ==================== HCO3- ==================== -->
+<div class="molecule-section">
+            </div>
+        </div>
+        
+        <div id="step-1" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">2</span>
+                2. Ione Bicarbonato - HCO3-
+            </div>
+            <div class="step-content">
+                <h3>2. Ione Bicarbonato - HCO<sub>3</sub><sup>-</sup></h3>
+
+    <div class="subsection">
+        <h4>Conteggio degli elettroni di valenza</h4>
+        <p class="explanation">
+            Lo ione bicarbonato e' uno ione <span class="highlight">negativo</span>, quindi dobbiamo aggiungere un elettrone in piu' al conteggio totale (la carica negativa indica che c'e' un elettrone in eccesso rispetto ai protoni).
+        </p>
+        <div class="step">Idrogeno (H): 1 atomo x 1 elettrone = 1 elettrone</div>
+        <div class="step">Carbonio (C): 1 atomo x 4 elettroni = 4 elettroni</div>
+        <div class="step">Ossigeno (O): 3 atomi x 6 elettroni = 18 elettroni</div>
+        <div class="step">Carica negativa: +1 elettrone</div>
+        <div class="step"><strong>Totale: 1 + 4 + 18 + 1 = 24 elettroni di valenza</strong></div>
+    </div>
+
+    <div class="subsection">
+        <h4>Struttura di Lewis</h4>
+        <p class="explanation">
+            Il carbonio e' l'atomo centrale. Un ossigeno e' legato all'idrogeno (gruppo -OH). Per distribuire i 24 elettroni soddisfacendo gli ottetti, il carbonio forma un doppio legame con un ossigeno e legami singoli con gli altri due. L'ossigeno con carica negativa formale e' quello con solo un legame singolo e tre coppie solitarie.
+        </p>
+        <div class="lewis-structure">
+              ..  -
+              O:
+              |
+         O = C - O - H
+         ..       ..
+</div>
+        <p class="explanation">
+            Verifichiamo gli elettroni: doppio legame C=O (4 e-), legame C-O (2 e-), legame C-O (2 e-), legame O-H (2 e-) = 10 elettroni di legame. Coppie solitarie: ossigeno del doppio legame (4 e-), ossigeno negativo (6 e-), ossigeno dell'OH (4 e-) = 14 elettroni solitari. Totale: 10 + 14 = 24 elettroni. Corretto!
+        </p>
+        <div class="resonance-note">
+            <strong>Nota sulla risonanza:</strong> Lo ione bicarbonato presenta strutture di risonanza. Il doppio legame C=O puo' essere delocalizzato tra le due posizioni (ossigeno terminale e ossigeno carico negativamente), ma la struttura mostrata rappresenta una delle forme di risonanza principali.
+        </div>
+    </div>
+
+    <div class="info-grid">
+        <div class="info-item geometry">
+            <div class="info-label">Geometria VSEPR</div>
+            <div class="info-value"><strong>Trigonale planare</strong> - Il carbonio ha 3 domini elettronici (il doppio legame conta come 1 dominio). Tre domini si dispongono su un piano a 120 gradi l'uno dall'altro.</div>
+        </div>
+        <div class="info-item hybridization">
+            <div class="info-label">Ibridizzazione del Carbonio</div>
+            <div class="info-value"><strong>sp<sup>2</sup></strong> - Tre domini richiedono 3 orbitali ibridi. Il carbonio mescola 1 orbitale s + 2 orbitali p = 3 orbitali sp<sup>2</sup>. L'orbitale p rimanente forma il legame pi greco.</div>
+        </div>
+        <div class="info-item angles">
+            <div class="info-label">Angoli di legame</div>
+            <div class="info-value"><strong>Circa 120 gradi</strong> - Angolo caratteristico della geometria trigonale planare. Piccole variazioni dovute alle diverse lunghezze dei legami.</div>
+        </div>
+        <div class="info-item">
+            <div class="info-label">Note aggiuntive</div>
+            <div class="info-value">L'ossigeno dell'OH ha ibridizzazione <strong>sp<sup>3</sup></strong> (4 domini: 2 legami + 2 coppie solitarie).</div>
+        </div>
+    </div>
+</div>
+
+<!-- ==================== H2CO ==================== -->
+<div class="molecule-section">
+            </div>
+        </div>
+        
+        <div id="step-2" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">3</span>
+                3. Formaldeide - H2CO
+            </div>
+            <div class="step-content">
+                <h3>3. Formaldeide - H<sub>2</sub>CO</h3>
+
+    <div class="subsection">
+        <h4>Conteggio degli elettroni di valenza</h4>
+        <p class="explanation">
+            La formaldeide e' la piu' semplice delle aldeidi, con formula CH<sub>2</sub>O. E' una molecola neutra, quindi contiamo semplicemente gli elettroni di valenza di ogni atomo.
+        </p>
+        <div class="step">Idrogeno (H): 2 atomi x 1 elettrone = 2 elettroni</div>
+        <div class="step">Carbonio (C): 1 atomo x 4 elettroni = 4 elettroni</div>
+        <div class="step">Ossigeno (O): 1 atomo x 6 elettroni = 6 elettroni</div>
+        <div class="step"><strong>Totale: 2 + 4 + 6 = 12 elettroni di valenza</strong></div>
+    </div>
+
+    <div class="subsection">
+        <h4>Struttura di Lewis</h4>
+        <p class="explanation">
+            Il carbonio e' l'atomo centrale. Gli idrogeni possono formare solo un legame ciascuno (hanno un solo elettrone). Per soddisfare l'ottetto del carbonio e dell'ossigeno, si forma un <span class="highlight">doppio legame C=O</span>. L'ossigeno mantiene due coppie solitarie.
+        </p>
+        <div class="lewis-structure">
+              ..
+              O
+              ||
+         H - C - H
+</div>
+        <p class="explanation">
+            Verifichiamo: 2 legami C-H (4 e-), 1 doppio legame C=O (4 e-), 2 coppie solitarie su O (4 e-). Totale: 4 + 4 + 4 = 12 elettroni. Perfetto!
+        </p>
+        <p class="explanation">
+            Il carbonio ha: 2 e- da ciascun H + 4 e- dal doppio legame = 8 elettroni attorno (ottetto soddisfatto). L'ossigeno ha: 4 e- dal doppio legame + 4 e- solitari = 8 elettroni attorno (ottetto soddisfatto).
+        </p>
+    </div>
+
+    <div class="info-grid">
+        <div class="info-item geometry">
+            <div class="info-label">Geometria VSEPR</div>
+            <div class="info-value"><strong>Trigonale planare</strong> - Il carbonio ha 3 domini elettronici: 2 legami singoli C-H e 1 doppio legame C=O. Tutti gli atomi giacciono sullo stesso piano.</div>
+        </div>
+        <div class="info-item hybridization">
+            <div class="info-label">Ibridizzazione del Carbonio</div>
+            <div class="info-value"><strong>sp<sup>2</sup></strong> - Tre domini richiedono 3 orbitali ibridi sp<sup>2</sup>. L'orbitale p non ibridizzato forma il legame pi greco con l'ossigeno.</div>
+        </div>
+        <div class="info-item angles">
+            <div class="info-label">Angoli di legame</div>
+            <div class="info-value"><strong>Circa 120 gradi</strong> - L'angolo H-C-H e' leggermente minore di 120 gradi, l'angolo H-C=O e' leggermente maggiore, a causa della maggiore densita' elettronica del doppio legame.</div>
+        </div>
+        <div class="info-item">
+            <div class="info-label">Polarita'</div>
+            <div class="info-value"><strong>Polare</strong> - Il doppio legame C=O e' molto polare. La molecola ha un momento dipolare netto diretto verso l'ossigeno.</div>
+        </div>
+    </div>
+</div>
+
+<!-- ==================== HCOOH ==================== -->
+<div class="molecule-section">
+            </div>
+        </div>
+        
+        <div id="step-3" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">4</span>
+                4. Acido Formico - HCOOH (H2CO2)
+            </div>
+            <div class="step-content">
+                <h3>4. Acido Formico - HCOOH (H<sub>2</sub>CO<sub>2</sub>)</h3>
+
+    <div class="subsection">
+        <h4>Conteggio degli elettroni di valenza</h4>
+        <p class="explanation">
+            L'acido formico e' il piu' semplice degli acidi carbossilici. La sua formula molecolare e' H<sub>2</sub>CO<sub>2</sub>, ma la struttura corretta e' HCOOH, dove un idrogeno e' legato al carbonio e l'altro all'ossigeno (gruppo carbossilico -COOH).
+        </p>
+        <div class="step">Idrogeno (H): 2 atomi x 1 elettrone = 2 elettroni</div>
+        <div class="step">Carbonio (C): 1 atomo x 4 elettroni = 4 elettroni</div>
+        <div class="step">Ossigeno (O): 2 atomi x 6 elettroni = 12 elettroni</div>
+        <div class="step"><strong>Totale: 2 + 4 + 12 = 18 elettroni di valenza</strong></div>
+    </div>
+
+    <div class="subsection">
+        <h4>Struttura di Lewis</h4>
+        <p class="explanation">
+            Il carbonio centrale e' legato a: un idrogeno, un ossigeno con doppio legame (ossigeno carbonilico), e un gruppo -OH (ossigeno idrossilico). Questa e' la struttura tipica del <span class="highlight">gruppo carbossilico -COOH</span>.
+        </p>
+        <div class="lewis-structure">
+              ..
+              O
+              ||
+         H - C - O - H
+                 ..
+</div>
+        <p class="explanation">
+            Verifichiamo: legame C-H (2 e-), doppio legame C=O (4 e-), legame C-O (2 e-), legame O-H (2 e-) = 10 elettroni di legame. Coppie solitarie: ossigeno carbonilico (4 e-), ossigeno idrossilico (4 e-) = 8 elettroni solitari. Totale: 10 + 8 = 18 elettroni. Corretto!
+        </p>
+    </div>
+
+    <div class="info-grid">
+        <div class="info-item geometry">
+            <div class="info-label">Geometria VSEPR del Carbonio</div>
+            <div class="info-value"><strong>Trigonale planare</strong> - Il carbonio ha 3 domini elettronici. Il gruppo carbonilico giace sullo stesso piano degli altri legami del carbonio.</div>
+        </div>
+        <div class="info-item hybridization">
+            <div class="info-label">Ibridizzazione del Carbonio</div>
+            <div class="info-value"><strong>sp<sup>2</sup></strong> - Tre domini = 3 orbitali ibridi sp<sup>2</sup>. L'orbitale p rimanente forma il legame pi greco del C=O.</div>
+        </div>
+        <div class="info-item angles">
+            <div class="info-label">Angoli di legame</div>
+            <div class="info-value"><strong>Circa 120 gradi</strong> attorno al carbonio. L'angolo C-O-H sull'ossigeno idrossilico e' circa <strong>104-109 gradi</strong>.</div>
+        </div>
+        <div class="info-item">
+            <div class="info-label">Ibridizzazione dell'Ossigeno -OH</div>
+            <div class="info-value"><strong>sp<sup>3</sup></strong> - L'ossigeno del gruppo -OH ha 4 domini (2 legami + 2 coppie solitarie), quindi e' ibridizzato sp<sup>3</sup>.</div>
+        </div>
+    </div>
+
+    <div class="resonance-note">
+        <strong>Nota sulla risonanza:</strong> Nel gruppo carbossilico c'e' una parziale delocalizzazione elettronica che rende i due ossigeni parzialmente equivalenti. Questo spiega perche' l'acido formico e' un acido: la base coniugata (formiato) e' stabilizzata dalla risonanza.
+    </div>
+</div>
+
+<!-- ==================== H2CO3 ==================== -->
+<div class="molecule-section">
+            </div>
+        </div>
+        
+        <div id="step-4" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">5</span>
+                5. Acido Carbonico - H2CO3
+            </div>
+            <div class="step-content">
+                <h3>5. Acido Carbonico - H<sub>2</sub>CO<sub>3</sub></h3>
+
+    <div class="subsection">
+        <h4>Conteggio degli elettroni di valenza</h4>
+        <p class="explanation">
+            L'acido carbonico e' un acido debole e instabile, in equilibrio con CO<sub>2</sub> e H<sub>2</sub>O in soluzione acquosa. La sua formula e' H<sub>2</sub>CO<sub>3</sub>, che corrisponde alla struttura (HO)<sub>2</sub>C=O.
+        </p>
+        <div class="step">Idrogeno (H): 2 atomi x 1 elettrone = 2 elettroni</div>
+        <div class="step">Carbonio (C): 1 atomo x 4 elettroni = 4 elettroni</div>
+        <div class="step">Ossigeno (O): 3 atomi x 6 elettroni = 18 elettroni</div>
+        <div class="step"><strong>Totale: 2 + 4 + 18 = 24 elettroni di valenza</strong></div>
+    </div>
+
+    <div class="subsection">
+        <h4>Struttura di Lewis</h4>
+        <p class="explanation">
+            Il carbonio centrale e' legato a: un ossigeno con doppio legame (ossigeno carbonilico) e due gruppi -OH (ossigeni idrossilici). Questa molecola e' simile all'acido formico, ma con un -OH al posto dell'H legato al carbonio.
+        </p>
+        <div class="lewis-structure">
+                 ..
+                 O
+                 ||
+         H - O - C - O - H
+             ..       ..
+</div>
+        <p class="explanation">
+            Verifichiamo: doppio legame C=O (4 e-), 2 legami C-O (4 e-), 2 legami O-H (4 e-) = 12 elettroni di legame. Coppie solitarie: ossigeno carbonilico (4 e-), 2 ossigeni idrossilici (4 e- ciascuno = 8 e-) = 12 elettroni solitari. Totale: 12 + 12 = 24 elettroni. Corretto!
+        </p>
+    </div>
+
+    <div class="info-grid">
+        <div class="info-item geometry">
+            <div class="info-label">Geometria VSEPR del Carbonio</div>
+            <div class="info-value"><strong>Trigonale planare</strong> - Il carbonio ha 3 domini elettronici (1 doppio legame + 2 legami singoli). I tre ossigeni sono disposti a circa 120 gradi attorno al carbonio.</div>
+        </div>
+        <div class="info-item hybridization">
+            <div class="info-label">Ibridizzazione del Carbonio</div>
+            <div class="info-value"><strong>sp<sup>2</sup></strong> - Tre domini richiedono 3 orbitali ibridi sp<sup>2</sup>. La molecola e' planare attorno al carbonio.</div>
+        </div>
+        <div class="info-item angles">
+            <div class="info-label">Angoli di legame</div>
+            <div class="info-value"><strong>Circa 120 gradi</strong> attorno al carbonio. Gli angoli C-O-H sono circa <strong>104-109 gradi</strong>.</div>
+        </div>
+        <div class="info-item">
+            <div class="info-label">Ibridizzazione degli Ossigeni -OH</div>
+            <div class="info-value"><strong>sp<sup>3</sup></strong> - Ciascun ossigeno idrossilico ha 4 domini (2 legami + 2 coppie solitarie).</div>
+        </div>
+    </div>
+
+    <div class="resonance-note">
+        <strong>Nota sulla risonanza:</strong> Anche nell'acido carbonico esiste delocalizzazione elettronica tra i tre ossigeni, sebbene meno marcata che nello ione carbonato (CO<sub>3</sub><sup>2-</sup>). Quando l'acido carbonico perde i due protoni, si forma lo ione carbonato con tre strutture di risonanza equivalenti.
+    </div>
+</div>
+
+<!-- ==================== O3 ==================== -->
+<div class="molecule-section">
+            </div>
+        </div>
+        
+        <div id="step-5" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">6</span>
+                Tabella Riassuntiva
+            </div>
+            <div class="step-content">
+                <h3>6. Ozono - O<sub>3</sub></h3>
+
+    <div class="subsection">
+        <h4>Conteggio degli elettroni di valenza</h4>
+        <p class="explanation">
+            L'ozono e' una forma allotropica dell'ossigeno, composta da tre atomi di ossigeno. E' una molecola neutra ma presenta una caratteristica interessante: e' impossibile scrivere una singola struttura di Lewis che soddisfi l'ottetto di tutti gli atomi. Dobbiamo usare il concetto di <span class="highlight">risonanza</span>.
+        </p>
+        <div class="step">Ossigeno (O): 3 atomi x 6 elettroni = 18 elettroni</div>
+        <div class="step"><strong>Totale: 18 elettroni di valenza</strong></div>
+    </div>
+
+    <div class="subsection">
+        <h4>Struttura di Lewis</h4>
+        <p class="explanation">
+            L'atomo di ossigeno centrale forma un doppio legame con un ossigeno terminale e un legame singolo con l'altro. Per rappresentare correttamente la molecola, dobbiamo disegnare <span class="highlight">due strutture di risonanza</span> equivalenti. La struttura reale e' un ibrido di risonanza con legami di ordine 1,5.
+        </p>
+        <div class="lewis-structure">
+Struttura 1:            Struttura 2:
+
+    ..      ..              ..      ..
+    O = O - O:    <--->    :O - O = O
+    ..   +  ..-                ..+  ..
+         ..                    ..
+</div>
+        <p class="explanation">
+            In ciascuna struttura di risonanza: doppio legame (4 e-) + legame singolo (2 e-) = 6 elettroni di legame. Coppie solitarie: ossigeno con doppio legame (4 e-), ossigeno centrale (2 e- = 1 coppia), ossigeno con legame singolo (6 e- = 3 coppie) = 12 elettroni solitari. Totale: 6 + 12 = 18 elettroni. Corretto!
+        </p>
+        <p class="explanation">
+            <strong>Cariche formali:</strong> L'ossigeno centrale ha una carica formale +1 (ha solo 5 elettroni invece di 6), mentre l'ossigeno con il legame singolo ha una carica formale -1 (ha 7 elettroni invece di 6). La carica netta della molecola e' zero, come deve essere.
+        </p>
+    </div>
+
+    <div class="info-grid">
+        <div class="info-item geometry">
+            <div class="info-label">Geometria VSEPR</div>
+            <div class="info-value"><strong>Angolare (piegata)</strong> - L'ossigeno centrale ha 3 domini elettronici: 2 legami + 1 coppia solitaria. La coppia solitaria occupa una posizione, rendendo la geometria molecolare angolare.</div>
+        </div>
+        <div class="info-item hybridization">
+            <div class="info-label">Ibridizzazione dell'Ossigeno centrale</div>
+            <div class="info-value"><strong>sp<sup>2</sup></strong> - Tre domini richiedono 3 orbitali ibridi sp<sup>2</sup>. L'orbitale p non ibridizzato partecipa alla risonanza.</div>
+        </div>
+        <div class="info-item angles">
+            <div class="info-label">Angoli di legame</div>
+            <div class="info-value"><strong>Circa 117 gradi</strong> - Leggermente inferiore a 120 gradi a causa della repulsione della coppia solitaria sull'ossigeno centrale.</div>
+        </div>
+        <div class="info-item">
+            <div class="info-label">Polarita'</div>
+            <div class="info-value"><strong>Polare</strong> - A causa della geometria angolare, i momenti dipolari non si annullano e la molecola ha un momento dipolare netto.</div>
+        </div>
+    </div>
+
+    <div class="resonance-note">
+        <strong>Importanza della risonanza nell'ozono:</strong> Le due strutture di risonanza sono equivalenti e contribuiscono ugualmente alla struttura reale. Di conseguenza, i due legami O-O nell'ozono sono identici, con una lunghezza intermedia tra un legame singolo e un legame doppio. L'ordine di legame e' 1,5 per ciascun legame.
+    </div>
+</div>
+
+<!-- ==================== TABELLA RIASSUNTIVA ==================== -->
+<h2 style="color: #2c3e50; margin-top: 30px;">Tabella Riassuntiva</h2>
+
+<table class="summary-table">
+    <tr>
+        <th>Molecola</th>
+        <th>e<sup>-</sup> valenza</th>
+        <th>Geometria</th>
+        <th>Ibridizzazione</th>
+        <th>Angoli</th>
+    </tr>
+    <tr>
+        <td><strong>CO<sub>2</sub></strong></td>
+        <td>16</td>
+        <td>Lineare</td>
+        <td>sp (C)</td>
+        <td>180 gradi</td>
+    </tr>
+    <tr>
+        <td><strong>HCO<sub>3</sub><sup>-</sup></strong></td>
+        <td>24</td>
+        <td>Trigonale planare</td>
+        <td>sp<sup>2</sup> (C)</td>
+        <td>~120 gradi</td>
+    </tr>
+    <tr>
+        <td><strong>H<sub>2</sub>CO</strong></td>
+        <td>12</td>
+        <td>Trigonale planare</td>
+        <td>sp<sup>2</sup> (C)</td>
+        <td>~120 gradi</td>
+    </tr>
+    <tr>
+        <td><strong>HCOOH</strong></td>
+        <td>18</td>
+        <td>Trigonale planare</td>
+        <td>sp<sup>2</sup> (C), sp<sup>3</sup> (O-H)</td>
+        <td>~120 gradi (C)</td>
+    </tr>
+    <tr>
+        <td><strong>H<sub>2</sub>CO<sub>3</sub></strong></td>
+        <td>24</td>
+        <td>Trigonale planare</td>
+        <td>sp<sup>2</sup> (C), sp<sup>3</sup> (O-H)</td>
+        <td>~120 gradi (C)</td>
+    </tr>
+    <tr>
+        <td><strong>O<sub>3</sub></strong></td>
+        <td>18</td>
+        <td>Angolare</td>
+        <td>sp<sup>2</sup> (O centrale)</td>
+        <td>~117 gradi</td>
+    </tr>
+</table>
+
+<div class="footer">
+    <p>Esame 3-1 | Esercizio 3 | Strutture di Lewis e Geometria Molecolare</p>
+    <p>Riferimento: Lezione 05 - Legami chimici</p>
+</div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+<script>
+    let currentStep = 0;
+    let totalSteps = 0;
+
+    document.addEventListener('DOMContentLoaded', function() {
+        totalSteps = document.querySelectorAll('.step-container').length;
+        updateProgress();
+        updateButtons();
+    });
+
+    function showNextStep() {
+        if (currentStep < totalSteps) {
+            const step = document.getElementById('step-' + currentStep);
+            if (step) {
+                step.classList.add('visible');
+                step.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                currentStep++;
+                updateProgress();
+                updateButtons();
+
+                if (window.parent !== window) {
+                    window.parent.postMessage({type: 'stepShown', step: currentStep, total: totalSteps}, '*');
+                }
+            }
+        }
+    }
+
+    function showAllSteps() {
+        document.querySelectorAll('.step-container').forEach(function(step) {
+            step.classList.add('visible');
+        });
+        currentStep = totalSteps;
+        updateProgress();
+        updateButtons();
+
+        if (window.parent !== window) {
+            window.parent.postMessage({type: 'allStepsShown'}, '*');
+        }
+    }
+
+    function hideAllSteps() {
+        document.querySelectorAll('.step-container').forEach(function(step) {
+            step.classList.remove('visible');
+        });
+        currentStep = 0;
+        updateProgress();
+        updateButtons();
+    }
+
+    function updateProgress() {
+        const pct = totalSteps > 0 ? (currentStep / totalSteps) * 100 : 0;
+        const fill = document.getElementById('progress-fill');
+        const text = document.getElementById('progress-text');
+        if (fill) fill.style.width = pct + '%';
+        if (text) text.textContent = 'Passaggio ' + currentStep + ' di ' + totalSteps;
+    }
+
+    function updateButtons() {
+        const nextBtn = document.getElementById('next-btn');
+        const allBtn = document.getElementById('all-btn');
+        const doneButtons = document.getElementById('done-buttons');
+
+        if (currentStep >= totalSteps) {
+            if (nextBtn) nextBtn.style.display = 'none';
+            if (allBtn) allBtn.style.display = 'none';
+            if (doneButtons) doneButtons.style.display = 'flex';
+        } else {
+            if (nextBtn) nextBtn.style.display = 'block';
+            if (allBtn) allBtn.style.display = 'block';
+            if (doneButtons) doneButtons.style.display = 'none';
+        }
+    }
+
+    function markExercise(status) {
+        // Salva in localStorage
+        const exerciseId = window.location.pathname.split('/').pop().replace('.html', '');
+        let progress = JSON.parse(localStorage.getItem('chemportal_progress') || '{}');
+        if (!progress.exercises) progress.exercises = {};
+        progress.exercises[exerciseId] = status;
+        localStorage.setItem('chemportal_progress', JSON.stringify(progress));
+
+        // Feedback visivo
+        const btn = status === 'done' ? document.getElementById('mark-done') : document.getElementById('mark-review');
+        const otherBtn = status === 'done' ? document.getElementById('mark-review') : document.getElementById('mark-done');
+
+        btn.classList.add('selected');
+        otherBtn.classList.remove('selected');
+
+        // Notifica parent
+        if (window.parent !== window) {
+            window.parent.postMessage({type: 'exerciseMarked', status: status, id: exerciseId}, '*');
+        }
+    }
+
+    function resetExercise() {
+        hideAllSteps();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Messaggi dal parent
+    window.addEventListener('message', function(e) {
+        if (e.data.type === 'showNext') showNextStep();
+        else if (e.data.type === 'showAll') showAllSteps();
+        else if (e.data.type === 'hideAll') hideAllSteps();
+    });
+
+    function closeExercise() {
+        if (window.parent !== window) {
+            // Siamo in iframe, chiedi al parent di chiudere
+            window.parent.postMessage({type: 'closeModal'}, '*');
+        } else {
+            // Standalone: torna alla pagina esercizi
+            const path = window.location.pathname;
+            if (path.includes('/content/soluzioni/')) {
+                window.location.href = '../../esercizi.html';
+            } else {
+                window.history.back();
+            }
+        }
+    }
+</script>
+</body>
+</html>

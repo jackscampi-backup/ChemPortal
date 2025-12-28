@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Esame 8-1 - Cinetica del Secondo Ordine</title>
+    <style>
+        body { font-family: Georgia, serif; max-width: 800px; margin: 40px auto; padding: 20px; line-height: 1.8; }
+        h1 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+        h2 { color: #2980b9; margin-top: 30px; }
+        h3 { color: #8e44ad; margin-top: 25px; }
+        .question { background: #ecf0f1; padding: 15px; border-left: 4px solid #3498db; margin: 20px 0; }
+        .result { background: #d5f5e3; padding: 15px; border-left: 4px solid #27ae60; margin: 20px 0; font-weight: bold; }
+        .formula { background: #fdebd0; padding: 10px; margin: 10px 0; font-family: monospace; font-size: 1.1em; }
+        .note { background: #e8daef; padding: 12px; border-left: 4px solid #9b59b6; margin: 15px 0; font-style: italic; }
+        .step { background: #d6eaf8; padding: 12px; border-radius: 5px; margin: 15px 0; }
+        p { margin: 12px 0; }
+    
+    .done-buttons {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+    .mark-btn {
+        padding: 12px 24px;
+        font-size: 1em;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .mark-done {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        color: white;
+    }
+    .mark-done:hover, .mark-done.selected {
+        background: linear-gradient(135deg, #1e7e34, #17a085);
+        transform: scale(1.05);
+    }
+    .mark-review {
+        background: linear-gradient(135deg, #ffc107, #fd7e14);
+        color: white;
+    }
+    .mark-review:hover, .mark-review.selected {
+        background: linear-gradient(135deg, #d39e00, #dc6502);
+        transform: scale(1.05);
+    }
+    .mark-reset {
+        background: #6c757d;
+        color: white;
+    }
+    .mark-reset:hover {
+        background: #545b62;
+    }
+    .mark-btn.selected {
+        box-shadow: 0 0 0 3px rgba(0,0,0,0.2);
+    }
+</style>
+
+<style>
+    .quiz-container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px;
+        padding-bottom: 120px;
+    }
+    .question-section {
+        background: linear-gradient(135deg, #e8f4f8 0%, #d4edda 100%);
+        border: 2px solid #17a2b8;
+        border-radius: 10px;
+        padding: 25px;
+        margin-bottom: 20px;
+    }
+    .question-section h2 {
+        color: #0c5460;
+        margin-top: 0;
+        margin-bottom: 15px;
+    }
+    .show-next-btn {
+        display: block;
+        width: 100%;
+        padding: 15px 30px;
+        font-size: 1.1em;
+        font-weight: bold;
+        color: white;
+        background: linear-gradient(135deg, #007bff, #0056b3);
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        margin: 15px 0;
+        transition: all 0.3s ease;
+    }
+    .show-next-btn:hover {
+        background: linear-gradient(135deg, #0056b3, #004094);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 123, 255, 0.4);
+    }
+    .show-all-btn {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        margin-top: 10px;
+    }
+    .show-all-btn:hover {
+        background: linear-gradient(135deg, #218838, #1db385);
+        box-shadow: 0 4px 12px rgba(40, 167, 69, 0.4);
+    }
+    .step-container {
+        display: none;
+        animation: fadeIn 0.5s ease;
+        margin-bottom: 20px;
+        border: 1px solid #dee2e6;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    .step-container.visible {
+        display: block;
+    }
+    .step-header {
+        background: linear-gradient(135deg, #6c757d, #495057);
+        color: white;
+        padding: 12px 20px;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+    }
+    .step-number-badge {
+        background: white;
+        color: #495057;
+        border-radius: 50%;
+        width: 28px;
+        height: 28px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 12px;
+        font-weight: bold;
+    }
+    .step-content {
+        padding: 20px;
+        background: white;
+    }
+    .progress-bar {
+        background: #e9ecef;
+        border-radius: 10px;
+        height: 8px;
+        margin: 15px 0;
+        overflow: hidden;
+    }
+    .progress-fill {
+        background: linear-gradient(90deg, #28a745, #20c997);
+        height: 100%;
+        border-radius: 10px;
+        transition: width 0.5s ease;
+    }
+    .progress-text {
+        text-align: center;
+        color: #6c757d;
+        font-size: 0.9em;
+        margin-bottom: 15px;
+    }
+    .controls {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: white;
+        padding: 15px 20px;
+        border-top: 2px solid #dee2e6;
+        box-shadow: 0 -4px 12px rgba(0,0,0,0.1);
+        z-index: 1000;
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+    }
+    .quiz-container {
+        padding-bottom: 100px;
+    }
+    .show-next-btn {
+        width: auto;
+        margin: 0;
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .final-answer {
+        background: #d4edda;
+        border: 2px solid #28a745;
+        border-radius: 10px;
+        padding: 20px;
+        margin-top: 20px;
+    }
+    .final-answer h3 {
+        color: #155724;
+        margin-top: 0;
+    }
+
+    .done-buttons {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+    .mark-btn {
+        padding: 12px 24px;
+        font-size: 1em;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .mark-done {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        color: white;
+    }
+    .mark-done:hover, .mark-done.selected {
+        background: linear-gradient(135deg, #1e7e34, #17a085);
+        transform: scale(1.05);
+    }
+    .mark-review {
+        background: linear-gradient(135deg, #ffc107, #fd7e14);
+        color: white;
+    }
+    .mark-review:hover, .mark-review.selected {
+        background: linear-gradient(135deg, #d39e00, #dc6502);
+        transform: scale(1.05);
+    }
+    .mark-reset {
+        background: #6c757d;
+        color: white;
+    }
+    .mark-reset:hover {
+        background: #545b62;
+    }
+    .mark-btn.selected {
+        box-shadow: 0 0 0 3px rgba(0,0,0,0.2);
+    }
+</style>
+</head>
+<body>
+<div class="quiz-container">
+    <h1>Cinetica Chimica - Reazione del Secondo Ordine</h1>
+
+    <div class="question-section">
+        <h2>Testo dell'esercizio</h2>
+        <p>Risolvi l'esercizio seguente.</p>
+    </div>
+
+    <div class="progress-text" id="progress-text">Passaggio 0 di 8</div>
+    <div class="progress-bar">
+        <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+    </div>
+
+    <div class="controls">
+        <button id="next-btn" class="show-next-btn" onclick="showNextStep()">
+            ▶ Prossimo passaggio
+        </button>
+        <button id="all-btn" class="show-next-btn show-all-btn" onclick="showAllSteps()">
+            ⏩ Mostra tutto
+        </button>
+        <div id="done-buttons" class="done-buttons" style="display: none;">
+            <button id="mark-done" class="mark-btn mark-done" onclick="markExercise('done')">
+                ✓ Fatto
+            </button>
+            <button id="mark-review" class="mark-btn mark-review" onclick="markExercise('review')">
+                ⚠ Da rivedere
+            </button>
+            <button class="mark-btn mark-reset" onclick="resetExercise()">
+                ↺ Ricomincia
+            </button>
+            <button class="mark-btn" style="background: #17a2b8;" onclick="closeExercise()">
+                ✕ Chiudi
+            </button>
+        </div>
+    </div>
+
+    <div id="steps-wrapper">
+        
+        <div id="step-0" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">1</span>
+                Introduzione: cosa ci sta chiedendo il problema?
+            </div>
+            <div class="step-content">
+                <h1>Cinetica Chimica - Reazione del Secondo Ordine</h1>
+
+<div class="question">
+<strong>QUESITO:</strong><br>
+Una reazione del secondo ordine 2A -> B dimezza la concentrazione del reagente in 15 minuti partendo da una concentrazione iniziale [A]0 = 0,01 M. Determinare il valore della costante cinetica.
+</div><h2>Introduzione: cosa ci sta chiedendo il problema?</h2>
+
+<p>Prima di tutto, fermiamoci un attimo a capire cosa ci viene chiesto. Abbiamo una reazione chimica in cui il reagente A si trasforma nel prodotto B. La reazione segue una <strong>cinetica del secondo ordine</strong>, il che significa che la velocita con cui la reazione procede dipende dal quadrato della concentrazione di A.</p>
+
+<p>Il problema ci dice che la concentrazione si <strong>dimezza</strong> in 15 minuti. Questo tempo si chiama <strong>tempo di dimezzamento</strong> (indicato con t1/2) ed e un concetto fondamentale in cinetica: e il tempo necessario affinche la concentrazione del reagente si riduca alla meta del suo valore iniziale.</p>
+
+<p>Ci viene chiesto di trovare la <strong>costante cinetica k</strong>, che e un numero che ci dice "quanto veloce" e la reazione. Piu grande e k, piu la reazione e veloce.</p>
+            </div>
+        </div>
+        
+        <div id="step-1" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">2</span>
+                I dati del problema
+            </div>
+            <div class="step-content">
+                <h2>I dati del problema</h2>
+
+<div class="step">
+<strong>Dati forniti:</strong>
+<ul>
+    <li>Ordine della reazione: <strong>secondo ordine</strong></li>
+    <li>Concentrazione iniziale: [A]0 = 0,01 M</li>
+    <li>Tempo di dimezzamento: t1/2 = 15 minuti</li>
+</ul>
+<strong>Incognita:</strong>
+<ul>
+    <li>Costante cinetica k = ?</li>
+</ul>
+</div>
+            </div>
+        </div>
+        
+        <div id="step-2" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">3</span>
+                La teoria: legge cinetica del secondo ordine
+            </div>
+            <div class="step-content">
+                <h2>La teoria: legge cinetica del secondo ordine</h2>
+
+<p>Per una reazione del secondo ordine, la legge cinetica integrata ci dice come varia la concentrazione del reagente nel tempo. La formula e:</p>
+
+<div class="formula">
+1/[A] - 1/[A]0 = k * t
+</div>
+
+<p>Cosa significa questa formula? Ci sta dicendo che se prendiamo il reciproco della concentrazione attuale (1/[A]) e sottraiamo il reciproco della concentrazione iniziale (1/[A]0), otteniamo un valore che e proporzionale al tempo trascorso, con la costante di proporzionalita che e proprio k.</p>
+
+<h3>Il tempo di dimezzamento per il secondo ordine</h3>
+
+<p>Ora, esiste una formula molto utile che collega direttamente il tempo di dimezzamento alla costante cinetica per le reazioni del secondo ordine:</p>
+
+<div class="formula">
+t1/2 = 1 / (k * [A]0)
+</div>
+
+<p>Questa formula e <strong>fondamentale</strong> e vale la pena ricordarla! Nota una cosa importante: per le reazioni del secondo ordine, il tempo di dimezzamento <strong>dipende dalla concentrazione iniziale</strong>. Piu alta e la concentrazione iniziale, piu breve sara il tempo di dimezzamento (perche ci sono piu molecole che possono reagire tra loro).</p>
+
+<div class="note">
+<strong>Confronto con il primo ordine:</strong> Per una reazione del primo ordine, il tempo di dimezzamento e t1/2 = ln(2)/k = 0,693/k, e NON dipende dalla concentrazione iniziale. Questa e una differenza importante tra i due tipi di cinetica!
+</div>
+            </div>
+        </div>
+        
+        <div id="step-3" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">4</span>
+                Risoluzione del problema
+            </div>
+            <div class="step-content">
+                <h2>Risoluzione del problema</h2>
+
+<p>Abbiamo la formula del tempo di dimezzamento per il secondo ordine:</p>
+
+<div class="formula">
+t1/2 = 1 / (k * [A]0)
+</div>
+
+<p>Dobbiamo ricavare k. Isoliamo k dalla formula:</p>
+
+<div class="step">
+<p><strong>Passo 1:</strong> Moltiplichiamo entrambi i membri per k:</p>
+<p style="text-align: center;">t1/2 * k = 1 / [A]0</p>
+
+<p><strong>Passo 2:</strong> Dividiamo entrambi i membri per t1/2:</p>
+<p style="text-align: center;">k = 1 / (t1/2 * [A]0)</p>
+</div>
+
+<p>Ora sostituiamo i valori numerici:</p>
+
+<div class="step">
+<p><strong>Passo 3:</strong> Sostituiamo i dati:</p>
+<ul>
+    <li>t1/2 = 15 minuti</li>
+    <li>[A]0 = 0,01 M</li>
+</ul>
+
+<p style="text-align: center;">k = 1 / (15 min * 0,01 M)</p>
+<p style="text-align: center;">k = 1 / (0,15 M*min)</p>
+<p style="text-align: center;"><strong>k = 6,67 M<sup>-1</sup>*min<sup>-1</sup></strong></p>
+</div>
+            </div>
+        </div>
+        
+        <div id="step-4" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">5</span>
+                Verifica con la formula generale
+            </div>
+            <div class="step-content">
+                <h2>Verifica con la formula generale</h2>
+
+<p>Possiamo verificare il risultato usando la legge cinetica integrata. Se partiamo da [A]0 = 0,01 M e dopo 15 minuti la concentrazione si e dimezzata, allora [A] = 0,005 M.</p>
+
+<div class="step">
+<p>Usiamo: 1/[A] - 1/[A]0 = k * t</p>
+<p style="text-align: center;">1/0,005 - 1/0,01 = k * 15</p>
+<p style="text-align: center;">200 - 100 = k * 15</p>
+<p style="text-align: center;">100 = k * 15</p>
+<p style="text-align: center;">k = 100/15 = 6,67 M<sup>-1</sup>*min<sup>-1</sup></p>
+</div>
+
+<p>Perfetto! Otteniamo lo stesso valore, il che conferma che il nostro calcolo e corretto.</p>
+            </div>
+        </div>
+        
+        <div id="step-5" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">6</span>
+                Risultato finale
+            </div>
+            <div class="step-content">
+                <h2>Risultato finale</h2>
+
+<div class="result">
+La costante cinetica della reazione e: <strong>k = 6,67 M<sup>-1</sup>*min<sup>-1</sup></strong>
+<br><br>
+Oppure, se vogliamo esprimerla in secondi:<br>
+k = 6,67 / 60 = <strong>0,111 M<sup>-1</sup>*s<sup>-1</sup></strong>
+</div>
+            </div>
+        </div>
+        
+        <div id="step-6" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">7</span>
+                Cosa significa questo valore?
+            </div>
+            <div class="step-content">
+                <h2>Cosa significa questo valore?</h2>
+
+<p>Il valore k = 6,67 M<sup>-1</sup>*min<sup>-1</sup> ci dice che questa reazione procede abbastanza rapidamente. Nota che le unita di misura per una reazione del secondo ordine sono <strong>M<sup>-1</sup>*tempo<sup>-1</sup></strong>, diverse da quelle del primo ordine (che sono solo tempo<sup>-1</sup>).</p>
+
+<p>Le unita di misura della costante cinetica dipendono sempre dall'ordine della reazione, e questo e un modo per riconoscere l'ordine di una reazione anche solo guardando le unita di k!</p>
+            </div>
+        </div>
+        
+        <div id="step-7" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">8</span>
+                Riepilogo delle formule chiave
+            </div>
+            <div class="step-content">
+                <h2>Riepilogo delle formule chiave</h2>
+
+<div class="note">
+<strong>Per il secondo ordine:</strong>
+<ul>
+    <li>Legge integrata: 1/[A] - 1/[A]0 = k * t</li>
+    <li>Tempo di dimezzamento: t1/2 = 1 / (k * [A]0)</li>
+    <li>Unita di k: M<sup>-1</sup>*tempo<sup>-1</sup></li>
+</ul>
+</div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+<script>
+    let currentStep = 0;
+    let totalSteps = 0;
+
+    document.addEventListener('DOMContentLoaded', function() {
+        totalSteps = document.querySelectorAll('.step-container').length;
+        updateProgress();
+        updateButtons();
+    });
+
+    function showNextStep() {
+        if (currentStep < totalSteps) {
+            const step = document.getElementById('step-' + currentStep);
+            if (step) {
+                step.classList.add('visible');
+                step.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                currentStep++;
+                updateProgress();
+                updateButtons();
+
+                if (window.parent !== window) {
+                    window.parent.postMessage({type: 'stepShown', step: currentStep, total: totalSteps}, '*');
+                }
+            }
+        }
+    }
+
+    function showAllSteps() {
+        document.querySelectorAll('.step-container').forEach(function(step) {
+            step.classList.add('visible');
+        });
+        currentStep = totalSteps;
+        updateProgress();
+        updateButtons();
+
+        if (window.parent !== window) {
+            window.parent.postMessage({type: 'allStepsShown'}, '*');
+        }
+    }
+
+    function hideAllSteps() {
+        document.querySelectorAll('.step-container').forEach(function(step) {
+            step.classList.remove('visible');
+        });
+        currentStep = 0;
+        updateProgress();
+        updateButtons();
+    }
+
+    function updateProgress() {
+        const pct = totalSteps > 0 ? (currentStep / totalSteps) * 100 : 0;
+        const fill = document.getElementById('progress-fill');
+        const text = document.getElementById('progress-text');
+        if (fill) fill.style.width = pct + '%';
+        if (text) text.textContent = 'Passaggio ' + currentStep + ' di ' + totalSteps;
+    }
+
+    function updateButtons() {
+        const nextBtn = document.getElementById('next-btn');
+        const allBtn = document.getElementById('all-btn');
+        const doneButtons = document.getElementById('done-buttons');
+
+        if (currentStep >= totalSteps) {
+            if (nextBtn) nextBtn.style.display = 'none';
+            if (allBtn) allBtn.style.display = 'none';
+            if (doneButtons) doneButtons.style.display = 'flex';
+        } else {
+            if (nextBtn) nextBtn.style.display = 'block';
+            if (allBtn) allBtn.style.display = 'block';
+            if (doneButtons) doneButtons.style.display = 'none';
+        }
+    }
+
+    function markExercise(status) {
+        // Salva in localStorage
+        const exerciseId = window.location.pathname.split('/').pop().replace('.html', '');
+        let progress = JSON.parse(localStorage.getItem('chemportal_progress') || '{}');
+        if (!progress.exercises) progress.exercises = {};
+        progress.exercises[exerciseId] = status;
+        localStorage.setItem('chemportal_progress', JSON.stringify(progress));
+
+        // Feedback visivo
+        const btn = status === 'done' ? document.getElementById('mark-done') : document.getElementById('mark-review');
+        const otherBtn = status === 'done' ? document.getElementById('mark-review') : document.getElementById('mark-done');
+
+        btn.classList.add('selected');
+        otherBtn.classList.remove('selected');
+
+        // Notifica parent
+        if (window.parent !== window) {
+            window.parent.postMessage({type: 'exerciseMarked', status: status, id: exerciseId}, '*');
+        }
+    }
+
+    function resetExercise() {
+        hideAllSteps();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Messaggi dal parent
+    window.addEventListener('message', function(e) {
+        if (e.data.type === 'showNext') showNextStep();
+        else if (e.data.type === 'showAll') showAllSteps();
+        else if (e.data.type === 'hideAll') hideAllSteps();
+    });
+
+    function closeExercise() {
+        if (window.parent !== window) {
+            // Siamo in iframe, chiedi al parent di chiudere
+            window.parent.postMessage({type: 'closeModal'}, '*');
+        } else {
+            // Standalone: torna alla pagina esercizi
+            const path = window.location.pathname;
+            if (path.includes('/content/soluzioni/')) {
+                window.location.href = '../../esercizi.html';
+            } else {
+                window.history.back();
+            }
+        }
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Esame 4-1 - Esercizio 5: Entalpia di Idrogenazione dell'Etilene</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 2cm;
+        }
+        body {
+            font-family: 'Georgia', serif;
+            font-size: 11pt;
+            line-height: 1.6;
+            color: #1a1a1a;
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+            font-size: 1.5em;
+        }
+        h2 {
+            color: #2980b9;
+            margin-top: 25px;
+            font-size: 1.2em;
+        }
+        h3 {
+            color: #16a085;
+            font-size: 1.1em;
+        }
+        .exercise-box {
+            background: linear-gradient(135deg, #e8f4f8 0%, #d4edda 100%);
+            border-left: 5px solid #3498db;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 0 10px 10px 0;
+        }
+        .reaction-box {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 1.1em;
+            font-weight: bold;
+        }
+        .step-box {
+            background: #f8f9fa;
+            border-left: 4px solid #6c757d;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        .result-box {
+            background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+            border: 2px solid #28a745;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .result-box .value {
+            font-size: 1.4em;
+            font-weight: bold;
+            color: #155724;
+        }
+        .formula {
+            background: #e9ecef;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            margin: 10px 0;
+            display: inline-block;
+        }
+        .highlight {
+            background: #fff3cd;
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+        .note-box {
+            background: #e7f3ff;
+            border-left: 4px solid #0066cc;
+            padding: 12px 15px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+            font-style: italic;
+        }
+        .combustion-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        .combustion-table th, .combustion-table td {
+            border: 1px solid #dee2e6;
+            padding: 10px;
+            text-align: left;
+        }
+        .combustion-table th {
+            background: #3498db;
+            color: white;
+        }
+        .combustion-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        .arrow {
+            font-size: 1.3em;
+            color: #e74c3c;
+        }
+        ul {
+            margin: 10px 0;
+        }
+        li {
+            margin: 8px 0;
+        }
+    
+    .done-buttons {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+    .mark-btn {
+        padding: 12px 24px;
+        font-size: 1em;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .mark-done {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        color: white;
+    }
+    .mark-done:hover, .mark-done.selected {
+        background: linear-gradient(135deg, #1e7e34, #17a085);
+        transform: scale(1.05);
+    }
+    .mark-review {
+        background: linear-gradient(135deg, #ffc107, #fd7e14);
+        color: white;
+    }
+    .mark-review:hover, .mark-review.selected {
+        background: linear-gradient(135deg, #d39e00, #dc6502);
+        transform: scale(1.05);
+    }
+    .mark-reset {
+        background: #6c757d;
+        color: white;
+    }
+    .mark-reset:hover {
+        background: #545b62;
+    }
+    .mark-btn.selected {
+        box-shadow: 0 0 0 3px rgba(0,0,0,0.2);
+    }
+</style>
+
+<style>
+    .quiz-container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px;
+        padding-bottom: 120px;
+    }
+    .question-section {
+        background: linear-gradient(135deg, #e8f4f8 0%, #d4edda 100%);
+        border: 2px solid #17a2b8;
+        border-radius: 10px;
+        padding: 25px;
+        margin-bottom: 20px;
+    }
+    .question-section h2 {
+        color: #0c5460;
+        margin-top: 0;
+        margin-bottom: 15px;
+    }
+    .show-next-btn {
+        display: block;
+        width: 100%;
+        padding: 15px 30px;
+        font-size: 1.1em;
+        font-weight: bold;
+        color: white;
+        background: linear-gradient(135deg, #007bff, #0056b3);
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        margin: 15px 0;
+        transition: all 0.3s ease;
+    }
+    .show-next-btn:hover {
+        background: linear-gradient(135deg, #0056b3, #004094);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 123, 255, 0.4);
+    }
+    .show-all-btn {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        margin-top: 10px;
+    }
+    .show-all-btn:hover {
+        background: linear-gradient(135deg, #218838, #1db385);
+        box-shadow: 0 4px 12px rgba(40, 167, 69, 0.4);
+    }
+    .step-container {
+        display: none;
+        animation: fadeIn 0.5s ease;
+        margin-bottom: 20px;
+        border: 1px solid #dee2e6;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    .step-container.visible {
+        display: block;
+    }
+    .step-header {
+        background: linear-gradient(135deg, #6c757d, #495057);
+        color: white;
+        padding: 12px 20px;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+    }
+    .step-number-badge {
+        background: white;
+        color: #495057;
+        border-radius: 50%;
+        width: 28px;
+        height: 28px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 12px;
+        font-weight: bold;
+    }
+    .step-content {
+        padding: 20px;
+        background: white;
+    }
+    .progress-bar {
+        background: #e9ecef;
+        border-radius: 10px;
+        height: 8px;
+        margin: 15px 0;
+        overflow: hidden;
+    }
+    .progress-fill {
+        background: linear-gradient(90deg, #28a745, #20c997);
+        height: 100%;
+        border-radius: 10px;
+        transition: width 0.5s ease;
+    }
+    .progress-text {
+        text-align: center;
+        color: #6c757d;
+        font-size: 0.9em;
+        margin-bottom: 15px;
+    }
+    .controls {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: white;
+        padding: 15px 20px;
+        border-top: 2px solid #dee2e6;
+        box-shadow: 0 -4px 12px rgba(0,0,0,0.1);
+        z-index: 1000;
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+    }
+    .quiz-container {
+        padding-bottom: 100px;
+    }
+    .show-next-btn {
+        width: auto;
+        margin: 0;
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .final-answer {
+        background: #d4edda;
+        border: 2px solid #28a745;
+        border-radius: 10px;
+        padding: 20px;
+        margin-top: 20px;
+    }
+    .final-answer h3 {
+        color: #155724;
+        margin-top: 0;
+    }
+
+    .done-buttons {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+    .mark-btn {
+        padding: 12px 24px;
+        font-size: 1em;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .mark-done {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        color: white;
+    }
+    .mark-done:hover, .mark-done.selected {
+        background: linear-gradient(135deg, #1e7e34, #17a085);
+        transform: scale(1.05);
+    }
+    .mark-review {
+        background: linear-gradient(135deg, #ffc107, #fd7e14);
+        color: white;
+    }
+    .mark-review:hover, .mark-review.selected {
+        background: linear-gradient(135deg, #d39e00, #dc6502);
+        transform: scale(1.05);
+    }
+    .mark-reset {
+        background: #6c757d;
+        color: white;
+    }
+    .mark-reset:hover {
+        background: #545b62;
+    }
+    .mark-btn.selected {
+        box-shadow: 0 0 0 3px rgba(0,0,0,0.2);
+    }
+</style>
+</head>
+<body>
+<div class="quiz-container">
+    <h1>Esame 4-1 - Esercizio 5: Entalpia di Idrogenazione dell'Etilene</h1>
+
+    <div class="question-section">
+        <h2>Testo dell'esercizio</h2>
+        <div class="question-text">
+        <strong>Testo dell'esercizio:</strong><br>
+        Calcolare il DeltaH° della reazione di idrogenazione dell'etilene a etano.<br><br>
+        <strong>Dati forniti:</strong>
+        <ul>
+            <li>DeltaH°(combustione etilene) = -1285 kJ/mol</li>
+            <li>DeltaH°(combustione etano) = -1422 kJ/mol</li>
+            <li>DeltaH°f(H2O) = -286 kJ/mol</li>
+        </ul>
+    </div>
+    </div>
+
+    <div class="progress-text" id="progress-text">Passaggio 0 di 7</div>
+    <div class="progress-bar">
+        <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+    </div>
+
+    <div class="controls">
+        <button id="next-btn" class="show-next-btn" onclick="showNextStep()">
+            ▶ Prossimo passaggio
+        </button>
+        <button id="all-btn" class="show-next-btn show-all-btn" onclick="showAllSteps()">
+            ⏩ Mostra tutto
+        </button>
+        <div id="done-buttons" class="done-buttons" style="display: none;">
+            <button id="mark-done" class="mark-btn mark-done" onclick="markExercise('done')">
+                ✓ Fatto
+            </button>
+            <button id="mark-review" class="mark-btn mark-review" onclick="markExercise('review')">
+                ⚠ Da rivedere
+            </button>
+            <button class="mark-btn mark-reset" onclick="resetExercise()">
+                ↺ Ricomincia
+            </button>
+            <button class="mark-btn" style="background: #17a2b8;" onclick="closeExercise()">
+                ✕ Chiudi
+            </button>
+        </div>
+    </div>
+
+    <div id="steps-wrapper">
+        
+        <div id="step-0" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">1</span>
+                Analisi del problema
+            </div>
+            <div class="step-content">
+                <div class="reaction-box">
+        <strong>Reazione da studiare:</strong><br>
+        C2H4 + H2 <span class="arrow">→</span> C2H6
+    </div><h2>Analisi del problema</h2>
+
+    <p>
+        Questo esercizio ci chiede di calcolare l'entalpia di una reazione (l'idrogenazione dell'etilene)
+        partendo da dati relativi ad altre reazioni (le combustioni). Questo e un caso classico di
+        applicazione della <strong>Legge di Hess</strong>.
+    </p>
+
+    <div class="note-box">
+        <strong>Legge di Hess:</strong> L'entalpia di una reazione dipende solo dallo stato iniziale
+        e finale, non dal percorso. Possiamo quindi combinare piu reazioni per ottenere quella desiderata,
+        sommando algebricamente i rispettivi DeltaH.
+    </div>
+
+    <p>
+        La strategia sara: scrivere le reazioni di combustione delle specie coinvolte, poi manipolarle
+        (invertirle o moltiplicarle) in modo che, sommandole, otteniamo la reazione di idrogenazione.
+    </p>
+            </div>
+        </div>
+        
+        <div id="step-1" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">2</span>
+                Passo 1: Scriviamo le reazioni di combustione
+            </div>
+            <div class="step-content">
+                <h2>Passo 1: Scriviamo le reazioni di combustione</h2>
+
+    <p>
+        Una reazione di combustione e la reazione di una sostanza con l'ossigeno (O2) per formare
+        i prodotti di ossidazione completa. Per i composti organici contenenti solo C e H, i prodotti
+        sono CO2 e H2O.
+    </p>
+
+    <h3>Combustione dell'etilene (C2H4)</h3>
+
+    <p>
+        L'etilene ha formula C2H4, quindi contiene 2 atomi di carbonio e 4 atomi di idrogeno.
+        Nella combustione completa:
+    </p>
+    <ul>
+        <li>I 2 atomi di C formano 2 molecole di CO2</li>
+        <li>I 4 atomi di H formano 2 molecole di H2O (ogni H2O contiene 2 H)</li>
+    </ul>
+
+    <div class="step-box">
+        <strong>Reazione (1):</strong><br>
+        C2H4 + 3 O2 <span class="arrow">→</span> 2 CO2 + 2 H2O<br>
+        <span class="formula">DeltaH°1 = -1285 kJ/mol</span>
+    </div>
+
+    <h3>Combustione dell'etano (C2H6)</h3>
+
+    <p>
+        L'etano ha formula C2H6, quindi contiene 2 atomi di carbonio e 6 atomi di idrogeno.
+        Nella combustione completa:
+    </p>
+    <ul>
+        <li>I 2 atomi di C formano 2 molecole di CO2</li>
+        <li>I 6 atomi di H formano 3 molecole di H2O</li>
+    </ul>
+
+    <div class="step-box">
+        <strong>Reazione (2):</strong><br>
+        C2H6 + 7/2 O2 <span class="arrow">→</span> 2 CO2 + 3 H2O<br>
+        <span class="formula">DeltaH°2 = -1422 kJ/mol</span>
+    </div>
+
+    <h3>Combustione dell'idrogeno (H2)</h3>
+
+    <p>
+        Qui il problema ci fornisce l'entalpia di formazione dell'acqua, DeltaH°f(H2O) = -286 kJ/mol.
+        Ma cos'e l'entalpia di formazione? E l'entalpia della reazione che forma 1 mole di composto
+        a partire dagli elementi nei loro stati standard.
+    </p>
+
+    <p>
+        Per l'acqua, la reazione di formazione e:
+    </p>
+
+    <div class="step-box">
+        <strong>Reazione (3):</strong><br>
+        H2 + 1/2 O2 <span class="arrow">→</span> H2O<br>
+        <span class="formula">DeltaH°3 = -286 kJ/mol</span>
+    </div>
+
+    <p>
+        Questa e proprio la combustione dell'idrogeno! Bruciando H2 in presenza di O2 otteniamo
+        acqua, e il calore rilasciato e esattamente l'entalpia di formazione dell'H2O.
+    </p>
+            </div>
+        </div>
+        
+        <div id="step-2" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">3</span>
+                Passo 2: Identifichiamo come combinare le reazioni
+            </div>
+            <div class="step-content">
+                <h2>Passo 2: Identifichiamo come combinare le reazioni</h2>
+
+    <p>
+        La nostra reazione obiettivo e:
+    </p>
+
+    <div class="reaction-box">
+        C2H4 + H2 <span class="arrow">→</span> C2H6
+    </div>
+
+    <p>
+        Analizziamo cosa ci serve:
+    </p>
+    <ul>
+        <li><strong>C2H4</strong> deve essere un <em>reagente</em> (a sinistra della freccia)</li>
+        <li><strong>H2</strong> deve essere un <em>reagente</em> (a sinistra della freccia)</li>
+        <li><strong>C2H6</strong> deve essere un <em>prodotto</em> (a destra della freccia)</li>
+    </ul>
+
+    <p>
+        Guardiamo le nostre reazioni di combustione:
+    </p>
+    <ul>
+        <li>Nella reazione (1), C2H4 e gia un reagente: <span class="highlight">va bene cosi</span></li>
+        <li>Nella reazione (2), C2H6 e un reagente, ma noi lo vogliamo come prodotto: <span class="highlight">dobbiamo invertirla!</span></li>
+        <li>Nella reazione (3), H2 e gia un reagente: <span class="highlight">va bene cosi</span></li>
+    </ul>
+            </div>
+        </div>
+        
+        <div id="step-3" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">4</span>
+                Passo 3: Manipoliamo le reazioni
+            </div>
+            <div class="step-content">
+                <h2>Passo 3: Manipoliamo le reazioni</h2>
+
+    <h3>Reazione (1) - La teniamo cosi com'e</h3>
+    <div class="step-box">
+        C2H4 + 3 O2 <span class="arrow">→</span> 2 CO2 + 2 H2O<br>
+        <span class="formula">DeltaH°1 = -1285 kJ/mol</span>
+    </div>
+
+    <h3>Reazione (2) - La invertiamo</h3>
+    <p>
+        Quando invertiamo una reazione, il segno dell'entalpia cambia! Cio che era esotermico
+        diventa endotermico e viceversa. Fisicamente, se bruciare etano rilascia energia,
+        "de-bruciarlo" (cioe ricostruirlo da CO2 e H2O) richiede la stessa energia.
+    </p>
+    <div class="step-box">
+        2 CO2 + 3 H2O <span class="arrow">→</span> C2H6 + 7/2 O2<br>
+        <span class="formula">DeltaH°2(inv) = +1422 kJ/mol</span>
+    </div>
+
+    <h3>Reazione (3) - La teniamo cosi com'e</h3>
+    <div class="step-box">
+        H2 + 1/2 O2 <span class="arrow">→</span> H2O<br>
+        <span class="formula">DeltaH°3 = -286 kJ/mol</span>
+    </div>
+            </div>
+        </div>
+        
+        <div id="step-4" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">5</span>
+                Passo 4: Sommiamo le reazioni
+            </div>
+            <div class="step-content">
+                <h2>Passo 4: Sommiamo le reazioni</h2>
+
+    <p>
+        Ora sommiamo membro a membro le tre reazioni (reagenti con reagenti, prodotti con prodotti):
+    </p>
+
+    <table class="combustion-table">
+        <tr>
+            <th>Reazione</th>
+            <th>Reagenti</th>
+            <th></th>
+            <th>Prodotti</th>
+            <th>DeltaH°</th>
+        </tr>
+        <tr>
+            <td>(1)</td>
+            <td>C2H4 + 3 O2</td>
+            <td><span class="arrow">→</span></td>
+            <td>2 CO2 + 2 H2O</td>
+            <td>-1285 kJ</td>
+        </tr>
+        <tr>
+            <td>(2) inv</td>
+            <td>2 CO2 + 3 H2O</td>
+            <td><span class="arrow">→</span></td>
+            <td>C2H6 + 7/2 O2</td>
+            <td>+1422 kJ</td>
+        </tr>
+        <tr>
+            <td>(3)</td>
+            <td>H2 + 1/2 O2</td>
+            <td><span class="arrow">→</span></td>
+            <td>H2O</td>
+            <td>-286 kJ</td>
+        </tr>
+    </table>
+
+    <h3>Verifichiamo le cancellazioni</h3>
+
+    <p><strong>Ossigeno (O2):</strong></p>
+    <ul>
+        <li>A sinistra: 3 O2 (da 1) + 1/2 O2 (da 3) = 3.5 O2</li>
+        <li>A destra: 7/2 O2 = 3.5 O2 (da 2 inv)</li>
+        <li><span class="highlight">Si cancellano!</span></li>
+    </ul>
+
+    <p><strong>Anidride carbonica (CO2):</strong></p>
+    <ul>
+        <li>A sinistra: 2 CO2 (da 2 inv)</li>
+        <li>A destra: 2 CO2 (da 1)</li>
+        <li><span class="highlight">Si cancellano!</span></li>
+    </ul>
+
+    <p><strong>Acqua (H2O):</strong></p>
+    <ul>
+        <li>A sinistra: 3 H2O (da 2 inv)</li>
+        <li>A destra: 2 H2O (da 1) + 1 H2O (da 3) = 3 H2O</li>
+        <li><span class="highlight">Si cancellano!</span></li>
+    </ul>
+
+    <p><strong>Cosa rimane:</strong></p>
+    <ul>
+        <li>A sinistra: C2H4 + H2</li>
+        <li>A destra: C2H6</li>
+    </ul>
+
+    <div class="reaction-box">
+        <strong>Reazione risultante:</strong><br>
+        C2H4 + H2 <span class="arrow">→</span> C2H6
+    </div>
+
+    <p>
+        Perfetto! Abbiamo ottenuto esattamente la reazione di idrogenazione che cercavamo!
+    </p>
+            </div>
+        </div>
+        
+        <div id="step-5" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">6</span>
+                Passo 5: Calcoliamo l'entalpia
+            </div>
+            <div class="step-content">
+                <h2>Passo 5: Calcoliamo l'entalpia</h2>
+
+    <p>
+        Secondo la Legge di Hess, l'entalpia della reazione risultante e la somma delle entalpie
+        delle reazioni che abbiamo combinato:
+    </p>
+
+    <div class="step-box">
+        <strong>DeltaH°(idrogenazione) = DeltaH°1 + DeltaH°2(inv) + DeltaH°3</strong><br><br>
+        DeltaH°(idrogenazione) = (-1285) + (+1422) + (-286) kJ/mol<br><br>
+        DeltaH°(idrogenazione) = -1285 + 1422 - 286 kJ/mol<br><br>
+        DeltaH°(idrogenazione) = +137 - 286 kJ/mol<br><br>
+        DeltaH°(idrogenazione) = <strong>-149 kJ/mol</strong>
+    </div>
+
+    <div class="result-box">
+        <strong>RISULTATO FINALE</strong><br><br>
+        <span class="value">DeltaH°(idrogenazione) = -149 kJ/mol</span>
+    </div>
+            </div>
+        </div>
+        
+        <div id="step-6" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">7</span>
+                Interpretazione del risultato
+            </div>
+            <div class="step-content">
+                <h2>Interpretazione del risultato</h2>
+
+    <p>
+        Il valore negativo di DeltaH° ci dice che la reazione di idrogenazione dell'etilene e
+        <strong>esotermica</strong>: rilascia energia sotto forma di calore.
+    </p>
+
+    <p>
+        Questo ha senso chimicamente! L'etilene (C2H4) contiene un doppio legame C=C, mentre
+        l'etano (C2H6) contiene solo legami singoli C-C e C-H. Quando aggiungiamo H2 all'etilene:
+    </p>
+    <ul>
+        <li>Si rompe il legame pi-greco del doppio legame C=C (richiede energia)</li>
+        <li>Si rompe il legame H-H dell'idrogeno (richiede energia)</li>
+        <li>Si formano due nuovi legami C-H (rilascia energia)</li>
+    </ul>
+    <p>
+        Il bilancio netto e favorevole: l'energia rilasciata dalla formazione dei legami C-H
+        e maggiore di quella richiesta per rompere il legame pi-greco e il legame H-H,
+        quindi la reazione e esotermica e rilascia 149 kJ per ogni mole di etilene idrogenato.
+    </p>
+
+    <div class="note-box">
+        <strong>Nota didattica:</strong> L'idrogenazione degli alcheni (come l'etilene) e sempre
+        esotermica perche si passa da un sistema con un doppio legame (meno stabile) a uno con
+        legami singoli (piu stabile). Questa reazione e molto importante nell'industria chimica,
+        ad esempio per la produzione di margarina a partire da oli vegetali insaturi.
+    </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+<script>
+    let currentStep = 0;
+    let totalSteps = 0;
+
+    document.addEventListener('DOMContentLoaded', function() {
+        totalSteps = document.querySelectorAll('.step-container').length;
+        updateProgress();
+        updateButtons();
+    });
+
+    function showNextStep() {
+        if (currentStep < totalSteps) {
+            const step = document.getElementById('step-' + currentStep);
+            if (step) {
+                step.classList.add('visible');
+                step.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                currentStep++;
+                updateProgress();
+                updateButtons();
+
+                if (window.parent !== window) {
+                    window.parent.postMessage({type: 'stepShown', step: currentStep, total: totalSteps}, '*');
+                }
+            }
+        }
+    }
+
+    function showAllSteps() {
+        document.querySelectorAll('.step-container').forEach(function(step) {
+            step.classList.add('visible');
+        });
+        currentStep = totalSteps;
+        updateProgress();
+        updateButtons();
+
+        if (window.parent !== window) {
+            window.parent.postMessage({type: 'allStepsShown'}, '*');
+        }
+    }
+
+    function hideAllSteps() {
+        document.querySelectorAll('.step-container').forEach(function(step) {
+            step.classList.remove('visible');
+        });
+        currentStep = 0;
+        updateProgress();
+        updateButtons();
+    }
+
+    function updateProgress() {
+        const pct = totalSteps > 0 ? (currentStep / totalSteps) * 100 : 0;
+        const fill = document.getElementById('progress-fill');
+        const text = document.getElementById('progress-text');
+        if (fill) fill.style.width = pct + '%';
+        if (text) text.textContent = 'Passaggio ' + currentStep + ' di ' + totalSteps;
+    }
+
+    function updateButtons() {
+        const nextBtn = document.getElementById('next-btn');
+        const allBtn = document.getElementById('all-btn');
+        const doneButtons = document.getElementById('done-buttons');
+
+        if (currentStep >= totalSteps) {
+            if (nextBtn) nextBtn.style.display = 'none';
+            if (allBtn) allBtn.style.display = 'none';
+            if (doneButtons) doneButtons.style.display = 'flex';
+        } else {
+            if (nextBtn) nextBtn.style.display = 'block';
+            if (allBtn) allBtn.style.display = 'block';
+            if (doneButtons) doneButtons.style.display = 'none';
+        }
+    }
+
+    function markExercise(status) {
+        // Salva in localStorage
+        const exerciseId = window.location.pathname.split('/').pop().replace('.html', '');
+        let progress = JSON.parse(localStorage.getItem('chemportal_progress') || '{}');
+        if (!progress.exercises) progress.exercises = {};
+        progress.exercises[exerciseId] = status;
+        localStorage.setItem('chemportal_progress', JSON.stringify(progress));
+
+        // Feedback visivo
+        const btn = status === 'done' ? document.getElementById('mark-done') : document.getElementById('mark-review');
+        const otherBtn = status === 'done' ? document.getElementById('mark-review') : document.getElementById('mark-done');
+
+        btn.classList.add('selected');
+        otherBtn.classList.remove('selected');
+
+        // Notifica parent
+        if (window.parent !== window) {
+            window.parent.postMessage({type: 'exerciseMarked', status: status, id: exerciseId}, '*');
+        }
+    }
+
+    function resetExercise() {
+        hideAllSteps();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Messaggi dal parent
+    window.addEventListener('message', function(e) {
+        if (e.data.type === 'showNext') showNextStep();
+        else if (e.data.type === 'showAll') showAllSteps();
+        else if (e.data.type === 'hideAll') hideAllSteps();
+    });
+
+    function closeExercise() {
+        if (window.parent !== window) {
+            // Siamo in iframe, chiedi al parent di chiudere
+            window.parent.postMessage({type: 'closeModal'}, '*');
+        } else {
+            // Standalone: torna alla pagina esercizi
+            const path = window.location.pathname;
+            if (path.includes('/content/soluzioni/')) {
+                window.location.href = '../../esercizi.html';
+            } else {
+                window.history.back();
+            }
+        }
+    }
+</script>
+</body>
+</html>

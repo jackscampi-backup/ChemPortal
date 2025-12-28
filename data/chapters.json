@@ -1,0 +1,67 @@
+{
+  "chapters": [
+    {
+      "id": "01-02",
+      "title": "Nozioni preliminari e La Materia",
+      "file": "cap-01-02-nozioni-materia.html",
+      "description": "Moli, stechiometria, bilanciamento redox, gas ideali, soluzioni",
+      "topics": ["Moli e massa molare", "Bilanciamento redox", "Gas ideali (PV=nRT)", "Soluzioni e concentrazioni", "Reagente limitante"],
+      "exerciseCount": 23,
+      "icon": "🧪"
+    },
+    {
+      "id": "03-04",
+      "title": "Teoria Atomica e Periodicità",
+      "file": "cap-03-04-teoria-periodicita.html",
+      "description": "Modello atomico, numeri quantici, configurazioni elettroniche, proprietà periodiche",
+      "topics": ["Modello di Bohr", "Numeri quantici", "Configurazioni elettroniche", "Effetto fotoelettrico", "Raggi atomici/ionici", "Potenziale di ionizzazione"],
+      "exerciseCount": 6,
+      "icon": "⚛️"
+    },
+    {
+      "id": "05",
+      "title": "Legami Chimici",
+      "file": "cap-05-legami.html",
+      "description": "Strutture di Lewis, teoria VSEPR, ibridizzazione, legami intermolecolari",
+      "topics": ["Strutture di Lewis", "Geometria VSEPR", "Ibridizzazione sp, sp2, sp3", "Legame covalente", "Legame ionico", "Paramagnetismo"],
+      "exerciseCount": 10,
+      "icon": "🔗"
+    },
+    {
+      "id": "06",
+      "title": "Acidi e Basi",
+      "file": "cap-06-acidi-basi.html",
+      "description": "pH, Ka/Kb, soluzioni tampone, titolazioni, idrolisi",
+      "topics": ["pH e pOH", "Acidi e basi deboli (Ka, Kb)", "Soluzioni tampone", "Idrolisi dei sali", "Titolazioni"],
+      "exerciseCount": 10,
+      "icon": "🧫"
+    },
+    {
+      "id": "07-08",
+      "title": "Termodinamica",
+      "file": "cap-07-08-termodinamica.html",
+      "description": "Entalpia, entropia, energia libera di Gibbs, equilibrio chimico",
+      "topics": ["Entalpia (ΔH)", "Legge di Hess", "Entropia (ΔS)", "Energia libera (ΔG)", "Equilibrio chimico (Kp, Kc)", "Calorimetria"],
+      "exerciseCount": 16,
+      "icon": "🔥"
+    },
+    {
+      "id": "09",
+      "title": "Cinetica Chimica",
+      "file": "cap-09-cinetica.html",
+      "description": "Velocità di reazione, ordine, equazione di Arrhenius, tempo di dimezzamento",
+      "topics": ["Velocità di reazione", "Ordine di reazione", "Equazione di Arrhenius", "Energia di attivazione", "Tempo di dimezzamento"],
+      "exerciseCount": 7,
+      "icon": "⏱️"
+    },
+    {
+      "id": "10",
+      "title": "Elettrochimica",
+      "file": "cap-10-elettrochimica.html",
+      "description": "Pile galvaniche, equazione di Nernst, elettrolisi, leggi di Faraday",
+      "topics": ["Pile galvaniche", "Potenziale standard E°", "Equazione di Nernst", "Elettrolisi", "Leggi di Faraday", "K da E°"],
+      "exerciseCount": 16,
+      "icon": "⚡"
+    }
+  ]
+}

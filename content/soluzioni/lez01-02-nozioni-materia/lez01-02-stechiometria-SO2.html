@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Esame 4-1 - Esercizio 1: Volume di Anidride Solforosa</title>
+    <style>
+        body {
+            font-family: 'Georgia', serif;
+            line-height: 1.8;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px;
+            color: #333;
+            background-color: #fff;
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 15px;
+            font-size: 1.8em;
+        }
+        h2 {
+            color: #2980b9;
+            margin-top: 35px;
+            font-size: 1.4em;
+        }
+        .problema {
+            background-color: #f8f9fa;
+            border-left: 5px solid #3498db;
+            padding: 20px;
+            margin: 25px 0;
+            font-style: italic;
+        }
+        .dati {
+            background-color: #e8f4f8;
+            border: 1px solid #3498db;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 25px 0;
+        }
+        .reazione {
+            background-color: #fff3cd;
+            border: 2px solid #ffc107;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 25px 0;
+            text-align: center;
+            font-size: 1.3em;
+            font-weight: bold;
+        }
+        .passaggio {
+            background-color: #f0f7ff;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .formula {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 1.1em;
+            text-align: center;
+        }
+        .risultato {
+            background-color: #d4edda;
+            border: 2px solid #28a745;
+            border-radius: 8px;
+            padding: 25px;
+            margin: 30px 0;
+            text-align: center;
+        }
+        .risultato-valore {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #155724;
+        }
+        .nota {
+            background-color: #fff8e1;
+            border-left: 4px solid #ff9800;
+            padding: 15px;
+            margin: 20px 0;
+            font-size: 0.95em;
+        }
+        .spiegazione {
+            color: #555;
+            margin: 15px 0;
+        }
+        ul {
+            margin: 15px 0;
+        }
+        li {
+            margin: 8px 0;
+        }
+    
+    .done-buttons {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+    .mark-btn {
+        padding: 12px 24px;
+        font-size: 1em;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .mark-done {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        color: white;
+    }
+    .mark-done:hover, .mark-done.selected {
+        background: linear-gradient(135deg, #1e7e34, #17a085);
+        transform: scale(1.05);
+    }
+    .mark-review {
+        background: linear-gradient(135deg, #ffc107, #fd7e14);
+        color: white;
+    }
+    .mark-review:hover, .mark-review.selected {
+        background: linear-gradient(135deg, #d39e00, #dc6502);
+        transform: scale(1.05);
+    }
+    .mark-reset {
+        background: #6c757d;
+        color: white;
+    }
+    .mark-reset:hover {
+        background: #545b62;
+    }
+    .mark-btn.selected {
+        box-shadow: 0 0 0 3px rgba(0,0,0,0.2);
+    }
+</style>
+
+<style>
+    .quiz-container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px;
+        padding-bottom: 120px;
+    }
+    .question-section {
+        background: linear-gradient(135deg, #e8f4f8 0%, #d4edda 100%);
+        border: 2px solid #17a2b8;
+        border-radius: 10px;
+        padding: 25px;
+        margin-bottom: 20px;
+    }
+    .question-section h2 {
+        color: #0c5460;
+        margin-top: 0;
+        margin-bottom: 15px;
+    }
+    .show-next-btn {
+        display: block;
+        width: 100%;
+        padding: 15px 30px;
+        font-size: 1.1em;
+        font-weight: bold;
+        color: white;
+        background: linear-gradient(135deg, #007bff, #0056b3);
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        margin: 15px 0;
+        transition: all 0.3s ease;
+    }
+    .show-next-btn:hover {
+        background: linear-gradient(135deg, #0056b3, #004094);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 123, 255, 0.4);
+    }
+    .show-all-btn {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        margin-top: 10px;
+    }
+    .show-all-btn:hover {
+        background: linear-gradient(135deg, #218838, #1db385);
+        box-shadow: 0 4px 12px rgba(40, 167, 69, 0.4);
+    }
+    .step-container {
+        display: none;
+        animation: fadeIn 0.5s ease;
+        margin-bottom: 20px;
+        border: 1px solid #dee2e6;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    .step-container.visible {
+        display: block;
+    }
+    .step-header {
+        background: linear-gradient(135deg, #6c757d, #495057);
+        color: white;
+        padding: 12px 20px;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+    }
+    .step-number-badge {
+        background: white;
+        color: #495057;
+        border-radius: 50%;
+        width: 28px;
+        height: 28px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 12px;
+        font-weight: bold;
+    }
+    .step-content {
+        padding: 20px;
+        background: white;
+    }
+    .progress-bar {
+        background: #e9ecef;
+        border-radius: 10px;
+        height: 8px;
+        margin: 15px 0;
+        overflow: hidden;
+    }
+    .progress-fill {
+        background: linear-gradient(90deg, #28a745, #20c997);
+        height: 100%;
+        border-radius: 10px;
+        transition: width 0.5s ease;
+    }
+    .progress-text {
+        text-align: center;
+        color: #6c757d;
+        font-size: 0.9em;
+        margin-bottom: 15px;
+    }
+    .controls {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: white;
+        padding: 15px 20px;
+        border-top: 2px solid #dee2e6;
+        box-shadow: 0 -4px 12px rgba(0,0,0,0.1);
+        z-index: 1000;
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+    }
+    .quiz-container {
+        padding-bottom: 100px;
+    }
+    .show-next-btn {
+        width: auto;
+        margin: 0;
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .final-answer {
+        background: #d4edda;
+        border: 2px solid #28a745;
+        border-radius: 10px;
+        padding: 20px;
+        margin-top: 20px;
+    }
+    .final-answer h3 {
+        color: #155724;
+        margin-top: 0;
+    }
+
+    .done-buttons {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+    .mark-btn {
+        padding: 12px 24px;
+        font-size: 1em;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .mark-done {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        color: white;
+    }
+    .mark-done:hover, .mark-done.selected {
+        background: linear-gradient(135deg, #1e7e34, #17a085);
+        transform: scale(1.05);
+    }
+    .mark-review {
+        background: linear-gradient(135deg, #ffc107, #fd7e14);
+        color: white;
+    }
+    .mark-review:hover, .mark-review.selected {
+        background: linear-gradient(135deg, #d39e00, #dc6502);
+        transform: scale(1.05);
+    }
+    .mark-reset {
+        background: #6c757d;
+        color: white;
+    }
+    .mark-reset:hover {
+        background: #545b62;
+    }
+    .mark-btn.selected {
+        box-shadow: 0 0 0 3px rgba(0,0,0,0.2);
+    }
+</style>
+</head>
+<body>
+<div class="quiz-container">
+    <h1>Esame 4-1 - Esercizio 1</h1>
+
+    <div class="question-section">
+        <h2>Testo dell'esercizio</h2>
+        <p>Risolvi l'esercizio seguente.</p>
+    </div>
+
+    <div class="progress-text" id="progress-text">Passaggio 0 di 7</div>
+    <div class="progress-bar">
+        <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+    </div>
+
+    <div class="controls">
+        <button id="next-btn" class="show-next-btn" onclick="showNextStep()">
+            ▶ Prossimo passaggio
+        </button>
+        <button id="all-btn" class="show-next-btn show-all-btn" onclick="showAllSteps()">
+            ⏩ Mostra tutto
+        </button>
+        <div id="done-buttons" class="done-buttons" style="display: none;">
+            <button id="mark-done" class="mark-btn mark-done" onclick="markExercise('done')">
+                ✓ Fatto
+            </button>
+            <button id="mark-review" class="mark-btn mark-review" onclick="markExercise('review')">
+                ⚠ Da rivedere
+            </button>
+            <button class="mark-btn mark-reset" onclick="resetExercise()">
+                ↺ Ricomincia
+            </button>
+            <button class="mark-btn" style="background: #17a2b8;" onclick="closeExercise()">
+                ✕ Chiudi
+            </button>
+        </div>
+    </div>
+
+    <div id="steps-wrapper">
+        
+        <div id="step-0" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">1</span>
+                Combustione dello Zolfo: Calcolo del Volume di SO2
+            </div>
+            <div class="step-content">
+                <h1>Esame 4-1 - Esercizio 1</h1><h2>Combustione dello Zolfo: Calcolo del Volume di SO2</h2>
+
+    <div class="problema">
+        <strong>Testo del problema:</strong><br>
+        Calcolare il volume di anidride solforosa (a condizioni normali: 0 C, 1 atm) che si produce dalla combustione completa di 2 grammi di zolfo.
+    </div>
+
+    <div class="dati">
+        <strong>Dati forniti:</strong>
+        <ul>
+            <li>Massa di zolfo: m(S) = 2 g</li>
+            <li>Massa molare dello zolfo: MM(S) = 32 g/mol</li>
+            <li>Condizioni normali (c.n.): T = 0 C = 273 K, P = 1 atm</li>
+            <li>Volume molare a c.n.: Vm = 22,4 L/mol</li>
+        </ul>
+    </div>
+            </div>
+        </div>
+        
+        <div id="step-1" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">2</span>
+                Svolgimento Dettagliato
+            </div>
+            <div class="step-content">
+                <h2>Svolgimento Dettagliato</h2>
+            </div>
+        </div>
+        
+        <div id="step-2" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">3</span>
+                Passaggio 1: Scriviamo e analizziamo la reazione c...
+            </div>
+            <div class="step-content">
+                <h2>Passaggio 1: Scriviamo e analizziamo la reazione chimica</h2>
+
+    <div class="passaggio">
+        <p class="spiegazione">
+            Prima di tutto, dobbiamo capire cosa succede durante la combustione dello zolfo. La combustione e una reazione chimica in cui una sostanza reagisce con l'ossigeno (O2) producendo calore e formando nuovi composti.
+        </p>
+        <p class="spiegazione">
+            Quando lo zolfo brucia in presenza di ossigeno, si forma anidride solforosa (SO2), un gas dall'odore pungente. La reazione chimica e la seguente:
+        </p>
+    </div>
+
+    <div class="reazione">
+        S + O2 --> SO2
+    </div>
+
+    <div class="passaggio">
+        <p class="spiegazione">
+            Osserviamo attentamente questa reazione: e gia bilanciata! Infatti abbiamo:
+        </p>
+        <ul>
+            <li><strong>A sinistra (reagenti):</strong> 1 atomo di zolfo (S) e 2 atomi di ossigeno (O2)</li>
+            <li><strong>A destra (prodotti):</strong> 1 atomo di zolfo e 2 atomi di ossigeno (nella molecola SO2)</li>
+        </ul>
+        <p class="spiegazione">
+            Questo significa che <strong>1 mole di zolfo</strong> reagisce con 1 mole di ossigeno per produrre esattamente <strong>1 mole di anidride solforosa</strong>. Questo rapporto 1:1 tra S e SO2 sara fondamentale per i nostri calcoli!
+        </p>
+    </div>
+            </div>
+        </div>
+        
+        <div id="step-3" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">4</span>
+                Passaggio 2: Calcoliamo le moli di zolfo
+            </div>
+            <div class="step-content">
+                <h2>Passaggio 2: Calcoliamo le moli di zolfo</h2>
+
+    <div class="passaggio">
+        <p class="spiegazione">
+            Ora dobbiamo convertire i grammi di zolfo in moli. Perche? Perche in chimica le reazioni avvengono tra molecole, e le moli ci permettono di "contare" quante molecole abbiamo. La formula fondamentale e:
+        </p>
+
+        <div class="formula">
+            n = m / MM
+        </div>
+
+        <p class="spiegazione">
+            Dove:
+        </p>
+        <ul>
+            <li><strong>n</strong> = numero di moli (quello che vogliamo trovare)</li>
+            <li><strong>m</strong> = massa in grammi (2 g di zolfo)</li>
+            <li><strong>MM</strong> = massa molare (32 g/mol per lo zolfo)</li>
+        </ul>
+
+        <p class="spiegazione">
+            Sostituiamo i valori:
+        </p>
+
+        <div class="formula">
+            n(S) = 2 g / 32 g/mol = 0,0625 mol
+        </div>
+
+        <p class="spiegazione">
+            Quindi abbiamo <strong>0,0625 moli di zolfo</strong>. Questo numero potrebbe sembrare strano, ma e semplicemente 2/32 = 1/16 di mole.
+        </p>
+    </div>
+            </div>
+        </div>
+        
+        <div id="step-4" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">5</span>
+                Passaggio 3: Determiniamo le moli di SO2 prodotte
+            </div>
+            <div class="step-content">
+                <h2>Passaggio 3: Determiniamo le moli di SO2 prodotte</h2>
+
+    <div class="passaggio">
+        <p class="spiegazione">
+            Qui entra in gioco il rapporto stechiometrico che abbiamo identificato nel Passaggio 1. Dalla reazione bilanciata sappiamo che:
+        </p>
+
+        <div class="formula">
+            1 mol S --> 1 mol SO2
+        </div>
+
+        <p class="spiegazione">
+            Questo significa che il rapporto molare tra zolfo e anidride solforosa e 1:1. In altre parole, ogni mole di zolfo che brucia produce esattamente una mole di anidride solforosa.
+        </p>
+
+        <p class="spiegazione">
+            Quindi, se abbiamo 0,0625 moli di zolfo, produrremo esattamente:
+        </p>
+
+        <div class="formula">
+            n(SO2) = n(S) = 0,0625 mol
+        </div>
+
+        <p class="spiegazione">
+            Abbiamo quindi <strong>0,0625 moli di SO2</strong> che si formano dalla combustione.
+        </p>
+    </div>
+            </div>
+        </div>
+        
+        <div id="step-5" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">6</span>
+                Passaggio 4: Calcoliamo il volume di SO2 a condizi...
+            </div>
+            <div class="step-content">
+                <h2>Passaggio 4: Calcoliamo il volume di SO2 a condizioni normali</h2>
+
+    <div class="passaggio">
+        <p class="spiegazione">
+            Ora arriva il passaggio finale: dobbiamo convertire le moli di gas in volume. Per farlo, utilizziamo un concetto fondamentale della chimica dei gas.
+        </p>
+
+        <div class="nota">
+            <strong>Concetto chiave:</strong> A condizioni normali (0 C e 1 atm), una mole di qualsiasi gas ideale occupa sempre lo stesso volume, chiamato <strong>volume molare</strong>, che vale <strong>22,4 litri</strong>. Questo e vero indipendentemente dal tipo di gas!
+        </div>
+
+        <p class="spiegazione">
+            La formula per calcolare il volume e semplicemente:
+        </p>
+
+        <div class="formula">
+            V = n x Vm
+        </div>
+
+        <p class="spiegazione">
+            Dove:
+        </p>
+        <ul>
+            <li><strong>V</strong> = volume del gas (quello che cerchiamo)</li>
+            <li><strong>n</strong> = numero di moli (0,0625 mol)</li>
+            <li><strong>Vm</strong> = volume molare a c.n. (22,4 L/mol)</li>
+        </ul>
+
+        <p class="spiegazione">
+            Sostituiamo i valori:
+        </p>
+
+        <div class="formula">
+            V(SO2) = 0,0625 mol x 22,4 L/mol = 1,4 L
+        </div>
+    </div>
+
+    <div class="risultato">
+        <strong>RISULTATO FINALE</strong><br><br>
+        <span class="risultato-valore">V(SO2) = 1,4 L</span><br><br>
+        Dalla combustione completa di 2 grammi di zolfo si producono <strong>1,4 litri</strong> di anidride solforosa a condizioni normali.
+    </div>
+            </div>
+        </div>
+        
+        <div id="step-6" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">7</span>
+                Riepilogo del procedimento
+            </div>
+            <div class="step-content">
+                <h2>Riepilogo del procedimento</h2>
+
+    <div class="passaggio">
+        <ol>
+            <li><strong>Scriviamo la reazione bilanciata:</strong> S + O2 --> SO2 (rapporto 1:1)</li>
+            <li><strong>Calcoliamo le moli di S:</strong> n = 2 g / 32 g/mol = 0,0625 mol</li>
+            <li><strong>Troviamo le moli di SO2:</strong> n(SO2) = n(S) = 0,0625 mol (rapporto 1:1)</li>
+            <li><strong>Calcoliamo il volume:</strong> V = 0,0625 mol x 22,4 L/mol = 1,4 L</li>
+        </ol>
+    </div>
+
+    <div class="nota">
+        <strong>Nota didattica:</strong> Questo esercizio e un classico esempio di stechiometria con i gas. La chiave e sempre: (1) partire dalla reazione bilanciata per trovare i rapporti molari, (2) convertire i grammi in moli, (3) usare i rapporti stechiometrici, (4) convertire le moli nel volume usando il volume molare.
+    </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+<script>
+    let currentStep = 0;
+    let totalSteps = 0;
+
+    document.addEventListener('DOMContentLoaded', function() {
+        totalSteps = document.querySelectorAll('.step-container').length;
+        updateProgress();
+        updateButtons();
+    });
+
+    function showNextStep() {
+        if (currentStep < totalSteps) {
+            const step = document.getElementById('step-' + currentStep);
+            if (step) {
+                step.classList.add('visible');
+                step.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                currentStep++;
+                updateProgress();
+                updateButtons();
+
+                if (window.parent !== window) {
+                    window.parent.postMessage({type: 'stepShown', step: currentStep, total: totalSteps}, '*');
+                }
+            }
+        }
+    }
+
+    function showAllSteps() {
+        document.querySelectorAll('.step-container').forEach(function(step) {
+            step.classList.add('visible');
+        });
+        currentStep = totalSteps;
+        updateProgress();
+        updateButtons();
+
+        if (window.parent !== window) {
+            window.parent.postMessage({type: 'allStepsShown'}, '*');
+        }
+    }
+
+    function hideAllSteps() {
+        document.querySelectorAll('.step-container').forEach(function(step) {
+            step.classList.remove('visible');
+        });
+        currentStep = 0;
+        updateProgress();
+        updateButtons();
+    }
+
+    function updateProgress() {
+        const pct = totalSteps > 0 ? (currentStep / totalSteps) * 100 : 0;
+        const fill = document.getElementById('progress-fill');
+        const text = document.getElementById('progress-text');
+        if (fill) fill.style.width = pct + '%';
+        if (text) text.textContent = 'Passaggio ' + currentStep + ' di ' + totalSteps;
+    }
+
+    function updateButtons() {
+        const nextBtn = document.getElementById('next-btn');
+        const allBtn = document.getElementById('all-btn');
+        const doneButtons = document.getElementById('done-buttons');
+
+        if (currentStep >= totalSteps) {
+            if (nextBtn) nextBtn.style.display = 'none';
+            if (allBtn) allBtn.style.display = 'none';
+            if (doneButtons) doneButtons.style.display = 'flex';
+        } else {
+            if (nextBtn) nextBtn.style.display = 'block';
+            if (allBtn) allBtn.style.display = 'block';
+            if (doneButtons) doneButtons.style.display = 'none';
+        }
+    }
+
+    function markExercise(status) {
+        // Salva in localStorage
+        const exerciseId = window.location.pathname.split('/').pop().replace('.html', '');
+        let progress = JSON.parse(localStorage.getItem('chemportal_progress') || '{}');
+        if (!progress.exercises) progress.exercises = {};
+        progress.exercises[exerciseId] = status;
+        localStorage.setItem('chemportal_progress', JSON.stringify(progress));
+
+        // Feedback visivo
+        const btn = status === 'done' ? document.getElementById('mark-done') : document.getElementById('mark-review');
+        const otherBtn = status === 'done' ? document.getElementById('mark-review') : document.getElementById('mark-done');
+
+        btn.classList.add('selected');
+        otherBtn.classList.remove('selected');
+
+        // Notifica parent
+        if (window.parent !== window) {
+            window.parent.postMessage({type: 'exerciseMarked', status: status, id: exerciseId}, '*');
+        }
+    }
+
+    function resetExercise() {
+        hideAllSteps();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Messaggi dal parent
+    window.addEventListener('message', function(e) {
+        if (e.data.type === 'showNext') showNextStep();
+        else if (e.data.type === 'showAll') showAllSteps();
+        else if (e.data.type === 'hideAll') hideAllSteps();
+    });
+
+    function closeExercise() {
+        if (window.parent !== window) {
+            // Siamo in iframe, chiedi al parent di chiudere
+            window.parent.postMessage({type: 'closeModal'}, '*');
+        } else {
+            // Standalone: torna alla pagina esercizi
+            const path = window.location.pathname;
+            if (path.includes('/content/soluzioni/')) {
+                window.location.href = '../../esercizi.html';
+            } else {
+                window.history.back();
+            }
+        }
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,1601 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Capitolo 10 - Elettrochimica (v2)</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 2cm;
+        }
+        body {
+            font-family: Georgia, serif;
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            line-height: 1.8;
+            color: #333;
+        }
+        h1 {
+            color: #1a5276;
+            border-bottom: 4px solid #2980b9;
+            padding-bottom: 15px;
+            font-size: 2em;
+        }
+        h2 {
+            color: #2471a3;
+            margin-top: 40px;
+            border-left: 4px solid #3498db;
+            padding-left: 15px;
+            page-break-after: avoid;
+        }
+        h3 {
+            color: #1e8449;
+            margin-top: 25px;
+        }
+        h4 {
+            color: #7d3c98;
+            margin-top: 20px;
+        }
+        .indice {
+            background: #eaf2f8;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .indice ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        .indice li {
+            margin: 5px 0;
+        }
+        .indice a {
+            color: #2471a3;
+            text-decoration: none;
+        }
+        .prerequisiti {
+            background: #fef9e7;
+            padding: 15px;
+            border-left: 4px solid #f39c12;
+            margin: 20px 0;
+        }
+        .definizione {
+            background: #e8f6f3;
+            padding: 15px;
+            border-left: 4px solid #1abc9c;
+            margin: 15px 0;
+        }
+        .formula-box {
+            background: #fdebd0;
+            padding: 20px;
+            border: 2px solid #e67e22;
+            border-radius: 8px;
+            margin: 20px 0;
+            text-align: center;
+            font-size: 1.2em;
+        }
+        .formula-box .nome {
+            font-weight: bold;
+            color: #d35400;
+            margin-bottom: 10px;
+        }
+        .formula-box .formula {
+            font-size: 1.3em;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+        }
+        .formula-box .quando {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 10px;
+            text-align: left;
+        }
+        .formula-box .unita {
+            font-size: 0.85em;
+            color: #555;
+            text-align: left;
+            margin-top: 10px;
+            background: #fff;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .esempio-esame {
+            background: #e8f4fd;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 25px 0;
+            border: 2px solid #3498db;
+        }
+        .esempio-esame .titolo {
+            font-weight: bold;
+            color: #2980b9;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+        .testo-esercizio {
+            background: #ecf0f1;
+            padding: 15px;
+            border-left: 4px solid #3498db;
+            margin: 15px 0;
+        }
+        .attenzione {
+            background: #fdedec;
+            padding: 15px;
+            border-left: 4px solid #e74c3c;
+            margin: 15px 0;
+        }
+        .riepilogo {
+            background: #d5f5e3;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 30px 0;
+        }
+        .procedura {
+            background: #fff;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        .procedura ol {
+            margin: 0;
+            padding-left: 20px;
+        }
+        .procedura li {
+            margin: 8px 0;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #bdc3c7;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background: #3498db;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        sub { font-size: 0.75em; }
+        sup { font-size: 0.75em; }
+        .step {
+            background: #f0f8ff;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+            border-left: 3px solid #3498db;
+        }
+        .risultato {
+            background: #d4edda;
+            padding: 15px;
+            border-radius: 5px;
+            border: 2px solid #28a745;
+            text-align: center;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+        .nota {
+            background: #fff3cd;
+            padding: 10px 15px;
+            border-left: 4px solid #ffc107;
+            margin: 15px 0;
+            font-style: italic;
+        }
+        .costanti-box {
+            background: #f8f9fa;
+            padding: 15px;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        .importante {
+            background: #fadbd8;
+            padding: 15px;
+            border-left: 4px solid #e74c3c;
+            margin: 15px 0;
+        }
+        .calcolo {
+            font-family: 'Courier New', monospace;
+            background: #ecf0f1;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Capitolo 10 - Elettrochimica</h1>
+
+<div class="indice">
+<strong>INDICE</strong>
+<ul>
+    <li>1. Prerequisiti</li>
+    <li>2. Concetti Fondamentali</li>
+    <li>3. Celle Galvaniche (Pile)</li>
+    <li>4. Potenziali Standard di Riduzione</li>
+    <li>5. Equazione di Nernst</li>
+    <li>6. Pile a Concentrazione</li>
+    <li>7. Relazioni Termodinamiche</li>
+    <li>8. Elettrolisi e Leggi di Faraday</li>
+    <li>9. Esercizi d'Esame Svolti</li>
+    <li>10. Errori Comuni</li>
+    <li>11. Riepilogo Formule</li>
+</ul>
+</div>
+
+<!-- ============================================== -->
+<h2>1. Prerequisiti</h2>
+<!-- ============================================== -->
+
+<div class="prerequisiti">
+<strong>Prima di affrontare questo capitolo, dovresti sapere:</strong>
+<ul>
+    <li>Numeri di ossidazione e loro assegnazione</li>
+    <li>Bilanciamento delle reazioni redox (metodo delle semireazioni)</li>
+    <li>Concetto di ossidazione (perdita di elettroni) e riduzione (acquisto di elettroni)</li>
+    <li>Concetti base di termodinamica: energia libera di Gibbs (DeltaG)</li>
+    <li>Logaritmi in base 10 (log)</li>
+    <li>Unita di misura: Coulomb (C), Ampere (A), Volt (V)</li>
+</ul>
+</div>
+
+<div class="costanti-box">
+<strong>Costanti fondamentali per questo capitolo:</strong>
+<ul>
+    <li><strong>Costante di Faraday:</strong> F = 96485 C/mol (approssimabile a 96500 C/mol)</li>
+    <li><strong>Costante dei gas:</strong> R = 8.314 J/(mol x K)</li>
+    <li><strong>Temperatura standard:</strong> T = 298.15 K (25 C)</li>
+    <li><strong>Volume molare a c.n.:</strong> 22.4 L/mol</li>
+</ul>
+</div>
+
+<!-- ============================================== -->
+<h2>2. Concetti Fondamentali</h2>
+<!-- ============================================== -->
+
+<div class="definizione">
+<strong>Elettrochimica:</strong> E la branca della chimica che studia le relazioni tra reazioni chimiche ed energia elettrica. Comprende due processi fondamentali:
+<ul>
+    <li><strong>Celle galvaniche (pile):</strong> reazioni spontanee che producono energia elettrica</li>
+    <li><strong>Elettrolisi:</strong> energia elettrica utilizzata per far avvenire reazioni non spontanee</li>
+</ul>
+</div>
+
+<h3>Reazioni Redox</h3>
+
+<p>Alla base dell'elettrochimica ci sono le reazioni di <strong>ossido-riduzione (redox)</strong>. In queste reazioni:</p>
+
+<ul>
+    <li><strong>Ossidazione:</strong> una specie PERDE elettroni (il suo numero di ossidazione AUMENTA)</li>
+    <li><strong>Riduzione:</strong> una specie ACQUISTA elettroni (il suo numero di ossidazione DIMINUISCE)</li>
+</ul>
+
+<div class="nota">
+<strong>Trucco mnemonico:</strong> "LEO goes GER" - Loss of Electrons is Oxidation, Gain of Electrons is Reduction. Oppure ricorda: "AN-OX" (l'ANodo e dove avviene l'OSSidazione) e "CAT-RED" (il CATodo e dove avviene la RIDuzione).
+</div>
+
+<h3>Agente Ossidante e Riducente</h3>
+
+<ul>
+    <li><strong>Agente ossidante:</strong> la specie che SI RIDUCE (acquista elettroni) e provoca l'ossidazione dell'altra specie</li>
+    <li><strong>Agente riducente:</strong> la specie che SI OSSIDA (perde elettroni) e provoca la riduzione dell'altra specie</li>
+</ul>
+
+<!-- ============================================== -->
+<h2>3. Celle Galvaniche (Pile)</h2>
+<!-- ============================================== -->
+
+<div class="definizione">
+<strong>Cella galvanica (pila):</strong> Dispositivo che converte energia chimica in energia elettrica attraverso una reazione redox spontanea. E costituita da due semicelle collegate da un ponte salino.
+</div>
+
+<h3>Struttura di una pila</h3>
+
+<p>Una pila e costituita da:</p>
+
+<ul>
+    <li><strong>Anodo (polo negativo -):</strong> elettrodo dove avviene l'OSSIDAZIONE. Il metallo si ossida cedendo elettroni.</li>
+    <li><strong>Catodo (polo positivo +):</strong> elettrodo dove avviene la RIDUZIONE. Gli ioni acquistano elettroni e si depositano.</li>
+    <li><strong>Ponte salino:</strong> collega le due semicelle permettendo il passaggio di ioni per mantenere la neutralita elettrica.</li>
+</ul>
+
+<h3>Notazione delle pile</h3>
+
+<p>Le pile si rappresentano con una notazione convenzionale. Capire questa notazione e fondamentale per risolvere gli esercizi!</p>
+
+<div class="formula-box">
+<div class="formula">(-) Anodo | Soluzione anodo || Soluzione catodo | Catodo (+)</div>
+<div class="quando">
+<strong>Convenzioni importanti:</strong>
+<ul>
+    <li><strong>|</strong> = singola barra, indica l'interfaccia metallo/soluzione</li>
+    <li><strong>||</strong> = doppia barra, indica il ponte salino (separa le due semicelle)</li>
+    <li>L'anodo (ossidazione) e sempre scritto a SINISTRA</li>
+    <li>Il catodo (riduzione) e sempre scritto a DESTRA</li>
+</ul>
+</div>
+</div>
+
+<p><strong>Esempio:</strong> Pila Daniell (Zn-Cu)</p>
+<p style="text-align: center; font-family: monospace; font-size: 1.1em;">(-) Zn | Zn<sup>2+</sup> (1M) || Cu<sup>2+</sup> (1M) | Cu (+)</p>
+
+<p>Questa notazione ci dice che:</p>
+<ul>
+    <li>A sinistra abbiamo lo zinco metallico immerso in una soluzione di ioni Zn<sup>2+</sup></li>
+    <li>A destra abbiamo il rame metallico immerso in una soluzione di ioni Cu<sup>2+</sup></li>
+    <li>Lo zinco si ossida (anodo), il rame si riduce (catodo)</li>
+</ul>
+
+<h3>Come identificare anodo e catodo</h3>
+
+<div class="importante">
+<strong>REGOLA FONDAMENTALE per decidere chi e l'anodo e chi e il catodo:</strong>
+<p>Confronta i potenziali standard E delle due coppie redox:</p>
+<ul>
+    <li>Il metallo con potenziale piu <strong>BASSO</strong> (piu negativo) si ossida = <strong>ANODO</strong></li>
+    <li>Il metallo con potenziale piu <strong>ALTO</strong> (piu positivo) si riduce = <strong>CATODO</strong></li>
+</ul>
+<p><strong>Perche?</strong> Un potenziale di riduzione piu alto significa che quella specie ha piu "voglia" di acquistare elettroni (ridursi). Quindi sara lei a ridursi, mentre l'altra specie cedera elettroni.</p>
+</div>
+
+<!-- ============================================== -->
+<h2>4. Potenziali Standard di Riduzione</h2>
+<!-- ============================================== -->
+
+<div class="definizione">
+<strong>Potenziale standard di riduzione (E):</strong> E il potenziale di una semicella misurato rispetto all'elettrodo standard a idrogeno (SHE), in condizioni standard (concentrazioni 1 M, pressione 1 atm, T = 25 C).
+</div>
+
+<p>L'elettrodo standard a idrogeno (SHE) ha, per convenzione, E = 0.000 V:</p>
+
+<p style="text-align: center;">2H<sup>+</sup> + 2e<sup>-</sup> --> H<sub>2</sub> &nbsp;&nbsp;&nbsp; E = 0.00 V</p>
+
+<h3>Tabella dei potenziali standard piu usati agli esami</h3>
+
+<table>
+<tr><th>Semireazione di riduzione</th><th>E (V)</th></tr>
+<tr><td>Li<sup>+</sup> + e<sup>-</sup> --> Li</td><td>-3.04</td></tr>
+<tr><td>Na<sup>+</sup> + e<sup>-</sup> --> Na</td><td>-2.71</td></tr>
+<tr><td>Al<sup>3+</sup> + 3e<sup>-</sup> --> Al</td><td>-1.66</td></tr>
+<tr><td>Zn<sup>2+</sup> + 2e<sup>-</sup> --> Zn</td><td>-0.76</td></tr>
+<tr><td>Fe<sup>2+</sup> + 2e<sup>-</sup> --> Fe</td><td>-0.44</td></tr>
+<tr><td>Ni<sup>2+</sup> + 2e<sup>-</sup> --> Ni</td><td>-0.26</td></tr>
+<tr><td>Pb<sup>2+</sup> + 2e<sup>-</sup> --> Pb</td><td>-0.13</td></tr>
+<tr><td>2H<sup>+</sup> + 2e<sup>-</sup> --> H<sub>2</sub></td><td>0.00</td></tr>
+<tr><td>Cu<sup>2+</sup> + 2e<sup>-</sup> --> Cu</td><td>+0.34</td></tr>
+<tr><td>I<sub>2</sub> + 2e<sup>-</sup> --> 2I<sup>-</sup></td><td>+0.54</td></tr>
+<tr><td>Fe<sup>3+</sup> + e<sup>-</sup> --> Fe<sup>2+</sup></td><td>+0.77</td></tr>
+<tr><td>Ag<sup>+</sup> + e<sup>-</sup> --> Ag</td><td>+0.80</td></tr>
+<tr><td>Cl<sub>2</sub> + 2e<sup>-</sup> --> 2Cl<sup>-</sup></td><td>+1.36</td></tr>
+<tr><td>MnO<sub>4</sub><sup>-</sup> + 8H<sup>+</sup> + 5e<sup>-</sup> --> Mn<sup>2+</sup> + 4H<sub>2</sub>O</td><td>+1.51</td></tr>
+</table>
+
+<h3>Calcolo della f.e.m. standard</h3>
+
+<div class="formula-box">
+<div class="nome">Forza Elettromotrice Standard (f.e.m.)</div>
+<div class="formula">E_cella = E_catodo - E_anodo</div>
+<div class="quando">
+<strong>QUANDO usarla:</strong> Per calcolare la f.e.m. di una pila in condizioni standard (tutte le concentrazioni = 1 M).
+</div>
+<div class="unita">
+<strong>Unita di misura:</strong> E in Volt (V)
+</div>
+</div>
+
+<div class="nota">
+<strong>Significato del risultato:</strong>
+<ul>
+    <li>Se E_cella <strong>> 0</strong>, la reazione e <strong>spontanea</strong> nella direzione indicata e la pila funziona!</li>
+    <li>Se E_cella <strong>< 0</strong>, la reazione spontanea avviene nel verso opposto.</li>
+</ul>
+</div>
+
+<!-- ============================================== -->
+<h2>5. Equazione di Nernst</h2>
+<!-- ============================================== -->
+
+<p>Quando le concentrazioni non sono standard (cioe diverse da 1 M), il potenziale effettivo di una semicella si calcola con l'equazione di Nernst. Questa e una delle formule piu importanti di tutto il corso!</p>
+
+<div class="formula-box">
+<div class="nome">Equazione di Nernst (a 25 C)</div>
+<div class="formula">E = E + (0.059 / n) x log([forma ossidata] / [forma ridotta])</div>
+<div class="quando">
+<strong>Dove:</strong>
+<ul>
+    <li>E = potenziale in condizioni non standard (quello che vogliamo calcolare)</li>
+    <li>E = potenziale standard (lo trovi in tabella)</li>
+    <li>n = numero di elettroni scambiati nella semireazione</li>
+    <li>Il logaritmo e sempre [ossidato]/[ridotto]</li>
+</ul>
+</div>
+</div>
+
+<p>Per una generica semireazione di riduzione:</p>
+<p style="text-align: center;">Ox + n e<sup>-</sup> --> Red</p>
+
+<p>L'equazione di Nernst diventa:</p>
+
+<div class="formula-box">
+<div class="formula">E = E + (0.059 / n) x log([Ox])</div>
+<div class="quando">
+<strong>Nota:</strong> Quando la forma ridotta e un metallo solido (come Ag, Cu, Zn...), la sua concentrazione e 1 e non compare nel logaritmo.
+</div>
+</div>
+
+<h3>Procedura per calcolare la f.e.m. con Nernst</h3>
+
+<div class="procedura">
+<strong>Come calcolare la f.e.m. di una pila in condizioni non standard:</strong>
+<ol>
+    <li>Identifica catodo e anodo confrontando i potenziali standard E</li>
+    <li>Scrivi le semireazioni di riduzione per entrambe le coppie</li>
+    <li>Calcola E(catodo) con Nernst: E = E + (0.059/n) x log[ione]</li>
+    <li>Calcola E(anodo) con Nernst: E = E + (0.059/n) x log[ione]</li>
+    <li>Calcola f.e.m. = E(catodo) - E(anodo)</li>
+</ol>
+</div>
+
+<!-- ============================================== -->
+<h2>6. Pile a Concentrazione</h2>
+<!-- ============================================== -->
+
+<div class="definizione">
+<strong>Pila a concentrazione:</strong> E una pila particolare costituita da due semicelle con la <strong>STESSA coppia redox</strong> ma <strong>DIVERSE concentrazioni</strong>. Poiche i potenziali standard sono uguali, E_cella = 0. La f.e.m. deriva SOLO dalla differenza di concentrazione tra le due semicelle.
+</div>
+
+<p>Cosa rende speciale questo tipo di pila? In una pila "normale" abbiamo due metalli diversi con potenziali standard diversi. Ma in una pila a concentrazione entrambi gli elettrodi sono basati sulla stessa coppia redox!</p>
+
+<div class="importante">
+<strong>Punto chiave:</strong> In una pila a concentrazione, la differenza di potenziale NON nasce dalla differenza di E (che e uguale per entrambi), ma dalla <strong>differenza di concentrazione</strong> degli ioni nelle due semicelle! L'equazione di Nernst ci dice che il potenziale reale dipende anche dalle concentrazioni.
+</div>
+
+<p>La pila funziona perche il sistema cerca di equilibrare le concentrazioni tra le due semicelle.</p>
+
+<h3>Regole per le pile a concentrazione semplici</h3>
+
+<ul>
+    <li>L'elettrodo con concentrazione <strong>MAGGIORE</strong> di ioni metallici diventa il <strong>CATODO</strong></li>
+    <li>L'elettrodo con concentrazione <strong>MINORE</strong> di ioni metallici diventa l'<strong>ANODO</strong></li>
+</ul>
+
+<div class="formula-box">
+<div class="nome">f.e.m. di una pila a concentrazione (coppie M<sup>n+</sup>/M)</div>
+<div class="formula">E = (0.059 / n) x log(C<sub>catodo</sub> / C<sub>anodo</sub>)</div>
+</div>
+
+<h3>Pile a concentrazione con coppie complesse</h3>
+
+<p>Per coppie come Fe<sup>3+</sup>/Fe<sup>2+</sup> dove entrambe le forme sono in soluzione, bisogna usare la formula completa di Nernst:</p>
+
+<div class="formula-box">
+<div class="formula">E = E + (0.059 / n) x log([Fe<sup>3+</sup>] / [Fe<sup>2+</sup>])</div>
+<div class="quando">
+Il rapporto e sempre [forma ossidata]/[forma ridotta]
+</div>
+</div>
+
+<!-- ============================================== -->
+<h2>7. Relazioni Termodinamiche</h2>
+<!-- ============================================== -->
+
+<h3>Relazione tra E e DeltaG</h3>
+
+<div class="formula-box">
+<div class="nome">Energia libera ed f.e.m.</div>
+<div class="formula">DeltaG = -n x F x E</div>
+<div class="quando">
+<strong>Dove:</strong>
+<ul>
+    <li>DeltaG = energia libera di Gibbs (J/mol)</li>
+    <li>n = numero di elettroni scambiati</li>
+    <li>F = costante di Faraday = 96485 C/mol</li>
+    <li>E = f.e.m. della pila (V)</li>
+</ul>
+</div>
+</div>
+
+<p>Questa relazione e importante perche collega l'elettrochimica alla termodinamica:</p>
+<ul>
+    <li>Se E > 0, allora DeltaG < 0: reazione spontanea</li>
+    <li>Se E < 0, allora DeltaG > 0: reazione non spontanea</li>
+</ul>
+
+<h3>Relazione tra E e K (costante di equilibrio)</h3>
+
+<div class="formula-box">
+<div class="nome">Costante di equilibrio da potenziale standard</div>
+<div class="formula">log K = (n x E) / 0.059</div>
+<div class="quando">
+<strong>QUANDO usarla:</strong> Per calcolare la costante di equilibrio K di una reazione redox conoscendo E.
+</div>
+</div>
+
+<!-- ============================================== -->
+<h2>8. Elettrolisi e Leggi di Faraday</h2>
+<!-- ============================================== -->
+
+<div class="definizione">
+<strong>Elettrolisi:</strong> E un processo in cui forziamo una reazione NON spontanea fornendo energia elettrica dall'esterno. E l'opposto di una pila galvanica.
+</div>
+
+<p>Nell'elettrolisi, gli ioni migrano verso gli elettrodi:</p>
+<ul>
+    <li><strong>Catodo (-):</strong> i cationi (ioni positivi) si <strong>riducono</strong>, acquistando elettroni</li>
+    <li><strong>Anodo (+):</strong> gli anioni (ioni negativi) si <strong>ossidano</strong>, cedendo elettroni</li>
+</ul>
+
+<h3>Differenze tra pila ed elettrolisi</h3>
+
+<table>
+<tr><th>Aspetto</th><th>Pila (galvanica)</th><th>Elettrolisi</th></tr>
+<tr><td>DeltaG</td><td>< 0 (spontanea)</td><td>> 0 (non spontanea)</td></tr>
+<tr><td>Energia</td><td>Prodotta</td><td>Consumata</td></tr>
+<tr><td>Anodo</td><td>Negativo (-)</td><td>Positivo (+)</td></tr>
+<tr><td>Catodo</td><td>Positivo (+)</td><td>Negativo (-)</td></tr>
+<tr><td>Processo all'anodo</td><td>Ossidazione</td><td>Ossidazione</td></tr>
+<tr><td>Processo al catodo</td><td>Riduzione</td><td>Riduzione</td></tr>
+</table>
+
+<div class="nota">
+<strong>Attenzione!</strong> Anche nell'elettrolisi: ANODO = ossidazione, CATODO = riduzione. Cio che cambia e la polarita!
+</div>
+
+<h3>Leggi di Faraday</h3>
+
+<div class="formula-box">
+<div class="nome">Formula di Faraday per l'elettrolisi</div>
+<div class="formula">m = (I x t x M) / (n x F)</div>
+<div class="quando">
+<strong>Dove:</strong>
+<ul>
+    <li>m = massa depositata (g)</li>
+    <li>I = intensita di corrente (A)</li>
+    <li>t = tempo (s) - <strong>ATTENZIONE: deve essere in secondi!</strong></li>
+    <li>M = massa molare della sostanza (g/mol)</li>
+    <li>n = numero di elettroni nella semireazione</li>
+    <li>F = 96485 C/mol</li>
+</ul>
+</div>
+</div>
+
+<div class="procedura">
+<strong>Procedura per risolvere problemi di elettrolisi:</strong>
+<ol>
+    <li><strong>Converti il tempo in secondi:</strong> t(s) = t(min) x 60</li>
+    <li><strong>Calcola la carica totale:</strong> Q = I x t (in Coulomb)</li>
+    <li><strong>Calcola le moli di elettroni:</strong> mol e<sup>-</sup> = Q / F</li>
+    <li><strong>Scrivi la semireazione</strong> e identifica n (elettroni scambiati)</li>
+    <li><strong>Calcola le moli di sostanza:</strong> dalla stechiometria della semireazione</li>
+    <li><strong>Calcola massa o volume:</strong> m = mol x M oppure V = mol x 22.4 L/mol (a c.n.)</li>
+</ol>
+</div>
+
+<!-- ============================================== -->
+<h2>9. Esercizi d'Esame Svolti</h2>
+<!-- ============================================== -->
+
+<p>In questa sezione troverai esercizi svolti in modo <strong>discorsivo</strong>, spiegando ogni passaggio come se parlassi con un tutor. L'obiettivo e farti capire non solo COSA fare, ma PERCHE lo facciamo.</p>
+
+<!-- ================================================ -->
+<!-- ESERCIZIO 1: Pila Pb-Zn con Nernst -->
+<!-- ================================================ -->
+
+<div class="esempio-esame">
+<div class="titolo">ESERCIZIO 1: Forza Elettromotrice di una Pila (Nernst)</div>
+
+<div class="testo-esercizio">
+<strong>TESTO:</strong> Calcolare la "forza elettromotrice" (f.e.m.) della pila: Pb | Pb<sup>2+</sup> 0.5 M || Zn<sup>2+</sup> 0.01 M | Zn
+<br><br>
+<strong>Dati utili:</strong> E(Pb<sup>2+</sup>/Pb) = -0.13 V, E(Zn<sup>2+</sup>/Zn) = -0.76 V
+</div>
+
+<h4>1. Capire la notazione elettrochimica</h4>
+
+<p>Prima di tutto, fermiamoci a capire cosa ci dice la notazione della pila. La scrittura <code>Pb | Pb<sup>2+</sup> || Zn<sup>2+</sup> | Zn</code> e una convenzione standard in elettrochimica:</p>
+
+<ul>
+    <li><strong>|</strong> = interfaccia metallo/soluzione (il metallo e immerso nella soluzione dei suoi ioni)</li>
+    <li><strong>||</strong> = ponte salino che separa le due semicelle</li>
+</ul>
+
+<p>Quindi abbiamo:</p>
+<ul>
+    <li>A sinistra: piombo metallico (Pb) immerso in una soluzione di Pb<sup>2+</sup> a concentrazione 0.5 M</li>
+    <li>A destra: zinco metallico (Zn) immerso in una soluzione di Zn<sup>2+</sup> a concentrazione 0.01 M</li>
+</ul>
+
+<h4>2. Identificazione di anodo e catodo</h4>
+
+<p>Adesso dobbiamo capire quale semicella funge da anodo (dove avviene l'ossidazione) e quale da catodo (dove avviene la riduzione).</p>
+
+<div class="importante">
+<strong>REGOLA:</strong> Il metallo con potenziale piu BASSO (piu negativo) si ossida e diventa l'anodo.
+</div>
+
+<p>Confrontiamo i potenziali:</p>
+<ul>
+    <li>E(Zn<sup>2+</sup>/Zn) = <strong>-0.76 V</strong> --> piu basso --> <strong>ANODO</strong> (si ossida)</li>
+    <li>E(Pb<sup>2+</sup>/Pb) = <strong>-0.13 V</strong> --> piu alto --> <strong>CATODO</strong> (si riduce)</li>
+</ul>
+
+<p>Questo ha senso fisicamente: lo zinco e un metallo meno "nobile" del piombo, quindi e lui che "cede" gli elettroni.</p>
+
+<h4>3. Semireazioni</h4>
+
+<p>Scriviamo le semireazioni che avvengono ai due elettrodi:</p>
+
+<div class="calcolo">
+<strong>Anodo (ossidazione):</strong> Zn --> Zn<sup>2+</sup> + 2e<sup>-</sup><br>
+<strong>Catodo (riduzione):</strong> Pb<sup>2+</sup> + 2e<sup>-</sup> --> Pb<br>
+<strong>Reazione globale:</strong> Zn + Pb<sup>2+</sup> --> Zn<sup>2+</sup> + Pb &nbsp;&nbsp;&nbsp; (n = 2 elettroni)
+</div>
+
+<h4>4. Equazione di Nernst</h4>
+
+<p>Poiche le concentrazioni non sono standard (cioe non sono 1 M), dobbiamo usare l'equazione di Nernst per calcolare il potenziale effettivo di ciascun elettrodo.</p>
+
+<div class="calcolo">
+E = E + (0.059/n) x log[ione]
+</div>
+
+<div class="step">
+<strong>Potenziale del CATODO (Pb):</strong>
+<p>Semireazione: Pb<sup>2+</sup> + 2e<sup>-</sup> --> Pb (n = 2)</p>
+<div class="calcolo">
+E(Pb) = -0.13 + (0.059/2) x log(0.5)<br>
+E(Pb) = -0.13 + 0.0295 x (-0.301)<br>
+E(Pb) = -0.13 - 0.009 = <strong>-0.139 V</strong>
+</div>
+<p>Il potenziale e leggermente piu negativo di E perche la concentrazione di Pb<sup>2+</sup> e minore di 1 M.</p>
+</div>
+
+<div class="step">
+<strong>Potenziale dell'ANODO (Zn):</strong>
+<p>Semireazione: Zn<sup>2+</sup> + 2e<sup>-</sup> --> Zn (n = 2)</p>
+<div class="calcolo">
+E(Zn) = -0.76 + (0.059/2) x log(0.01)<br>
+E(Zn) = -0.76 + 0.0295 x (-2)<br>
+E(Zn) = -0.76 - 0.059 = <strong>-0.819 V</strong>
+</div>
+<p>Nota che log(0.01) = log(10<sup>-2</sup>) = -2. Il potenziale diventa ancora piu negativo perche la concentrazione e molto bassa.</p>
+</div>
+
+<h4>5. Calcolo della f.e.m.</h4>
+
+<div class="calcolo">
+f.e.m. = E(catodo) - E(anodo) = (-0.139) - (-0.819) = <strong>+0.68 V</strong>
+</div>
+
+<div class="risultato">
+RISPOSTA: La f.e.m. della pila e <strong>+0.68 V</strong>
+</div>
+
+<h4>6. Verifica e riepilogo</h4>
+
+<p>La f.e.m. e <strong>positiva</strong>, quindi la reazione e spontanea e la pila funziona nella direzione indicata.</p>
+
+<table>
+<tr><th></th><th>Anodo</th><th>Catodo</th></tr>
+<tr><td><strong>Metallo</strong></td><td>Zn</td><td>Pb</td></tr>
+<tr><td><strong>Concentrazione</strong></td><td>0.01 M</td><td>0.5 M</td></tr>
+<tr><td><strong>Processo</strong></td><td>Ossidazione</td><td>Riduzione</td></tr>
+<tr><td><strong>E</strong></td><td>-0.76 V</td><td>-0.13 V</td></tr>
+<tr><td><strong>E (Nernst)</strong></td><td>-0.819 V</td><td>-0.139 V</td></tr>
+</table>
+
+</div>
+
+<!-- ================================================ -->
+<!-- ESERCIZIO 2: Pila Ag-Cu con K -->
+<!-- ================================================ -->
+
+<div class="esempio-esame">
+<div class="titolo">ESERCIZIO 2: Pila Argento-Rame e Costante di Equilibrio</div>
+
+<div class="testo-esercizio">
+<strong>TESTO:</strong> Calcolare il potenziale di una pila costituita da un elettrodo standard ad Ag<sup>+</sup> ed un elettrodo standard a Cu<sup>2+</sup>. Calcolare inoltre la K<sub>eq</sub> della reazione in gioco.
+<br><br>
+<strong>Dati forniti:</strong> E(Ag<sup>+</sup>/Ag) = +0.80 V, E(Cu<sup>2+</sup>/Cu) = +0.34 V
+</div>
+
+<h4>1. Capire cosa succede in una pila</h4>
+
+<p>Una <strong>pila galvanica</strong> (o voltaica) e un dispositivo che converte energia chimica in energia elettrica. E costituita da due <strong>semicelle</strong>, ciascuna contenente un elettrodo metallico immerso in una soluzione contenente i suoi ioni.</p>
+
+<p>In una pila avvengono simultaneamente:</p>
+<ul>
+    <li><strong>Ossidazione</strong> all'anodo (polo negativo): il metallo perde elettroni</li>
+    <li><strong>Riduzione</strong> al catodo (polo positivo): gli ioni acquistano elettroni</li>
+</ul>
+
+<p>Gli elettroni fluiscono spontaneamente dall'anodo al catodo attraverso il circuito esterno, generando corrente elettrica.</p>
+
+<h4>2. Identificare catodo e anodo</h4>
+
+<p>Per capire quale metallo si ossida e quale ione si riduce, confrontiamo i <strong>potenziali standard di riduzione</strong>:</p>
+
+<table>
+<tr><th>Semicella</th><th>E (V)</th><th>Ruolo</th></tr>
+<tr><td>Ag<sup>+</sup>/Ag</td><td>+0.80</td><td><strong>CATODO</strong> (riduzione)</td></tr>
+<tr><td>Cu<sup>2+</sup>/Cu</td><td>+0.34</td><td><strong>ANODO</strong> (ossidazione)</td></tr>
+</table>
+
+<div class="importante">
+<strong>Regola fondamentale:</strong> La specie con il potenziale di riduzione <strong>piu alto</strong> si riduce (catodo), quella con il potenziale <strong>piu basso</strong> si ossida (anodo).
+</div>
+
+<p>Poiche E(Ag<sup>+</sup>/Ag) = +0.80 V > E(Cu<sup>2+</sup>/Cu) = +0.34 V:</p>
+<ul>
+    <li><strong>Catodo (riduzione):</strong> gli ioni Ag<sup>+</sup> acquistano elettroni e diventano Ag metallico</li>
+    <li><strong>Anodo (ossidazione):</strong> il Cu metallico cede elettroni e diventa ioni Cu<sup>2+</sup></li>
+</ul>
+
+<div class="nota">
+<strong>Perche?</strong> L'argento ha una "voglia" maggiore di acquistare elettroni rispetto al rame. Quindi, mettendo insieme le due semicelle, l'argento "ruba" gli elettroni al rame.
+</div>
+
+<h4>3. Scrivere le semireazioni</h4>
+
+<div class="calcolo">
+<strong>Semireazione al catodo (riduzione):</strong> Ag<sup>+</sup> + e<sup>-</sup> --> Ag<br>
+<strong>Semireazione all'anodo (ossidazione):</strong> Cu --> Cu<sup>2+</sup> + 2e<sup>-</sup>
+</div>
+
+<p>Notiamo che le due semireazioni coinvolgono un numero diverso di elettroni (1 per l'argento, 2 per il rame). Per bilanciare gli elettroni, moltiplichiamo la semireazione dell'argento per 2:</p>
+
+<div class="calcolo">
+<strong>Catodo:</strong> 2Ag<sup>+</sup> + 2e<sup>-</sup> --> 2Ag<br>
+<strong>Anodo:</strong> Cu --> Cu<sup>2+</sup> + 2e<sup>-</sup><br>
+-------------------------------------------<br>
+<strong>Reazione globale:</strong> 2Ag<sup>+</sup> + Cu --> 2Ag + Cu<sup>2+</sup>
+</div>
+
+<p>Vengono scambiati <strong>n = 2 elettroni</strong> (informazione cruciale per i calcoli successivi!)</p>
+
+<h4>4. Calcolare la forza elettromotrice (f.e.m.)</h4>
+
+<p>La <strong>forza elettromotrice</strong> (f.e.m. o E_cella) rappresenta la differenza di potenziale tra i due elettrodi in condizioni standard.</p>
+
+<div class="calcolo">
+E_cella = E_catodo - E_anodo<br>
+E_cella = E(Ag<sup>+</sup>/Ag) - E(Cu<sup>2+</sup>/Cu)<br>
+E_cella = (+0.80 V) - (+0.34 V)<br>
+E_cella = <strong>+0.46 V</strong>
+</div>
+
+<div class="nota">
+<strong>Verifica:</strong> Il valore positivo della f.e.m. conferma che la reazione e spontanea nella direzione scritta. Una pila deve sempre avere f.e.m. positiva!
+</div>
+
+<h4>5. Calcolare la costante di equilibrio K<sub>eq</sub></h4>
+
+<p>Per trovare la costante di equilibrio, usiamo la relazione fondamentale tra E e K:</p>
+
+<div class="calcolo">
+log K = (n x E) / 0.059
+</div>
+
+<p>Sostituendo i valori:</p>
+
+<div class="calcolo">
+log K = (2 x 0.46) / 0.059<br>
+log K = 0.92 / 0.059<br>
+log K = 15.59
+</div>
+
+<p>Quindi:</p>
+
+<div class="calcolo">
+K = 10<sup>15.59</sup> = <strong>3.9 x 10<sup>15</sup></strong>
+</div>
+
+<div class="risultato">
+<strong>E_cella = +0.46 V</strong><br><br>
+<strong>K<sub>eq</sub> = 3.9 x 10<sup>15</sup></strong>
+</div>
+
+<h4>6. Interpretazione del risultato</h4>
+
+<p>Il valore estremamente grande di K (dell'ordine di 10<sup>15</sup>) ci dice che:</p>
+<ul>
+    <li>La reazione <strong>2Ag<sup>+</sup> + Cu --> 2Ag + Cu<sup>2+</sup></strong> e fortemente spostata verso i prodotti</li>
+    <li>All'equilibrio, praticamente tutti i reagenti si sono trasformati in prodotti</li>
+    <li>La reazione e <strong>essenzialmente irreversibile</strong> nelle condizioni standard</li>
+</ul>
+
+<div class="nota">
+<strong>Correlazione importante:</strong> Maggiore e E_cella, maggiore e K, e piu spontanea e la reazione.
+</div>
+
+<table>
+<tr><th colspan="2">Riepilogo finale</th></tr>
+<tr><td>Anodo (-)</td><td>Cu --> Cu<sup>2+</sup> + 2e<sup>-</sup></td></tr>
+<tr><td>Catodo (+)</td><td>2Ag<sup>+</sup> + 2e<sup>-</sup> --> 2Ag</td></tr>
+<tr><td>Elettroni scambiati</td><td>n = 2</td></tr>
+<tr><td>f.e.m.</td><td>+0.46 V</td></tr>
+<tr><td>K<sub>eq</sub></td><td>3.9 x 10<sup>15</sup></td></tr>
+</table>
+
+</div>
+
+<!-- ================================================ -->
+<!-- ESERCIZIO 3: Pila a concentrazione Fe3+/Fe2+ -->
+<!-- ================================================ -->
+
+<div class="esempio-esame">
+<div class="titolo">ESERCIZIO 3: Pila a Concentrazione Fe<sup>3+</sup>/Fe<sup>2+</sup></div>
+
+<div class="testo-esercizio">
+<strong>TESTO:</strong> Si hanno a disposizione due elettrodi cosi costituiti:<br>
+a) Pt/Fe<sup>2+</sup> (0.05 M), Fe<sup>3+</sup> (0.1 M)<br>
+b) Pt/Fe<sup>2+</sup> (2 M), Fe<sup>3+</sup> (1 M)<br>
+Stabilire di che tipo di pila si tratta e calcolarne la f.e.m. indicando quale elettrodo e il catodo e quale e l'anodo.
+<br><br>
+<strong>Dato:</strong> E(Fe<sup>3+</sup>/Fe<sup>2+</sup>) = +0.77 V
+</div>
+
+<h4>Capire il problema: Cos'e una pila a concentrazione?</h4>
+
+<p>Prima di tutto, fermati un attimo a capire cosa abbiamo davanti. Questo e un esercizio su una <strong>pila a concentrazione</strong>.</p>
+
+<p>Cosa rende speciale questo tipo di pila? In una pila "normale" abbiamo due metalli diversi (per esempio Zn e Cu) con potenziali standard diversi. Ma qui abbiamo qualcosa di particolare: <strong>entrambi gli elettrodi sono basati sulla stessa coppia redox!</strong></p>
+
+<p>Guardiamo i due elettrodi:</p>
+<ul>
+    <li><strong>Elettrodo (a):</strong> Pt / Fe<sup>2+</sup> (0.05 M), Fe<sup>3+</sup> (0.1 M)</li>
+    <li><strong>Elettrodo (b):</strong> Pt / Fe<sup>2+</sup> (2 M), Fe<sup>3+</sup> (1 M)</li>
+</ul>
+
+<p>Entrambi coinvolgono la coppia <strong>Fe<sup>3+</sup>/Fe<sup>2+</sup></strong>. Quindi il potenziale standard E e lo stesso per entrambi! E allora come puo funzionare una pila se i due elettrodi hanno lo stesso E?</p>
+
+<div class="importante">
+<strong>Ecco il punto chiave:</strong> In una pila a concentrazione, la differenza di potenziale NON nasce dalla differenza di E (che e uguale per entrambi), ma dalla <strong>differenza di concentrazione</strong> degli ioni nelle due semicelle!
+</div>
+
+<p>L'equazione di Nernst ci dice che il potenziale reale di un elettrodo dipende non solo da E, ma anche dalle concentrazioni. Concentrazioni diverse = potenziali reali diversi = funzionamento della pila!</p>
+
+<h4>Dati del problema</h4>
+
+<table>
+<tr><th>Grandezza</th><th>Elettrodo (a)</th><th>Elettrodo (b)</th></tr>
+<tr><td>[Fe<sup>2+</sup>]</td><td>0.05 M</td><td>2 M</td></tr>
+<tr><td>[Fe<sup>3+</sup>]</td><td>0.1 M</td><td>1 M</td></tr>
+<tr><td>E (Fe<sup>3+</sup>/Fe<sup>2+</sup>)</td><td colspan="2" style="text-align: center;">+0.77 V</td></tr>
+</table>
+
+<h4>Passo 1: Scrivere la semireazione e l'equazione di Nernst</h4>
+
+<p>La semireazione di riduzione per la coppia Fe<sup>3+</sup>/Fe<sup>2+</sup> e:</p>
+
+<div class="calcolo">
+Fe<sup>3+</sup> + e<sup>-</sup> --> Fe<sup>2+</sup>
+</div>
+
+<p>Notiamo che in questa reazione viene scambiato <strong>1 solo elettrone</strong> (quindi n = 1).</p>
+
+<p>L'equazione di Nernst per questa coppia e:</p>
+
+<div class="calcolo">
+E = E + (0.059 / n) x log([Fe<sup>3+</sup>] / [Fe<sup>2+</sup>])
+</div>
+
+<p>Perche il rapporto e [Fe<sup>3+</sup>]/[Fe<sup>2+</sup>] e non il contrario? Perche nella semireazione di riduzione Fe<sup>3+</sup> e il reagente (forma ossidata) e Fe<sup>2+</sup> e il prodotto (forma ridotta). La formula di Nernst usa sempre [ossidato]/[ridotto].</p>
+
+<h4>Passo 2: Calcolare il potenziale dell'elettrodo (a)</h4>
+
+<div class="step">
+<strong>Elettrodo (a): Fe<sup>2+</sup> (0.05 M), Fe<sup>3+</sup> (0.1 M)</strong>
+
+<p>Calcoliamo il rapporto delle concentrazioni:</p>
+<div class="calcolo">
+[Fe<sup>3+</sup>] / [Fe<sup>2+</sup>] = 0.1 / 0.05 = 2
+</div>
+
+<p>Calcoliamo il logaritmo:</p>
+<div class="calcolo">
+log(2) = 0.301
+</div>
+
+<p>Applichiamo Nernst:</p>
+<div class="calcolo">
+E(a) = 0.77 + 0.059 x 0.301<br>
+E(a) = 0.77 + 0.0178<br>
+<strong>E(a) = +0.788 V</strong>
+</div>
+</div>
+
+<h4>Passo 3: Calcolare il potenziale dell'elettrodo (b)</h4>
+
+<div class="step">
+<strong>Elettrodo (b): Fe<sup>2+</sup> (2 M), Fe<sup>3+</sup> (1 M)</strong>
+
+<p>Calcoliamo il rapporto delle concentrazioni:</p>
+<div class="calcolo">
+[Fe<sup>3+</sup>] / [Fe<sup>2+</sup>] = 1 / 2 = 0.5
+</div>
+
+<p>Calcoliamo il logaritmo:</p>
+<div class="calcolo">
+log(0.5) = log(1/2) = -log(2) = -0.301
+</div>
+
+<p>Applichiamo Nernst:</p>
+<div class="calcolo">
+E(b) = 0.77 + 0.059 x (-0.301)<br>
+E(b) = 0.77 - 0.0178<br>
+<strong>E(b) = +0.752 V</strong>
+</div>
+</div>
+
+<h4>Passo 4: Identificare catodo e anodo</h4>
+
+<p>Confrontiamo i due potenziali:</p>
+
+<table>
+<tr><th>Elettrodo</th><th>Potenziale</th></tr>
+<tr><td>E(a)</td><td>+0.788 V</td></tr>
+<tr><td>E(b)</td><td>+0.752 V</td></tr>
+</table>
+
+<div class="importante">
+<strong>Regola fondamentale:</strong>
+<ul>
+    <li><strong>CATODO</strong> = elettrodo con potenziale MAGGIORE (dove avviene la RIDUZIONE)</li>
+    <li><strong>ANODO</strong> = elettrodo con potenziale MINORE (dove avviene l'OSSIDAZIONE)</li>
+</ul>
+</div>
+
+<p>Quindi:</p>
+<ul>
+    <li><strong>CATODO: Elettrodo (a)</strong> con E = +0.788 V (qui Fe<sup>3+</sup> si riduce a Fe<sup>2+</sup>)</li>
+    <li><strong>ANODO: Elettrodo (b)</strong> con E = +0.752 V (qui Fe<sup>2+</sup> si ossida a Fe<sup>3+</sup>)</li>
+</ul>
+
+<h4>Passo 5: Calcolare la f.e.m. della pila</h4>
+
+<div class="calcolo">
+f.e.m. = E(catodo) - E(anodo)<br>
+f.e.m. = 0.788 - 0.752 = <strong>0.036 V</strong>
+</div>
+
+<p>Oppure, in millivolt:</p>
+<div class="calcolo">
+f.e.m. = <strong>36 mV</strong>
+</div>
+
+<div class="risultato">
+<strong>RISPOSTA FINALE:</strong><br><br>
+Si tratta di una <strong>PILA A CONCENTRAZIONE</strong> basata sulla coppia Fe<sup>3+</sup>/Fe<sup>2+</sup>.<br><br>
+<strong>Catodo (riduzione):</strong> Elettrodo (a) - Pt/Fe<sup>2+</sup> (0.05M), Fe<sup>3+</sup> (0.1M)<br>
+E(catodo) = +0.788 V<br><br>
+<strong>Anodo (ossidazione):</strong> Elettrodo (b) - Pt/Fe<sup>2+</sup> (2M), Fe<sup>3+</sup> (1M)<br>
+E(anodo) = +0.752 V<br><br>
+<strong>f.e.m. = 0.036 V = 36 mV</strong>
+</div>
+
+<h4>Interpretazione fisica del risultato</h4>
+
+<p>Ti stai chiedendo perche l'elettrodo (a) ha potenziale maggiore?</p>
+
+<p>Guardiamo i rapporti [Fe<sup>3+</sup>]/[Fe<sup>2+</sup>]:</p>
+<ul>
+    <li>Elettrodo (a): 0.1/0.05 = <strong>2</strong></li>
+    <li>Elettrodo (b): 1/2 = <strong>0.5</strong></li>
+</ul>
+
+<p>Nell'elettrodo (a) c'e un <strong>eccesso relativo di Fe<sup>3+</sup></strong> rispetto a Fe<sup>2+</sup>. Questo significa che c'e "piu voglia" di ridurre Fe<sup>3+</sup> a Fe<sup>2+</sup>, quindi il potenziale di riduzione e piu alto.</p>
+
+<p>Nell'elettrodo (b) c'e un <strong>eccesso relativo di Fe<sup>2+</sup></strong> rispetto a Fe<sup>3+</sup>. Qui la reazione tende di piu verso l'ossidazione di Fe<sup>2+</sup> a Fe<sup>3+</sup>, quindi il potenziale di riduzione e piu basso.</p>
+
+<p>La pila funziona perche il sistema cerca di <strong>equilibrare le concentrazioni</strong> tra le due semicelle!</p>
+
+</div>
+
+<!-- ================================================ -->
+<!-- ESERCIZIO 4: Elettrolisi del cloruro di cromo -->
+<!-- ================================================ -->
+
+<div class="esempio-esame">
+<div class="titolo">ESERCIZIO 4: Elettrolisi del Cloruro di Cromo</div>
+
+<div class="testo-esercizio">
+<strong>TESTO:</strong> Calcolare quanti grammi di Cromo e quanti litri di cloro (a c.n.: 0 C, 1 atm) vengono prodotti facendo passare una corrente di 12 A per 40 minuti attraverso una soluzione di cloruro di cromo.
+<br><br>
+<strong>Dati utili:</strong> F = 96485 C/mol, M(Cr) = 52 g/mol, Volume molare a c.n. = 22.4 L/mol
+</div>
+
+<h4>1. Cos'e l'elettrolisi</h4>
+
+<p>L'<strong>elettrolisi</strong> e un processo in cui forziamo una reazione non spontanea fornendo energia elettrica. Gli ioni migrano verso gli elettrodi:</p>
+
+<ul>
+    <li><strong>Catodo (-):</strong> i cationi (ioni positivi) si riducono, acquistando elettroni</li>
+    <li><strong>Anodo (+):</strong> gli anioni (ioni negativi) si ossidano, cedendo elettroni</li>
+</ul>
+
+<h4>2. Semireazioni agli elettrodi</h4>
+
+<p>Il cloruro di cromo CrCl<sub>3</sub> in soluzione si dissocia in Cr<sup>3+</sup> e Cl<sup>-</sup>.</p>
+
+<div class="step">
+<strong>Al CATODO (riduzione):</strong>
+<div class="calcolo">
+Cr<sup>3+</sup> + 3e<sup>-</sup> --> Cr &nbsp;&nbsp;&nbsp; (servono 3 elettroni per ogni atomo di Cr)
+</div>
+</div>
+
+<div class="step">
+<strong>All'ANODO (ossidazione):</strong>
+<div class="calcolo">
+2Cl<sup>-</sup> --> Cl<sub>2</sub> + 2e<sup>-</sup> &nbsp;&nbsp;&nbsp; (si liberano 2 elettroni per ogni molecola di Cl<sub>2</sub>)
+</div>
+</div>
+
+<h4>3. Calcolo della carica totale Q</h4>
+
+<p>Prima convertiamo il tempo in secondi (FONDAMENTALE per usare la formula!):</p>
+
+<div class="calcolo">
+t = 40 min x 60 s/min = <strong>2400 s</strong>
+</div>
+
+<p>Ora calcoliamo la carica:</p>
+
+<div class="calcolo">
+Q = I x t = 12 A x 2400 s = <strong>28800 C</strong>
+</div>
+
+<h4>4. Calcolo delle moli di elettroni</h4>
+
+<p>La costante di Faraday ci dice che 1 mol di elettroni = 96485 C</p>
+
+<div class="calcolo">
+mol e<sup>-</sup> = Q / F = 28800 C / 96485 C/mol = <strong>0.2985 mol</strong>
+</div>
+
+<h4>5. Calcolo dei prodotti</h4>
+
+<div class="step">
+<strong>Grammi di Cromo (catodo):</strong>
+
+<p>Dalla semireazione: 3 mol e<sup>-</sup> --> 1 mol Cr</p>
+
+<div class="calcolo">
+mol Cr = 0.2985 / 3 = 0.0995 mol<br>
+massa Cr = 0.0995 mol x 52 g/mol = <strong>5.17 g</strong>
+</div>
+</div>
+
+<div class="step">
+<strong>Litri di Cloro (anodo):</strong>
+
+<p>Dalla semireazione: 2 mol e<sup>-</sup> --> 1 mol Cl<sub>2</sub></p>
+
+<div class="calcolo">
+mol Cl<sub>2</sub> = 0.2985 / 2 = 0.149 mol<br>
+volume Cl<sub>2</sub> = 0.149 mol x 22.4 L/mol = <strong>3.34 L</strong>
+</div>
+</div>
+
+<div class="risultato">
+<strong>RISPOSTA:</strong><br>
+Cromo metallico prodotto: <strong>5.17 grammi</strong><br>
+Cloro gassoso prodotto: <strong>3.34 litri</strong> (a c.n.)
+</div>
+
+<h4>6. Formula riassuntiva per l'elettrolisi</h4>
+
+<p>Tutti i passaggi possono essere riassunti in un'unica formula:</p>
+
+<div class="formula-box">
+<div class="formula">massa = (I x t x M) / (n x F)</div>
+<div class="quando">
+dove: I = corrente (A), t = tempo (s), M = massa molare (g/mol), n = elettroni scambiati, F = 96485 C/mol
+</div>
+</div>
+
+</div>
+
+<!-- ================================================ -->
+<!-- ESERCIZIO 5: K da potenziali standard -->
+<!-- ================================================ -->
+
+<div class="esempio-esame">
+<div class="titolo">ESERCIZIO 5: Costante di Equilibrio da Potenziali Standard</div>
+
+<div class="testo-esercizio">
+<strong>TESTO:</strong> Calcolare la Costante di Equilibrio a 25 C per la reazione:<br>
+Cl<sub>2</sub> + 2I<sup>-</sup> --> 2Cl<sup>-</sup> + I<sub>2</sub>
+<br><br>
+<strong>Dati utili:</strong> E(Cl<sub>2</sub>/Cl<sup>-</sup>) = +1.36 V, E(I<sub>2</sub>/I<sup>-</sup>) = +0.54 V
+</div>
+
+<h4>1. Relazione tra E e K</h4>
+
+<p>L'energia libera di Gibbs collega potenziale e costante di equilibrio:</p>
+
+<div class="calcolo">
+DeltaG = -nFE &nbsp;&nbsp;&nbsp; e &nbsp;&nbsp;&nbsp; DeltaG = -RT ln(K)
+</div>
+
+<p>Combinando queste due relazioni, a 25 C si ottiene:</p>
+
+<div class="calcolo">
+log K = (n x E) / 0.059
+</div>
+
+<h4>2. Identificazione delle semireazioni</h4>
+
+<p>Analizzando i numeri di ossidazione nella reazione:</p>
+
+<ul>
+    <li><strong>Cl<sub>2</sub> --> Cl<sup>-</sup>:</strong> da 0 a -1, acquista elettroni --> <strong>RIDUZIONE</strong></li>
+    <li><strong>I<sup>-</sup> --> I<sub>2</sub>:</strong> da -1 a 0, perde elettroni --> <strong>OSSIDAZIONE</strong></li>
+</ul>
+
+<div class="calcolo">
+<strong>Riduzione (catodo):</strong> Cl<sub>2</sub> + 2e<sup>-</sup> --> 2Cl<sup>-</sup><br>
+<strong>Ossidazione (anodo):</strong> 2I<sup>-</sup> --> I<sub>2</sub> + 2e<sup>-</sup><br>
+<strong>Elettroni scambiati:</strong> n = 2
+</div>
+
+<h4>3. Calcolo del potenziale di cella</h4>
+
+<div class="calcolo">
+E(cella) = E(catodo) - E(anodo)<br>
+E(cella) = E(Cl<sub>2</sub>/Cl<sup>-</sup>) - E(I<sub>2</sub>/I<sup>-</sup>)<br>
+E(cella) = 1.36 V - 0.54 V = <strong>+0.82 V</strong>
+</div>
+
+<p>Il valore positivo conferma che la reazione e spontanea.</p>
+
+<h4>4. Calcolo di K</h4>
+
+<div class="calcolo">
+log K = (n x E) / 0.059<br>
+log K = (2 x 0.82) / 0.059<br>
+log K = 1.64 / 0.059 = <strong>27.8</strong>
+</div>
+
+<div class="calcolo">
+K = 10<sup>27.8</sup> = <strong>6 x 10<sup>27</sup></strong>
+</div>
+
+<div class="risultato">
+<strong>RISPOSTA:</strong> K = 10<sup>28</sup> (oppure 6 x 10<sup>27</sup>)
+</div>
+
+<h4>5. Significato del risultato</h4>
+
+<p>Un K cosi enorme (10<sup>28</sup>) significa che:</p>
+<ul>
+    <li>La reazione e <strong>praticamente completa</strong> (irreversibile)</li>
+    <li>All'equilibrio, quasi tutto Cl<sub>2</sub> e I<sup>-</sup> si sono trasformati in prodotti</li>
+    <li>Il cloro (E = +1.36 V) e un ossidante molto piu forte dello iodio (E = +0.54 V)</li>
+</ul>
+
+</div>
+
+<!-- ================================================ -->
+<!-- ESERCIZIO 6: Metalli con acido -->
+<!-- ================================================ -->
+
+<div class="esempio-esame">
+<div class="titolo">ESERCIZIO 6: Produzione di Idrogeno con Metalli in Acido</div>
+
+<div class="testo-esercizio">
+<strong>TESTO:</strong> Stabilire se e possibile produrre idrogeno aggiungendo ferro o rame metallici a una soluzione di acido cloridrico 1M. Scrivere e bilanciare la/le reazione/i che si ritiene possano avvenire.
+<br><br>
+<strong>Dati utili:</strong> E(H<sup>+</sup>/H<sub>2</sub>) = 0.00 V, E(Fe<sup>2+</sup>/Fe) = -0.44 V, E(Cu<sup>2+</sup>/Cu) = +0.34 V
+</div>
+
+<h4>1. Criterio di spontaneita</h4>
+
+<p>Una reazione redox e <strong>spontanea</strong> quando E(cella) > 0</p>
+
+<p>Per produrre H<sub>2</sub>, gli ioni H<sup>+</sup> devono <strong>ridursi</strong> (catodo), mentre il metallo deve <strong>ossidarsi</strong> (anodo).</p>
+
+<div class="importante">
+<strong>REGOLA:</strong> Un metallo puo spostare H<sub>2</sub> da un acido solo se ha E < 0 (potenziale minore di quello dell'idrogeno).
+</div>
+
+<h4>2. Analisi del FERRO</h4>
+
+<div class="step">
+<strong>Semireazioni:</strong>
+<div class="calcolo">
+Riduzione: 2H<sup>+</sup> + 2e<sup>-</sup> --> H<sub>2</sub> &nbsp;&nbsp;&nbsp; E = 0.00 V (catodo)<br>
+Ossidazione: Fe --> Fe<sup>2+</sup> + 2e<sup>-</sup> &nbsp;&nbsp;&nbsp; E = -0.44 V (anodo)
+</div>
+
+<strong>Calcolo E(cella):</strong>
+<div class="calcolo">
+E(cella) = E(catodo) - E(anodo)<br>
+E(cella) = 0.00 - (-0.44) = <strong>+0.44 V</strong>
+</div>
+
+<div class="risultato" style="background: #d5f5e3;">
+E(cella) = +0.44 V > 0 --> <strong>REAZIONE SPONTANEA!</strong><br>
+Il ferro reagisce con HCl producendo idrogeno.
+</div>
+</div>
+
+<h4>3. Analisi del RAME</h4>
+
+<div class="step">
+<strong>Semireazioni (ipotetiche):</strong>
+<div class="calcolo">
+Riduzione: 2H<sup>+</sup> + 2e<sup>-</sup> --> H<sub>2</sub> &nbsp;&nbsp;&nbsp; E = 0.00 V<br>
+Ossidazione: Cu --> Cu<sup>2+</sup> + 2e<sup>-</sup> &nbsp;&nbsp;&nbsp; E = +0.34 V
+</div>
+
+<strong>Calcolo E(cella):</strong>
+<div class="calcolo">
+E(cella) = 0.00 - (+0.34) = <strong>-0.34 V</strong>
+</div>
+
+<div class="attenzione">
+E(cella) = -0.34 V < 0 --> <strong>REAZIONE NON SPONTANEA!</strong><br>
+Il rame NON reagisce con HCl.
+</div>
+</div>
+
+<h4>4. Bilanciamento della reazione che avviene</h4>
+
+<p>Solo il ferro reagisce. Bilanciamo:</p>
+
+<div class="calcolo">
+<strong>Reazione ionica:</strong> Fe + 2H<sup>+</sup> --> Fe<sup>2+</sup> + H<sub>2</sub><br><br>
+<strong>Reazione molecolare:</strong> Fe + 2HCl --> FeCl<sub>2</sub> + H<sub>2</sub>
+</div>
+
+<h4>5. Perche questa differenza?</h4>
+
+<table>
+<tr><th>Metallo</th><th>E (V)</th><th>E(cella) (V)</th><th>Reagisce?</th></tr>
+<tr><td>Ferro</td><td>-0.44</td><td>+0.44</td><td><strong>SI</strong></td></tr>
+<tr><td>Rame</td><td>+0.34</td><td>-0.34</td><td><strong>NO</strong></td></tr>
+</table>
+
+<ul>
+    <li>Il <strong>ferro</strong> (E = -0.44 V < 0) e meno nobile dell'idrogeno --> reagisce</li>
+    <li>Il <strong>rame</strong> (E = +0.34 V > 0) e piu nobile dell'idrogeno --> non reagisce</li>
+</ul>
+
+<div class="risultato">
+<strong>RISPOSTA:</strong> E possibile produrre idrogeno solo con il <strong>FERRO</strong>.<br>
+Reazione: <strong>Fe + 2HCl --> FeCl<sub>2</sub> + H<sub>2</sub></strong>
+</div>
+
+</div>
+
+<!-- ================================================ -->
+<!-- ESERCIZIO 7: Pila H2-Ag con f.e.m. ed elettrolisi -->
+<!-- ================================================ -->
+
+<div class="esempio-esame">
+<div class="titolo">ESERCIZIO 7: Pila H<sub>2</sub>-Ag con f.e.m. ed Elettrolisi</div>
+
+<div class="testo-esercizio">
+<strong>TESTO:</strong> Data la cella elettrochimica cosi costruita:<br>
+Pt(s)| H<sub>2</sub> (g) p = 1 atm, H<sub>3</sub>O<sup>+</sup>, pH = 2 || Ag<sup>+</sup> 0.2 M | Ag<br><br>
+Calcolare:<br>
+a) la f.e.m.<br>
+b) la massa di argento depositato sull'elettrodo dopo che nella cella e passata una corrente di 1.2 A per 40 minuti.
+<br><br>
+<strong>Dati forniti:</strong> E(Ag<sup>+</sup>/Ag) = +0.80 V, E(H<sup>+</sup>/H<sub>2</sub>) = 0 V, M(Ag) = 108 g/mol, F = 96500 C/mol
+</div>
+
+<h4>1. Comprendere la notazione della cella</h4>
+
+<p>La cella e scritta nella notazione convenzionale. Questa notazione ci dice che:</p>
+<ul>
+    <li><strong>Lato sinistro (anodo):</strong> elettrodo a idrogeno con H<sub>2</sub> gassoso a 1 atm e soluzione a pH = 2</li>
+    <li><strong>||</strong> rappresenta il ponte salino che separa le due semicelle</li>
+    <li><strong>Lato destro (catodo):</strong> elettrodo di argento immerso in una soluzione di Ag<sup>+</sup> 0.2 M</li>
+</ul>
+
+<div class="nota">
+<strong>Convenzione importante:</strong> Nella notazione IUPAC, l'anodo (ossidazione) e sempre scritto a sinistra, il catodo (riduzione) a destra.
+</div>
+
+<h4>2. Identificare le semireazioni</h4>
+
+<div class="calcolo">
+<strong>Semireazione all'anodo (ossidazione):</strong> H<sub>2</sub> --> 2H<sup>+</sup> + 2e<sup>-</sup><br>
+<strong>Semireazione al catodo (riduzione):</strong> 2Ag<sup>+</sup> + 2e<sup>-</sup> --> 2Ag<br>
+<strong>Reazione globale:</strong> H<sub>2</sub> + 2Ag<sup>+</sup> --> 2H<sup>+</sup> + 2Ag
+</div>
+
+<h4>3. Calcolare le concentrazioni dalle condizioni date</h4>
+
+<p><strong>Concentrazione di H<sup>+</sup> dal pH:</strong></p>
+<div class="calcolo">
+pH = 2 --> [H<sup>+</sup>] = 10<sup>-pH</sup> = 10<sup>-2</sup> M = <strong>0.01 M</strong>
+</div>
+
+<p><strong>Concentrazione di Ag<sup>+</sup>:</strong> data direttamente = <strong>0.2 M</strong></p>
+
+<p><strong>Pressione di H<sub>2</sub>:</strong> p(H<sub>2</sub>) = <strong>1 atm</strong> (condizione standard per il gas)</p>
+
+<h4>4. Calcolare il potenziale di ciascun elettrodo con Nernst</h4>
+
+<div class="step">
+<strong>Potenziale dell'elettrodo a idrogeno (anodo):</strong>
+
+<p>Semireazione di riduzione: 2H<sup>+</sup> + 2e<sup>-</sup> --> H<sub>2</sub></p>
+
+<div class="calcolo">
+E(H<sup>+</sup>/H<sub>2</sub>) = E + (0.059/2) x log([H<sup>+</sup>]<sup>2</sup>/p(H<sub>2</sub>))<br>
+= 0 + 0.0295 x log((0.01)<sup>2</sup>/1)<br>
+= 0.0295 x log(10<sup>-4</sup>)<br>
+= 0.0295 x (-4)<br>
+= <strong>-0.118 V</strong>
+</div>
+
+<p><em>Nota: Il potenziale e negativo perche la soluzione e meno acida rispetto alle condizioni standard (pH = 0).</em></p>
+</div>
+
+<div class="step">
+<strong>Potenziale dell'elettrodo di argento (catodo):</strong>
+
+<p>Semireazione di riduzione: Ag<sup>+</sup> + e<sup>-</sup> --> Ag</p>
+
+<div class="calcolo">
+E(Ag<sup>+</sup>/Ag) = E + 0.059 x log([Ag<sup>+</sup>])<br>
+= 0.80 + 0.059 x log(0.2)<br>
+= 0.80 + 0.059 x (-0.699)<br>
+= 0.80 - 0.041<br>
+= <strong>+0.759 V</strong>
+</div>
+</div>
+
+<h4>5. Calcolare la f.e.m. della cella</h4>
+
+<div class="calcolo">
+f.e.m. = E(catodo) - E(anodo)<br>
+f.e.m. = 0.759 - (-0.118)<br>
+f.e.m. = 0.759 + 0.118<br>
+f.e.m. = <strong>+0.877 V</strong> (arrotondato: <strong>0.88 V</strong>)
+</div>
+
+<h4>6. Parte b) - Calcolare la massa di argento depositato</h4>
+
+<div class="step">
+<strong>Calcola la carica elettrica totale:</strong>
+<div class="calcolo">
+t = 40 min x 60 = 2400 s<br>
+Q = I x t = 1.2 A x 2400 s = <strong>2880 C</strong>
+</div>
+</div>
+
+<div class="step">
+<strong>Calcola le moli di elettroni:</strong>
+<div class="calcolo">
+mol e<sup>-</sup> = Q / F = 2880 / 96500 = <strong>0.0298 mol</strong>
+</div>
+</div>
+
+<div class="step">
+<strong>Calcola le moli e la massa di argento:</strong>
+<p>Dalla semireazione Ag<sup>+</sup> + e<sup>-</sup> --> Ag: 1 mol di elettroni = 1 mol di Ag</p>
+<div class="calcolo">
+mol Ag = mol e<sup>-</sup> = 0.0298 mol<br>
+m(Ag) = 0.0298 x 108 = <strong>3.22 g</strong>
+</div>
+</div>
+
+<div class="risultato">
+<strong>RISPOSTE:</strong><br>
+a) f.e.m. = <strong>+0.88 V</strong><br>
+b) Massa di Ag depositato = <strong>3.22 g</strong>
+</div>
+
+</div>
+
+<!-- ================================================ -->
+<!-- ESERCIZIO 8: Elettrolisi dell'alluminio -->
+<!-- ================================================ -->
+
+<div class="esempio-esame">
+<div class="titolo">ESERCIZIO 8: Elettrolisi dell'Al<sub>2</sub>O<sub>3</sub> fuso</div>
+
+<div class="testo-esercizio">
+<strong>TESTO:</strong> Quanto alluminio e possibile ottenere dall'elettrolisi di Al<sub>2</sub>O<sub>3</sub> fuso con purezza del 94% considerando di utilizzare una corrente di 600 A per un tempo pari a 40 minuti?
+<br><br>
+<strong>Dati forniti:</strong> M(Al) = 27 g/mol, F = 96485 C/mol, Semireazione di riduzione: Al<sup>3+</sup> + 3e<sup>-</sup> --> Al
+</div>
+
+<h4>1. Comprensione del fenomeno</h4>
+
+<p>L'<strong>elettrolisi</strong> e un processo elettrochimico che ci permette di utilizzare energia elettrica per forzare una reazione chimica che normalmente non avverrebbe in modo spontaneo. In questo esercizio stiamo decomponendo l'ossido di alluminio fuso (Al<sub>2</sub>O<sub>3</sub>, noto anche come <em>allumina</em>) per ottenere alluminio metallico puro.</p>
+
+<p>Questo processo e esattamente quello utilizzato nell'industria! Si chiama <strong>processo Hall-Heroult</strong> e fu sviluppato nel 1886.</p>
+
+<p>Dalla semireazione:</p>
+
+<div class="calcolo">
+Al<sup>3+</sup> + 3e<sup>-</sup> --> Al (metallo)
+</div>
+
+<p>Vediamo che <strong>per depositare un atomo di alluminio servono 3 elettroni</strong>. Questo perche lo ione alluminio ha carica 3+ e per tornare allo stato metallico neutro deve riacquistare tutti e 3 quegli elettroni.</p>
+
+<h4>2. Conversione del tempo in secondi</h4>
+
+<div class="calcolo">
+t = 40 minuti x 60 secondi/minuto = <strong>2400 s</strong>
+</div>
+
+<h4>3. Calcolo della carica elettrica totale</h4>
+
+<div class="calcolo">
+Q = I x t = 600 A x 2400 s = <strong>1,440,000 C</strong> (cioe 1.44 x 10<sup>6</sup> C)
+</div>
+
+<h4>4. Calcolo della massa di alluminio teorica</h4>
+
+<p>Applichiamo la formula di Faraday:</p>
+
+<div class="calcolo">
+m(teorica) = (Q x M) / (n x F)<br>
+m(teorica) = (1,440,000 x 27) / (3 x 96485)<br>
+m(teorica) = 38,880,000 / 289,455<br>
+m(teorica) = <strong>134.31 g</strong>
+</div>
+
+<h4>5. Applicazione della purezza</h4>
+
+<p>Il problema ci dice che la purezza del prodotto finale e del 94%. Questo significa che del prodotto totale che otteniamo, solo il 94% e effettivamente alluminio puro.</p>
+
+<div class="calcolo">
+Purezza = 94% = 0.94<br>
+m(Al puro) = m(teorica) x 0.94<br>
+m(Al puro) = 134.31 x 0.94<br>
+m(Al puro) = <strong>126.25 g</strong>
+</div>
+
+<div class="risultato">
+Dall'elettrolisi dell'Al<sub>2</sub>O<sub>3</sub> fuso, utilizzando una corrente di 600 A per 40 minuti, considerando una purezza del 94%, si possono ottenere:<br><br>
+<strong>m(Al) = 126.25 g di alluminio puro</strong>
+</div>
+
+<h4>Riepilogo del metodo risolutivo</h4>
+
+<div class="procedura">
+<ol>
+    <li><strong>Converti il tempo in secondi</strong> se dato in minuti o ore</li>
+    <li><strong>Calcola la carica totale:</strong> Q = I x t</li>
+    <li><strong>Identifica n</strong> dalla semireazione (numero di elettroni per ione)</li>
+    <li><strong>Applica la formula di Faraday:</strong> m = (Q x M) / (n x F)</li>
+    <li><strong>Applica la purezza</strong> moltiplicando per il fattore decimale (es. 0.94 per 94%)</li>
+</ol>
+</div>
+
+</div>
+
+<!-- ============================================== -->
+<h2>10. Errori Comuni</h2>
+<!-- ============================================== -->
+
+<div class="attenzione">
+<strong>ERRORI DA EVITARE:</strong>
+
+<h4>1. Nell'equazione di Nernst</h4>
+<ul>
+    <li><strong>Sbagliare n:</strong> n e il numero di elettroni nella semireazione, NON i coefficienti stechiometrici</li>
+    <li><strong>Invertire il rapporto nel logaritmo:</strong> Per una semicella, e sempre [forma ossidata]/[forma ridotta]</li>
+    <li><strong>Dimenticare gli esponenti:</strong> Se [H<sup>+</sup>] ha coefficiente 8 nella reazione, nel log compare [H<sup>+</sup>]<sup>8</sup></li>
+    <li><strong>Usare ln invece di log:</strong> La formula con 0.059 usa il logaritmo decimale (log<sub>10</sub>)</li>
+</ul>
+
+<h4>2. Nell'identificazione di anodo e catodo</h4>
+<ul>
+    <li><strong>Confondere i segni:</strong> Nella PILA l'anodo e negativo (-), nell'ELETTROLISI e positivo (+)</li>
+    <li><strong>Invertire chi si ossida/riduce:</strong> Ricorda: "AN-OX" (Anodo = Ossidazione), "CAT-RED" (Catodo = Riduzione)</li>
+    <li><strong>Sbagliare quale elettrodo ha potenziale maggiore:</strong> Il CATODO ha sempre il potenziale piu ALTO</li>
+</ul>
+
+<h4>3. Nelle pile a concentrazione</h4>
+<ul>
+    <li><strong>Pensare che E_cella = E:</strong> In una pila a concentrazione E = 0, quindi E_cella deriva SOLO dalle concentrazioni!</li>
+    <li><strong>Sbagliare quale semicella e il catodo:</strong> Calcola sempre il potenziale con Nernst per entrambe le semicelle e confronta</li>
+</ul>
+
+<h4>4. Nell'elettrolisi</h4>
+<ul>
+    <li><strong>Non convertire il tempo in secondi:</strong> Q = I x t funziona SOLO con t in secondi!</li>
+    <li><strong>Sbagliare n nella semireazione:</strong> Per Cr<sup>3+</sup> --> Cr sono 3 elettroni, per Ca<sup>2+</sup> --> Ca sono 2, per Ag<sup>+</sup> --> Ag e 1</li>
+    <li><strong>Dimenticare la purezza:</strong> Se il problema da una purezza, devi moltiplicare il risultato per quel fattore</li>
+</ul>
+
+<h4>5. Nel calcolo di K da E</h4>
+<ul>
+    <li><strong>Usare E invece di E:</strong> La formula log K = nE/0.059 vale solo per E STANDARD</li>
+    <li><strong>Sbagliare i segni:</strong> E > 0 implica K > 1 (prodotti favoriti)</li>
+</ul>
+</div>
+
+<!-- ============================================== -->
+<h2>11. Riepilogo Formule</h2>
+<!-- ============================================== -->
+
+<div class="riepilogo">
+<h3>Formule fondamentali di Elettrochimica</h3>
+
+<table>
+<tr><th>Nome</th><th>Formula</th><th>Quando usarla</th></tr>
+<tr>
+    <td>f.e.m. standard</td>
+    <td>E_cella = E_catodo - E_anodo</td>
+    <td>Calcolo f.e.m. in condizioni standard</td>
+</tr>
+<tr>
+    <td>Nernst (semicella)</td>
+    <td>E = E + (0.059/n) x log([Ox]/[Red])</td>
+    <td>Potenziale di semicella non standard</td>
+</tr>
+<tr>
+    <td>Nernst (pila)</td>
+    <td>E = E - (0.059/n) x log Q</td>
+    <td>f.e.m. in condizioni non standard</td>
+</tr>
+<tr>
+    <td>Energia libera</td>
+    <td>DeltaG = -n x F x E</td>
+    <td>Relazione tra elettrochimica e termodinamica</td>
+</tr>
+<tr>
+    <td>Costante equilibrio</td>
+    <td>log K = (n x E) / 0.059</td>
+    <td>K da potenziale standard</td>
+</tr>
+<tr>
+    <td>Carica elettrica</td>
+    <td>Q = I x t</td>
+    <td>Calcolo della carica (t in secondi!)</td>
+</tr>
+<tr>
+    <td>Faraday (massa)</td>
+    <td>m = (I x t x M) / (n x F)</td>
+    <td>Massa depositata in elettrolisi</td>
+</tr>
+<tr>
+    <td>Faraday (moli e<sup>-</sup>)</td>
+    <td>mol e<sup>-</sup> = Q / F</td>
+    <td>Moli di elettroni trasferiti</td>
+</tr>
+<tr>
+    <td>Volume gas (c.n.)</td>
+    <td>V = n x 22.4 L/mol</td>
+    <td>Volume di gas a 0 C, 1 atm</td>
+</tr>
+</table>
+
+<h3>Costanti</h3>
+<ul>
+    <li><strong>F</strong> = 96485 C/mol (approssimabile a 96500 C/mol)</li>
+    <li><strong>R</strong> = 8.314 J/(mol x K)</li>
+    <li><strong>0.059 V</strong> = RT/F x ln(10) a 25 C</li>
+    <li><strong>Volume molare a c.n.</strong> = 22.4 L/mol</li>
+</ul>
+
+<h3>Regole rapide</h3>
+<ul>
+    <li><strong>Anodo:</strong> ossidazione, potenziale piu basso</li>
+    <li><strong>Catodo:</strong> riduzione, potenziale piu alto</li>
+    <li><strong>f.e.m. > 0:</strong> reazione spontanea</li>
+    <li><strong>Metallo con E < 0:</strong> reagisce con acidi (produce H<sub>2</sub>)</li>
+    <li><strong>In Nernst:</strong> sempre log([ossidato]/[ridotto])</li>
+</ul>
+</div>
+
+</body>
+</html>

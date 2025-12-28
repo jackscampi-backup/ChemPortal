@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Esame 1-2 - Esercizio 7 - Equilibrio Chimico</title>
+    <style>
+        body { font-family: Georgia, serif; max-width: 800px; margin: 40px auto; padding: 20px; line-height: 1.8; color: #333; }
+        h2 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+        h3 { color: #2980b9; margin-top: 30px; }
+        h4 { color: #27ae60; }
+        .result { background-color: #e8f5e9; padding: 15px; border-radius: 5px; border-left: 4px solid #4caf50; margin: 20px 0; }
+        .domanda { background: #f8f9fa; border-left: 4px solid #3498db; padding: 15px; margin: 20px 0; font-style: italic; }
+        sub { font-size: 0.8em; vertical-align: sub; }
+        sup { font-size: 0.8em; vertical-align: super; }
+    
+    .done-buttons {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+    .mark-btn {
+        padding: 12px 24px;
+        font-size: 1em;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .mark-done {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        color: white;
+    }
+    .mark-done:hover, .mark-done.selected {
+        background: linear-gradient(135deg, #1e7e34, #17a085);
+        transform: scale(1.05);
+    }
+    .mark-review {
+        background: linear-gradient(135deg, #ffc107, #fd7e14);
+        color: white;
+    }
+    .mark-review:hover, .mark-review.selected {
+        background: linear-gradient(135deg, #d39e00, #dc6502);
+        transform: scale(1.05);
+    }
+    .mark-reset {
+        background: #6c757d;
+        color: white;
+    }
+    .mark-reset:hover {
+        background: #545b62;
+    }
+    .mark-btn.selected {
+        box-shadow: 0 0 0 3px rgba(0,0,0,0.2);
+    }
+</style>
+
+<style>
+    .quiz-container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px;
+        padding-bottom: 120px;
+    }
+    .question-section {
+        background: linear-gradient(135deg, #e8f4f8 0%, #d4edda 100%);
+        border: 2px solid #17a2b8;
+        border-radius: 10px;
+        padding: 25px;
+        margin-bottom: 20px;
+    }
+    .question-section h2 {
+        color: #0c5460;
+        margin-top: 0;
+        margin-bottom: 15px;
+    }
+    .show-next-btn {
+        display: block;
+        width: 100%;
+        padding: 15px 30px;
+        font-size: 1.1em;
+        font-weight: bold;
+        color: white;
+        background: linear-gradient(135deg, #007bff, #0056b3);
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        margin: 15px 0;
+        transition: all 0.3s ease;
+    }
+    .show-next-btn:hover {
+        background: linear-gradient(135deg, #0056b3, #004094);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 123, 255, 0.4);
+    }
+    .show-all-btn {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        margin-top: 10px;
+    }
+    .show-all-btn:hover {
+        background: linear-gradient(135deg, #218838, #1db385);
+        box-shadow: 0 4px 12px rgba(40, 167, 69, 0.4);
+    }
+    .step-container {
+        display: none;
+        animation: fadeIn 0.5s ease;
+        margin-bottom: 20px;
+        border: 1px solid #dee2e6;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    .step-container.visible {
+        display: block;
+    }
+    .step-header {
+        background: linear-gradient(135deg, #6c757d, #495057);
+        color: white;
+        padding: 12px 20px;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+    }
+    .step-number-badge {
+        background: white;
+        color: #495057;
+        border-radius: 50%;
+        width: 28px;
+        height: 28px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 12px;
+        font-weight: bold;
+    }
+    .step-content {
+        padding: 20px;
+        background: white;
+    }
+    .progress-bar {
+        background: #e9ecef;
+        border-radius: 10px;
+        height: 8px;
+        margin: 15px 0;
+        overflow: hidden;
+    }
+    .progress-fill {
+        background: linear-gradient(90deg, #28a745, #20c997);
+        height: 100%;
+        border-radius: 10px;
+        transition: width 0.5s ease;
+    }
+    .progress-text {
+        text-align: center;
+        color: #6c757d;
+        font-size: 0.9em;
+        margin-bottom: 15px;
+    }
+    .controls {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: white;
+        padding: 15px 20px;
+        border-top: 2px solid #dee2e6;
+        box-shadow: 0 -4px 12px rgba(0,0,0,0.1);
+        z-index: 1000;
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+    }
+    .quiz-container {
+        padding-bottom: 100px;
+    }
+    .show-next-btn {
+        width: auto;
+        margin: 0;
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .final-answer {
+        background: #d4edda;
+        border: 2px solid #28a745;
+        border-radius: 10px;
+        padding: 20px;
+        margin-top: 20px;
+    }
+    .final-answer h3 {
+        color: #155724;
+        margin-top: 0;
+    }
+
+    .done-buttons {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+    .mark-btn {
+        padding: 12px 24px;
+        font-size: 1em;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .mark-done {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        color: white;
+    }
+    .mark-done:hover, .mark-done.selected {
+        background: linear-gradient(135deg, #1e7e34, #17a085);
+        transform: scale(1.05);
+    }
+    .mark-review {
+        background: linear-gradient(135deg, #ffc107, #fd7e14);
+        color: white;
+    }
+    .mark-review:hover, .mark-review.selected {
+        background: linear-gradient(135deg, #d39e00, #dc6502);
+        transform: scale(1.05);
+    }
+    .mark-reset {
+        background: #6c757d;
+        color: white;
+    }
+    .mark-reset:hover {
+        background: #545b62;
+    }
+    .mark-btn.selected {
+        box-shadow: 0 0 0 3px rgba(0,0,0,0.2);
+    }
+</style>
+</head>
+<body>
+<div class="quiz-container">
+    <h1>Esercizio</h1>
+
+    <div class="question-section">
+        <h2>Testo dell'esercizio</h2>
+        <p>Risolvi l'esercizio seguente.</p>
+    </div>
+
+    <div class="progress-text" id="progress-text">Passaggio 0 di 13</div>
+    <div class="progress-bar">
+        <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+    </div>
+
+    <div class="controls">
+        <button id="next-btn" class="show-next-btn" onclick="showNextStep()">
+            ▶ Prossimo passaggio
+        </button>
+        <button id="all-btn" class="show-next-btn show-all-btn" onclick="showAllSteps()">
+            ⏩ Mostra tutto
+        </button>
+        <div id="done-buttons" class="done-buttons" style="display: none;">
+            <button id="mark-done" class="mark-btn mark-done" onclick="markExercise('done')">
+                ✓ Fatto
+            </button>
+            <button id="mark-review" class="mark-btn mark-review" onclick="markExercise('review')">
+                ⚠ Da rivedere
+            </button>
+            <button class="mark-btn mark-reset" onclick="resetExercise()">
+                ↺ Ricomincia
+            </button>
+            <button class="mark-btn" style="background: #17a2b8;" onclick="closeExercise()">
+                ✕ Chiudi
+            </button>
+        </div>
+    </div>
+
+    <div id="steps-wrapper">
+        
+        <div id="step-0" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">1</span>
+                Esame 1-2 - Esercizio 7: Equilibrio Chimico
+            </div>
+            <div class="step-content">
+                <h2>Esame 1-2 - Esercizio 7: Equilibrio Chimico</h2>
+
+<div class="domanda">
+<strong>Testo della domanda:</strong><br>
+La K<sub>eq</sub> della reazione HI ⇌ H<sub>2</sub> + I<sub>2</sub> a 440°C vale 0,020. Calcolare la composizione della miscela all'equilibrio quando in un reattore chiuso posto a quella temperatura si introducono 15 g di acido iodidrico.
+<br><br>
+<strong>Dato:</strong> MM(HI) = 128 g/mol
+</div>
+            </div>
+        </div>
+        
+        <div id="step-1" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">2</span>
+                Analisi del problema
+            </div>
+            <div class="step-content">
+                <h3>Analisi del problema</h3>
+
+<p>Questo esercizio riguarda l'<strong>equilibrio chimico</strong>, uno dei concetti fondamentali della chimica. Quando una reazione raggiunge l'equilibrio, le velocità della reazione diretta e inversa si eguagliano, e le concentrazioni delle specie rimangono costanti nel tempo (anche se le reazioni continuano ad avvenire a livello microscopico).</p>
+
+<p>La reazione che ci viene presentata è la <strong>decomposizione dell'acido iodidrico (HI)</strong> in idrogeno molecolare (H<sub>2</sub>) e iodio molecolare (I<sub>2</sub>). Questa è una reazione reversibile, come indicato dalla doppia freccia ⇌.</p>
+            </div>
+        </div>
+        
+        <div id="step-2" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">3</span>
+                Passo 1: Bilanciamento della reazione
+            </div>
+            <div class="step-content">
+                <h3>Passo 1: Bilanciamento della reazione</h3>
+
+<p>Prima di procedere con qualsiasi calcolo, dobbiamo assicurarci che la reazione sia bilanciata. La reazione scritta nel testo è:</p>
+
+<p style="text-align: center;"><strong>HI ⇌ H<sub>2</sub> + I<sub>2</sub></strong></p>
+
+<p>Verifichiamo il bilanciamento contando gli atomi:</p>
+<ul>
+    <li>A sinistra: 1 H, 1 I</li>
+    <li>A destra: 2 H, 2 I</li>
+</ul>
+
+<p>La reazione NON è bilanciata! Dobbiamo bilanciarla. La reazione bilanciata correttamente è:</p>
+
+<p style="text-align: center;"><strong>2 HI ⇌ H<sub>2</sub> + I<sub>2</sub></strong></p>
+
+<p>Ora verifichiamo: a sinistra abbiamo 2 H e 2 I, a destra abbiamo 2 H e 2 I. Perfetto, la reazione è bilanciata.</p>
+            </div>
+        </div>
+        
+        <div id="step-3" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">4</span>
+                Passo 2: Calcolo delle moli iniziali di HI
+            </div>
+            <div class="step-content">
+                <h3>Passo 2: Calcolo delle moli iniziali di HI</h3>
+
+<p>Ci viene detto che introduciamo 15 g di acido iodidrico nel reattore. Per lavorare con l'equilibrio chimico, dobbiamo convertire questa massa in <strong>moli</strong>, perché le costanti di equilibrio si esprimono in termini di concentrazioni molari.</p>
+
+<p>La formula per calcolare le moli è:</p>
+
+<p style="text-align: center;"><strong>n = massa / massa molare</strong></p>
+
+<p>Sostituendo i valori:</p>
+
+<p style="text-align: center;"><strong>n(HI) = 15 g / 128 g/mol = 0,117 mol</strong></p>
+
+<p>Quindi partiamo con <strong>0,117 moli di HI</strong> e con <strong>zero moli</strong> sia di H<sub>2</sub> che di I<sub>2</sub> (perché il testo dice che introduciamo solo acido iodidrico).</p>
+            </div>
+        </div>
+        
+        <div id="step-4" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">5</span>
+                Passo 3: Costruzione della tabella ICE
+            </div>
+            <div class="step-content">
+                <h3>Passo 3: Costruzione della tabella ICE</h3>
+
+<p>Per risolvere problemi di equilibrio, utilizziamo la <strong>tabella ICE</strong> (Initial, Change, Equilibrium), che ci permette di tenere traccia di come cambiano le moli delle specie durante la reazione.</p>
+
+<p>Chiamiamo <strong>x</strong> il numero di moli di H<sub>2</sub> che si formano all'equilibrio. Dalla stechiometria della reazione bilanciata (2 HI ⇌ H<sub>2</sub> + I<sub>2</sub>) possiamo dedurre che:</p>
+
+<ul>
+    <li>Per ogni mole di H<sub>2</sub> che si forma, si forma anche 1 mole di I<sub>2</sub> (rapporto 1:1)</li>
+    <li>Per ogni mole di H<sub>2</sub> che si forma, si consumano 2 moli di HI (rapporto 2:1)</li>
+</ul>
+
+<p>La tabella ICE diventa:</p>
+
+<table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
+    <tr style="background: #3498db; color: white;">
+        <th style="padding: 10px; border: 1px solid #333;"></th>
+        <th style="padding: 10px; border: 1px solid #333;">2 HI</th>
+        <th style="padding: 10px; border: 1px solid #333;">H<sub>2</sub></th>
+        <th style="padding: 10px; border: 1px solid #333;">I<sub>2</sub></th>
+    </tr>
+    <tr>
+        <td style="padding: 10px; border: 1px solid #333;"><strong>Iniziale (mol)</strong></td>
+        <td style="padding: 10px; border: 1px solid #333; text-align: center;">0,117</td>
+        <td style="padding: 10px; border: 1px solid #333; text-align: center;">0</td>
+        <td style="padding: 10px; border: 1px solid #333; text-align: center;">0</td>
+    </tr>
+    <tr>
+        <td style="padding: 10px; border: 1px solid #333;"><strong>Variazione (mol)</strong></td>
+        <td style="padding: 10px; border: 1px solid #333; text-align: center;">-2x</td>
+        <td style="padding: 10px; border: 1px solid #333; text-align: center;">+x</td>
+        <td style="padding: 10px; border: 1px solid #333; text-align: center;">+x</td>
+    </tr>
+    <tr style="background: #f8f9fa;">
+        <td style="padding: 10px; border: 1px solid #333;"><strong>Equilibrio (mol)</strong></td>
+        <td style="padding: 10px; border: 1px solid #333; text-align: center;">0,117 - 2x</td>
+        <td style="padding: 10px; border: 1px solid #333; text-align: center;">x</td>
+        <td style="padding: 10px; border: 1px solid #333; text-align: center;">x</td>
+    </tr>
+</table>
+            </div>
+        </div>
+        
+        <div id="step-5" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">6</span>
+                Passo 4: Scrittura dell'espressione della Keq
+            </div>
+            <div class="step-content">
+                <h3>Passo 4: Scrittura dell'espressione della K<sub>eq</sub></h3>
+
+<p>La costante di equilibrio K<sub>eq</sub> si scrive mettendo al numeratore le concentrazioni dei prodotti e al denominatore quelle dei reagenti, ciascuna elevata al proprio coefficiente stechiometrico.</p>
+
+<p>Per la reazione <strong>2 HI ⇌ H<sub>2</sub> + I<sub>2</sub></strong>:</p>
+
+<p style="text-align: center;"><strong>K<sub>eq</sub> = [H<sub>2</sub>] × [I<sub>2</sub>] / [HI]<sup>2</sup></strong></p>
+
+<p><strong>Nota importante:</strong> In questo problema, dato che tutte le specie sono nello stesso volume (il reattore chiuso), possiamo usare le <strong>moli</strong> al posto delle concentrazioni. Questo perché:</p>
+
+<p style="text-align: center;">[A] = n<sub>A</sub> / V</p>
+
+<p>Se sostituiamo nell'espressione della K<sub>eq</sub>:</p>
+
+<p style="text-align: center;">K<sub>eq</sub> = (n<sub>H2</sub>/V) × (n<sub>I2</sub>/V) / (n<sub>HI</sub>/V)<sup>2</sup> = (n<sub>H2</sub> × n<sub>I2</sub>) / n<sub>HI</sub><sup>2</sup></p>
+
+<p>I volumi si semplificano! Questo accade perché la somma dei coefficienti stechiometrici è uguale a destra e a sinistra (2 = 1 + 1). Quindi possiamo lavorare direttamente con le moli.</p>
+            </div>
+        </div>
+        
+        <div id="step-6" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">7</span>
+                Passo 5: Risoluzione dell'equazione
+            </div>
+            <div class="step-content">
+                <h3>Passo 5: Risoluzione dell'equazione</h3>
+
+<p>Sostituiamo le espressioni dell'equilibrio nell'equazione della K<sub>eq</sub>:</p>
+
+<p style="text-align: center;"><strong>0,020 = (x × x) / (0,117 - 2x)<sup>2</sup></strong></p>
+
+<p style="text-align: center;"><strong>0,020 = x<sup>2</sup> / (0,117 - 2x)<sup>2</sup></strong></p>
+
+<p>Questa equazione ha una forma particolare: è il rapporto di due quadrati. Possiamo quindi estrarre la radice quadrata da entrambi i membri:</p>
+
+<p style="text-align: center;"><strong>√0,020 = x / (0,117 - 2x)</strong></p>
+
+<p style="text-align: center;"><strong>0,1414 = x / (0,117 - 2x)</strong></p>
+
+<p>Ora risolviamo per x moltiplicando entrambi i membri per (0,117 - 2x):</p>
+
+<p style="text-align: center;">0,1414 × (0,117 - 2x) = x</p>
+
+<p style="text-align: center;">0,01654 - 0,2828x = x</p>
+
+<p style="text-align: center;">0,01654 = x + 0,2828x</p>
+
+<p style="text-align: center;">0,01654 = 1,2828x</p>
+
+<p style="text-align: center;"><strong>x = 0,01654 / 1,2828 = 0,0129 mol</strong></p>
+            </div>
+        </div>
+        
+        <div id="step-7" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">8</span>
+                Passo 6: Calcolo della composizione all'equilibrio
+            </div>
+            <div class="step-content">
+                <h3>Passo 6: Calcolo della composizione all'equilibrio</h3>
+
+<p>Ora che conosciamo x, possiamo calcolare le moli di ciascuna specie all'equilibrio:</p>
+
+<h4>Moli di H<sub>2</sub> all'equilibrio:</h4>
+<p style="text-align: center;"><strong>n(H<sub>2</sub>) = x = 0,0129 mol</strong></p>
+
+<h4>Moli di I<sub>2</sub> all'equilibrio:</h4>
+<p style="text-align: center;"><strong>n(I<sub>2</sub>) = x = 0,0129 mol</strong></p>
+
+<h4>Moli di HI all'equilibrio:</h4>
+<p style="text-align: center;"><strong>n(HI) = 0,117 - 2x = 0,117 - 2(0,0129) = 0,117 - 0,0258 = 0,0912 mol</strong></p>
+            </div>
+        </div>
+        
+        <div id="step-8" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">9</span>
+                Passo 7: Conversione in grammi
+            </div>
+            <div class="step-content">
+                <h3>Passo 7: Conversione in grammi</h3>
+
+<p>Per avere un quadro completo, convertiamo le moli in grammi usando le masse molari:</p>
+
+<ul>
+    <li>MM(H<sub>2</sub>) = 2 g/mol</li>
+    <li>MM(I<sub>2</sub>) = 254 g/mol</li>
+    <li>MM(HI) = 128 g/mol</li>
+</ul>
+
+<h4>Massa di H<sub>2</sub>:</h4>
+<p style="text-align: center;">m(H<sub>2</sub>) = 0,0129 mol × 2 g/mol = <strong>0,026 g</strong></p>
+
+<h4>Massa di I<sub>2</sub>:</h4>
+<p style="text-align: center;">m(I<sub>2</sub>) = 0,0129 mol × 254 g/mol = <strong>3,28 g</strong></p>
+
+<h4>Massa di HI:</h4>
+<p style="text-align: center;">m(HI) = 0,0912 mol × 128 g/mol = <strong>11,67 g</strong></p>
+            </div>
+        </div>
+        
+        <div id="step-9" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">10</span>
+                Passo 8: Verifica della conservazione della massa
+            </div>
+            <div class="step-content">
+                <h3>Passo 8: Verifica della conservazione della massa</h3>
+
+<p>Per essere sicuri del nostro risultato, verifichiamo che la massa totale si sia conservata:</p>
+
+<p style="text-align: center;">Massa totale = 0,026 + 3,28 + 11,67 = <strong>14,98 g ≈ 15 g</strong> ✓</p>
+
+<p>Ottimo! La massa si conserva (la piccola differenza è dovuta agli arrotondamenti).</p>
+            </div>
+        </div>
+        
+        <div id="step-10" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">11</span>
+                Passo 9: Calcolo delle frazioni molari (composizio...
+            </div>
+            <div class="step-content">
+                <h3>Passo 9: Calcolo delle frazioni molari (composizione percentuale)</h3>
+
+<p>Per esprimere la composizione in modo più significativo, calcoliamo le frazioni molari:</p>
+
+<p>Moli totali all'equilibrio = 0,0912 + 0,0129 + 0,0129 = 0,117 mol</p>
+
+<p><strong>Nota:</strong> Le moli totali rimangono invariate! Questo perché nella reazione 2 HI → H<sub>2</sub> + I<sub>2</sub>, 2 moli di reagente producono 2 moli di prodotti (1 + 1).</p>
+
+<h4>Frazione molare di HI:</h4>
+<p style="text-align: center;">χ(HI) = 0,0912 / 0,117 = <strong>0,780 = 78,0%</strong></p>
+
+<h4>Frazione molare di H<sub>2</sub>:</h4>
+<p style="text-align: center;">χ(H<sub>2</sub>) = 0,0129 / 0,117 = <strong>0,110 = 11,0%</strong></p>
+
+<h4>Frazione molare di I<sub>2</sub>:</h4>
+<p style="text-align: center;">χ(I<sub>2</sub>) = 0,0129 / 0,117 = <strong>0,110 = 11,0%</strong></p>
+
+<div class="result">
+            </div>
+        </div>
+        
+        <div id="step-11" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">12</span>
+                Risultato finale - Composizione all'equilibrio
+            </div>
+            <div class="step-content">
+                <h3>Risultato finale - Composizione all'equilibrio</h3>
+
+<p><strong>In moli:</strong></p>
+<ul>
+    <li>n(HI) = <strong>0,0912 mol</strong> (78,0%)</li>
+    <li>n(H<sub>2</sub>) = <strong>0,0129 mol</strong> (11,0%)</li>
+    <li>n(I<sub>2</sub>) = <strong>0,0129 mol</strong> (11,0%)</li>
+</ul>
+
+<p><strong>In grammi:</strong></p>
+<ul>
+    <li>m(HI) = <strong>11,67 g</strong></li>
+    <li>m(H<sub>2</sub>) = <strong>0,026 g</strong></li>
+    <li>m(I<sub>2</sub>) = <strong>3,28 g</strong></li>
+</ul>
+</div>
+            </div>
+        </div>
+        
+        <div id="step-12" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">13</span>
+                Commento finale
+            </div>
+            <div class="step-content">
+                <h3>Commento finale</h3>
+
+<p>Il valore della K<sub>eq</sub> = 0,020 è piuttosto piccolo (minore di 1), il che indica che <strong>l'equilibrio è spostato verso i reagenti</strong>. Infatti, all'equilibrio, circa il 78% dell'HI rimane non decomposto, mentre solo il 22% si è trasformato nei prodotti.</p>
+
+<p>Questo è coerente con il fatto che l'acido iodidrico è una molecola relativamente stabile a 440°C. Per avere una decomposizione maggiore, sarebbe necessaria una temperatura più alta (che aumenterebbe la K<sub>eq</sub> se la reazione è endotermica) oppure rimuovere continuamente i prodotti dal sistema.</p>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+<script>
+    let currentStep = 0;
+    let totalSteps = 0;
+
+    document.addEventListener('DOMContentLoaded', function() {
+        totalSteps = document.querySelectorAll('.step-container').length;
+        updateProgress();
+        updateButtons();
+    });
+
+    function showNextStep() {
+        if (currentStep < totalSteps) {
+            const step = document.getElementById('step-' + currentStep);
+            if (step) {
+                step.classList.add('visible');
+                step.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                currentStep++;
+                updateProgress();
+                updateButtons();
+
+                if (window.parent !== window) {
+                    window.parent.postMessage({type: 'stepShown', step: currentStep, total: totalSteps}, '*');
+                }
+            }
+        }
+    }
+
+    function showAllSteps() {
+        document.querySelectorAll('.step-container').forEach(function(step) {
+            step.classList.add('visible');
+        });
+        currentStep = totalSteps;
+        updateProgress();
+        updateButtons();
+
+        if (window.parent !== window) {
+            window.parent.postMessage({type: 'allStepsShown'}, '*');
+        }
+    }
+
+    function hideAllSteps() {
+        document.querySelectorAll('.step-container').forEach(function(step) {
+            step.classList.remove('visible');
+        });
+        currentStep = 0;
+        updateProgress();
+        updateButtons();
+    }
+
+    function updateProgress() {
+        const pct = totalSteps > 0 ? (currentStep / totalSteps) * 100 : 0;
+        const fill = document.getElementById('progress-fill');
+        const text = document.getElementById('progress-text');
+        if (fill) fill.style.width = pct + '%';
+        if (text) text.textContent = 'Passaggio ' + currentStep + ' di ' + totalSteps;
+    }
+
+    function updateButtons() {
+        const nextBtn = document.getElementById('next-btn');
+        const allBtn = document.getElementById('all-btn');
+        const doneButtons = document.getElementById('done-buttons');
+
+        if (currentStep >= totalSteps) {
+            if (nextBtn) nextBtn.style.display = 'none';
+            if (allBtn) allBtn.style.display = 'none';
+            if (doneButtons) doneButtons.style.display = 'flex';
+        } else {
+            if (nextBtn) nextBtn.style.display = 'block';
+            if (allBtn) allBtn.style.display = 'block';
+            if (doneButtons) doneButtons.style.display = 'none';
+        }
+    }
+
+    function markExercise(status) {
+        // Salva in localStorage
+        const exerciseId = window.location.pathname.split('/').pop().replace('.html', '');
+        let progress = JSON.parse(localStorage.getItem('chemportal_progress') || '{}');
+        if (!progress.exercises) progress.exercises = {};
+        progress.exercises[exerciseId] = status;
+        localStorage.setItem('chemportal_progress', JSON.stringify(progress));
+
+        // Feedback visivo
+        const btn = status === 'done' ? document.getElementById('mark-done') : document.getElementById('mark-review');
+        const otherBtn = status === 'done' ? document.getElementById('mark-review') : document.getElementById('mark-done');
+
+        btn.classList.add('selected');
+        otherBtn.classList.remove('selected');
+
+        // Notifica parent
+        if (window.parent !== window) {
+            window.parent.postMessage({type: 'exerciseMarked', status: status, id: exerciseId}, '*');
+        }
+    }
+
+    function resetExercise() {
+        hideAllSteps();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Messaggi dal parent
+    window.addEventListener('message', function(e) {
+        if (e.data.type === 'showNext') showNextStep();
+        else if (e.data.type === 'showAll') showAllSteps();
+        else if (e.data.type === 'hideAll') hideAllSteps();
+    });
+
+    function closeExercise() {
+        if (window.parent !== window) {
+            // Siamo in iframe, chiedi al parent di chiudere
+            window.parent.postMessage({type: 'closeModal'}, '*');
+        } else {
+            // Standalone: torna alla pagina esercizi
+            const path = window.location.pathname;
+            if (path.includes('/content/soluzioni/')) {
+                window.location.href = '../../esercizi.html';
+            } else {
+                window.history.back();
+            }
+        }
+    }
+</script>
+</body>
+</html>

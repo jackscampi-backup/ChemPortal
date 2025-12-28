@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Esame 7-1 - pH Acido Acetico</title>
+    <style>
+        body { font-family: Georgia, serif; max-width: 800px; margin: 40px auto; padding: 20px; line-height: 1.8; }
+        h1 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+        h2 { color: #2980b9; margin-top: 30px; }
+        .question { background: #ecf0f1; padding: 15px; border-left: 4px solid #3498db; margin: 20px 0; }
+        .result { background: #d5f5e3; padding: 15px; border-left: 4px solid #27ae60; margin: 20px 0; font-weight: bold; }
+        .formula { background: #fdebd0; padding: 10px; margin: 10px 0; font-family: monospace; }
+        .step { background: #fff; padding: 15px; margin: 15px 0; border-left: 3px solid #9b59b6; }
+        .concept { background: #e8daef; padding: 15px; margin: 15px 0; border-radius: 5px; }
+        table { border-collapse: collapse; width: 100%; margin: 20px 0; }
+        th, td { border: 1px solid #bdc3c7; padding: 10px; text-align: left; }
+        th { background: #3498db; color: white; }
+    
+    .done-buttons {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+    .mark-btn {
+        padding: 12px 24px;
+        font-size: 1em;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .mark-done {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        color: white;
+    }
+    .mark-done:hover, .mark-done.selected {
+        background: linear-gradient(135deg, #1e7e34, #17a085);
+        transform: scale(1.05);
+    }
+    .mark-review {
+        background: linear-gradient(135deg, #ffc107, #fd7e14);
+        color: white;
+    }
+    .mark-review:hover, .mark-review.selected {
+        background: linear-gradient(135deg, #d39e00, #dc6502);
+        transform: scale(1.05);
+    }
+    .mark-reset {
+        background: #6c757d;
+        color: white;
+    }
+    .mark-reset:hover {
+        background: #545b62;
+    }
+    .mark-btn.selected {
+        box-shadow: 0 0 0 3px rgba(0,0,0,0.2);
+    }
+</style>
+
+<style>
+    .quiz-container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px;
+        padding-bottom: 120px;
+    }
+    .question-section {
+        background: linear-gradient(135deg, #e8f4f8 0%, #d4edda 100%);
+        border: 2px solid #17a2b8;
+        border-radius: 10px;
+        padding: 25px;
+        margin-bottom: 20px;
+    }
+    .question-section h2 {
+        color: #0c5460;
+        margin-top: 0;
+        margin-bottom: 15px;
+    }
+    .show-next-btn {
+        display: block;
+        width: 100%;
+        padding: 15px 30px;
+        font-size: 1.1em;
+        font-weight: bold;
+        color: white;
+        background: linear-gradient(135deg, #007bff, #0056b3);
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        margin: 15px 0;
+        transition: all 0.3s ease;
+    }
+    .show-next-btn:hover {
+        background: linear-gradient(135deg, #0056b3, #004094);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 123, 255, 0.4);
+    }
+    .show-all-btn {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        margin-top: 10px;
+    }
+    .show-all-btn:hover {
+        background: linear-gradient(135deg, #218838, #1db385);
+        box-shadow: 0 4px 12px rgba(40, 167, 69, 0.4);
+    }
+    .step-container {
+        display: none;
+        animation: fadeIn 0.5s ease;
+        margin-bottom: 20px;
+        border: 1px solid #dee2e6;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    .step-container.visible {
+        display: block;
+    }
+    .step-header {
+        background: linear-gradient(135deg, #6c757d, #495057);
+        color: white;
+        padding: 12px 20px;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+    }
+    .step-number-badge {
+        background: white;
+        color: #495057;
+        border-radius: 50%;
+        width: 28px;
+        height: 28px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 12px;
+        font-weight: bold;
+    }
+    .step-content {
+        padding: 20px;
+        background: white;
+    }
+    .progress-bar {
+        background: #e9ecef;
+        border-radius: 10px;
+        height: 8px;
+        margin: 15px 0;
+        overflow: hidden;
+    }
+    .progress-fill {
+        background: linear-gradient(90deg, #28a745, #20c997);
+        height: 100%;
+        border-radius: 10px;
+        transition: width 0.5s ease;
+    }
+    .progress-text {
+        text-align: center;
+        color: #6c757d;
+        font-size: 0.9em;
+        margin-bottom: 15px;
+    }
+    .controls {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: white;
+        padding: 15px 20px;
+        border-top: 2px solid #dee2e6;
+        box-shadow: 0 -4px 12px rgba(0,0,0,0.1);
+        z-index: 1000;
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+    }
+    .quiz-container {
+        padding-bottom: 100px;
+    }
+    .show-next-btn {
+        width: auto;
+        margin: 0;
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .final-answer {
+        background: #d4edda;
+        border: 2px solid #28a745;
+        border-radius: 10px;
+        padding: 20px;
+        margin-top: 20px;
+    }
+    .final-answer h3 {
+        color: #155724;
+        margin-top: 0;
+    }
+
+    .done-buttons {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+    .mark-btn {
+        padding: 12px 24px;
+        font-size: 1em;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .mark-done {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        color: white;
+    }
+    .mark-done:hover, .mark-done.selected {
+        background: linear-gradient(135deg, #1e7e34, #17a085);
+        transform: scale(1.05);
+    }
+    .mark-review {
+        background: linear-gradient(135deg, #ffc107, #fd7e14);
+        color: white;
+    }
+    .mark-review:hover, .mark-review.selected {
+        background: linear-gradient(135deg, #d39e00, #dc6502);
+        transform: scale(1.05);
+    }
+    .mark-reset {
+        background: #6c757d;
+        color: white;
+    }
+    .mark-reset:hover {
+        background: #545b62;
+    }
+    .mark-btn.selected {
+        box-shadow: 0 0 0 3px rgba(0,0,0,0.2);
+    }
+</style>
+</head>
+<body>
+<div class="quiz-container">
+    <h1>Esame 7-1 - Quesito 6: pH di una Soluzione di Acido Acetico</h1>
+
+    <div class="question-section">
+        <h2>Testo dell'esercizio</h2>
+        <p>Risolvi l'esercizio seguente.</p>
+    </div>
+
+    <div class="progress-text" id="progress-text">Passaggio 0 di 9</div>
+    <div class="progress-bar">
+        <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+    </div>
+
+    <div class="controls">
+        <button id="next-btn" class="show-next-btn" onclick="showNextStep()">
+            ▶ Prossimo passaggio
+        </button>
+        <button id="all-btn" class="show-next-btn show-all-btn" onclick="showAllSteps()">
+            ⏩ Mostra tutto
+        </button>
+        <div id="done-buttons" class="done-buttons" style="display: none;">
+            <button id="mark-done" class="mark-btn mark-done" onclick="markExercise('done')">
+                ✓ Fatto
+            </button>
+            <button id="mark-review" class="mark-btn mark-review" onclick="markExercise('review')">
+                ⚠ Da rivedere
+            </button>
+            <button class="mark-btn mark-reset" onclick="resetExercise()">
+                ↺ Ricomincia
+            </button>
+            <button class="mark-btn" style="background: #17a2b8;" onclick="closeExercise()">
+                ✕ Chiudi
+            </button>
+        </div>
+    </div>
+
+    <div id="steps-wrapper">
+        
+        <div id="step-0" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">1</span>
+                Analisi del Problema
+            </div>
+            <div class="step-content">
+                <h1>Esame 7-1 - Quesito 6: pH di una Soluzione di Acido Acetico</h1>
+
+<div class="question">
+<strong>TESTO DEL QUESITO:</strong><br><br>
+Calcolare quanti grammi di acido acetico sono necessari per preparare 2,5 litri di soluzione acquosa di acido acetico a pH 3,2?<br><br>
+<strong>Dati:</strong><br>
+Ka dell'acido acetico = 1,8 x 10<sup>-5</sup><br>
+Massa molare CH<sub>3</sub>COOH = 60 g/mol
+</div><h2>Analisi del Problema</h2>
+
+<p>Prima di tutto, fermiamoci un attimo a capire cosa ci sta chiedendo questo esercizio. Abbiamo un problema "inverso" rispetto a quelli classici: di solito ci danno la concentrazione di un acido e ci chiedono di calcolare il pH. Qui invece conosciamo il pH che vogliamo ottenere e dobbiamo risalire a quanta sostanza ci serve!</p>
+
+<p>L'acido acetico (CH<sub>3</sub>COOH) e un <strong>acido debole</strong>. Cosa significa? Significa che quando lo mettiamo in acqua, NON si dissocia completamente. Solo una piccola parte delle molecole cede il proprio protone H<sup>+</sup> all'acqua. Questo e fondamentale perche ci costringe a usare la costante di equilibrio Ka.</p>
+
+<div class="concept">
+<strong>Concetto chiave:</strong> Un acido debole in acqua si dissocia solo parzialmente secondo l'equilibrio:<br><br>
+CH<sub>3</sub>COOH ⇌ CH<sub>3</sub>COO<sup>-</sup> + H<sup>+</sup><br><br>
+La Ka ci dice "quanto" l'acido tende a dissociarsi. Un valore piccolo come 1,8 x 10<sup>-5</sup> significa che l'equilibrio e molto spostato verso sinistra: la maggior parte dell'acido resta indissociato.
+</div>
+            </div>
+        </div>
+        
+        <div id="step-1" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">2</span>
+                Dati del Problema
+            </div>
+            <div class="step-content">
+                <h2>Dati del Problema</h2>
+
+<table>
+<tr><th>Grandezza</th><th>Valore</th><th>Significato</th></tr>
+<tr><td>pH desiderato</td><td>3,2</td><td>Acidita della soluzione finale</td></tr>
+<tr><td>Volume soluzione</td><td>2,5 L</td><td>Quanto liquido dobbiamo preparare</td></tr>
+<tr><td>Ka</td><td>1,8 x 10<sup>-5</sup></td><td>Costante di dissociazione acida</td></tr>
+<tr><td>Massa molare</td><td>60 g/mol</td><td>Per convertire moli in grammi</td></tr>
+</table>
+
+<p><strong>Cosa dobbiamo trovare:</strong> La massa in grammi di acido acetico necessaria.</p>
+            </div>
+        </div>
+        
+        <div id="step-2" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">3</span>
+                Strategia di Risoluzione
+            </div>
+            <div class="step-content">
+                <h2>Strategia di Risoluzione</h2>
+
+<p>Ecco il percorso che seguiremo:</p>
+<ol>
+<li>Dal pH calcoliamo [H<sup>+</sup>]</li>
+<li>Usando Ka e [H<sup>+</sup>], calcoliamo la concentrazione iniziale dell'acido</li>
+<li>Dalle moli/litro e dal volume, troviamo le moli totali</li>
+<li>Dalle moli, calcoliamo i grammi</li>
+</ol>
+            </div>
+        </div>
+        
+        <div id="step-3" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">4</span>
+                STEP 1: Dal pH alla concentrazione di H+
+            </div>
+            <div class="step-content">
+                <h2>STEP 1: Dal pH alla concentrazione di H<sup>+</sup></h2>
+
+<div class="step">
+<p>Il pH e definito come:</p>
+<div class="formula">pH = -log[H<sup>+</sup>]</div>
+
+<p>Quindi, se conosciamo il pH, possiamo "invertire" questa formula per trovare [H<sup>+</sup>]. Come si fa? Si usa la funzione inversa del logaritmo, che e l'elevamento a potenza di 10:</p>
+
+<div class="formula">[H<sup>+</sup>] = 10<sup>-pH</sup></div>
+
+<p>Nel nostro caso:</p>
+<div class="formula">[H<sup>+</sup>] = 10<sup>-3,2</sup></div>
+
+<p>Per calcolare 10<sup>-3,2</sup>, possiamo scomporre l'esponente:<br>
+10<sup>-3,2</sup> = 10<sup>-3</sup> x 10<sup>-0,2</sup> = 0,001 x 10<sup>-0,2</sup></p>
+
+<p>Ora, 10<sup>-0,2</sup> = 10<sup>(-1/5)</sup> = la radice quinta di 0,1 ≈ 0,631</p>
+
+<p>Quindi:</p>
+<div class="formula">[H<sup>+</sup>] = 0,001 x 0,631 = 6,31 x 10<sup>-4</sup> M</div>
+</div>
+
+<p><strong>Cosa significa questo risultato?</strong> La concentrazione di ioni H<sup>+</sup> nella nostra soluzione deve essere circa 0,000631 mol/L. Questa e la quantita di acido che si e effettivamente dissociata!</p>
+            </div>
+        </div>
+        
+        <div id="step-4" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">5</span>
+                STEP 2: Dalla Ka alla concentrazione iniziale
+            </div>
+            <div class="step-content">
+                <h2>STEP 2: Dalla Ka alla concentrazione iniziale</h2>
+
+<div class="step">
+<p>Ora viene la parte cruciale. L'acido acetico e debole, quindi dobbiamo usare l'equilibrio di dissociazione.</p>
+
+<p>Chiamiamo <strong>C</strong> la concentrazione iniziale di acido acetico che dobbiamo trovare.</p>
+
+<p>Quando l'acido si dissocia, una parte "x" si trasforma in ioni. All'equilibrio:</p>
+<ul>
+<li>[CH<sub>3</sub>COOH] = C - x (l'acido che resta indissociato)</li>
+<li>[CH<sub>3</sub>COO<sup>-</sup>] = x (l'anione prodotto)</li>
+<li>[H<sup>+</sup>] = x (i protoni liberati)</li>
+</ul>
+
+<p>Ma noi sappiamo gia che x = [H<sup>+</sup>] = 6,31 x 10<sup>-4</sup> M!</p>
+
+<p>L'espressione della Ka e:</p>
+<div class="formula">Ka = ([H<sup>+</sup>] x [CH<sub>3</sub>COO<sup>-</sup>]) / [CH<sub>3</sub>COOH]</div>
+
+<p>Sostituendo:</p>
+<div class="formula">Ka = (x x x) / (C - x) = x<sup>2</sup> / (C - x)</div>
+
+<p>Conosciamo Ka = 1,8 x 10<sup>-5</sup> e x = 6,31 x 10<sup>-4</sup>. Risolviamo per C:</p>
+
+<div class="formula">1,8 x 10<sup>-5</sup> = (6,31 x 10<sup>-4</sup>)<sup>2</sup> / (C - 6,31 x 10<sup>-4</sup>)</div>
+
+<p>Calcoliamo il numeratore:<br>
+(6,31 x 10<sup>-4</sup>)<sup>2</sup> = 6,31<sup>2</sup> x 10<sup>-8</sup> = 39,82 x 10<sup>-8</sup> = 3,982 x 10<sup>-7</sup></p>
+
+<p>Quindi:</p>
+<div class="formula">1,8 x 10<sup>-5</sup> = 3,982 x 10<sup>-7</sup> / (C - 6,31 x 10<sup>-4</sup>)</div>
+
+<p>Risolviamo per (C - x):</p>
+<div class="formula">C - 6,31 x 10<sup>-4</sup> = 3,982 x 10<sup>-7</sup> / 1,8 x 10<sup>-5</sup></div>
+
+<p>Calcoliamo la divisione:<br>
+3,982 x 10<sup>-7</sup> / 1,8 x 10<sup>-5</sup> = (3,982 / 1,8) x 10<sup>-7+5</sup> = 2,21 x 10<sup>-2</sup> = 0,0221 M</p>
+
+<p>Quindi:</p>
+<div class="formula">C = 0,0221 + 6,31 x 10<sup>-4</sup> = 0,0221 + 0,000631 = 0,0227 M</div>
+</div>
+
+<p><strong>Cosa significa?</strong> La concentrazione iniziale di acido acetico deve essere circa 0,0227 mol/L (o 22,7 mM). Nota che la parte dissociata (0,000631 M) e molto minore della concentrazione totale - questo conferma che l'acido e debole!</p>
+            </div>
+        </div>
+        
+        <div id="step-5" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">6</span>
+                STEP 3: Calcolo delle moli totali
+            </div>
+            <div class="step-content">
+                <h2>STEP 3: Calcolo delle moli totali</h2>
+
+<div class="step">
+<p>Ora che conosciamo la concentrazione, possiamo calcolare quante moli ci servono per 2,5 litri di soluzione.</p>
+
+<p>La relazione fondamentale e:</p>
+<div class="formula">n = C x V</div>
+
+<p>dove n sono le moli, C la concentrazione molare e V il volume in litri.</p>
+
+<p>Sostituendo:</p>
+<div class="formula">n = 0,0227 mol/L x 2,5 L = 0,0568 mol</div>
+</div>
+            </div>
+        </div>
+        
+        <div id="step-6" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">7</span>
+                STEP 4: Conversione in grammi
+            </div>
+            <div class="step-content">
+                <h2>STEP 4: Conversione in grammi</h2>
+
+<div class="step">
+<p>Finalmente! Per convertire le moli in grammi usiamo la massa molare:</p>
+
+<div class="formula">massa = n x MM</div>
+
+<p>dove MM e la massa molare (60 g/mol per l'acido acetico).</p>
+
+<div class="formula">massa = 0,0568 mol x 60 g/mol = 3,41 g</div>
+</div>
+
+<div class="result">
+<strong>RISPOSTA FINALE:</strong><br><br>
+Sono necessari circa <strong>3,4 grammi</strong> di acido acetico (CH<sub>3</sub>COOH) per preparare 2,5 litri di soluzione acquosa a pH 3,2.
+</div>
+            </div>
+        </div>
+        
+        <div id="step-7" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">8</span>
+                Verifica del Risultato
+            </div>
+            <div class="step-content">
+                <h2>Verifica del Risultato</h2>
+
+<p>E sempre una buona idea verificare che il risultato abbia senso:</p>
+
+<ul>
+<li>3,4 g in 2,5 L significa una concentrazione di circa 0,023 M - un valore ragionevole per un acido debole</li>
+<li>Il pH 3,2 e moderatamente acido (ricorda: l'aceto commerciale ha pH circa 2,5-3)</li>
+<li>Il grado di dissociazione e circa 0,000631/0,0227 = 2,8% - tipico di un acido debole</li>
+</ul>
+            </div>
+        </div>
+        
+        <div id="step-8" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">9</span>
+                Riepilogo della Procedura
+            </div>
+            <div class="step-content">
+                <h2>Riepilogo della Procedura</h2>
+
+<table>
+<tr><th>Step</th><th>Formula</th><th>Risultato</th></tr>
+<tr><td>1. [H<sup>+</sup>] dal pH</td><td>[H<sup>+</sup>] = 10<sup>-pH</sup></td><td>6,31 x 10<sup>-4</sup> M</td></tr>
+<tr><td>2. Concentrazione iniziale</td><td>Ka = x<sup>2</sup>/(C-x)</td><td>C = 0,0227 M</td></tr>
+<tr><td>3. Moli totali</td><td>n = C x V</td><td>0,0568 mol</td></tr>
+<tr><td>4. Massa in grammi</td><td>m = n x MM</td><td>3,4 g</td></tr>
+</table>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+<script>
+    let currentStep = 0;
+    let totalSteps = 0;
+
+    document.addEventListener('DOMContentLoaded', function() {
+        totalSteps = document.querySelectorAll('.step-container').length;
+        updateProgress();
+        updateButtons();
+    });
+
+    function showNextStep() {
+        if (currentStep < totalSteps) {
+            const step = document.getElementById('step-' + currentStep);
+            if (step) {
+                step.classList.add('visible');
+                step.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                currentStep++;
+                updateProgress();
+                updateButtons();
+
+                if (window.parent !== window) {
+                    window.parent.postMessage({type: 'stepShown', step: currentStep, total: totalSteps}, '*');
+                }
+            }
+        }
+    }
+
+    function showAllSteps() {
+        document.querySelectorAll('.step-container').forEach(function(step) {
+            step.classList.add('visible');
+        });
+        currentStep = totalSteps;
+        updateProgress();
+        updateButtons();
+
+        if (window.parent !== window) {
+            window.parent.postMessage({type: 'allStepsShown'}, '*');
+        }
+    }
+
+    function hideAllSteps() {
+        document.querySelectorAll('.step-container').forEach(function(step) {
+            step.classList.remove('visible');
+        });
+        currentStep = 0;
+        updateProgress();
+        updateButtons();
+    }
+
+    function updateProgress() {
+        const pct = totalSteps > 0 ? (currentStep / totalSteps) * 100 : 0;
+        const fill = document.getElementById('progress-fill');
+        const text = document.getElementById('progress-text');
+        if (fill) fill.style.width = pct + '%';
+        if (text) text.textContent = 'Passaggio ' + currentStep + ' di ' + totalSteps;
+    }
+
+    function updateButtons() {
+        const nextBtn = document.getElementById('next-btn');
+        const allBtn = document.getElementById('all-btn');
+        const doneButtons = document.getElementById('done-buttons');
+
+        if (currentStep >= totalSteps) {
+            if (nextBtn) nextBtn.style.display = 'none';
+            if (allBtn) allBtn.style.display = 'none';
+            if (doneButtons) doneButtons.style.display = 'flex';
+        } else {
+            if (nextBtn) nextBtn.style.display = 'block';
+            if (allBtn) allBtn.style.display = 'block';
+            if (doneButtons) doneButtons.style.display = 'none';
+        }
+    }
+
+    function markExercise(status) {
+        // Salva in localStorage
+        const exerciseId = window.location.pathname.split('/').pop().replace('.html', '');
+        let progress = JSON.parse(localStorage.getItem('chemportal_progress') || '{}');
+        if (!progress.exercises) progress.exercises = {};
+        progress.exercises[exerciseId] = status;
+        localStorage.setItem('chemportal_progress', JSON.stringify(progress));
+
+        // Feedback visivo
+        const btn = status === 'done' ? document.getElementById('mark-done') : document.getElementById('mark-review');
+        const otherBtn = status === 'done' ? document.getElementById('mark-review') : document.getElementById('mark-done');
+
+        btn.classList.add('selected');
+        otherBtn.classList.remove('selected');
+
+        // Notifica parent
+        if (window.parent !== window) {
+            window.parent.postMessage({type: 'exerciseMarked', status: status, id: exerciseId}, '*');
+        }
+    }
+
+    function resetExercise() {
+        hideAllSteps();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Messaggi dal parent
+    window.addEventListener('message', function(e) {
+        if (e.data.type === 'showNext') showNextStep();
+        else if (e.data.type === 'showAll') showAllSteps();
+        else if (e.data.type === 'hideAll') hideAllSteps();
+    });
+
+    function closeExercise() {
+        if (window.parent !== window) {
+            // Siamo in iframe, chiedi al parent di chiudere
+            window.parent.postMessage({type: 'closeModal'}, '*');
+        } else {
+            // Standalone: torna alla pagina esercizi
+            const path = window.location.pathname;
+            if (path.includes('/content/soluzioni/')) {
+                window.location.href = '../../esercizi.html';
+            } else {
+                window.history.back();
+            }
+        }
+    }
+</script>
+</body>
+</html>

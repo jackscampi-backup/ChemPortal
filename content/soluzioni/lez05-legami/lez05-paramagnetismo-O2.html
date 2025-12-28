@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Esame 9 - Quesito 7: Paramagnetismo O2, O2-, O2(2-)</title>
+    <style>
+        body { font-family: Georgia, serif; max-width: 800px; margin: 40px auto; padding: 20px; line-height: 1.8; }
+        h1 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+        h2 { color: #2980b9; margin-top: 30px; }
+        h3 { color: #8e44ad; margin-top: 25px; }
+        .question { background: #ecf0f1; padding: 15px; border-left: 4px solid #3498db; margin: 20px 0; }
+        .result { background: #d5f5e3; padding: 15px; border-left: 4px solid #27ae60; margin: 20px 0; font-weight: bold; }
+        .formula { background: #fdebd0; padding: 10px; margin: 10px 0; font-family: monospace; }
+        .concept { background: #e8daef; padding: 15px; border-left: 4px solid #8e44ad; margin: 20px 0; }
+        .orbital-diagram { background: #fdfefe; padding: 15px; border: 2px solid #bdc3c7; margin: 20px 0; font-family: monospace; text-align: center; }
+        table { border-collapse: collapse; width: 100%; margin: 20px 0; }
+        th, td { border: 1px solid #bdc3c7; padding: 12px; text-align: center; }
+        th { background: #3498db; color: white; }
+        .highlight { background-color: #f9e79f; padding: 2px 5px; }
+    
+    .done-buttons {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+    .mark-btn {
+        padding: 12px 24px;
+        font-size: 1em;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .mark-done {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        color: white;
+    }
+    .mark-done:hover, .mark-done.selected {
+        background: linear-gradient(135deg, #1e7e34, #17a085);
+        transform: scale(1.05);
+    }
+    .mark-review {
+        background: linear-gradient(135deg, #ffc107, #fd7e14);
+        color: white;
+    }
+    .mark-review:hover, .mark-review.selected {
+        background: linear-gradient(135deg, #d39e00, #dc6502);
+        transform: scale(1.05);
+    }
+    .mark-reset {
+        background: #6c757d;
+        color: white;
+    }
+    .mark-reset:hover {
+        background: #545b62;
+    }
+    .mark-btn.selected {
+        box-shadow: 0 0 0 3px rgba(0,0,0,0.2);
+    }
+</style>
+
+<style>
+    .quiz-container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px;
+        padding-bottom: 120px;
+    }
+    .question-section {
+        background: linear-gradient(135deg, #e8f4f8 0%, #d4edda 100%);
+        border: 2px solid #17a2b8;
+        border-radius: 10px;
+        padding: 25px;
+        margin-bottom: 20px;
+    }
+    .question-section h2 {
+        color: #0c5460;
+        margin-top: 0;
+        margin-bottom: 15px;
+    }
+    .show-next-btn {
+        display: block;
+        width: 100%;
+        padding: 15px 30px;
+        font-size: 1.1em;
+        font-weight: bold;
+        color: white;
+        background: linear-gradient(135deg, #007bff, #0056b3);
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        margin: 15px 0;
+        transition: all 0.3s ease;
+    }
+    .show-next-btn:hover {
+        background: linear-gradient(135deg, #0056b3, #004094);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 123, 255, 0.4);
+    }
+    .show-all-btn {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        margin-top: 10px;
+    }
+    .show-all-btn:hover {
+        background: linear-gradient(135deg, #218838, #1db385);
+        box-shadow: 0 4px 12px rgba(40, 167, 69, 0.4);
+    }
+    .step-container {
+        display: none;
+        animation: fadeIn 0.5s ease;
+        margin-bottom: 20px;
+        border: 1px solid #dee2e6;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    .step-container.visible {
+        display: block;
+    }
+    .step-header {
+        background: linear-gradient(135deg, #6c757d, #495057);
+        color: white;
+        padding: 12px 20px;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+    }
+    .step-number-badge {
+        background: white;
+        color: #495057;
+        border-radius: 50%;
+        width: 28px;
+        height: 28px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 12px;
+        font-weight: bold;
+    }
+    .step-content {
+        padding: 20px;
+        background: white;
+    }
+    .progress-bar {
+        background: #e9ecef;
+        border-radius: 10px;
+        height: 8px;
+        margin: 15px 0;
+        overflow: hidden;
+    }
+    .progress-fill {
+        background: linear-gradient(90deg, #28a745, #20c997);
+        height: 100%;
+        border-radius: 10px;
+        transition: width 0.5s ease;
+    }
+    .progress-text {
+        text-align: center;
+        color: #6c757d;
+        font-size: 0.9em;
+        margin-bottom: 15px;
+    }
+    .controls {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: white;
+        padding: 15px 20px;
+        border-top: 2px solid #dee2e6;
+        box-shadow: 0 -4px 12px rgba(0,0,0,0.1);
+        z-index: 1000;
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+    }
+    .quiz-container {
+        padding-bottom: 100px;
+    }
+    .show-next-btn {
+        width: auto;
+        margin: 0;
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .final-answer {
+        background: #d4edda;
+        border: 2px solid #28a745;
+        border-radius: 10px;
+        padding: 20px;
+        margin-top: 20px;
+    }
+    .final-answer h3 {
+        color: #155724;
+        margin-top: 0;
+    }
+
+    .done-buttons {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+    .mark-btn {
+        padding: 12px 24px;
+        font-size: 1em;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .mark-done {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        color: white;
+    }
+    .mark-done:hover, .mark-done.selected {
+        background: linear-gradient(135deg, #1e7e34, #17a085);
+        transform: scale(1.05);
+    }
+    .mark-review {
+        background: linear-gradient(135deg, #ffc107, #fd7e14);
+        color: white;
+    }
+    .mark-review:hover, .mark-review.selected {
+        background: linear-gradient(135deg, #d39e00, #dc6502);
+        transform: scale(1.05);
+    }
+    .mark-reset {
+        background: #6c757d;
+        color: white;
+    }
+    .mark-reset:hover {
+        background: #545b62;
+    }
+    .mark-btn.selected {
+        box-shadow: 0 0 0 3px rgba(0,0,0,0.2);
+    }
+</style>
+</head>
+<body>
+<div class="quiz-container">
+    <h1>Quesito 7: Paramagnetismo e Diamagnetismo di O2, O2^-, O2^2-</h1>
+
+    <div class="question-section">
+        <h2>Testo dell'esercizio</h2>
+        <p>Risolvi l'esercizio seguente.</p>
+    </div>
+
+    <div class="progress-text" id="progress-text">Passaggio 0 di 8</div>
+    <div class="progress-bar">
+        <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+    </div>
+
+    <div class="controls">
+        <button id="next-btn" class="show-next-btn" onclick="showNextStep()">
+            ▶ Prossimo passaggio
+        </button>
+        <button id="all-btn" class="show-next-btn show-all-btn" onclick="showAllSteps()">
+            ⏩ Mostra tutto
+        </button>
+        <div id="done-buttons" class="done-buttons" style="display: none;">
+            <button id="mark-done" class="mark-btn mark-done" onclick="markExercise('done')">
+                ✓ Fatto
+            </button>
+            <button id="mark-review" class="mark-btn mark-review" onclick="markExercise('review')">
+                ⚠ Da rivedere
+            </button>
+            <button class="mark-btn mark-reset" onclick="resetExercise()">
+                ↺ Ricomincia
+            </button>
+            <button class="mark-btn" style="background: #17a2b8;" onclick="closeExercise()">
+                ✕ Chiudi
+            </button>
+        </div>
+    </div>
+
+    <div id="steps-wrapper">
+        
+        <div id="step-0" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">1</span>
+                Introduzione: Cosa significa paramagnetico e diama...
+            </div>
+            <div class="step-content">
+                <h1>Quesito 7: Paramagnetismo e Diamagnetismo di O2, O2^-, O2^2-</h1>
+
+<div class="question">
+<strong>TESTO DEL QUESITO:</strong><br>
+Precisare se le specie O2, O2^- (ione superossido), O2^2- (ione perossido) sono diamagnetiche o paramagnetiche. Motivare la risposta.
+</div><h2>Introduzione: Cosa significa paramagnetico e diamagnetico?</h2>
+
+<p>Prima di tutto, fermiamoci un attimo a capire cosa stiamo cercando di determinare.</p>
+
+<div class="concept">
+<strong>Paramagnetico:</strong> Una specie e paramagnetica quando ha <strong>elettroni spaiati</strong> (cioe elettroni "soli" in un orbitale, senza un compagno con spin opposto). Queste sostanze sono attratte da un campo magnetico esterno.<br><br>
+<strong>Diamagnetico:</strong> Una specie e diamagnetica quando ha <strong>tutti gli elettroni accoppiati</strong> (cioe ogni elettrone ha un compagno con spin opposto nello stesso orbitale). Queste sostanze sono debolmente respinte da un campo magnetico.
+</div>
+
+<p>Quindi la domanda si riduce a: <strong>quanti elettroni spaiati ci sono in ciascuna specie?</strong></p>
+
+<p>Per rispondere, dobbiamo usare la <strong>Teoria degli Orbitali Molecolari (MO)</strong> per la molecola di O2 e i suoi ioni.</p>
+            </div>
+        </div>
+        
+        <div id="step-1" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">2</span>
+                Passo 1: Quanti elettroni totali ha ogni specie?
+            </div>
+            <div class="step-content">
+                <h2>Passo 1: Quanti elettroni totali ha ogni specie?</h2>
+
+<p>Partiamo dal conteggio degli elettroni. L'ossigeno (O) ha numero atomico 8, quindi ogni atomo di ossigeno ha 8 elettroni.</p>
+
+<ul>
+<li><strong>O2 (molecola neutra):</strong> 8 + 8 = <strong>16 elettroni</strong></li>
+<li><strong>O2^- (ione superossido):</strong> 16 + 1 = <strong>17 elettroni</strong> (ha acquistato un elettrone in piu)</li>
+<li><strong>O2^2- (ione perossido):</strong> 16 + 2 = <strong>18 elettroni</strong> (ha acquistato due elettroni in piu)</li>
+</ul>
+            </div>
+        </div>
+        
+        <div id="step-2" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">3</span>
+                Passo 2: Schema degli orbitali molecolari per O2
+            </div>
+            <div class="step-content">
+                <h2>Passo 2: Schema degli orbitali molecolari per O2</h2>
+
+<p>Per l'ossigeno (e per tutti gli elementi dal gruppo O2, F2, Ne2), l'ordine energetico degli orbitali molecolari e:</p>
+
+<div class="formula">
+sigma(1s) < sigma*(1s) < sigma(2s) < sigma*(2s) < sigma(2p) < pi(2px) = pi(2py) < pi*(2px) = pi*(2py) < sigma*(2p)
+</div>
+
+<p><strong>Nota importante:</strong> Gli orbitali pi(2px) e pi(2py) hanno la <strong>stessa energia</strong> (sono degeneri). Lo stesso vale per gli orbitali antileganti pi*(2px) e pi*(2py).</p>
+
+<p>Questo e fondamentale perche, secondo la <strong>regola di Hund</strong>, quando abbiamo orbitali degeneri (stessa energia), gli elettroni si distribuiscono prima uno per orbitale, con spin paralleli, prima di accoppiarsi.</p>
+            </div>
+        </div>
+        
+        <div id="step-3" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">4</span>
+                Passo 3: Riempimento degli orbitali per O2 (16 ele...
+            </div>
+            <div class="step-content">
+                <h2>Passo 3: Riempimento degli orbitali per O2 (16 elettroni)</h2>
+
+<p>Riempiamo gli orbitali molecolari dal piu basso in energia verso l'alto:</p>
+
+<div class="orbital-diagram">
+<strong>O2 - 16 elettroni:</strong><br><br>
+sigma(1s): (up)(down) = 2 elettroni<br>
+sigma*(1s): (up)(down) = 2 elettroni<br>
+sigma(2s): (up)(down) = 2 elettroni<br>
+sigma*(2s): (up)(down) = 2 elettroni<br>
+sigma(2p): (up)(down) = 2 elettroni<br>
+pi(2px): (up)(down) = 2 elettroni<br>
+pi(2py): (up)(down) = 2 elettroni<br>
+<span style="color: red; font-weight: bold;">pi*(2px): (up) = 1 elettrone SPAIATO</span><br>
+<span style="color: red; font-weight: bold;">pi*(2py): (up) = 1 elettrone SPAIATO</span><br>
+<br>
+Totale: 2+2+2+2+2+2+2+1+1 = 16 elettroni
+</div>
+
+<p>Vedi cosa succede? I primi 14 elettroni riempiono completamente tutti gli orbitali fino a pi(2py). Rimangono 2 elettroni da sistemare negli orbitali antileganti pi*.</p>
+
+<p>Poiche pi*(2px) e pi*(2py) hanno la <strong>stessa energia</strong>, per la regola di Hund i due elettroni si dispongono <strong>uno per orbitale, con spin paralleli</strong>, invece di accoppiarsi nello stesso orbitale.</p>
+
+<div class="result">
+<strong>O2 ha 2 elettroni spaiati</strong> negli orbitali pi* antileganti.<br>
+Quindi O2 e <strong>PARAMAGNETICO</strong>.
+</div>
+
+<p><em>Nota storica: Questo risultato e stato uno dei grandi successi della teoria MO! La teoria di Lewis prevedeva che O2 fosse diamagnetico (tutti elettroni accoppiati nel doppio legame), ma sperimentalmente O2 e paramagnetico. Solo la teoria degli orbitali molecolari spiega correttamente questo comportamento.</em></p>
+            </div>
+        </div>
+        
+        <div id="step-4" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">5</span>
+                Passo 4: Riempimento degli orbitali per O2^- (17 e...
+            </div>
+            <div class="step-content">
+                <h2>Passo 4: Riempimento degli orbitali per O2^- (17 elettroni)</h2>
+
+<p>Lo ione superossido ha un elettrone in piu rispetto a O2. Dove va questo elettrone?</p>
+
+<p>Va nell'orbitale piu basso disponibile, cioe uno degli orbitali pi* che gia contiene un elettrone.</p>
+
+<div class="orbital-diagram">
+<strong>O2^- - 17 elettroni:</strong><br><br>
+sigma(1s): (up)(down) = 2 elettroni<br>
+sigma*(1s): (up)(down) = 2 elettroni<br>
+sigma(2s): (up)(down) = 2 elettroni<br>
+sigma*(2s): (up)(down) = 2 elettroni<br>
+sigma(2p): (up)(down) = 2 elettroni<br>
+pi(2px): (up)(down) = 2 elettroni<br>
+pi(2py): (up)(down) = 2 elettroni<br>
+<span style="color: green;">pi*(2px): (up)(down) = 2 elettroni - ACCOPPIATI</span><br>
+<span style="color: red; font-weight: bold;">pi*(2py): (up) = 1 elettrone SPAIATO</span><br>
+<br>
+Totale: 2+2+2+2+2+2+2+2+1 = 17 elettroni
+</div>
+
+<p>L'elettrone aggiuntivo va ad accoppiarsi con uno degli elettroni spaiati in pi*. Ora abbiamo:</p>
+<ul>
+<li>Un orbitale pi* completamente pieno (2 elettroni accoppiati)</li>
+<li>Un orbitale pi* con un solo elettrone spaiato</li>
+</ul>
+
+<div class="result">
+<strong>O2^- ha 1 elettrone spaiato</strong> in un orbitale pi* antilegante.<br>
+Quindi O2^- e <strong>PARAMAGNETICO</strong>.
+</div>
+            </div>
+        </div>
+        
+        <div id="step-5" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">6</span>
+                Passo 5: Riempimento degli orbitali per O2^2- (18 ...
+            </div>
+            <div class="step-content">
+                <h2>Passo 5: Riempimento degli orbitali per O2^2- (18 elettroni)</h2>
+
+<p>Lo ione perossido ha due elettroni in piu rispetto a O2. Questi elettroni vanno entrambi negli orbitali pi*.</p>
+
+<div class="orbital-diagram">
+<strong>O2^2- - 18 elettroni:</strong><br><br>
+sigma(1s): (up)(down) = 2 elettroni<br>
+sigma*(1s): (up)(down) = 2 elettroni<br>
+sigma(2s): (up)(down) = 2 elettroni<br>
+sigma*(2s): (up)(down) = 2 elettroni<br>
+sigma(2p): (up)(down) = 2 elettroni<br>
+pi(2px): (up)(down) = 2 elettroni<br>
+pi(2py): (up)(down) = 2 elettroni<br>
+<span style="color: green;">pi*(2px): (up)(down) = 2 elettroni - ACCOPPIATI</span><br>
+<span style="color: green;">pi*(2py): (up)(down) = 2 elettroni - ACCOPPIATI</span><br>
+<br>
+Totale: 2+2+2+2+2+2+2+2+2 = 18 elettroni
+</div>
+
+<p>I due elettroni aggiuntivi completano entrambi gli orbitali pi*. Ora <strong>tutti gli elettroni sono accoppiati</strong>!</p>
+
+<div class="result">
+<strong>O2^2- ha 0 elettroni spaiati</strong> - tutti gli orbitali sono completamente pieni.<br>
+Quindi O2^2- e <strong>DIAMAGNETICO</strong>.
+</div>
+            </div>
+        </div>
+        
+        <div id="step-6" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">7</span>
+                Riepilogo Finale
+            </div>
+            <div class="step-content">
+                <h2>Riepilogo Finale</h2>
+
+<table>
+<tr>
+<th>Specie</th>
+<th>N. elettroni totali</th>
+<th>Elettroni in pi*</th>
+<th>Elettroni spaiati</th>
+<th>Comportamento magnetico</th>
+</tr>
+<tr>
+<td><strong>O2</strong></td>
+<td>16</td>
+<td>2 (uno per orbitale)</td>
+<td><strong>2</strong></td>
+<td><span class="highlight">PARAMAGNETICO</span></td>
+</tr>
+<tr>
+<td><strong>O2^-</strong></td>
+<td>17</td>
+<td>3 (2 + 1)</td>
+<td><strong>1</strong></td>
+<td><span class="highlight">PARAMAGNETICO</span></td>
+</tr>
+<tr>
+<td><strong>O2^2-</strong></td>
+<td>18</td>
+<td>4 (2 + 2)</td>
+<td><strong>0</strong></td>
+<td><span class="highlight">DIAMAGNETICO</span></td>
+</tr>
+</table>
+            </div>
+        </div>
+        
+        <div id="step-7" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">8</span>
+                Nota sull'ordine di legame
+            </div>
+            <div class="step-content">
+                <h2>Nota sull'ordine di legame</h2>
+
+<p>Come curiosita, possiamo anche calcolare l'ordine di legame per ciascuna specie:</p>
+
+<div class="formula">
+Ordine di legame = (elettroni leganti - elettroni antileganti) / 2
+</div>
+
+<ul>
+<li><strong>O2:</strong> (10 - 6) / 2 = <strong>2</strong> (doppio legame)</li>
+<li><strong>O2^-:</strong> (10 - 7) / 2 = <strong>1.5</strong> (legame 1.5)</li>
+<li><strong>O2^2-:</strong> (10 - 8) / 2 = <strong>1</strong> (legame singolo)</li>
+</ul>
+
+<p>Questo spiega perche lo ione perossido O2^2- e piu reattivo: ha un legame O-O piu debole (ordine 1 invece di 2).</p>
+
+<div class="result" style="background: #d6eaf8;">
+<strong>RISPOSTA FINALE:</strong><br><br>
+- <strong>O2 (ossigeno molecolare):</strong> PARAMAGNETICO (2 elettroni spaiati in pi*)<br>
+- <strong>O2^- (ione superossido):</strong> PARAMAGNETICO (1 elettrone spaiato in pi*)<br>
+- <strong>O2^2- (ione perossido):</strong> DIAMAGNETICO (0 elettroni spaiati, tutti accoppiati)
+</div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+<script>
+    let currentStep = 0;
+    let totalSteps = 0;
+
+    document.addEventListener('DOMContentLoaded', function() {
+        totalSteps = document.querySelectorAll('.step-container').length;
+        updateProgress();
+        updateButtons();
+    });
+
+    function showNextStep() {
+        if (currentStep < totalSteps) {
+            const step = document.getElementById('step-' + currentStep);
+            if (step) {
+                step.classList.add('visible');
+                step.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                currentStep++;
+                updateProgress();
+                updateButtons();
+
+                if (window.parent !== window) {
+                    window.parent.postMessage({type: 'stepShown', step: currentStep, total: totalSteps}, '*');
+                }
+            }
+        }
+    }
+
+    function showAllSteps() {
+        document.querySelectorAll('.step-container').forEach(function(step) {
+            step.classList.add('visible');
+        });
+        currentStep = totalSteps;
+        updateProgress();
+        updateButtons();
+
+        if (window.parent !== window) {
+            window.parent.postMessage({type: 'allStepsShown'}, '*');
+        }
+    }
+
+    function hideAllSteps() {
+        document.querySelectorAll('.step-container').forEach(function(step) {
+            step.classList.remove('visible');
+        });
+        currentStep = 0;
+        updateProgress();
+        updateButtons();
+    }
+
+    function updateProgress() {
+        const pct = totalSteps > 0 ? (currentStep / totalSteps) * 100 : 0;
+        const fill = document.getElementById('progress-fill');
+        const text = document.getElementById('progress-text');
+        if (fill) fill.style.width = pct + '%';
+        if (text) text.textContent = 'Passaggio ' + currentStep + ' di ' + totalSteps;
+    }
+
+    function updateButtons() {
+        const nextBtn = document.getElementById('next-btn');
+        const allBtn = document.getElementById('all-btn');
+        const doneButtons = document.getElementById('done-buttons');
+
+        if (currentStep >= totalSteps) {
+            if (nextBtn) nextBtn.style.display = 'none';
+            if (allBtn) allBtn.style.display = 'none';
+            if (doneButtons) doneButtons.style.display = 'flex';
+        } else {
+            if (nextBtn) nextBtn.style.display = 'block';
+            if (allBtn) allBtn.style.display = 'block';
+            if (doneButtons) doneButtons.style.display = 'none';
+        }
+    }
+
+    function markExercise(status) {
+        // Salva in localStorage
+        const exerciseId = window.location.pathname.split('/').pop().replace('.html', '');
+        let progress = JSON.parse(localStorage.getItem('chemportal_progress') || '{}');
+        if (!progress.exercises) progress.exercises = {};
+        progress.exercises[exerciseId] = status;
+        localStorage.setItem('chemportal_progress', JSON.stringify(progress));
+
+        // Feedback visivo
+        const btn = status === 'done' ? document.getElementById('mark-done') : document.getElementById('mark-review');
+        const otherBtn = status === 'done' ? document.getElementById('mark-review') : document.getElementById('mark-done');
+
+        btn.classList.add('selected');
+        otherBtn.classList.remove('selected');
+
+        // Notifica parent
+        if (window.parent !== window) {
+            window.parent.postMessage({type: 'exerciseMarked', status: status, id: exerciseId}, '*');
+        }
+    }
+
+    function resetExercise() {
+        hideAllSteps();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Messaggi dal parent
+    window.addEventListener('message', function(e) {
+        if (e.data.type === 'showNext') showNextStep();
+        else if (e.data.type === 'showAll') showAllSteps();
+        else if (e.data.type === 'hideAll') hideAllSteps();
+    });
+
+    function closeExercise() {
+        if (window.parent !== window) {
+            // Siamo in iframe, chiedi al parent di chiudere
+            window.parent.postMessage({type: 'closeModal'}, '*');
+        } else {
+            // Standalone: torna alla pagina esercizi
+            const path = window.location.pathname;
+            if (path.includes('/content/soluzioni/')) {
+                window.location.href = '../../esercizi.html';
+            } else {
+                window.history.back();
+            }
+        }
+    }
+</script>
+</body>
+</html>

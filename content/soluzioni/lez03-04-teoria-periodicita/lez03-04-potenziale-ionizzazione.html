@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Esame 1-2 - Esercizio 1 - Potenziale di Ionizzazione</title>
+    <style>
+        body { font-family: Georgia, serif; max-width: 800px; margin: 40px auto; padding: 20px; line-height: 1.8; color: #333; }
+        h2 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+        h3 { color: #2980b9; margin-top: 30px; }
+        h4 { color: #27ae60; margin-top: 25px; }
+        .result { background-color: #e8f5e9; padding: 15px; border-radius: 5px; border-left: 4px solid #4caf50; margin: 20px 0; }
+        .domanda { background: #f8f9fa; border-left: 4px solid #3498db; padding: 15px 20px; margin: 20px 0; font-style: italic; }
+        sub { font-size: 0.8em; vertical-align: sub; }
+        sup { font-size: 0.8em; vertical-align: super; }
+        hr { margin: 30px 0; border: none; border-top: 1px solid #ddd; }
+        .important { background-color: #fff3e0; padding: 15px; border-radius: 5px; border-left: 4px solid #ff9800; margin: 20px 0; }
+    
+    .done-buttons {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+    .mark-btn {
+        padding: 12px 24px;
+        font-size: 1em;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .mark-done {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        color: white;
+    }
+    .mark-done:hover, .mark-done.selected {
+        background: linear-gradient(135deg, #1e7e34, #17a085);
+        transform: scale(1.05);
+    }
+    .mark-review {
+        background: linear-gradient(135deg, #ffc107, #fd7e14);
+        color: white;
+    }
+    .mark-review:hover, .mark-review.selected {
+        background: linear-gradient(135deg, #d39e00, #dc6502);
+        transform: scale(1.05);
+    }
+    .mark-reset {
+        background: #6c757d;
+        color: white;
+    }
+    .mark-reset:hover {
+        background: #545b62;
+    }
+    .mark-btn.selected {
+        box-shadow: 0 0 0 3px rgba(0,0,0,0.2);
+    }
+</style>
+
+<style>
+    .quiz-container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px;
+        padding-bottom: 120px;
+    }
+    .question-section {
+        background: linear-gradient(135deg, #e8f4f8 0%, #d4edda 100%);
+        border: 2px solid #17a2b8;
+        border-radius: 10px;
+        padding: 25px;
+        margin-bottom: 20px;
+    }
+    .question-section h2 {
+        color: #0c5460;
+        margin-top: 0;
+        margin-bottom: 15px;
+    }
+    .show-next-btn {
+        display: block;
+        width: 100%;
+        padding: 15px 30px;
+        font-size: 1.1em;
+        font-weight: bold;
+        color: white;
+        background: linear-gradient(135deg, #007bff, #0056b3);
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        margin: 15px 0;
+        transition: all 0.3s ease;
+    }
+    .show-next-btn:hover {
+        background: linear-gradient(135deg, #0056b3, #004094);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 123, 255, 0.4);
+    }
+    .show-all-btn {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        margin-top: 10px;
+    }
+    .show-all-btn:hover {
+        background: linear-gradient(135deg, #218838, #1db385);
+        box-shadow: 0 4px 12px rgba(40, 167, 69, 0.4);
+    }
+    .step-container {
+        display: none;
+        animation: fadeIn 0.5s ease;
+        margin-bottom: 20px;
+        border: 1px solid #dee2e6;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    .step-container.visible {
+        display: block;
+    }
+    .step-header {
+        background: linear-gradient(135deg, #6c757d, #495057);
+        color: white;
+        padding: 12px 20px;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+    }
+    .step-number-badge {
+        background: white;
+        color: #495057;
+        border-radius: 50%;
+        width: 28px;
+        height: 28px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 12px;
+        font-weight: bold;
+    }
+    .step-content {
+        padding: 20px;
+        background: white;
+    }
+    .progress-bar {
+        background: #e9ecef;
+        border-radius: 10px;
+        height: 8px;
+        margin: 15px 0;
+        overflow: hidden;
+    }
+    .progress-fill {
+        background: linear-gradient(90deg, #28a745, #20c997);
+        height: 100%;
+        border-radius: 10px;
+        transition: width 0.5s ease;
+    }
+    .progress-text {
+        text-align: center;
+        color: #6c757d;
+        font-size: 0.9em;
+        margin-bottom: 15px;
+    }
+    .controls {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: white;
+        padding: 15px 20px;
+        border-top: 2px solid #dee2e6;
+        box-shadow: 0 -4px 12px rgba(0,0,0,0.1);
+        z-index: 1000;
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+    }
+    .quiz-container {
+        padding-bottom: 100px;
+    }
+    .show-next-btn {
+        width: auto;
+        margin: 0;
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .final-answer {
+        background: #d4edda;
+        border: 2px solid #28a745;
+        border-radius: 10px;
+        padding: 20px;
+        margin-top: 20px;
+    }
+    .final-answer h3 {
+        color: #155724;
+        margin-top: 0;
+    }
+
+    .done-buttons {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+    .mark-btn {
+        padding: 12px 24px;
+        font-size: 1em;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .mark-done {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        color: white;
+    }
+    .mark-done:hover, .mark-done.selected {
+        background: linear-gradient(135deg, #1e7e34, #17a085);
+        transform: scale(1.05);
+    }
+    .mark-review {
+        background: linear-gradient(135deg, #ffc107, #fd7e14);
+        color: white;
+    }
+    .mark-review:hover, .mark-review.selected {
+        background: linear-gradient(135deg, #d39e00, #dc6502);
+        transform: scale(1.05);
+    }
+    .mark-reset {
+        background: #6c757d;
+        color: white;
+    }
+    .mark-reset:hover {
+        background: #545b62;
+    }
+    .mark-btn.selected {
+        box-shadow: 0 0 0 3px rgba(0,0,0,0.2);
+    }
+</style>
+</head>
+<body>
+<div class="quiz-container">
+    <h1>Esercizio</h1>
+
+    <div class="question-section">
+        <h2>Testo dell'esercizio</h2>
+        <p>Risolvi l'esercizio seguente.</p>
+    </div>
+
+    <div class="progress-text" id="progress-text">Passaggio 0 di 7</div>
+    <div class="progress-bar">
+        <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+    </div>
+
+    <div class="controls">
+        <button id="next-btn" class="show-next-btn" onclick="showNextStep()">
+            ▶ Prossimo passaggio
+        </button>
+        <button id="all-btn" class="show-next-btn show-all-btn" onclick="showAllSteps()">
+            ⏩ Mostra tutto
+        </button>
+        <div id="done-buttons" class="done-buttons" style="display: none;">
+            <button id="mark-done" class="mark-btn mark-done" onclick="markExercise('done')">
+                ✓ Fatto
+            </button>
+            <button id="mark-review" class="mark-btn mark-review" onclick="markExercise('review')">
+                ⚠ Da rivedere
+            </button>
+            <button class="mark-btn mark-reset" onclick="resetExercise()">
+                ↺ Ricomincia
+            </button>
+            <button class="mark-btn" style="background: #17a2b8;" onclick="closeExercise()">
+                ✕ Chiudi
+            </button>
+        </div>
+    </div>
+
+    <div id="steps-wrapper">
+        
+        <div id="step-0" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">1</span>
+                Potenziale di Ionizzazione
+            </div>
+            <div class="step-content">
+                <h3>Potenziale di Ionizzazione</h3>
+
+<div class="domanda">
+<strong>Testo della domanda:</strong><br>
+Indicare quali elementi della tabella periodica presentano maggior potenziale di ionizzazione. Motivare.
+</div>
+
+<hr>
+            </div>
+        </div>
+        
+        <div id="step-1" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">2</span>
+                Che cos'è il potenziale di ionizzazione?
+            </div>
+            <div class="step-content">
+                <h3>Che cos'è il potenziale di ionizzazione?</h3>
+
+<p>Prima di rispondere alla domanda, dobbiamo capire bene cosa sia il <strong>potenziale di ionizzazione</strong> (chiamato anche <strong>energia di prima ionizzazione</strong>).</p>
+
+<p>Il potenziale di ionizzazione è l'<strong>energia minima necessaria per rimuovere l'elettrone più esterno</strong> da un atomo neutro allo stato gassoso, trasformandolo in uno ione positivo (catione).</p>
+
+<p>In termini semplici, possiamo scrivere il processo così:</p>
+
+<p style="text-align: center; font-size: 1.1em;">
+<strong>X(g) → X<sup>+</sup>(g) + e<sup>-</sup></strong>
+</p>
+
+<p>Dove X è un atomo generico allo stato gassoso. L'energia richiesta per questo processo è il potenziale di ionizzazione, misurato tipicamente in kJ/mol o in elettronvolt (eV).</p>
+            </div>
+        </div>
+        
+        <div id="step-2" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">3</span>
+                Da cosa dipende il potenziale di ionizzazione?
+            </div>
+            <div class="step-content">
+                <h3>Da cosa dipende il potenziale di ionizzazione?</h3>
+
+<p>Il potenziale di ionizzazione dipende essenzialmente da <strong>due fattori principali</strong>:</p>
+
+<h4>1. La carica nucleare efficace (Z<sub>eff</sub>)</h4>
+
+<p>La carica nucleare efficace è la carica positiva "sentita" dagli elettroni esterni, tenendo conto dell'effetto di schermatura degli elettroni interni. Più è alta la carica nucleare efficace, più forte è l'attrazione tra il nucleo e gli elettroni esterni, e quindi più energia sarà necessaria per strappare un elettrone.</p>
+
+<p><strong>Conseguenza:</strong> Elementi con alta Z<sub>eff</sub> hanno alto potenziale di ionizzazione.</p>
+
+<h4>2. La distanza dell'elettrone dal nucleo (raggio atomico)</h4>
+
+<p>Più l'elettrone è lontano dal nucleo, più debole è l'attrazione elettrostatica (ricordiamo che la forza elettrostatica diminuisce con il quadrato della distanza, secondo la legge di Coulomb). Un elettrone più lontano richiede meno energia per essere rimosso.</p>
+
+<p><strong>Conseguenza:</strong> Atomi con raggio atomico piccolo hanno alto potenziale di ionizzazione.</p>
+            </div>
+        </div>
+        
+        <div id="step-3" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">4</span>
+                Come varia il potenziale di ionizzazione nella tav...
+            </div>
+            <div class="step-content">
+                <h3>Come varia il potenziale di ionizzazione nella tavola periodica?</h3>
+
+<h4>Andamento lungo un PERIODO (da sinistra a destra)</h4>
+
+<p>Muovendoci da sinistra a destra lungo un periodo:</p>
+<ul>
+    <li>Il numero atomico Z aumenta (più protoni nel nucleo)</li>
+    <li>Gli elettroni vengono aggiunti allo stesso livello energetico</li>
+    <li>L'effetto di schermatura resta circa costante</li>
+    <li>La carica nucleare efficace <strong>aumenta</strong></li>
+    <li>Il raggio atomico <strong>diminuisce</strong></li>
+</ul>
+
+<p><strong>Risultato:</strong> Il potenziale di ionizzazione <strong>AUMENTA</strong> andando da sinistra a destra lungo un periodo.</p>
+
+<h4>Andamento lungo un GRUPPO (dall'alto verso il basso)</h4>
+
+<p>Muovendoci dall'alto verso il basso lungo un gruppo:</p>
+<ul>
+    <li>Si aggiungono nuovi livelli energetici</li>
+    <li>Gli elettroni esterni sono sempre più lontani dal nucleo</li>
+    <li>L'effetto di schermatura aumenta notevolmente</li>
+    <li>Nonostante aumenti anche Z, il raggio atomico <strong>aumenta molto</strong></li>
+</ul>
+
+<p><strong>Risultato:</strong> Il potenziale di ionizzazione <strong>DIMINUISCE</strong> scendendo lungo un gruppo.</p>
+            </div>
+        </div>
+        
+        <div id="step-4" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">5</span>
+                Quali elementi hanno il MAGGIOR potenziale di ioni...
+            </div>
+            <div class="step-content">
+                <h3>Quali elementi hanno il MAGGIOR potenziale di ionizzazione?</h3>
+
+<p>Combinando i due andamenti, possiamo concludere che gli elementi con il maggior potenziale di ionizzazione si trovano:</p>
+
+<ul>
+    <li>In <strong>alto</strong> nella tavola periodica (pochi livelli energetici, elettroni vicini al nucleo)</li>
+    <li>A <strong>destra</strong> nella tavola periodica (alta carica nucleare efficace)</li>
+</ul>
+
+<div class="result">
+<strong>RISPOSTA:</strong><br><br>
+Gli elementi con il <strong>maggior potenziale di ionizzazione</strong> sono i <strong>GAS NOBILI</strong>, in particolare quelli in alto a destra della tavola periodica:<br><br>
+<ul>
+    <li><strong>Elio (He)</strong> - potenziale di ionizzazione: 2372 kJ/mol (il più alto in assoluto)</li>
+    <li><strong>Neon (Ne)</strong> - potenziale di ionizzazione: 2081 kJ/mol</li>
+    <li><strong>Argon (Ar)</strong> - potenziale di ionizzazione: 1521 kJ/mol</li>
+</ul>
+<br>
+Escludendo i gas nobili, l'elemento con il più alto potenziale di ionizzazione è il <strong>Fluoro (F)</strong> con 1681 kJ/mol.
+</div>
+            </div>
+        </div>
+        
+        <div id="step-5" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">6</span>
+                Perché i gas nobili hanno il più alto potenziale d...
+            </div>
+            <div class="step-content">
+                <h3>Perché i gas nobili hanno il più alto potenziale di ionizzazione?</h3>
+
+<p>I gas nobili hanno configurazioni elettroniche particolarmente stabili, con l'ultimo livello energetico completamente riempito (configurazione a "ottetto completo", tranne l'elio che ha il duetto):</p>
+
+<ul>
+    <li>He: 1s<sup>2</sup></li>
+    <li>Ne: 1s<sup>2</sup> 2s<sup>2</sup> 2p<sup>6</sup></li>
+    <li>Ar: 1s<sup>2</sup> 2s<sup>2</sup> 2p<sup>6</sup> 3s<sup>2</sup> 3p<sup>6</sup></li>
+</ul>
+
+<p>Questa configurazione è estremamente stabile dal punto di vista energetico. Rimuovere un elettrone significherebbe rompere questa stabilità, e questo richiede molta energia.</p>
+
+<h4>Perché l'elio ha il potenziale di ionizzazione più alto in assoluto?</h4>
+
+<p>L'elio (He) ha solo 2 elettroni nel livello 1s, vicinissimi al nucleo. Non ci sono elettroni interni che facciano schermatura, quindi i due elettroni "sentono" quasi tutta la carica del nucleo (+2). Inoltre, il raggio atomico dell'elio è il più piccolo di tutti gli elementi. Questa combinazione rende l'elio l'elemento da cui è più difficile strappare un elettrone.</p>
+
+<div class="important">
+<strong>Nota importante:</strong><br>
+Esistono alcune <strong>anomalie</strong> nell'andamento del potenziale di ionizzazione lungo i periodi, dovute alla stabilità di configurazioni elettroniche particolari (orbitali semi-pieni o completamente pieni). Per esempio, l'azoto (2s<sup>2</sup> 2p<sup>3</sup>) ha un potenziale di ionizzazione leggermente maggiore dell'ossigeno, perché ha tre elettroni spaiati negli orbitali 2p (configurazione semi-piena, particolarmente stabile).
+</div>
+            </div>
+        </div>
+        
+        <div id="step-6" class="step-container">
+            <div class="step-header">
+                <span class="step-number-badge">7</span>
+                Riepilogo finale
+            </div>
+            <div class="step-content">
+                <h3>Riepilogo finale</h3>
+
+<p>Per rispondere correttamente alla domanda d'esame:</p>
+
+<ol>
+    <li>Definire cosa sia il potenziale di ionizzazione</li>
+    <li>Spiegare da cosa dipende (Z<sub>eff</sub> e raggio atomico)</li>
+    <li>Descrivere l'andamento nella tavola periodica (aumenta verso destra, diminuisce verso il basso)</li>
+    <li>Concludere che i gas nobili (in particolare He, Ne, Ar) hanno i valori più alti</li>
+    <li>Motivare con la loro configurazione elettronica stabile e la loro posizione nella tavola periodica</li>
+</ol>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+<script>
+    let currentStep = 0;
+    let totalSteps = 0;
+
+    document.addEventListener('DOMContentLoaded', function() {
+        totalSteps = document.querySelectorAll('.step-container').length;
+        updateProgress();
+        updateButtons();
+    });
+
+    function showNextStep() {
+        if (currentStep < totalSteps) {
+            const step = document.getElementById('step-' + currentStep);
+            if (step) {
+                step.classList.add('visible');
+                step.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                currentStep++;
+                updateProgress();
+                updateButtons();
+
+                if (window.parent !== window) {
+                    window.parent.postMessage({type: 'stepShown', step: currentStep, total: totalSteps}, '*');
+                }
+            }
+        }
+    }
+
+    function showAllSteps() {
+        document.querySelectorAll('.step-container').forEach(function(step) {
+            step.classList.add('visible');
+        });
+        currentStep = totalSteps;
+        updateProgress();
+        updateButtons();
+
+        if (window.parent !== window) {
+            window.parent.postMessage({type: 'allStepsShown'}, '*');
+        }
+    }
+
+    function hideAllSteps() {
+        document.querySelectorAll('.step-container').forEach(function(step) {
+            step.classList.remove('visible');
+        });
+        currentStep = 0;
+        updateProgress();
+        updateButtons();
+    }
+
+    function updateProgress() {
+        const pct = totalSteps > 0 ? (currentStep / totalSteps) * 100 : 0;
+        const fill = document.getElementById('progress-fill');
+        const text = document.getElementById('progress-text');
+        if (fill) fill.style.width = pct + '%';
+        if (text) text.textContent = 'Passaggio ' + currentStep + ' di ' + totalSteps;
+    }
+
+    function updateButtons() {
+        const nextBtn = document.getElementById('next-btn');
+        const allBtn = document.getElementById('all-btn');
+        const doneButtons = document.getElementById('done-buttons');
+
+        if (currentStep >= totalSteps) {
+            if (nextBtn) nextBtn.style.display = 'none';
+            if (allBtn) allBtn.style.display = 'none';
+            if (doneButtons) doneButtons.style.display = 'flex';
+        } else {
+            if (nextBtn) nextBtn.style.display = 'block';
+            if (allBtn) allBtn.style.display = 'block';
+            if (doneButtons) doneButtons.style.display = 'none';
+        }
+    }
+
+    function markExercise(status) {
+        // Salva in localStorage
+        const exerciseId = window.location.pathname.split('/').pop().replace('.html', '');
+        let progress = JSON.parse(localStorage.getItem('chemportal_progress') || '{}');
+        if (!progress.exercises) progress.exercises = {};
+        progress.exercises[exerciseId] = status;
+        localStorage.setItem('chemportal_progress', JSON.stringify(progress));
+
+        // Feedback visivo
+        const btn = status === 'done' ? document.getElementById('mark-done') : document.getElementById('mark-review');
+        const otherBtn = status === 'done' ? document.getElementById('mark-review') : document.getElementById('mark-done');
+
+        btn.classList.add('selected');
+        otherBtn.classList.remove('selected');
+
+        // Notifica parent
+        if (window.parent !== window) {
+            window.parent.postMessage({type: 'exerciseMarked', status: status, id: exerciseId}, '*');
+        }
+    }
+
+    function resetExercise() {
+        hideAllSteps();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Messaggi dal parent
+    window.addEventListener('message', function(e) {
+        if (e.data.type === 'showNext') showNextStep();
+        else if (e.data.type === 'showAll') showAllSteps();
+        else if (e.data.type === 'hideAll') hideAllSteps();
+    });
+
+    function closeExercise() {
+        if (window.parent !== window) {
+            // Siamo in iframe, chiedi al parent di chiudere
+            window.parent.postMessage({type: 'closeModal'}, '*');
+        } else {
+            // Standalone: torna alla pagina esercizi
+            const path = window.location.pathname;
+            if (path.includes('/content/soluzioni/')) {
+                window.location.href = '../../esercizi.html';
+            } else {
+                window.history.back();
+            }
+        }
+    }
+</script>
+</body>
+</html>
