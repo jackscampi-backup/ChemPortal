@@ -1,13 +1,21 @@
 # ChemPortal - Portale di Studio Chimica Generale
 
-Portale web interattivo per preparare l'esame di Chimica Generale, con 7 capitoli di teoria e 88 esercizi d'esame risolti.
+Portale web interattivo per preparare l'esame di Chimica Generale.
 
-**Stato: ~96% completato**
+**LIVE:** https://jackscampi-backup.github.io/ChemPortal/
+
+## Contenuti
+
+- **8 capitoli** di teoria (incluso Nomenclatura)
+- **88 esercizi** d'esame risolti con Quiz Mode
+- **35+ flashcard** formule
+- **70+ composti** nel trainer nomenclatura
+- **7 simulazioni** d'esame con timer
 
 ## Come usare
 
-1. **Locale**: Apri `index.html` nel browser
-2. **GitHub Pages**: Carica la cartella e attiva Pages
+1. **Online**: https://jackscampi-backup.github.io/ChemPortal/
+2. **Locale**: Apri `index.html` nel browser
 
 ## Funzionalità implementate ✅
 
@@ -145,10 +153,11 @@ ChemPortal/
 - `fix_buttons.py` - Aggiunge bottoni Fatto/Da rivedere
 - `add_navigation.py` - Aggiunge bottone Chiudi ai Quiz Mode
 
-## Contenuti
+## Contenuti per argomento
 
 | Argomento | Esercizi | Capitolo |
 |-----------|----------|----------|
+| Nomenclatura | - | cap-00 |
 | Stechiometria e Materia | 23 | cap-01-02 |
 | Teoria Atomica e Periodicità | 6 | cap-03-04 |
 | Legami Chimici | 10 | cap-05 |
@@ -156,4 +165,4 @@ ChemPortal/
 | Termodinamica | 16 | cap-07-08 |
 | Cinetica Chimica | 7 | cap-09 |
 | Elettrochimica | 16 | cap-10 |
-| **Totale** | **88** | **7** |
+| **Totale** | **88** | **8** |
