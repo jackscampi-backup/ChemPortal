@@ -15,13 +15,13 @@ Per ogni file:
 - [x] Redox (10 file) - testi + titoli in exercises.json e data.js
 - [x] Lewis/Geometria (8 file)
 
-### Da fare
-- [ ] Acidi e Basi (lez06-acidi-basi/) - ~10 file
-- [ ] Termodinamica (lez07-08-termodinamica/) - ~16 file
-- [ ] Cinetica (lez09-cinetica/) - ~7 file
-- [ ] Elettrochimica (lez10-elettrochimica/) - ~16 file
-- [ ] Teoria Atomica (lez03-04-teoria-periodicita/) - ~6 file
-- [ ] Stechiometria restanti (lez01-02-nozioni-materia/) - ~12 file
+### Completate (tutte!)
+- [x] Acidi e Basi (lez06-acidi-basi/) - 10/10 file
+- [x] Termodinamica (lez07-08-termodinamica/) - 15/16 file (1 già ok)
+- [x] Cinetica (lez09-cinetica/) - 7/7 file
+- [x] Elettrochimica (lez10-elettrochimica/) - 14/16 file (2 già ok)
+- [x] Teoria Atomica (lez03-04-teoria-periodicita/) - 6/6 file
+- [x] Stechiometria (lez01-02-nozioni-materia/) - 11/23 file (12 già ok)
 
 ## Comandi utili
 
