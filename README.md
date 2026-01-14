@@ -1,23 +1,32 @@
 # ChemPortal - Portale di Studio Chimica Generale
 
-Portale web interattivo per preparare l'esame di Chimica Generale.
+Portale web interattivo per preparare l'esame di Chimica Generale del Politecnico di Milano.
 
 **LIVE:** https://jackscampi-backup.github.io/ChemPortal/
 
+---
+
 ## Contenuti
 
-- **8 capitoli** di teoria (incluso Nomenclatura)
-- **88 esercizi** d'esame risolti con Quiz Mode
-- **35+ flashcard** formule
-- **70+ composti** nel trainer nomenclatura
-- **7 simulazioni** d'esame con timer
+| Risorsa | Quantità | Descrizione |
+|---------|----------|-------------|
+| Capitoli teoria | **8** | Manuale completo con esempi |
+| Formulario Commentato | **1** | Tutte le formule spiegate |
+| Esercizi risolti | **88** | Quiz Mode step-by-step |
+| Flashcard formule | **35+** | Per categoria |
+| Composti nomenclatura | **70+** | Trainer interattivo |
+| Simulazioni esame | **7** | Con timer 2 ore |
+
+---
 
 ## Come usare
 
 1. **Online**: https://jackscampi-backup.github.io/ChemPortal/
 2. **Locale**: Apri `index.html` nel browser
 
-## Funzionalità implementate ✅
+---
+
+## Funzionalità
 
 ### Homepage (`index.html`)
 - Panoramica del corso
@@ -26,65 +35,97 @@ Portale web interattivo per preparare l'esame di Chimica Generale.
 - Statistiche argomenti più frequenti all'esame
 
 ### Manuale (`manuale.html`)
-- Viewer dei 7 capitoli di teoria
-- Sidebar navigabile
+- Viewer dei **9 contenuti** (8 capitoli + Formulario Commentato)
+- Sidebar navigabile con icone
 - Navigazione prev/next tra capitoli
 - Bottone "Segna completato"
-- **Bottone "Esercizi correlati"** - link diretto agli esercizi del capitolo
-- Responsive con select per mobile
+- Bottone "Esercizi correlati" - link diretto agli esercizi del capitolo
+
+### Formulario Commentato
+- **Tutte le formule** del corso in un unico documento
+- Per ogni formula:
+  - Tabella simboli con unità e valori
+  - **Cosa significa**: spiegazione fisica del concetto
+  - **Quando si usa**: tipi di esercizi
+  - **Esempio**: calcolo svolto
+- Organizzato per argomento (Teoria Atomica → Elettrochimica)
 
 ### Esercizi (`esercizi.html`)
 - 88 esercizi organizzati per argomento (7 categorie)
-- Filtri: ricerca testuale, argomento, stato (fatto/da rivedere/non fatto)
+- Filtri: ricerca testuale, argomento, stato
 - Statistiche in tempo reale
-- Modale con iframe per visualizzare l'esercizio
-- Navigazione Precedente/Successivo tra esercizi
-- Sincronizzazione automatica con Quiz Mode (postMessage)
+- Navigazione Precedente/Successivo
 
-### Quiz Mode (88 file HTML)
+### Quiz Mode (negli 88 esercizi)
 - Domanda sempre visibile
-- Soluzione divisa in passaggi (2-16 step per esercizio)
+- Soluzione divisa in passaggi (2-16 step)
 - Bottone "Prossimo passaggio" - rivela uno step alla volta
 - Bottone "Mostra tutto" - rivela tutta la soluzione
 - Barra di progresso (Passaggio X di Y)
-- **Bottoni finali**: "Fatto" / "Da rivedere" / "Ricomincia" / "Chiudi"
-- Controlli fissi in basso (sempre visibili)
-- Bottone "Chiudi" comunica con parent via postMessage
+- Bottoni finali: "Fatto" / "Da rivedere" / "Ricomincia"
 
 ### Simulazione Esame (`simulazione.html`)
-- 7 esami disponibili (1-1, 1-2, 2-1, 3-1, 4-1, 5-1, 6-1)
-- **56 domande complete** estratte dai PDF (8 per esame)
+- 7 esami disponibili (56 domande totali)
 - Ogni domanda mostra: testo completo, argomento, link alla soluzione
 - Timer opzionale (2 ore) con pausa
-- Modale per visualizzare le soluzioni (non apre nuova finestra)
-- Navigazione fluida tra domande e soluzioni
-
-### Progress Tracker (`js/progress.js`)
-- Salvataggio in localStorage
-- Traccia: capitoli completati, esercizi (fatto/da rivedere), esami
-- Persistente tra sessioni
+- Modale per visualizzare le soluzioni
 
 ### Flashcard Formule (`flashcard.html`)
 - 35+ formule organizzate per argomento
 - Interfaccia flip card (clicca per girare)
-- Filtri per categoria (stechiometria, gas, termodinamica, equilibrio, acidi/basi, cinetica, elettrochimica)
-- Funzione "Mescola le card" per studio randomizzato
+- Filtri per categoria
+- Funzione "Mescola le card"
+
+### Nomenclatura (`nomenclatura.html`)
+- Capitolo teorico con regole tradizionale + IUPAC
+- **Trainer interattivo** con 70+ composti
+- Due modalità: Formula→Nome e Nome→Formula
+- Statistiche e streak
 
 ### Ricerca Globale
 - Barra di ricerca nell'header di tutte le pagine
 - Cerca in capitoli ed esercizi
 - Risultati in tempo reale con highlight
-- Navigazione diretta al contenuto trovato
 
-### Nomenclatura (`cap-00-nomenclatura.html` + `nomenclatura.html`)
-- **Capitolo teorico** con tutte le regole di nomenclatura tradizionale e IUPAC
-- Tabelle numeri di ossidazione, suffissi, prefissi
-- Esempi per ogni categoria: ossidi, idrossidi, acidi, sali
-- **Trainer interattivo** con 70+ composti
-- Due modalita: Formula→Nome e Nome→Formula
-- Filtri per categoria, statistiche, streak
+### Progress Tracker
+- Salvataggio automatico in localStorage
+- Traccia: capitoli, esercizi (fatto/da rivedere), esami
+- Persistente tra sessioni
+- Nessun login richiesto
 
-## Struttura file
+---
+
+## Capitoli del Manuale
+
+| # | Titolo | Argomenti |
+|---|--------|-----------|
+| 00 | Nomenclatura | Ossidi, idrossidi, acidi, sali, IUPAC |
+| 01-02 | Nozioni e Materia | Moli, redox, gas, soluzioni |
+| 03-04 | Teoria Atomica | Bohr, numeri quantici, fotoelettrico |
+| 05 | Legami | Lewis, VSEPR, ibridizzazione |
+| 06 | Acidi e Basi | pH, Ka/Kb, tamponi, idrolisi |
+| 07-08 | Termodinamica | ΔH, ΔS, ΔG, Hess, equilibrio |
+| 09 | Cinetica | Arrhenius, ordini, t½ |
+| 10 | Elettrochimica | Pile, Nernst, Faraday |
+| - | **Formulario Commentato** | Tutte le formule spiegate |
+
+---
+
+## Argomenti più frequenti agli esami
+
+| Argomento | N° esercizi | Tipi principali |
+|-----------|-------------|-----------------|
+| **Stechiometria** | 23 | Bilanciamento redox, gas, reagente limitante |
+| **Elettrochimica** | 16 | Pile + Nernst, elettrolisi/Faraday |
+| **Termodinamica** | 16 | Equilibrio Kp/Kc, Hess, calorimetria |
+| **Acidi/Basi** | 10 | pH acidi deboli, tamponi |
+| **Legami** | 10 | Lewis + VSEPR, ibridizzazione |
+| **Cinetica** | 7 | Arrhenius, ordine, t½ |
+| **Teoria atomica** | 6 | Ioni isoelettronici, fotoelettrico |
+
+---
+
+## Struttura del progetto
 
 ```
 ChemPortal/
@@ -92,77 +133,60 @@ ChemPortal/
 ├── manuale.html            # Viewer capitoli
 ├── esercizi.html           # Browser esercizi
 ├── simulazione.html        # Simulazione esame
+├── flashcard.html          # Flashcard formule
+├── nomenclatura.html       # Trainer nomenclatura
 ├── css/
 │   └── style.css           # Stili custom
 ├── js/
-│   ├── data.js             # Dati (capitoli, 88 esercizi, 56 domande esami)
+│   ├── data.js             # Dati (capitoli, esercizi, esami)
 │   ├── app.js              # Logica principale
-│   └── progress.js         # Progress tracker
-├── content/
-│   ├── manuale/            # 7 capitoli HTML
-│   └── soluzioni/          # 88 esercizi HTML (Quiz Mode)
-│       ├── lez01-02-nozioni-materia/   (23 esercizi)
-│       ├── lez03-04-teoria-periodicita/ (6 esercizi)
-│       ├── lez05-legami/               (10 esercizi)
-│       ├── lez06-acidi-basi/           (10 esercizi)
-│       ├── lez07-08-termodinamica/     (16 esercizi)
-│       ├── lez09-cinetica/             (7 esercizi)
-│       └── lez10-elettrochimica/       (16 esercizi)
-└── *.py                    # Script di conversione
+│   ├── progress.js         # Progress tracker
+│   └── search.js           # Ricerca globale
+└── content/
+    ├── manuale/            # 8 capitoli + formulario (9 file HTML)
+    └── soluzioni/          # 88 esercizi HTML (Quiz Mode)
+        ├── lez01-02-nozioni-materia/    (23)
+        ├── lez03-04-teoria-periodicita/ (6)
+        ├── lez05-legami/                (10)
+        ├── lez06-acidi-basi/            (10)
+        ├── lez07-08-termodinamica/      (16)
+        ├── lez09-cinetica/              (7)
+        └── lez10-elettrochimica/        (16)
 ```
 
-## Cosa rimane da fare
+---
 
-### Priorità alta
-- [ ] **Quiz casuale misto**: modalità "Mettiti alla prova" con 10 domande random da tutti gli argomenti per testare la preparazione generale prima dell'esame
+## Tecnologie
 
-### Priorità media
-- [ ] **Dark mode**: toggle per tema scuro
-- [ ] **Migliorare mobile**: testare e ottimizzare per smartphone
+- **HTML5** - Struttura semantica
+- **Tailwind CSS** - Styling via CDN
+- **JavaScript vanilla** - Nessun framework
+- **localStorage** - Persistenza (no backend)
+- **GitHub Pages** - Hosting
 
-### Nice to have
-- [ ] **Esporta/Importa progressi**: bottoni per salvare/caricare un file JSON con i progressi
-- [ ] **Statistiche avanzate**: tempo medio per esercizio, argomenti più difficili
-
-## Bug noti
-
-1. **CSS dei capitoli manuale**: i capitoli HTML hanno CSS proprio che potrebbe non integrarsi perfettamente con il viewer
-2. **Timer simulazione**: se si chiude la pagina, il timer non persiste
-
-## Completato in questa sessione (28/12/2024)
-
-- [x] Sincronizzazione progress esercizi.html ↔ Quiz Mode (postMessage)
-- [x] Simulazione esame: estratte 56 domande dai 7 PDF, aggiunte a data.js
-- [x] Simulazione esame: modale per soluzioni invece di nuova finestra
-- [x] Navigazione Quiz Mode: aggiunto bottone "Chiudi" a tutti 88 file
-- [x] Rimossi bottoni duplicati dalla UI
-- [x] Lista esami nella simulazione ora funziona correttamente
+---
 
 ## Note tecniche
 
-- **Niente backend**: tutto client-side, funziona offline
-- **Dati in JS**: i dati sono in `data.js` invece che in JSON esterni per evitare problemi CORS con `file://`
-- **Tailwind via CDN**: stili moderni senza build step
-- **localStorage**: chiave `chemportal_progress` per tutti i dati di progresso
-- **postMessage**: comunicazione iframe ↔ parent per sincronizzare stato
+- **Tutto client-side**: funziona offline dopo il primo caricamento
+- **Dati in JS**: `data.js` invece di JSON per evitare problemi CORS con `file://`
+- **postMessage**: comunicazione iframe ↔ parent per sincronizzare stato Quiz Mode
+- **localStorage key**: `chemportal_progress`
 
-## Script di sviluppo
+---
 
-- `convert_to_quiz.py` - Converte gli HTML in formato Quiz Mode
-- `fix_controls.py` - Fix per controlli sticky
-- `fix_buttons.py` - Aggiunge bottoni Fatto/Da rivedere
-- `add_navigation.py` - Aggiunge bottone Chiudi ai Quiz Mode
+## Crediti
 
-## Contenuti per argomento
+- **Contenuti**: Lezioni del Prof. Sebastiano, Politecnico di Milano
+- **Formulario originale**: Filippo Paolo Arculeo
+- **Sviluppo**: Claude Code
 
-| Argomento | Esercizi | Capitolo |
-|-----------|----------|----------|
-| Nomenclatura | - | cap-00 |
-| Stechiometria e Materia | 23 | cap-01-02 |
-| Teoria Atomica e Periodicità | 6 | cap-03-04 |
-| Legami Chimici | 10 | cap-05 |
-| Acidi e Basi | 10 | cap-06 |
-| Termodinamica | 16 | cap-07-08 |
-| Cinetica Chimica | 7 | cap-09 |
-| Elettrochimica | 16 | cap-10 |
-| **Totale** | **88** | **8** |
+---
+
+## Suggerimenti per lo studio
+
+1. **Inizia dal Formulario Commentato** per capire le formule
+2. **Leggi i capitoli** con carta e penna
+3. **Fai gli esercizi** in Quiz Mode senza sbirciare
+4. **Simula gli esami** con il timer per abituarti ai tempi
+5. **Usa le flashcard** per ripassare prima dell'esame
