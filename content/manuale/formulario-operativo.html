@@ -4,312 +4,369 @@
     <meta charset="UTF-8">
     <title>Formulario Operativo - Chimica Generale</title>
     <style>
+        /* ===== PRINTER-FRIENDLY STYLESHEET ===== */
         @page {
             size: A4;
-            margin: 1.5cm;
+            margin: 1.2cm;
         }
         * {
             box-sizing: border-box;
         }
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            max-width: 1100px;
-            margin: 40px auto;
-            padding: 20px;
-            line-height: 1.6;
-            color: #2c3e50;
-            background: #f8f9fa;
+            font-family: 'Times New Roman', Georgia, serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 15px;
+            line-height: 1.5;
+            color: #000;
+            background: #fff;
+            font-size: 11pt;
         }
+
+        /* ===== TITOLO PRINCIPALE ===== */
         h1 {
-            color: #1a5276;
-            border-bottom: 4px solid #e74c3c;
-            padding-bottom: 15px;
-            font-size: 2em;
+            color: #000;
+            border-bottom: 3px solid #000;
+            padding-bottom: 10px;
+            font-size: 1.8em;
             text-align: center;
+            margin-bottom: 20px;
         }
         h1 small {
             display: block;
-            font-size: 0.5em;
-            color: #7f8c8d;
+            font-size: 0.55em;
+            color: #333;
             font-weight: normal;
-            margin-top: 8px;
+            margin-top: 5px;
         }
+
+        /* ===== COLORI PER CAPITOLO (solo bordi e titoli) ===== */
+        /* Cap 01-02: Stechiometria - Rosso */
+        .cap-0102 { --cap-color: #c0392b; }
+        /* Cap 03-04: Fotoelettrico - Arancione */
+        .cap-0304 { --cap-color: #d35400; }
+        /* Cap 05: Lewis/VSEPR - Verde */
+        .cap-05 { --cap-color: #27ae60; }
+        /* Cap 06: Acidi/Basi - Blu */
+        .cap-06 { --cap-color: #2980b9; }
+        /* Cap 07-08: Termodinamica - Viola */
+        .cap-0708 { --cap-color: #8e44ad; }
+        /* Cap 09: Cinetica - Teal */
+        .cap-09 { --cap-color: #16a085; }
+        /* Cap 10: Elettrochimica - Navy */
+        .cap-10 { --cap-color: #1a5276; }
+        /* Costanti - Grigio */
+        .cap-costanti { --cap-color: #5d6d7e; }
+
+        /* ===== TITOLI H2 - Solo bordo colorato ===== */
         h2 {
-            color: #fff;
-            background: linear-gradient(135deg, #c0392b 0%, #e74c3c 100%);
-            margin-top: 40px;
-            padding: 15px 20px;
-            border-radius: 8px;
-            font-size: 1.4em;
+            color: #000;
+            background: #fff;
+            margin-top: 30px;
+            padding: 10px 15px;
+            font-size: 1.3em;
             page-break-after: avoid;
+            border: 2px solid var(--cap-color, #000);
+            border-left: 8px solid var(--cap-color, #000);
         }
         h2 .cap-ref {
             font-size: 0.7em;
-            opacity: 0.9;
+            color: #555;
             font-weight: normal;
-        }
-        h3 {
-            color: #2980b9;
-            margin-top: 25px;
-            border-left: 4px solid #3498db;
-            padding-left: 12px;
-            font-size: 1.2em;
-        }
-        h4 {
-            color: #8e44ad;
-            margin-top: 18px;
-            font-size: 1.05em;
+            float: right;
         }
 
-        /* Indice */
+        /* ===== H3 e H4 ===== */
+        h3 {
+            color: #000;
+            margin-top: 20px;
+            border-bottom: 1px solid #999;
+            padding-bottom: 3px;
+            font-size: 1.1em;
+        }
+        h4 {
+            color: #000;
+            margin-top: 15px;
+            font-size: 1em;
+        }
+
+        /* ===== INDICE ===== */
         .indice {
-            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
-            color: white;
-            padding: 25px;
-            border-radius: 12px;
-            margin: 25px 0;
+            background: #fff;
+            border: 2px solid #000;
+            padding: 15px;
+            margin: 15px 0;
+            page-break-inside: avoid;
         }
         .indice h3 {
-            color: white;
-            border: none;
             margin-top: 0;
-            padding-left: 0;
+            border: none;
+            font-size: 1em;
         }
         .indice ul {
             list-style-type: none;
             padding-left: 0;
-            margin: 0;
+            margin: 10px 0 0 0;
             columns: 2;
-            column-gap: 30px;
+            column-gap: 20px;
         }
         .indice li {
-            margin: 8px 0;
+            margin: 5px 0;
             break-inside: avoid;
+            font-size: 0.95em;
         }
         .indice a {
-            color: #ecf0f1;
+            color: #000;
             text-decoration: none;
-            padding: 4px 10px;
-            border-radius: 4px;
-            display: inline-block;
-            transition: background 0.2s;
-        }
-        .indice a:hover {
-            background: rgba(255,255,255,0.15);
         }
         .indice .cap {
-            font-size: 0.75em;
-            color: #f39c12;
-            margin-left: 5px;
+            font-size: 0.8em;
+            color: #555;
+            margin-left: 3px;
         }
 
-        /* Procedura box */
+        /* ===== PROCEDURA BOX ===== */
         .procedura {
             background: #fff;
-            border: 2px solid #27ae60;
-            border-radius: 10px;
-            margin: 20px 0;
-            overflow: hidden;
+            border: 2px solid var(--cap-color, #27ae60);
+            margin: 15px 0;
+            page-break-inside: avoid;
         }
         .procedura-header {
-            background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
-            color: white;
-            padding: 12px 18px;
+            background: #fff;
+            color: #000;
+            padding: 8px 12px;
             font-weight: bold;
-            font-size: 1.1em;
+            font-size: 1em;
+            border-bottom: 1px solid var(--cap-color, #27ae60);
         }
         .procedura-body {
-            padding: 18px;
+            padding: 12px;
         }
         .procedura ol {
             margin: 0;
-            padding-left: 25px;
+            padding-left: 20px;
         }
         .procedura li {
-            margin: 12px 0;
-            padding-left: 5px;
-        }
-        .procedura li::marker {
-            color: #27ae60;
-            font-weight: bold;
-        }
-
-        /* Step evidenziato */
-        .step-importante {
-            background: #e8f8f5;
-            border-left: 4px solid #1abc9c;
-            padding: 8px 12px;
             margin: 8px 0;
-            border-radius: 0 6px 6px 0;
         }
 
-        /* Formula Box */
+        /* ===== STEP EVIDENZIATO ===== */
+        .step-importante {
+            background: #fff;
+            border: 1px solid #999;
+            border-left: 3px solid var(--cap-color, #1abc9c);
+            padding: 6px 10px;
+            margin: 6px 0;
+            font-size: 0.95em;
+        }
+
+        /* ===== FORMULA BOX ===== */
         .formula-box {
             background: #fff;
-            padding: 15px 20px;
-            border-left: 5px solid #3498db;
-            border-radius: 0 8px 8px 0;
-            margin: 15px 0;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            padding: 10px 15px;
+            border: 1px solid #999;
+            border-left: 5px solid var(--cap-color, #3498db);
+            margin: 12px 0;
         }
         .formula-box.critica {
-            border-left-color: #e74c3c;
-            background: #fef9f8;
+            border-left-width: 8px;
+            border-style: double;
+            border-left-style: solid;
         }
         .formula-box .nome {
             font-weight: bold;
-            color: #2980b9;
-            margin-bottom: 8px;
+            color: #000;
+            margin-bottom: 5px;
             font-size: 1em;
         }
-        .formula-box.critica .nome {
-            color: #c0392b;
-        }
         .formula {
-            font-size: 1.3em;
-            margin: 10px 0;
+            font-size: 1.2em;
+            margin: 8px 0;
             font-family: 'Courier New', monospace;
             text-align: center;
-            background: #f8f9fa;
-            padding: 12px;
-            border-radius: 5px;
+            background: #fff;
+            padding: 8px;
+            border: 1px dashed #ccc;
             letter-spacing: 1px;
         }
         .formula-small {
-            font-size: 1.1em;
+            font-size: 1.05em;
         }
         .variabili {
-            background: #f0f4f8;
-            padding: 10px 15px;
-            border-radius: 6px;
-            margin-top: 10px;
+            background: #fff;
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            margin-top: 8px;
+            font-size: 0.95em;
         }
         .variabili dt {
             font-family: 'Courier New', monospace;
-            color: #e74c3c;
+            color: #000;
             font-weight: bold;
             float: left;
             clear: left;
-            width: 80px;
+            width: 70px;
         }
         .variabili dd {
-            margin-left: 90px;
-            margin-bottom: 5px;
+            margin-left: 80px;
+            margin-bottom: 3px;
         }
 
-        /* Tabelle */
+        /* ===== TABELLE ===== */
         table {
             width: 100%;
             border-collapse: collapse;
-            margin: 15px 0;
-            font-size: 0.95em;
-            background: white;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-            border-radius: 8px;
-            overflow: hidden;
+            margin: 12px 0;
+            font-size: 0.9em;
+            background: #fff;
         }
         th {
-            background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%);
-            color: white;
-            padding: 12px 10px;
+            background: #fff;
+            color: #000;
+            padding: 8px 6px;
             text-align: left;
-            font-weight: 600;
+            font-weight: bold;
+            border: 1px solid #000;
+            border-bottom: 2px solid #000;
         }
         td {
-            border-bottom: 1px solid #ecf0f1;
-            padding: 10px;
+            border: 1px solid #666;
+            padding: 6px;
         }
         tr:nth-child(even) {
-            background: #f8f9fa;
-        }
-        tr:hover {
-            background: #eaf2f8;
+            background: #f5f5f5;
         }
 
-        /* Box speciali */
+        /* ===== BOX SPECIALI ===== */
         .attenzione {
-            background: #fef5e7;
-            padding: 15px 18px;
+            background: #fff;
+            padding: 10px 12px;
+            border: 1px solid #999;
             border-left: 5px solid #f39c12;
-            margin: 15px 0;
-            border-radius: 0 8px 8px 0;
+            margin: 12px 0;
         }
-        .attenzione strong {
-            color: #d68910;
+        .attenzione::before {
+            content: "⚠ ";
+            font-weight: bold;
         }
         .trucco {
-            background: #e8f6f3;
-            padding: 15px 18px;
-            border-left: 5px solid #1abc9c;
-            margin: 15px 0;
-            border-radius: 0 8px 8px 0;
+            background: #fff;
+            padding: 10px 12px;
+            border: 1px solid #999;
+            border-left: 5px solid #27ae60;
+            margin: 12px 0;
         }
-        .trucco strong {
-            color: #16a085;
+        .trucco::before {
+            content: "★ ";
+            font-weight: bold;
         }
         .errore-comune {
-            background: #fdedec;
-            padding: 15px 18px;
-            border-left: 5px solid #e74c3c;
-            margin: 15px 0;
-            border-radius: 0 8px 8px 0;
+            background: #fff;
+            padding: 10px 12px;
+            border: 1px solid #999;
+            border-left: 5px solid #c0392b;
+            margin: 12px 0;
         }
-        .errore-comune strong {
-            color: #c0392b;
+        .errore-comune::before {
+            content: "✗ ";
+            font-weight: bold;
         }
         .esempio {
-            background: #f4ecf7;
-            padding: 15px 18px;
-            border-left: 5px solid #9b59b6;
-            margin: 15px 0;
-            border-radius: 0 8px 8px 0;
+            background: #fff;
+            padding: 10px 12px;
+            border: 1px solid #999;
+            border-left: 5px solid #8e44ad;
+            margin: 12px 0;
+        }
+        .esempio::before {
+            content: "Es: ";
+            font-weight: bold;
         }
 
-        /* Quick reference */
+        /* ===== QUICK REFERENCE ===== */
         .quick-ref {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 20px;
-            border-radius: 10px;
-            margin: 20px 0;
+            background: #fff;
+            color: #000;
+            padding: 15px;
+            border: 3px solid #000;
+            margin: 15px 0;
         }
         .quick-ref h4 {
-            color: white;
             margin-top: 0;
+            border-bottom: 1px solid #000;
+            padding-bottom: 5px;
         }
         .quick-ref code {
-            background: rgba(255,255,255,0.2);
-            padding: 2px 8px;
-            border-radius: 4px;
+            background: #fff;
+            padding: 1px 4px;
+            border: 1px solid #999;
+            font-size: 0.95em;
+        }
+        .quick-ref ul {
+            margin: 10px 0 0 0;
+            padding-left: 20px;
+        }
+        .quick-ref li {
+            margin: 3px 0;
         }
 
-        /* Costanti inline */
+        /* ===== COSTANTI INLINE ===== */
         .costante {
             font-family: 'Courier New', monospace;
-            background: #ffeaa7;
-            padding: 2px 6px;
-            border-radius: 3px;
+            background: #fff;
+            padding: 1px 4px;
+            border: 1px solid #999;
             font-size: 0.9em;
         }
 
-        /* Print styles */
+        /* ===== PRINT STYLES ===== */
         @media print {
             body {
                 background: white;
                 margin: 0;
-                padding: 10px;
+                padding: 5px;
+                font-size: 10pt;
             }
-            .procedura {
+            .procedura, .formula-box, .indice {
                 page-break-inside: avoid;
             }
             h2 {
-                -webkit-print-color-adjust: exact;
-                print-color-adjust: exact;
+                page-break-after: avoid;
+            }
+            .indice {
+                page-break-after: always;
+            }
+            a {
+                text-decoration: none;
+                color: #000;
+            }
+            /* Force print borders */
+            * {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
             }
         }
 
         sub, sup {
             font-size: 0.75em;
+        }
+
+        /* Separator line */
+        hr {
+            border: none;
+            border-top: 2px solid #000;
+            margin: 30px 0;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            font-size: 0.85em;
+            color: #555;
+            margin-top: 30px;
+            padding-top: 15px;
+            border-top: 1px solid #999;
         }
     </style>
 </head>
@@ -339,6 +396,7 @@
 </div>
 
 <!-- ==================== CAP 01-02: STECHIOMETRIA ==================== -->
+<section class="cap-0102">
 <h2 id="stechiometria">1. Stechiometria e Gas <span class="cap-ref">(Cap 01-02)</span></h2>
 
 <div class="procedura">
@@ -401,7 +459,10 @@
     <div class="formula">C = n / V &nbsp;&nbsp; [mol/L = M]</div>
 </div>
 
+</section>
+
 <!-- ==================== CAP 01-02: BILANCIAMENTO REDOX ==================== -->
+<section class="cap-0102">
 <h2 id="redox">2. Bilanciamento Redox <span class="cap-ref">(Cap 01-02)</span></h2>
 
 <p><strong>Frequenza:</strong> Presente in quasi tutti gli esami. Spesso Cu + HNO₃, KMnO₄, Cr₂O₇²⁻, reazioni in ambiente basico.</p>
@@ -471,7 +532,10 @@
     <tr><td>Cl in ClO₃⁻</td><td>+5</td><td>Può ossidarsi o ridursi</td></tr>
 </table>
 
+</section>
+
 <!-- ==================== CAP 03-04: TEORIA ATOMICA ==================== -->
+<section class="cap-0304">
 <h2 id="fotoelettrico">3. Teoria Atomica e Fotoelettrico <span class="cap-ref">(Cap 03-04)</span></h2>
 
 <div class="formula-box critica">
@@ -530,7 +594,10 @@
     <strong>Regola di Hund:</strong> Gli elettroni occupano prima tutti gli orbitali singolarmente, poi si appaiano.
 </div>
 
+</section>
+
 <!-- ==================== CAP 05: LEWIS + VSEPR ==================== -->
+<section class="cap-05">
 <h2 id="lewis">4. Strutture di Lewis + VSEPR <span class="cap-ref">(Cap 05)</span></h2>
 
 <p><strong>Frequenza:</strong> Presente in ogni esame. Richiede: struttura di Lewis, geometria, ibridizzazione, polarità.</p>
@@ -633,7 +700,10 @@
     <strong>SF₆:</strong> 6 legami → 6 regioni → sp³d² → ottaedrica → APOLARE
 </div>
 
+</section>
+
 <!-- ==================== CAP 06: pH ACIDI E BASI ==================== -->
+<section class="cap-06">
 <h2 id="ph">5. pH Acidi e Basi <span class="cap-ref">(Cap 06)</span></h2>
 
 <div class="formula-box critica">
@@ -708,7 +778,10 @@
     <div class="formula">K<sub>a</sub> × K<sub>b</sub> = K<sub>w</sub> = 10<sup>−14</sup> &nbsp;&nbsp;&nbsp; pK<sub>a</sub> + pK<sub>b</sub> = 14</div>
 </div>
 
+</section>
+
 <!-- ==================== CAP 06: TAMPONI ==================== -->
+<section class="cap-06">
 <h2 id="tamponi">6. Soluzioni Tampone <span class="cap-ref">(Cap 06)</span></h2>
 
 <div class="formula-box critica">
@@ -752,7 +825,10 @@
     <tr><td>Acido forte + Base debole</td><td>Acido (&lt;7)</td><td>pH = 7 − ½pK<sub>b</sub> − ½log C</td></tr>
 </table>
 
+</section>
+
 <!-- ==================== CAP 07-08: EQUILIBRIO ==================== -->
+<section class="cap-0708">
 <h2 id="equilibrio">7. Equilibrio Chimico (Kp / Kc) <span class="cap-ref">(Cap 07-08)</span></h2>
 
 <div class="procedura">
@@ -807,7 +883,10 @@
     </ul>
 </div>
 
+</section>
+
 <!-- ==================== CAP 07-08: TERMODINAMICA ==================== -->
+<section class="cap-0708">
 <h2 id="termodinamica">8. Termodinamica (ΔH, ΔG, Hess) <span class="cap-ref">(Cap 07-08)</span></h2>
 
 <h3>Legge di Hess</h3>
@@ -868,7 +947,10 @@
     <div class="formula">ln(K₂/K₁) = −(ΔH°/R) × (1/T₂ − 1/T₁)</div>
 </div>
 
+</section>
+
 <!-- ==================== CAP 09: CINETICA ==================== -->
+<section class="cap-09">
 <h2 id="cinetica">9. Cinetica e Arrhenius <span class="cap-ref">(Cap 09)</span></h2>
 
 <h3>Ordine di Reazione</h3>
@@ -915,7 +997,10 @@
     <div class="formula">E<sub>a</sub> = R × ln(k₂/k₁) / (1/T₁ − 1/T₂)</div>
 </div>
 
+</section>
+
 <!-- ==================== CAP 10: PILE GALVANICHE ==================== -->
+<section class="cap-10">
 <h2 id="pile">10. Pile Galvaniche + Nernst <span class="cap-ref">(Cap 10)</span></h2>
 
 <p><strong>Frequenza:</strong> Sempre presenti. Calcolo f.e.m., applicazione Nernst, calcolo Keq.</p>
@@ -993,7 +1078,10 @@
     <p>L'anodo è nella soluzione <strong>meno concentrata</strong></p>
 </div>
 
+</section>
+
 <!-- ==================== CAP 10: ELETTROLISI ==================== -->
+<section class="cap-10">
 <h2 id="elettrolisi">11. Elettrolisi + Faraday <span class="cap-ref">(Cap 10)</span></h2>
 
 <div class="procedura">
@@ -1048,7 +1136,10 @@
     m = (63,5 × 2 × 1800) / (2 × 96485) = 1,18 g
 </div>
 
+</section>
+
 <!-- ==================== 12. COSTANTI ==================== -->
+<section class="cap-costanti">
 <h2 id="costanti">12. Costanti e Conversioni</h2>
 
 <h3>Costanti Fondamentali</h3>
@@ -1088,13 +1179,15 @@
     </ul>
 </div>
 
-<hr style="margin-top: 50px;">
+</section>
 
-<p style="text-align: center; color: #888; font-size: 0.9em;">
-    Formulario Operativo - Chimica Generale<br>
+<hr>
+
+<div class="footer">
+    <strong>Formulario Operativo</strong> - Chimica Generale<br>
     Politecnico di Milano<br>
-    <em>ChemPortal - https://jackscampi-backup.github.io/ChemPortal/</em>
-</p>
+    ChemPortal - jackscampi-backup.github.io/ChemPortal/
+</div>
 
 </body>
 </html>
