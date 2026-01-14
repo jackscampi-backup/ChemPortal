@@ -103,7 +103,7 @@ const CHAPTERS_DATA = {
       "title": "Formulario Operativo",
       "file": "formulario-operativo.html",
       "description": "Guida pratica con procedure step-by-step per risolvere ogni tipo di esercizio d'esame",
-      "topics": ["Redox", "Stechiometria", "Pile+Nernst", "Elettrolisi", "Equilibrio", "Termodinamica", "pH", "Tamponi", "Lewis+VSEPR", "Cinetica"],
+      "topics": ["Stechiometria", "Redox", "Fotoelettrico", "Lewis+VSEPR", "pH", "Tamponi", "Equilibrio", "Termodinamica", "Cinetica", "Pile+Nernst", "Elettrolisi"],
       "exerciseCount": 0,
       "icon": "🎯",
       "isFormulario": true
