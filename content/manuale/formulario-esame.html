@@ -1,0 +1,1163 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulario per l'Esame - Chimica Generale</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 1.5cm;
+        }
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Georgia, serif;
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 20px;
+            line-height: 1.7;
+            color: #333;
+            background: #fafafa;
+        }
+        h1 {
+            color: #1a5276;
+            border-bottom: 4px solid #2980b9;
+            padding-bottom: 15px;
+            font-size: 2em;
+            text-align: center;
+        }
+        h2 {
+            color: #fff;
+            background: linear-gradient(135deg, #2471a3 0%, #1a5276 100%);
+            margin-top: 40px;
+            padding: 15px 20px;
+            border-radius: 8px;
+            font-size: 1.4em;
+            page-break-after: avoid;
+        }
+        h3 {
+            color: #1e8449;
+            margin-top: 25px;
+            border-bottom: 2px solid #27ae60;
+            padding-bottom: 5px;
+        }
+        h4 {
+            color: #7d3c98;
+            margin-top: 18px;
+            font-size: 1.05em;
+        }
+
+        /* Indice */
+        .indice {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 12px;
+            margin: 25px 0;
+            columns: 2;
+            column-gap: 30px;
+        }
+        .indice h3 {
+            color: white;
+            border: none;
+            margin-top: 0;
+            column-span: all;
+        }
+        .indice ul {
+            list-style-type: none;
+            padding-left: 0;
+            margin: 0;
+        }
+        .indice li {
+            margin: 6px 0;
+            break-inside: avoid;
+        }
+        .indice a {
+            color: #fff;
+            text-decoration: none;
+            padding: 3px 8px;
+            border-radius: 4px;
+            display: inline-block;
+            transition: background 0.2s;
+        }
+        .indice a:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        /* Formula Box */
+        .formula-box {
+            background: #fff;
+            padding: 15px 20px;
+            border-left: 5px solid #e67e22;
+            border-radius: 0 8px 8px 0;
+            margin: 15px 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        .formula-box.importante {
+            border-left-color: #e74c3c;
+            background: #fef9f8;
+        }
+        .formula-box .nome {
+            font-weight: bold;
+            color: #d35400;
+            margin-bottom: 8px;
+            font-size: 1em;
+        }
+        .formula-box.importante .nome {
+            color: #c0392b;
+        }
+        .formula {
+            font-size: 1.25em;
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+            text-align: center;
+            background: #f8f9fa;
+            padding: 12px;
+            border-radius: 5px;
+            letter-spacing: 1px;
+        }
+        .formula-inline {
+            font-family: 'Courier New', monospace;
+            background: #f0f0f0;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 0.95em;
+        }
+
+        /* Tabelle */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 0.92em;
+            background: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        th {
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            color: white;
+            padding: 12px 10px;
+            text-align: left;
+            font-weight: 600;
+        }
+        td {
+            border-bottom: 1px solid #ecf0f1;
+            padding: 10px;
+        }
+        tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        tr:hover {
+            background: #eaf2f8;
+        }
+        td:first-child {
+            font-weight: 500;
+        }
+
+        /* Box speciali */
+        .nota {
+            background: #e8f6f3;
+            padding: 12px 15px;
+            border-left: 4px solid #1abc9c;
+            margin: 12px 0;
+            border-radius: 0 6px 6px 0;
+            font-size: 0.95em;
+        }
+        .attenzione {
+            background: #fef5e7;
+            padding: 12px 15px;
+            border-left: 4px solid #f39c12;
+            margin: 12px 0;
+            border-radius: 0 6px 6px 0;
+            font-size: 0.95em;
+        }
+        .quick-ref {
+            background: #f4ecf7;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        .quick-ref h4 {
+            margin-top: 0;
+            color: #8e44ad;
+        }
+
+        /* Liste */
+        ul {
+            padding-left: 20px;
+        }
+        li {
+            margin: 5px 0;
+        }
+
+        /* Costanti box */
+        .costanti-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .costante-card {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            border-top: 4px solid #3498db;
+        }
+        .costante-card .simbolo {
+            font-family: 'Courier New', monospace;
+            font-size: 1.3em;
+            color: #2c3e50;
+            font-weight: bold;
+        }
+        .costante-card .valore {
+            font-family: 'Courier New', monospace;
+            color: #e74c3c;
+            font-size: 1.1em;
+        }
+        .costante-card .nome {
+            color: #7f8c8d;
+            font-size: 0.9em;
+        }
+
+        /* Print styles */
+        @media print {
+            body {
+                background: white;
+                margin: 0;
+                padding: 10px;
+            }
+            .indice {
+                background: #f0f0f0 !important;
+                color: #333 !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .indice a {
+                color: #333 !important;
+            }
+            h2 {
+                background: #2471a3 !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .formula-box {
+                page-break-inside: avoid;
+            }
+            table {
+                page-break-inside: avoid;
+            }
+        }
+
+        /* Sub/superscript */
+        sub, sup {
+            font-size: 0.75em;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Formulario per l'Esame di Chimica Generale</h1>
+
+<p style="text-align: center; color: #666; margin-bottom: 30px;">
+    Basato sul formulario di Filippo Paolo Arculeo<br>
+    <em>Politecnico di Milano - Ottimizzato per la risoluzione degli esercizi</em>
+</p>
+
+<div class="indice">
+    <h3>Indice</h3>
+    <ul>
+        <li><a href="#teoria-atomica">1. Teoria Atomica</a></li>
+        <li><a href="#lewis">2. Lewis e Geometria VSEPR</a></li>
+        <li><a href="#stechiometria">3. Stechiometria</a></li>
+        <li><a href="#soluzioni">4. Soluzioni</a></li>
+        <li><a href="#gas">5. Gas Perfetti</a></li>
+        <li><a href="#acidi-basi">6. Acidi e Basi</a></li>
+        <li><a href="#termodinamica">7. Termodinamica</a></li>
+        <li><a href="#cinetica">8. Cinetica Chimica</a></li>
+        <li><a href="#elettrochimica">9. Elettrochimica</a></li>
+        <li><a href="#costanti">10. Costanti</a></li>
+        <li><a href="#conversioni">11. Conversioni</a></li>
+        <li><a href="#quick">12. Formule Rapide</a></li>
+    </ul>
+</div>
+
+<!-- ========== 1. TEORIA ATOMICA ========== -->
+<h2 id="teoria-atomica">1. Teoria Atomica</h2>
+
+<h3>Onde elettromagnetiche</h3>
+
+<div class="formula-box importante">
+    <div class="nome">Relazione lunghezza d'onda - frequenza</div>
+    <div class="formula">λ = c / ν</div>
+    <ul>
+        <li>λ = lunghezza d'onda [m]</li>
+        <li>ν = frequenza [Hz = s<sup>−1</sup>]</li>
+        <li>c = 2,99 × 10<sup>8</sup> m/s</li>
+    </ul>
+</div>
+
+<div class="formula-box importante">
+    <div class="nome">Energia del fotone</div>
+    <div class="formula">E = hν = hc/λ</div>
+    <ul>
+        <li>E = energia [J]</li>
+        <li>h = 6,63 × 10<sup>−34</sup> J·s</li>
+    </ul>
+</div>
+
+<div class="formula-box">
+    <div class="nome">Numero d'onda</div>
+    <div class="formula">k̄ = 1/λ = ν/c</div>
+</div>
+
+<h3>Spettro dell'idrogeno</h3>
+
+<div class="formula-box importante">
+    <div class="nome">Formula di Rydberg (transizioni n₁ → n₂)</div>
+    <div class="formula">1/λ = R<sub>H</sub> × (1/n₁² − 1/n₂²)</div>
+    <p>R<sub>H</sub> = 1,097 × 10<sup>7</sup> m<sup>−1</sup></p>
+</div>
+
+<div class="formula-box">
+    <div class="nome">Formula di Balmer (transizioni verso n = 2)</div>
+    <div class="formula">λ = B × n² / (n² − 4)</div>
+    <p>B = 3,65 × 10<sup>−7</sup> m = 364,56 nm</p>
+</div>
+
+<h3>Effetto fotoelettrico</h3>
+
+<div class="formula-box importante">
+    <div class="nome">Bilancio energetico</div>
+    <div class="formula">hν = ω + E<sub>cinetica</sub> = hν₀ + ½mv²</div>
+    <ul>
+        <li>ω = hν₀ = lavoro di estrazione</li>
+        <li>ν₀ = frequenza di soglia</li>
+    </ul>
+</div>
+
+<h3>Modello di Bohr</h3>
+
+<div class="formula-box">
+    <div class="nome">Raggi permessi</div>
+    <div class="formula">r<sub>n</sub> = n² × a₀</div>
+    <p>a₀ = 0,53 Å = 5,3 × 10<sup>−11</sup> m</p>
+</div>
+
+<div class="formula-box importante">
+    <div class="nome">Energia dell'elettrone al livello n</div>
+    <div class="formula">E<sub>n</sub> = −E₀ / n²</div>
+    <p>E₀ = 13,60 eV = 2,179 × 10<sup>−18</sup> J (per H)</p>
+</div>
+
+<div class="formula-box importante">
+    <div class="nome">Energia di transizione</div>
+    <div class="formula">ΔE = E₀ × (1/n<sub>i</sub>² − 1/n<sub>f</sub>²) = hν</div>
+</div>
+
+<div class="formula-box">
+    <div class="nome">Carica formale</div>
+    <div class="formula">C<sub>form</sub> = e<sup>−</sup><sub>valenza</sub> − e<sup>−</sup><sub>legame</sub>/2 − e<sup>−</sup><sub>non leg.</sub></div>
+</div>
+
+<!-- ========== 2. LEWIS ========== -->
+<h2 id="lewis">2. Formule di Lewis e Geometria VSEPR</h2>
+
+<h3>Tabella VSEPR completa</h3>
+
+<table>
+    <tr>
+        <th>Ibridazione</th>
+        <th>Domini</th>
+        <th>Tipo</th>
+        <th>Angolo</th>
+        <th>Geometria</th>
+    </tr>
+    <tr><td>sp</td><td>2</td><td>XY₂</td><td>180°</td><td>lineare</td></tr>
+    <tr><td>sp²</td><td>3</td><td>XY₃</td><td>120°</td><td>trigonale planare</td></tr>
+    <tr><td>sp²</td><td>3</td><td>XY₂</td><td>&lt;120°</td><td>angolare</td></tr>
+    <tr><td>sp³</td><td>4</td><td>XY₄</td><td>109,5°</td><td>tetraedrica</td></tr>
+    <tr><td>sp³</td><td>4</td><td>XY₃</td><td>107,5°</td><td>piramidale trigonale</td></tr>
+    <tr><td>sp³</td><td>4</td><td>XY₂</td><td>104,5°</td><td>angolare</td></tr>
+    <tr><td>sp³d</td><td>5</td><td>XY₅</td><td>90°; 120°</td><td>bipiramidale trigonale</td></tr>
+    <tr><td>sp³d</td><td>5</td><td>XY₄</td><td>90°; 120°</td><td>altalena</td></tr>
+    <tr><td>sp³d</td><td>5</td><td>XY₃</td><td>90°</td><td>piana a T</td></tr>
+    <tr><td>sp³d</td><td>5</td><td>XY₂</td><td>180°</td><td>lineare</td></tr>
+    <tr><td>sp³d²</td><td>6</td><td>XY₆</td><td>90°</td><td>ottaedrica</td></tr>
+    <tr><td>sp³d²</td><td>6</td><td>XY₅</td><td>&lt;90°</td><td>piramidale quadrata</td></tr>
+    <tr><td>sp³d²</td><td>6</td><td>XY₄</td><td>90°</td><td>quadrata piana</td></tr>
+</table>
+
+<h3>Polarità e risonanza</h3>
+
+<div class="nota">
+    <strong>Polarità del legame</strong> presente se:
+    <ul>
+        <li>Legame tra atomi diversi</li>
+        <li>Legame tra atomi uguali legati ad atomi diversi</li>
+        <li>Asimmetria dei doppietti rispetto all'atomo centrale</li>
+    </ul>
+</div>
+
+<div class="nota">
+    <strong>Strutture di risonanza</strong> - preferire quelle con:
+    <ol>
+        <li>Cariche formali ridotte</li>
+        <li>Nessuna carica uguale su atomi adiacenti</li>
+        <li>Carica negativa sull'atomo più elettronegativo</li>
+    </ol>
+</div>
+
+<div class="attenzione">
+    <strong>Magnetismo:</strong> Paramagnetico = almeno 1 e<sup>−</sup> spaiato | Diamagnetico = tutti appaiati
+</div>
+
+<!-- ========== 3. STECHIOMETRIA ========== -->
+<h2 id="stechiometria">3. Stechiometria</h2>
+
+<h3>Mole e massa</h3>
+
+<div class="formula-box importante">
+    <div class="nome">Definizione di mole</div>
+    <div class="formula">n = m / M</div>
+    <ul>
+        <li>n = moli [mol]</li>
+        <li>m = massa [g]</li>
+        <li>M = massa molare [g/mol]</li>
+    </ul>
+</div>
+
+<div class="formula-box">
+    <div class="nome">Numero di particelle</div>
+    <div class="formula">N = n × N<sub>A</sub></div>
+    <p>N<sub>A</sub> = 6,022 × 10<sup>23</sup> mol<sup>−1</sup></p>
+</div>
+
+<div class="formula-box">
+    <div class="nome">Massa atomica media</div>
+    <div class="formula">m<sub>media</sub> = Σ (m<sub>isotopo</sub> × abbondanza)</div>
+</div>
+
+<h3>Composizione</h3>
+
+<div class="formula-box">
+    <div class="nome">Composizione percentuale</div>
+    <div class="formula">%<sub>elemento</sub> = (m<sub>elemento</sub> / m<sub>composto</sub>) × 100</div>
+</div>
+
+<div class="formula-box">
+    <div class="nome">Frazione in massa</div>
+    <div class="formula">x = n × (M<sub>elemento</sub> / M<sub>composto</sub>)</div>
+</div>
+
+<div class="formula-box">
+    <div class="nome">Densità</div>
+    <div class="formula">ρ = m / V &nbsp;&nbsp; [g/mL]</div>
+</div>
+
+<h3>Reazioni</h3>
+
+<div class="formula-box">
+    <div class="nome">Rapporto molare</div>
+    <div class="formula">rapporto = coeff<sub>prodotto</sub> / coeff<sub>reagente</sub></div>
+</div>
+
+<div class="formula-box importante">
+    <div class="nome">Reagente limitante</div>
+    <div class="formula">x è limitante se: n<sub>x</sub>/coeff<sub>x</sub> &lt; n<sub>altro</sub>/coeff<sub>altro</sub></div>
+</div>
+
+<div class="formula-box">
+    <div class="nome">Resa percentuale</div>
+    <div class="formula">η% = (quantità ottenuta / quantità teorica) × 100</div>
+</div>
+
+<h3>Ossidoriduzioni</h3>
+
+<div class="nota">
+    <strong>Numeri di ossidazione standard:</strong>
+    <ul>
+        <li>O = −2 (perossidi: −1)</li>
+        <li>H = +1 (idruri: −1)</li>
+        <li>Elementi puri = 0</li>
+        <li>Σ n.o. × n°atomi = carica totale</li>
+    </ul>
+</div>
+
+<!-- ========== 4. SOLUZIONI ========== -->
+<h2 id="soluzioni">4. Soluzioni</h2>
+
+<div class="formula-box importante">
+    <div class="nome">Molarità</div>
+    <div class="formula">C = n<sub>soluto</sub> / V<sub>soluzione</sub> &nbsp;&nbsp; [M = mol/L]</div>
+</div>
+
+<div class="formula-box">
+    <div class="nome">Grammi/litro</div>
+    <div class="formula">g/L = m<sub>soluto</sub> / V<sub>soluzione</sub></div>
+</div>
+
+<div class="formula-box">
+    <div class="nome">Frazione molare</div>
+    <div class="formula">χ = n<sub>soluto</sub> / n<sub>totali</sub></div>
+</div>
+
+<div class="formula-box">
+    <div class="nome">Normalità</div>
+    <div class="formula">N = n°<sub>eq</sub> / V = M × VO</div>
+</div>
+
+<h3>Valenza operativa (VO)</h3>
+
+<table>
+    <tr><th>Tipo</th><th>VO =</th></tr>
+    <tr><td>Acidi</td><td>n° di H<sup>+</sup> rilasciati</td></tr>
+    <tr><td>Basi/Idrossidi</td><td>n° di OH<sup>−</sup> rilasciati</td></tr>
+    <tr><td>Sali</td><td>n° di cariche (+) o (−)</td></tr>
+    <tr><td>Redox</td><td>n° di e<sup>−</sup> scambiati</td></tr>
+</table>
+
+<div class="formula-box">
+    <div class="nome">Equivalenti</div>
+    <div class="formula">n°<sub>eq</sub> = m / m<sub>eq</sub> &nbsp;&nbsp;&nbsp; m<sub>eq</sub> = M / VO</div>
+</div>
+
+<!-- ========== 5. GAS ========== -->
+<h2 id="gas">5. Gas Perfetti</h2>
+
+<div class="formula-box importante">
+    <div class="nome">Equazione di stato dei gas ideali</div>
+    <div class="formula">PV = nRT</div>
+    <ul>
+        <li>R = 8,314 J/(mol·K)</li>
+        <li>R = 0,0821 L·atm/(mol·K)</li>
+    </ul>
+</div>
+
+<h3>Leggi dei gas</h3>
+
+<table>
+    <tr><th>Legge</th><th>Condizioni</th><th>Formula</th></tr>
+    <tr><td>Boyle</td><td>n, T costanti</td><td class="formula-inline">P₁V₁ = P₂V₂</td></tr>
+    <tr><td>Gay-Lussac</td><td>n, P costanti</td><td class="formula-inline">V₁/T₁ = V₂/T₂</td></tr>
+    <tr><td>Charles</td><td>n, V costanti</td><td class="formula-inline">P₁/T₁ = P₂/T₂</td></tr>
+    <tr><td>Avogadro</td><td>P, T costanti</td><td class="formula-inline">V ∝ n</td></tr>
+</table>
+
+<div class="nota">
+    A STP (0°C, 1 atm): 1 mol di gas = <strong>22,4 L</strong>
+</div>
+
+<h3>Pressioni parziali</h3>
+
+<div class="formula-box">
+    <div class="nome">Legge di Dalton</div>
+    <div class="formula">P<sub>tot</sub> = Σ p<sub>i</sub> &nbsp;&nbsp;&nbsp; p<sub>gas</sub> = χ<sub>gas</sub> × P<sub>tot</sub></div>
+</div>
+
+<div class="formula-box">
+    <div class="nome">Gas singolo</div>
+    <div class="formula">p<sub>gas</sub> × V = n<sub>gas</sub> × RT</div>
+</div>
+
+<!-- ========== 6. ACIDI E BASI ========== -->
+<h2 id="acidi-basi">6. Acidi e Basi</h2>
+
+<h3>Costanti di equilibrio</h3>
+
+<div class="formula-box importante">
+    <div class="nome">Costante di acidità K<sub>a</sub></div>
+    <div class="formula">HA + H₂O ⇄ H₃O<sup>+</sup> + A<sup>−</sup></div>
+    <div class="formula">K<sub>a</sub> = [H₃O<sup>+</sup>][A<sup>−</sup>] / [HA]</div>
+</div>
+
+<div class="formula-box importante">
+    <div class="nome">Costante di basicità K<sub>b</sub></div>
+    <div class="formula">B + H₂O ⇄ OH<sup>−</sup> + BH<sup>+</sup></div>
+    <div class="formula">K<sub>b</sub> = [OH<sup>−</sup>][BH<sup>+</sup>] / [B]</div>
+</div>
+
+<div class="formula-box importante">
+    <div class="nome">Relazione fondamentale</div>
+    <div class="formula">K<sub>a</sub> × K<sub>b</sub> = K<sub>w</sub> = 10<sup>−14</sup></div>
+</div>
+
+<h3>pH e pOH</h3>
+
+<div class="formula-box importante">
+    <div class="nome">Definizioni di pH</div>
+    <div class="formula">pH = −log₁₀[H₃O<sup>+</sup>] &nbsp;&nbsp;⟹&nbsp;&nbsp; [H₃O<sup>+</sup>] = 10<sup>−pH</sup></div>
+    <div class="formula">pOH = −log₁₀[OH<sup>−</sup>] &nbsp;&nbsp;⟹&nbsp;&nbsp; [OH<sup>−</sup>] = 10<sup>−pOH</sup></div>
+    <div class="formula">pH + pOH = 14</div>
+</div>
+
+<div class="formula-box">
+    <div class="nome">Definizioni di pK</div>
+    <div class="formula">pK<sub>a</sub> = −log₁₀(K<sub>a</sub>) &nbsp;&nbsp;&nbsp; pK<sub>a</sub> + pK<sub>b</sub> = 14</div>
+</div>
+
+<h3>Acidi e basi forti</h3>
+
+<div class="formula-box">
+    <div class="nome">Dissociazione completa (α = 1)</div>
+    <div class="formula">[H₃O<sup>+</sup>] = C<sub>a</sub> × VO &nbsp;&nbsp;&nbsp; [OH<sup>−</sup>] = C<sub>b</sub> × VO</div>
+</div>
+
+<h3>Acidi e basi deboli</h3>
+
+<div class="formula-box importante">
+    <div class="nome">Approssimazione per acidi deboli (C<sub>a</sub> >> [H₃O<sup>+</sup>])</div>
+    <div class="formula">[H₃O<sup>+</sup>] = √(K<sub>a</sub> × C<sub>a</sub>)</div>
+    <div class="formula">pH = ½pK<sub>a</sub> − ½log C<sub>a</sub></div>
+</div>
+
+<div class="formula-box">
+    <div class="nome">Approssimazione per basi deboli</div>
+    <div class="formula">[OH<sup>−</sup>] = √(K<sub>b</sub> × C<sub>b</sub>)</div>
+    <div class="formula">pOH = ½pK<sub>b</sub> − ½log C<sub>b</sub></div>
+</div>
+
+<div class="formula-box">
+    <div class="nome">Grado di dissociazione</div>
+    <div class="formula">α = [A<sup>−</sup>] / C<sub>a</sub> &nbsp;&nbsp;&nbsp; %<sub>diss</sub> = α × 100</div>
+</div>
+
+<h3>Classificazione forza acida</h3>
+
+<table>
+    <tr><th>K<sub>a</sub></th><th>Acido</th><th>Base coniugata</th></tr>
+    <tr><td>K<sub>a</sub> > 1</td><td>forte</td><td>—</td></tr>
+    <tr><td>10<sup>−4</sup> &lt; K<sub>a</sub> &lt; 1</td><td>medio-forte</td><td>medio-debole</td></tr>
+    <tr><td>10<sup>−7</sup> &lt; K<sub>a</sub> &lt; 10<sup>−4</sup></td><td>medio-debole</td><td>medio-forte</td></tr>
+    <tr><td>K<sub>a</sub> &lt; 10<sup>−7</sup></td><td>—</td><td>forte</td></tr>
+</table>
+
+<h3>Idrolisi dei sali</h3>
+
+<table>
+    <tr><th>Composizione sale</th><th>pH soluzione</th></tr>
+    <tr><td>acido forte + base forte</td><td>neutro (no idrolisi)</td></tr>
+    <tr><td>acido debole + base forte</td><td>basico</td></tr>
+    <tr><td>acido forte + base debole</td><td>acido</td></tr>
+    <tr><td>acido debole + base debole</td><td>dipende da K<sub>a</sub> e K<sub>b</sub></td></tr>
+</table>
+
+<div class="formula-box">
+    <div class="nome">Costante di idrolisi</div>
+    <div class="formula">K<sub>i</sub> = K<sub>w</sub> / K<sub>a</sub> &nbsp; (sol. basica) &nbsp;&nbsp;&nbsp; K<sub>i</sub> = K<sub>w</sub> / K<sub>b</sub> &nbsp; (sol. acida)</div>
+</div>
+
+<div class="formula-box">
+    <div class="nome">pH sale (acido debole + base forte)</div>
+    <div class="formula">pH = 7 + ½pK<sub>a</sub> + ½log C<sub>s</sub></div>
+</div>
+
+<div class="formula-box">
+    <div class="nome">pH sale (acido forte + base debole)</div>
+    <div class="formula">pH = 7 − ½pK<sub>b</sub> − ½log C<sub>s</sub></div>
+</div>
+
+<h3>Soluzioni tampone</h3>
+
+<div class="formula-box importante">
+    <div class="nome">Equazione di Henderson-Hasselbalch</div>
+    <div class="formula">pH = pK<sub>a</sub> + log([A<sup>−</sup>]/[HA]) = pK<sub>a</sub> + log(C<sub>sale</sub>/C<sub>acido</sub>)</div>
+</div>
+
+<div class="formula-box">
+    <div class="nome">Con aggiunta di acido/base forte</div>
+    <div class="formula">+ acido: pH = pK<sub>a</sub> + log((C<sub>s</sub> − a)/(C<sub>a</sub> + a))</div>
+    <div class="formula">+ base: pH = pK<sub>a</sub> + log((C<sub>s</sub> + b)/(C<sub>a</sub> − b))</div>
+</div>
+
+<h3>Indicatori</h3>
+
+<div class="formula-box">
+    <div class="nome">Intervallo di viraggio</div>
+    <div class="formula">pH<sub>viraggio</sub> = pK<sub>In</sub> ± 1</div>
+</div>
+
+<h3>Prodotto di solubilità</h3>
+
+<div class="formula-box importante">
+    <div class="nome">K<sub>ps</sub> generico</div>
+    <div class="formula">M<sub>m</sub>A<sub>n</sub>(s) ⇄ mM<sup>n+</sup> + nA<sup>m−</sup></div>
+    <div class="formula">K<sub>ps</sub> = [M<sup>n+</sup>]<sup>m</sup> × [A<sup>m−</sup>]<sup>n</sup></div>
+</div>
+
+<table>
+    <tr><th>Tipo sale</th><th>K<sub>ps</sub> in funzione di s</th></tr>
+    <tr><td>MA</td><td>K<sub>ps</sub> = s²</td></tr>
+    <tr><td>MA₂ o M₂A</td><td>K<sub>ps</sub> = 4s³</td></tr>
+    <tr><td>M₂A₃</td><td>K<sub>ps</sub> = 108s⁵</td></tr>
+</table>
+
+<!-- ========== 7. TERMODINAMICA ========== -->
+<h2 id="termodinamica">7. Termodinamica</h2>
+
+<h3>I Principio</h3>
+
+<div class="formula-box importante">
+    <div class="nome">Bilancio energetico</div>
+    <div class="formula">ΔU = q + w</div>
+    <ul>
+        <li>q = calore (+ se assorbito dal sistema)</li>
+        <li>w = lavoro (+ se fatto sul sistema)</li>
+    </ul>
+</div>
+
+<div class="formula-box">
+    <div class="nome">Lavoro di espansione</div>
+    <div class="formula">w = −PΔV = −∫P dV</div>
+</div>
+
+<div class="formula-box">
+    <div class="nome">Lavoro isotermo (gas ideale)</div>
+    <div class="formula">w = −nRT ln(V₂/V₁)</div>
+</div>
+
+<h3>Casi particolari</h3>
+
+<table>
+    <tr><th>Condizioni</th><th>Processo</th><th>Risultato</th></tr>
+    <tr><td>q = 0, w = 0</td><td>sistema isolato</td><td>ΔU = 0</td></tr>
+    <tr><td>q = 0</td><td>adiabatico</td><td>ΔU = w</td></tr>
+    <tr><td>w = 0 (V cost)</td><td>isocoro</td><td>ΔU = q<sub>v</sub></td></tr>
+    <tr><td>ΔU = 0</td><td>ciclico</td><td>q = −w</td></tr>
+</table>
+
+<h3>Capacità termica</h3>
+
+<div class="formula-box">
+    <div class="nome">Capacità termica</div>
+    <div class="formula">C = q/ΔT &nbsp;&nbsp;&nbsp; C<sub>spec</sub> = m×q/ΔT &nbsp;&nbsp;&nbsp; C<sub>mol</sub> = n×q/ΔT</div>
+</div>
+
+<h3>Entalpia</h3>
+
+<div class="formula-box importante">
+    <div class="nome">Definizione di entalpia</div>
+    <div class="formula">ΔH = q<sub>p</sub> = ΔU + PΔV</div>
+    <ul>
+        <li>ΔH &lt; 0: esotermica</li>
+        <li>ΔH &gt; 0: endotermica</li>
+    </ul>
+</div>
+
+<div class="formula-box">
+    <div class="nome">Relazione q<sub>p</sub> e q<sub>v</sub> (gas)</div>
+    <div class="formula">q<sub>p</sub> = q<sub>v</sub> + ΔnRT</div>
+</div>
+
+<div class="formula-box importante">
+    <div class="nome">Entalpia di reazione</div>
+    <div class="formula">ΔH°<sub>reaz</sub> = Σ ΔH°<sub>f</sub>(prodotti) − Σ ΔH°<sub>f</sub>(reagenti)</div>
+</div>
+
+<div class="formula-box">
+    <div class="nome">Legge di Hess</div>
+    <div class="formula">ΔH°<sub>tot</sub> = Σ ΔH°<sub>i</sub></div>
+    <p>Se inverti reazione → cambia segno. Se moltiplichi → moltiplica ΔH°</p>
+</div>
+
+<h3>Entropia</h3>
+
+<div class="formula-box">
+    <div class="nome">Variazione di entropia</div>
+    <div class="formula">ΔS = q<sub>rev</sub> / T</div>
+</div>
+
+<div class="nota">
+    <strong>II Principio:</strong> ΔS<sub>universo</sub> ≥ 0<br>
+    <strong>III Principio:</strong> S → 0 quando T → 0 K
+</div>
+
+<div class="formula-box">
+    <div class="nome">Rendimento (ciclo di Carnot)</div>
+    <div class="formula">η = |w|/|q<sub>ass</sub>| = 1 − |q<sub>ril</sub>|/|q<sub>ass</sub>|</div>
+    <div class="formula">η<sub>max</sub> = 1 − T<sub>freddo</sub>/T<sub>caldo</sub></div>
+</div>
+
+<h3>Energia libera di Gibbs</h3>
+
+<div class="formula-box importante">
+    <div class="nome">Definizione</div>
+    <div class="formula">G = H − TS &nbsp;&nbsp;&nbsp; ΔG = ΔH − TΔS</div>
+</div>
+
+<table>
+    <tr><th>ΔG</th><th>Significato</th></tr>
+    <tr><td>ΔG &lt; 0</td><td>spontaneo</td></tr>
+    <tr><td>ΔG = 0</td><td>equilibrio</td></tr>
+    <tr><td>ΔG &gt; 0</td><td>non spontaneo</td></tr>
+</table>
+
+<div class="formula-box importante">
+    <div class="nome">Relazioni fondamentali</div>
+    <div class="formula">ΔG = ΔG° + RT ln Q</div>
+    <div class="formula">ΔG° = −RT ln K</div>
+    <p>All'equilibrio (Q = K): ΔG = 0</p>
+</div>
+
+<h3>Equilibri chimici</h3>
+
+<div class="formula-box">
+    <div class="nome">Quoziente di reazione (aA + bB → cC + dD)</div>
+    <div class="formula">Q<sub>c</sub> = [C]<sup>c</sup>[D]<sup>d</sup> / ([A]<sup>a</sup>[B]<sup>b</sup>)</div>
+    <div class="formula">Q<sub>p</sub> = p<sub>C</sub><sup>c</sup>·p<sub>D</sub><sup>d</sup> / (p<sub>A</sub><sup>a</sup>·p<sub>B</sub><sup>b</sup>)</div>
+</div>
+
+<div class="formula-box importante">
+    <div class="nome">Relazione K<sub>p</sub> e K<sub>c</sub></div>
+    <div class="formula">K<sub>p</sub> = K<sub>c</sub> × (RT)<sup>Δn</sup></div>
+    <p>Δn = (c + d) − (a + b)</p>
+</div>
+
+<div class="formula-box importante">
+    <div class="nome">Equazione di Van't Hoff</div>
+    <div class="formula">ln(K₂/K₁) = −(ΔH°/R) × (1/T₂ − 1/T₁)</div>
+</div>
+
+<!-- ========== 8. CINETICA ========== -->
+<h2 id="cinetica">8. Cinetica Chimica</h2>
+
+<h3>Velocità di reazione</h3>
+
+<div class="formula-box">
+    <div class="nome">Definizione (aA + bB → cC + dD)</div>
+    <div class="formula">v = −(1/a)(d[A]/dt) = (1/c)(d[C]/dt)</div>
+</div>
+
+<div class="formula-box importante">
+    <div class="nome">Legge cinetica</div>
+    <div class="formula">v = k[A]<sup>α</sup>[B]<sup>β</sup></div>
+    <p>Ordine complessivo = α + β</p>
+</div>
+
+<h3>Unità della costante k</h3>
+
+<table>
+    <tr><th>Ordine</th><th>Unità di k</th></tr>
+    <tr><td>0</td><td>mol/(L·s)</td></tr>
+    <tr><td>1</td><td>s<sup>−1</sup></td></tr>
+    <tr><td>2</td><td>L/(mol·s)</td></tr>
+</table>
+
+<h3>Reazioni di I ordine</h3>
+
+<div class="formula-box importante">
+    <div class="nome">Legge integrata</div>
+    <div class="formula">ln[A] = −kt + ln[A]₀ &nbsp;&nbsp;&nbsp; [A] = [A]₀ × e<sup>−kt</sup></div>
+</div>
+
+<div class="formula-box importante">
+    <div class="nome">Tempo di dimezzamento</div>
+    <div class="formula">t<sub>½</sub> = ln2 / k = 0,693 / k</div>
+    <p>(indipendente da [A]₀)</p>
+</div>
+
+<h3>Reazioni di II ordine</h3>
+
+<div class="formula-box">
+    <div class="nome">Legge integrata</div>
+    <div class="formula">1/[A] = kt + 1/[A]₀</div>
+</div>
+
+<div class="formula-box">
+    <div class="nome">Tempo di dimezzamento</div>
+    <div class="formula">t<sub>½</sub> = 1 / (k[A]₀)</div>
+</div>
+
+<h3>Determinazione dell'ordine</h3>
+
+<table>
+    <tr><th>Grafico lineare</th><th>Ordine</th><th>Pendenza</th></tr>
+    <tr><td>[A] vs t</td><td>0</td><td>−k</td></tr>
+    <tr><td>ln[A] vs t</td><td>1</td><td>−k</td></tr>
+    <tr><td>1/[A] vs t</td><td>2</td><td>+k</td></tr>
+</table>
+
+<div class="formula-box">
+    <div class="nome">Relazione k e K (all'equilibrio)</div>
+    <div class="formula">K = k<sub>dir</sub> / k<sub>inv</sub></div>
+</div>
+
+<h3>Equazione di Arrhenius</h3>
+
+<div class="formula-box importante">
+    <div class="nome">Forma esponenziale</div>
+    <div class="formula">k = A × e<sup>−E<sub>a</sub>/RT</sup></div>
+</div>
+
+<div class="formula-box importante">
+    <div class="nome">Forma logaritmica</div>
+    <div class="formula">ln k = ln A − E<sub>a</sub>/(RT)</div>
+</div>
+
+<div class="formula-box importante">
+    <div class="nome">Due temperature</div>
+    <div class="formula">ln(k₂/k₁) = (E<sub>a</sub>/R) × (1/T₁ − 1/T₂)</div>
+</div>
+
+<div class="formula-box">
+    <div class="nome">Energia di attivazione</div>
+    <div class="formula">E<sub>a</sub> = R × (T₁T₂)/(T₂ − T₁) × ln(k₂/k₁)</div>
+</div>
+
+<div class="nota">
+    <strong>Meccanismo:</strong> Lo <em>stadio lento</em> (E<sub>a</sub> maggiore) determina la velocità globale
+</div>
+
+<!-- ========== 9. ELETTROCHIMICA ========== -->
+<h2 id="elettrochimica">9. Elettrochimica</h2>
+
+<h3>Grandezze elettriche</h3>
+
+<table>
+    <tr><th>Grandezza</th><th>Simbolo</th><th>Formula</th><th>Unità</th></tr>
+    <tr><td>Carica</td><td>q</td><td></td><td>C</td></tr>
+    <tr><td>Corrente</td><td>I</td><td>I = q/t</td><td>A = C/s</td></tr>
+    <tr><td>Potenziale</td><td>E, ΔE</td><td></td><td>V = J/C</td></tr>
+    <tr><td>Resistenza</td><td>R</td><td>R = V/I</td><td>Ω</td></tr>
+    <tr><td>Potenza</td><td>P</td><td>P = VI</td><td>W</td></tr>
+    <tr><td>Lavoro</td><td>W</td><td>W = qV</td><td>J</td></tr>
+</table>
+
+<h3>Pile galvaniche</h3>
+
+<div class="nota">
+    <strong>Schema pila:</strong> (−) Anodo | Sol₁ ‖ Sol₂ | Catodo (+)<br>
+    <strong>Anodo (−):</strong> ossidazione &nbsp;&nbsp; <strong>Catodo (+):</strong> riduzione
+</div>
+
+<div class="formula-box importante">
+    <div class="nome">Forza elettromotrice</div>
+    <div class="formula">ΔE = E<sub>catodo</sub> − E<sub>anodo</sub></div>
+    <p>Per funzionare: E<sub>catodo</sub> &gt; E<sub>anodo</sub></p>
+</div>
+
+<h3>Equazione di Nernst</h3>
+
+<div class="formula-box importante">
+    <div class="nome">Forma generale</div>
+    <div class="formula">ΔE = ΔE° − (RT)/(nF) × ln Q</div>
+</div>
+
+<div class="formula-box importante">
+    <div class="nome">A 25°C (forma semplificata)</div>
+    <div class="formula">ΔE = ΔE° − (0,059/n) × log₁₀ Q</div>
+    <p>n = numero di elettroni scambiati</p>
+</div>
+
+<div class="formula-box">
+    <div class="nome">Per semicella</div>
+    <div class="formula">E = E° − (0,059/n) × log([ridotto]/[ossidato])</div>
+</div>
+
+<h3>Energia libera e potenziale</h3>
+
+<div class="formula-box importante">
+    <div class="nome">Relazione ΔG - ΔE</div>
+    <div class="formula">ΔG = −nFΔE &nbsp;&nbsp;&nbsp; ΔG° = −nFΔE°</div>
+</div>
+
+<h3>Leggi di Faraday</h3>
+
+<div class="formula-box importante">
+    <div class="nome">Massa depositata</div>
+    <div class="formula">m = (M × q) / (n × F) = (M × I × t) / (n × F)</div>
+    <ul>
+        <li>F = 96485 C/mol</li>
+        <li>M = massa molare</li>
+        <li>n = elettroni scambiati</li>
+    </ul>
+</div>
+
+<div class="formula-box">
+    <div class="nome">Moli depositate</div>
+    <div class="formula">mol = q / (n × F) = (I × t) / (n × F)</div>
+</div>
+
+<h3>Pile a concentrazione</h3>
+
+<div class="formula-box">
+    <div class="nome">Schema: (+) M | M<sup>+</sup>(C₂) ‖ M<sup>+</sup>(C₁) | M (−) con C₁ > C₂</div>
+    <div class="formula">ΔE = (0,059/n) × log(C₁/C₂)</div>
+</div>
+
+<h3>Elettrolisi dell'acqua</h3>
+
+<div class="nota">
+    <strong>Anodo (+):</strong> 2H₂O → O₂ + 4H<sup>+</sup> + 4e<sup>−</sup><br>
+    <strong>Catodo (−):</strong> 2H₂O + 2e<sup>−</sup> → H₂ + 2OH<sup>−</sup>
+</div>
+
+<!-- ========== 10. COSTANTI ========== -->
+<h2 id="costanti">10. Costanti Fondamentali</h2>
+
+<div class="costanti-grid">
+    <div class="costante-card">
+        <div class="nome">Velocità della luce</div>
+        <div class="simbolo">c</div>
+        <div class="valore">2,99 × 10<sup>8</sup> m/s</div>
+    </div>
+    <div class="costante-card">
+        <div class="nome">Costante di Planck</div>
+        <div class="simbolo">h</div>
+        <div class="valore">6,63 × 10<sup>−34</sup> J·s</div>
+    </div>
+    <div class="costante-card">
+        <div class="nome">Numero di Avogadro</div>
+        <div class="simbolo">N<sub>A</sub></div>
+        <div class="valore">6,022 × 10<sup>23</sup> mol<sup>−1</sup></div>
+    </div>
+    <div class="costante-card">
+        <div class="nome">Costante di Faraday</div>
+        <div class="simbolo">F</div>
+        <div class="valore">96485 C/mol</div>
+    </div>
+    <div class="costante-card">
+        <div class="nome">Costante dei gas</div>
+        <div class="simbolo">R</div>
+        <div class="valore">8,314 J/(mol·K)<br>0,0821 L·atm/(mol·K)</div>
+    </div>
+    <div class="costante-card">
+        <div class="nome">Costante di Boltzmann</div>
+        <div class="simbolo">k</div>
+        <div class="valore">1,380 × 10<sup>−23</sup> J/K</div>
+    </div>
+    <div class="costante-card">
+        <div class="nome">Prodotto ionico acqua</div>
+        <div class="simbolo">K<sub>w</sub></div>
+        <div class="valore">10<sup>−14</sup> (a 25°C)</div>
+    </div>
+    <div class="costante-card">
+        <div class="nome">Carica elettrone</div>
+        <div class="simbolo">e</div>
+        <div class="valore">1,60 × 10<sup>−19</sup> C</div>
+    </div>
+    <div class="costante-card">
+        <div class="nome">Massa elettrone</div>
+        <div class="simbolo">m<sub>e</sub></div>
+        <div class="valore">9,11 × 10<sup>−31</sup> kg</div>
+    </div>
+    <div class="costante-card">
+        <div class="nome">Raggio di Bohr</div>
+        <div class="simbolo">a₀</div>
+        <div class="valore">0,53 Å</div>
+    </div>
+    <div class="costante-card">
+        <div class="nome">Costante di Rydberg</div>
+        <div class="simbolo">R<sub>H</sub></div>
+        <div class="valore">1,097 × 10<sup>7</sup> m<sup>−1</sup></div>
+    </div>
+    <div class="costante-card">
+        <div class="nome">Energia ionizz. H</div>
+        <div class="simbolo">E₀</div>
+        <div class="valore">13,60 eV</div>
+    </div>
+</div>
+
+<!-- ========== 11. CONVERSIONI ========== -->
+<h2 id="conversioni">11. Conversioni Utili</h2>
+
+<h3>Energia</h3>
+<table>
+    <tr><th>Da</th><th>A</th><th>Moltiplicare per</th></tr>
+    <tr><td>1 J</td><td>cal</td><td>0,239</td></tr>
+    <tr><td>1 cal</td><td>J</td><td>4,184</td></tr>
+    <tr><td>1 eV</td><td>J</td><td>1,60 × 10<sup>−19</sup></td></tr>
+    <tr><td>1 J</td><td>eV</td><td>6,24 × 10<sup>18</sup></td></tr>
+    <tr><td>1 kcal</td><td>kJ</td><td>4,184</td></tr>
+</table>
+
+<h3>Pressione</h3>
+<table>
+    <tr><th>Da</th><th>A</th><th>Moltiplicare per</th></tr>
+    <tr><td>1 atm</td><td>Pa</td><td>101325</td></tr>
+    <tr><td>1 atm</td><td>bar</td><td>1,013</td></tr>
+    <tr><td>1 atm</td><td>mmHg (Torr)</td><td>760</td></tr>
+    <tr><td>1 bar</td><td>Pa</td><td>10<sup>5</sup></td></tr>
+</table>
+
+<h3>Volume</h3>
+<table>
+    <tr><th>Da</th><th>A</th><th>Fattore</th></tr>
+    <tr><td>1 L</td><td>mL</td><td>10³</td></tr>
+    <tr><td>1 L</td><td>m³</td><td>10<sup>−3</sup></td></tr>
+    <tr><td>1 dm³</td><td>L</td><td>1</td></tr>
+</table>
+
+<h3>Temperatura</h3>
+<div class="formula-box">
+    <div class="formula">T(K) = T(°C) + 273,15</div>
+</div>
+
+<h3>Lunghezza</h3>
+<table>
+    <tr><th>Da</th><th>A</th><th>Fattore</th></tr>
+    <tr><td>1 nm</td><td>m</td><td>10<sup>−9</sup></td></tr>
+    <tr><td>1 Å</td><td>m</td><td>10<sup>−10</sup></td></tr>
+    <tr><td>1 Å</td><td>nm</td><td>0,1</td></tr>
+</table>
+
+<!-- ========== 12. FORMULE RAPIDE ========== -->
+<h2 id="quick">12. Formule Rapide per l'Esame</h2>
+
+<h3>pH - Tutti i casi</h3>
+
+<table>
+    <tr><th>Tipo</th><th>Formula rapida</th></tr>
+    <tr><td>Acido forte</td><td class="formula-inline">pH = −log(C<sub>a</sub> × VO)</td></tr>
+    <tr><td>Base forte</td><td class="formula-inline">pOH = −log(C<sub>b</sub> × VO), pH = 14 − pOH</td></tr>
+    <tr><td>Acido debole</td><td class="formula-inline">pH = ½pK<sub>a</sub> − ½log C<sub>a</sub></td></tr>
+    <tr><td>Base debole</td><td class="formula-inline">pOH = ½pK<sub>b</sub> − ½log C<sub>b</sub></td></tr>
+    <tr><td>Tampone</td><td class="formula-inline">pH = pK<sub>a</sub> + log(C<sub>sale</sub>/C<sub>acido</sub>)</td></tr>
+    <tr><td>Sale (ac. deb + base forte)</td><td class="formula-inline">pH = 7 + ½pK<sub>a</sub> + ½log C<sub>s</sub></td></tr>
+    <tr><td>Sale (ac. forte + base deb)</td><td class="formula-inline">pH = 7 − ½pK<sub>b</sub> − ½log C<sub>s</sub></td></tr>
+</table>
+
+<h3>Spontaneità - Quick check</h3>
+
+<table>
+    <tr><th>ΔH</th><th>ΔS</th><th>ΔG</th><th>Spontaneità</th></tr>
+    <tr><td>−</td><td>+</td><td>−</td><td><strong>Sempre spontaneo</strong></td></tr>
+    <tr><td>+</td><td>−</td><td>+</td><td><strong>Mai spontaneo</strong></td></tr>
+    <tr><td>−</td><td>−</td><td>?</td><td>Spontaneo a <em>bassa T</em></td></tr>
+    <tr><td>+</td><td>+</td><td>?</td><td>Spontaneo ad <em>alta T</em></td></tr>
+</table>
+
+<h3>Cinetica - Determinare l'ordine</h3>
+
+<table>
+    <tr><th>Grafico lineare</th><th>Ordine</th><th>t<sub>½</sub></th></tr>
+    <tr><td>[A] vs t</td><td>0</td><td>dipende da [A]₀</td></tr>
+    <tr><td>ln[A] vs t</td><td>1</td><td>0,693/k (costante)</td></tr>
+    <tr><td>1/[A] vs t</td><td>2</td><td>1/(k[A]₀)</td></tr>
+</table>
+
+<h3>Elettrochimica - Quick reference</h3>
+
+<div class="quick-ref">
+    <h4>Ricorda sempre:</h4>
+    <ul>
+        <li><strong>Nernst a 25°C:</strong> ΔE = ΔE° − (0,059/n) × log Q</li>
+        <li><strong>Faraday:</strong> m = (M × I × t) / (n × F)</li>
+        <li><strong>Energia:</strong> ΔG° = −nFΔE°</li>
+        <li><strong>Pila funziona se:</strong> E<sub>catodo</sub> &gt; E<sub>anodo</sub> (ΔE &gt; 0)</li>
+    </ul>
+</div>
+
+<hr style="margin-top: 50px;">
+
+<p style="text-align: center; color: #888; font-size: 0.9em;">
+    Formulario compilato per l'esame di Chimica Generale<br>
+    Politecnico di Milano<br>
+    <em>ChemPortal - https://jackscampi-backup.github.io/ChemPortal/</em>
+</p>
+
+</body>
+</html>

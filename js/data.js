@@ -87,6 +87,16 @@ const CHAPTERS_DATA = {
       "exerciseCount": 0,
       "icon": "📋",
       "isFormulario": true
+    },
+    {
+      "id": "formulario-esame",
+      "title": "Formulario per l'Esame",
+      "file": "formulario-esame.html",
+      "description": "Formulario compatto ottimizzato per la risoluzione rapida degli esercizi d'esame",
+      "topics": ["Teoria Atomica", "VSEPR", "Stechiometria", "Gas", "Acidi e Basi", "Termodinamica", "Cinetica", "Elettrochimica", "Costanti", "Conversioni"],
+      "exerciseCount": 0,
+      "icon": "📝",
+      "isFormulario": true
     }
   ]
 };
