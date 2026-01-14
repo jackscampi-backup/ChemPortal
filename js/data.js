@@ -97,6 +97,16 @@ const CHAPTERS_DATA = {
       "exerciseCount": 0,
       "icon": "📝",
       "isFormulario": true
+    },
+    {
+      "id": "formulario-operativo",
+      "title": "Formulario Operativo",
+      "file": "formulario-operativo.html",
+      "description": "Guida pratica con procedure step-by-step per risolvere ogni tipo di esercizio d'esame",
+      "topics": ["Redox", "Stechiometria", "Pile+Nernst", "Elettrolisi", "Equilibrio", "Termodinamica", "pH", "Tamponi", "Lewis+VSEPR", "Cinetica"],
+      "exerciseCount": 0,
+      "icon": "🎯",
+      "isFormulario": true
     }
   ]
 };

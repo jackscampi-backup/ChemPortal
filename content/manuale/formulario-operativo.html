@@ -1,0 +1,1084 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulario Operativo - Chimica Generale</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 1.5cm;
+        }
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 20px;
+            line-height: 1.6;
+            color: #2c3e50;
+            background: #f8f9fa;
+        }
+        h1 {
+            color: #1a5276;
+            border-bottom: 4px solid #e74c3c;
+            padding-bottom: 15px;
+            font-size: 2em;
+            text-align: center;
+        }
+        h1 small {
+            display: block;
+            font-size: 0.5em;
+            color: #7f8c8d;
+            font-weight: normal;
+            margin-top: 8px;
+        }
+        h2 {
+            color: #fff;
+            background: linear-gradient(135deg, #c0392b 0%, #e74c3c 100%);
+            margin-top: 40px;
+            padding: 15px 20px;
+            border-radius: 8px;
+            font-size: 1.4em;
+            page-break-after: avoid;
+        }
+        h3 {
+            color: #2980b9;
+            margin-top: 25px;
+            border-left: 4px solid #3498db;
+            padding-left: 12px;
+            font-size: 1.2em;
+        }
+        h4 {
+            color: #8e44ad;
+            margin-top: 18px;
+            font-size: 1.05em;
+        }
+
+        /* Indice */
+        .indice {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 12px;
+            margin: 25px 0;
+        }
+        .indice h3 {
+            color: white;
+            border: none;
+            margin-top: 0;
+            padding-left: 0;
+        }
+        .indice ul {
+            list-style-type: none;
+            padding-left: 0;
+            margin: 0;
+            columns: 2;
+            column-gap: 30px;
+        }
+        .indice li {
+            margin: 8px 0;
+            break-inside: avoid;
+        }
+        .indice a {
+            color: #ecf0f1;
+            text-decoration: none;
+            padding: 4px 10px;
+            border-radius: 4px;
+            display: inline-block;
+            transition: background 0.2s;
+        }
+        .indice a:hover {
+            background: rgba(255,255,255,0.15);
+        }
+        .indice .freq {
+            font-size: 0.8em;
+            color: #f39c12;
+            margin-left: 5px;
+        }
+
+        /* Procedura box */
+        .procedura {
+            background: #fff;
+            border: 2px solid #27ae60;
+            border-radius: 10px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+        .procedura-header {
+            background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+            color: white;
+            padding: 12px 18px;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+        .procedura-body {
+            padding: 18px;
+        }
+        .procedura ol {
+            margin: 0;
+            padding-left: 25px;
+        }
+        .procedura li {
+            margin: 12px 0;
+            padding-left: 5px;
+        }
+        .procedura li::marker {
+            color: #27ae60;
+            font-weight: bold;
+        }
+
+        /* Step evidenziato */
+        .step-importante {
+            background: #e8f8f5;
+            border-left: 4px solid #1abc9c;
+            padding: 8px 12px;
+            margin: 8px 0;
+            border-radius: 0 6px 6px 0;
+        }
+
+        /* Formula Box */
+        .formula-box {
+            background: #fff;
+            padding: 15px 20px;
+            border-left: 5px solid #3498db;
+            border-radius: 0 8px 8px 0;
+            margin: 15px 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        .formula-box.critica {
+            border-left-color: #e74c3c;
+            background: #fef9f8;
+        }
+        .formula-box .nome {
+            font-weight: bold;
+            color: #2980b9;
+            margin-bottom: 8px;
+            font-size: 1em;
+        }
+        .formula-box.critica .nome {
+            color: #c0392b;
+        }
+        .formula {
+            font-size: 1.3em;
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+            text-align: center;
+            background: #f8f9fa;
+            padding: 12px;
+            border-radius: 5px;
+            letter-spacing: 1px;
+        }
+        .formula-small {
+            font-size: 1.1em;
+        }
+        .variabili {
+            background: #f0f4f8;
+            padding: 10px 15px;
+            border-radius: 6px;
+            margin-top: 10px;
+        }
+        .variabili dt {
+            font-family: 'Courier New', monospace;
+            color: #e74c3c;
+            font-weight: bold;
+            float: left;
+            clear: left;
+            width: 80px;
+        }
+        .variabili dd {
+            margin-left: 90px;
+            margin-bottom: 5px;
+        }
+
+        /* Tabelle */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 0.95em;
+            background: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        th {
+            background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%);
+            color: white;
+            padding: 12px 10px;
+            text-align: left;
+            font-weight: 600;
+        }
+        td {
+            border-bottom: 1px solid #ecf0f1;
+            padding: 10px;
+        }
+        tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        tr:hover {
+            background: #eaf2f8;
+        }
+
+        /* Box speciali */
+        .attenzione {
+            background: #fef5e7;
+            padding: 15px 18px;
+            border-left: 5px solid #f39c12;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        .attenzione strong {
+            color: #d68910;
+        }
+        .trucco {
+            background: #e8f6f3;
+            padding: 15px 18px;
+            border-left: 5px solid #1abc9c;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        .trucco strong {
+            color: #16a085;
+        }
+        .errore-comune {
+            background: #fdedec;
+            padding: 15px 18px;
+            border-left: 5px solid #e74c3c;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        .errore-comune strong {
+            color: #c0392b;
+        }
+        .esempio {
+            background: #f4ecf7;
+            padding: 15px 18px;
+            border-left: 5px solid #9b59b6;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        /* Quick reference */
+        .quick-ref {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        .quick-ref h4 {
+            color: white;
+            margin-top: 0;
+        }
+        .quick-ref code {
+            background: rgba(255,255,255,0.2);
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+
+        /* Costanti inline */
+        .costante {
+            font-family: 'Courier New', monospace;
+            background: #ffeaa7;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 0.9em;
+        }
+
+        /* Print styles */
+        @media print {
+            body {
+                background: white;
+                margin: 0;
+                padding: 10px;
+            }
+            .procedura {
+                page-break-inside: avoid;
+            }
+            h2 {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+        }
+
+        sub, sup {
+            font-size: 0.75em;
+        }
+    </style>
+</head>
+<body>
+
+<h1>
+    Formulario Operativo
+    <small>Guida pratica per risolvere gli esercizi d'esame di Chimica Generale</small>
+</h1>
+
+<div class="indice">
+    <h3>Indice per Tipo di Esercizio</h3>
+    <ul>
+        <li><a href="#redox">1. Bilanciamento Redox</a> <span class="freq">(23 es.)</span></li>
+        <li><a href="#stechiometria">2. Stechiometria e Gas</a> <span class="freq">(23 es.)</span></li>
+        <li><a href="#pile">3. Pile Galvaniche + Nernst</a> <span class="freq">(16 es.)</span></li>
+        <li><a href="#elettrolisi">4. Elettrolisi + Faraday</a> <span class="freq">(16 es.)</span></li>
+        <li><a href="#equilibrio">5. Equilibrio Chimico (Kp/Kc)</a> <span class="freq">(16 es.)</span></li>
+        <li><a href="#termodinamica">6. Termodinamica (ΔH, ΔG, Hess)</a> <span class="freq">(16 es.)</span></li>
+        <li><a href="#ph">7. pH Acidi e Basi</a> <span class="freq">(10 es.)</span></li>
+        <li><a href="#tamponi">8. Soluzioni Tampone</a> <span class="freq">(10 es.)</span></li>
+        <li><a href="#lewis">9. Lewis + VSEPR</a> <span class="freq">(10 es.)</span></li>
+        <li><a href="#cinetica">10. Cinetica e Arrhenius</a> <span class="freq">(7 es.)</span></li>
+        <li><a href="#fotoelettrico">11. Effetto Fotoelettrico</a> <span class="freq">(6 es.)</span></li>
+        <li><a href="#costanti">12. Costanti e Conversioni</a></li>
+    </ul>
+</div>
+
+<!-- ==================== 1. BILANCIAMENTO REDOX ==================== -->
+<h2 id="redox">1. Bilanciamento Redox (Metodo Semireazioni)</h2>
+
+<p><strong>Frequenza:</strong> Presente in quasi tutti gli esami. Spesso Cu + HNO₃, KMnO₄, Cr₂O₇²⁻, reazioni in ambiente basico.</p>
+
+<div class="procedura">
+    <div class="procedura-header">PROCEDURA: Bilanciamento Redox</div>
+    <div class="procedura-body">
+        <ol>
+            <li>
+                <strong>Assegna i numeri di ossidazione (n.o.)</strong>
+                <div class="step-importante">
+                    Regole fisse: O = −2 (nei perossidi −1) | H = +1 (negli idruri −1) | Metalli = carica ionica | Elementi puri = 0
+                </div>
+            </li>
+            <li>
+                <strong>Identifica chi si ossida e chi si riduce</strong>
+                <ul>
+                    <li>Ossidazione: n.o. AUMENTA (perde elettroni)</li>
+                    <li>Riduzione: n.o. DIMINUISCE (acquista elettroni)</li>
+                </ul>
+            </li>
+            <li>
+                <strong>Scrivi le due semireazioni separate</strong>
+            </li>
+            <li>
+                <strong>Bilancia OGNI semireazione (ordine fisso!):</strong>
+                <ol type="a">
+                    <li>Bilancia l'elemento che cambia n.o.</li>
+                    <li>Bilancia gli ossigeni aggiungendo H₂O</li>
+                    <li>Bilancia gli idrogeni aggiungendo H⁺ (acido) o OH⁻ (basico)</li>
+                    <li>Bilancia le cariche aggiungendo e⁻</li>
+                </ol>
+            </li>
+            <li>
+                <strong>Moltiplica le semireazioni</strong> per avere lo stesso numero di e⁻
+            </li>
+            <li>
+                <strong>Somma e semplifica</strong> (gli e⁻ si elidono)
+            </li>
+        </ol>
+    </div>
+</div>
+
+<div class="esempio">
+    <strong>Esempio tipico:</strong> Cu + HNO₃ → Cu(NO₃)₂ + NO + H₂O
+    <ul>
+        <li>Cu: 0 → +2 (ossidazione, perde 2e⁻)</li>
+        <li>N: +5 → +2 (riduzione in NO, acquista 3e⁻)</li>
+        <li>Semireazione ox: Cu → Cu²⁺ + 2e⁻</li>
+        <li>Semireazione red: NO₃⁻ + 4H⁺ + 3e⁻ → NO + 2H₂O</li>
+        <li>m.c.m.(2,3) = 6 → moltiplica: 3×(ox) + 2×(red)</li>
+        <li>Risultato: 3Cu + 8HNO₃ → 3Cu(NO₃)₂ + 2NO + 4H₂O</li>
+    </ul>
+</div>
+
+<div class="attenzione">
+    <strong>Ambiente basico:</strong> Dopo aver bilanciato in ambiente acido, aggiungi tanti OH⁻ quanti sono gli H⁺, da entrambi i lati. H⁺ + OH⁻ → H₂O.
+</div>
+
+<h3>Numeri di Ossidazione Comuni</h3>
+<table>
+    <tr><th>Elemento</th><th>n.o. tipici</th><th>Note</th></tr>
+    <tr><td>Mn in KMnO₄</td><td>+7</td><td>Si riduce a Mn²⁺ (+2) o MnO₂ (+4)</td></tr>
+    <tr><td>Cr in Cr₂O₇²⁻</td><td>+6</td><td>Si riduce a Cr³⁺</td></tr>
+    <tr><td>N in HNO₃</td><td>+5</td><td>Si riduce a NO (+2) o NO₂ (+4)</td></tr>
+    <tr><td>S in H₂SO₄</td><td>+6</td><td>Si riduce a SO₂ (+4) o S (0)</td></tr>
+    <tr><td>Cl in ClO₃⁻</td><td>+5</td><td>Può ossidarsi o ridursi</td></tr>
+</table>
+
+<!-- ==================== 2. STECHIOMETRIA ==================== -->
+<h2 id="stechiometria">2. Stechiometria e Gas</h2>
+
+<div class="procedura">
+    <div class="procedura-header">PROCEDURA: Calcoli Stechiometrici</div>
+    <div class="procedura-body">
+        <ol>
+            <li><strong>Bilancia la reazione</strong> (se non già bilanciata)</li>
+            <li><strong>Converti i dati in MOLI</strong>
+                <div class="step-importante">
+                    Da massa: <code>n = m / M</code><br>
+                    Da volume gas: <code>n = PV / RT</code> oppure a c.n. <code>n = V / 22,4</code><br>
+                    Da concentrazione: <code>n = C × V</code>
+                </div>
+            </li>
+            <li><strong>Usa i rapporti stechiometrici</strong> (coefficienti della reazione)</li>
+            <li><strong>Converti nel formato richiesto</strong> (g, L, M...)</li>
+        </ol>
+    </div>
+</div>
+
+<div class="formula-box critica">
+    <div class="nome">Equazione dei Gas Ideali</div>
+    <div class="formula">PV = nRT</div>
+    <div class="variabili">
+        <dl>
+            <dt>P</dt><dd>pressione in <strong>atm</strong> (o Pa se usi R = 8,314)</dd>
+            <dt>V</dt><dd>volume in <strong>litri</strong> (o m³ se usi R = 8,314)</dd>
+            <dt>n</dt><dd>moli di gas</dd>
+            <dt>R</dt><dd><span class="costante">0,0821 L·atm/(mol·K)</span> oppure <span class="costante">8,314 J/(mol·K)</span></dd>
+            <dt>T</dt><dd>temperatura in <strong>Kelvin</strong> (°C + 273)</dd>
+        </dl>
+    </div>
+</div>
+
+<div class="trucco">
+    <strong>A condizioni normali (c.n.):</strong> T = 0°C = 273 K, P = 1 atm → 1 mol di gas = <strong>22,4 L</strong>
+</div>
+
+<h3>Reagente Limitante</h3>
+
+<div class="procedura">
+    <div class="procedura-header">PROCEDURA: Trovare il Reagente Limitante</div>
+    <div class="procedura-body">
+        <ol>
+            <li>Calcola le moli di TUTTI i reagenti</li>
+            <li>Dividi le moli di ogni reagente per il suo coefficiente stechiometrico</li>
+            <li>Il reagente con il <strong>valore più piccolo</strong> è il limitante</li>
+            <li>Usa il reagente limitante per calcolare i prodotti</li>
+        </ol>
+    </div>
+</div>
+
+<div class="formula-box">
+    <div class="nome">Resa percentuale</div>
+    <div class="formula">η% = (quantità ottenuta / quantità teorica) × 100</div>
+</div>
+
+<!-- ==================== 3. PILE GALVANICHE ==================== -->
+<h2 id="pile">3. Pile Galvaniche + Equazione di Nernst</h2>
+
+<p><strong>Frequenza:</strong> Sempre presenti. Calcolo f.e.m., applicazione Nernst, calcolo Keq.</p>
+
+<div class="formula-box critica">
+    <div class="nome">Notazione della pila</div>
+    <div class="formula">(−) Anodo | Soluzione || Soluzione | Catodo (+)</div>
+    <p style="text-align:center; margin-top:10px;">
+        <strong>Anodo</strong> = ossidazione (perde e⁻) | <strong>Catodo</strong> = riduzione (acquista e⁻)
+    </p>
+</div>
+
+<div class="procedura">
+    <div class="procedura-header">PROCEDURA: Calcolo f.e.m. di una Pila</div>
+    <div class="procedura-body">
+        <ol>
+            <li>
+                <strong>Identifica anodo e catodo</strong>
+                <div class="step-importante">
+                    L'elettrodo con E° <strong>più basso</strong> (più negativo) è l'ANODO<br>
+                    L'elettrodo con E° <strong>più alto</strong> (meno negativo) è il CATODO
+                </div>
+            </li>
+            <li>
+                <strong>Calcola la f.e.m. standard:</strong>
+                <div class="formula formula-small">ΔE° = E°<sub>catodo</sub> − E°<sub>anodo</sub></div>
+            </li>
+            <li>
+                <strong>Se le concentrazioni NON sono 1M, applica Nernst:</strong>
+                <div class="formula formula-small">ΔE = ΔE° − (0,059/n) × log Q</div>
+                <p>dove n = numero di elettroni scambiati, Q = quoziente di reazione</p>
+            </li>
+        </ol>
+    </div>
+</div>
+
+<div class="formula-box critica">
+    <div class="nome">Equazione di Nernst (a 25°C)</div>
+    <div class="formula">E = E° − (0,059/n) × log([ridotto]/[ossidato])</div>
+    <div class="variabili">
+        <dl>
+            <dt>E</dt><dd>potenziale a concentrazioni reali [V]</dd>
+            <dt>E°</dt><dd>potenziale standard (da tabella) [V]</dd>
+            <dt>n</dt><dd>numero di elettroni nella semireazione</dd>
+            <dt>0,059</dt><dd>costante a 25°C (= RT/F × ln10)</dd>
+        </dl>
+    </div>
+</div>
+
+<div class="attenzione">
+    <strong>Per la cella completa:</strong> Q = [prodotti]/[reagenti] della reazione GLOBALE.<br>
+    <strong>Per una semicella:</strong> [ridotto]/[ossidato] della semireazione.
+</div>
+
+<h3>Calcolo di Keq da E°</h3>
+
+<div class="formula-box">
+    <div class="nome">Relazione ΔG° - E° - Keq</div>
+    <div class="formula">ΔG° = −nFΔE° = −RT ln K</div>
+    <p>A 25°C, combinando:</p>
+    <div class="formula">log K = (n × ΔE°) / 0,059</div>
+</div>
+
+<div class="esempio">
+    <strong>Esempio:</strong> Calcolare Keq per Zn + Cu²⁺ → Zn²⁺ + Cu<br>
+    E°(Cu²⁺/Cu) = +0,34 V, E°(Zn²⁺/Zn) = −0,76 V<br>
+    ΔE° = 0,34 − (−0,76) = 1,10 V, n = 2<br>
+    log K = (2 × 1,10) / 0,059 = 37,3 → K = 10<sup>37,3</sup> ≈ 2 × 10<sup>37</sup>
+</div>
+
+<h3>Pile a Concentrazione</h3>
+<div class="formula-box">
+    <div class="nome">Pila a concentrazione (stesso metallo)</div>
+    <div class="formula">ΔE = (0,059/n) × log(C<sub>alta</sub>/C<sub>bassa</sub>)</div>
+    <p>L'anodo è nella soluzione <strong>meno concentrata</strong></p>
+</div>
+
+<!-- ==================== 4. ELETTROLISI ==================== -->
+<h2 id="elettrolisi">4. Elettrolisi + Leggi di Faraday</h2>
+
+<div class="procedura">
+    <div class="procedura-header">PROCEDURA: Calcolo Massa/Volume da Elettrolisi</div>
+    <div class="procedura-body">
+        <ol>
+            <li>
+                <strong>Identifica la reazione agli elettrodi</strong>
+                <ul>
+                    <li>Catodo (−): si riduce la specie con E° più alto</li>
+                    <li>Anodo (+): si ossida la specie con E° più basso</li>
+                </ul>
+            </li>
+            <li>
+                <strong>Calcola le moli di elettroni:</strong>
+                <div class="formula formula-small">n<sub>e⁻</sub> = (I × t) / F</div>
+                <p>con I in Ampere, t in secondi, F = 96485 C/mol</p>
+            </li>
+            <li>
+                <strong>Usa la stechiometria</strong> della semireazione per trovare le moli del prodotto
+            </li>
+            <li>
+                <strong>Converti</strong> in grammi (m = n × M) o litri (V = n × 22,4 a c.n.)
+            </li>
+        </ol>
+    </div>
+</div>
+
+<div class="formula-box critica">
+    <div class="nome">Legge di Faraday - Massa depositata</div>
+    <div class="formula">m = (M × I × t) / (n × F)</div>
+    <div class="variabili">
+        <dl>
+            <dt>m</dt><dd>massa depositata [g]</dd>
+            <dt>M</dt><dd>massa molare dell'elemento [g/mol]</dd>
+            <dt>I</dt><dd>intensità di corrente [A]</dd>
+            <dt>t</dt><dd>tempo [s] (attenzione: convertire i minuti!)</dd>
+            <dt>n</dt><dd>elettroni nella semireazione</dd>
+            <dt>F</dt><dd><span class="costante">96485 C/mol</span> (costante di Faraday)</dd>
+        </dl>
+    </div>
+</div>
+
+<div class="trucco">
+    <strong>Conversione rapida:</strong> t(minuti) × 60 = t(secondi)<br>
+    <strong>Moli di e⁻:</strong> n<sub>e⁻</sub> = (A × minuti × 60) / 96485
+</div>
+
+<div class="esempio">
+    <strong>Esempio:</strong> Quanto Cu si deposita con 2A per 30 min?<br>
+    Semireazione: Cu²⁺ + 2e⁻ → Cu (n = 2)<br>
+    m = (63,5 × 2 × 1800) / (2 × 96485) = 1,18 g
+</div>
+
+<!-- ==================== 5. EQUILIBRIO CHIMICO ==================== -->
+<h2 id="equilibrio">5. Equilibrio Chimico (Kp / Kc)</h2>
+
+<div class="procedura">
+    <div class="procedura-header">PROCEDURA: Calcolo Concentrazioni all'Equilibrio</div>
+    <div class="procedura-body">
+        <ol>
+            <li><strong>Scrivi la reazione bilanciata</strong></li>
+            <li>
+                <strong>Costruisci la tabella ICE:</strong>
+                <table style="margin:10px 0;">
+                    <tr><th></th><th>Reagenti</th><th>Prodotti</th></tr>
+                    <tr><td><strong>I</strong>niziale</td><td>C₀</td><td>0</td></tr>
+                    <tr><td><strong>C</strong>ambio</td><td>−ax</td><td>+bx</td></tr>
+                    <tr><td><strong>E</strong>quilibrio</td><td>C₀ − ax</td><td>bx</td></tr>
+                </table>
+            </li>
+            <li><strong>Scrivi l'espressione di K</strong> e sostituisci i valori all'equilibrio</li>
+            <li><strong>Risolvi</strong> per trovare x</li>
+        </ol>
+    </div>
+</div>
+
+<div class="formula-box critica">
+    <div class="nome">Costante di equilibrio</div>
+    <div class="formula">K<sub>c</sub> = [C]<sup>c</sup>[D]<sup>d</sup> / [A]<sup>a</sup>[B]<sup>b</sup></div>
+    <p>Per la reazione: aA + bB ⇌ cC + dD</p>
+</div>
+
+<div class="formula-box critica">
+    <div class="nome">Relazione Kp - Kc</div>
+    <div class="formula">K<sub>p</sub> = K<sub>c</sub> × (RT)<sup>Δn</sup></div>
+    <div class="variabili">
+        <dl>
+            <dt>Δn</dt><dd>= (moli gas prodotti) − (moli gas reagenti)</dd>
+            <dt>R</dt><dd><span class="costante">0,0821 L·atm/(mol·K)</span></dd>
+            <dt>T</dt><dd>temperatura in Kelvin</dd>
+        </dl>
+    </div>
+</div>
+
+<div class="attenzione">
+    <strong>Se Δn = 0:</strong> Kp = Kc (non serve conversione!)
+</div>
+
+<h3>Quoziente di Reazione Q</h3>
+<div class="formula-box">
+    <div class="nome">Confronto Q vs K</div>
+    <ul>
+        <li><strong>Q &lt; K</strong> → la reazione procede verso i PRODOTTI</li>
+        <li><strong>Q = K</strong> → sistema all'EQUILIBRIO</li>
+        <li><strong>Q &gt; K</strong> → la reazione procede verso i REAGENTI</li>
+    </ul>
+</div>
+
+<!-- ==================== 6. TERMODINAMICA ==================== -->
+<h2 id="termodinamica">6. Termodinamica (ΔH, ΔG, Hess)</h2>
+
+<h3>Legge di Hess</h3>
+
+<div class="procedura">
+    <div class="procedura-header">PROCEDURA: Applicare la Legge di Hess</div>
+    <div class="procedura-body">
+        <ol>
+            <li><strong>Scrivi la reazione target</strong></li>
+            <li><strong>Manipola le reazioni date</strong> per ottenere la target:
+                <ul>
+                    <li>Se inverti una reazione → <strong>cambia segno</strong> a ΔH</li>
+                    <li>Se moltiplichi per n → <strong>moltiplica anche ΔH</strong></li>
+                </ul>
+            </li>
+            <li><strong>Somma le reazioni</strong> (e i rispettivi ΔH)</li>
+        </ol>
+    </div>
+</div>
+
+<div class="formula-box critica">
+    <div class="nome">ΔH di reazione da entalpie di formazione</div>
+    <div class="formula">ΔH°<sub>reaz</sub> = Σ ΔH°<sub>f</sub>(prodotti) − Σ ΔH°<sub>f</sub>(reagenti)</div>
+</div>
+
+<h3>Energia Libera di Gibbs</h3>
+
+<div class="formula-box critica">
+    <div class="nome">Equazione di Gibbs</div>
+    <div class="formula">ΔG = ΔH − TΔS</div>
+    <div class="variabili">
+        <dl>
+            <dt>ΔG &lt; 0</dt><dd>reazione <strong>spontanea</strong></dd>
+            <dt>ΔG = 0</dt><dd>sistema all'<strong>equilibrio</strong></dd>
+            <dt>ΔG &gt; 0</dt><dd>reazione <strong>non spontanea</strong></dd>
+        </dl>
+    </div>
+</div>
+
+<div class="formula-box critica">
+    <div class="nome">Relazione ΔG° - Keq</div>
+    <div class="formula">ΔG° = −RT ln K = −2,303 RT log K</div>
+    <p>A 25°C: ΔG° = −5,7 × log K [kJ/mol]</p>
+</div>
+
+<h3>Spontaneità - Tabella Riassuntiva</h3>
+<table>
+    <tr><th>ΔH</th><th>ΔS</th><th>ΔG</th><th>Spontaneità</th></tr>
+    <tr><td>−</td><td>+</td><td>sempre −</td><td><strong>Sempre spontanea</strong></td></tr>
+    <tr><td>+</td><td>−</td><td>sempre +</td><td><strong>Mai spontanea</strong></td></tr>
+    <tr><td>−</td><td>−</td><td>dipende da T</td><td>Spontanea a <strong>bassa T</strong></td></tr>
+    <tr><td>+</td><td>+</td><td>dipende da T</td><td>Spontanea ad <strong>alta T</strong></td></tr>
+</table>
+
+<h3>Equazione di Van't Hoff</h3>
+<div class="formula-box">
+    <div class="nome">K a temperature diverse</div>
+    <div class="formula">ln(K₂/K₁) = −(ΔH°/R) × (1/T₂ − 1/T₁)</div>
+</div>
+
+<!-- ==================== 7. pH ACIDI E BASI ==================== -->
+<h2 id="ph">7. pH Acidi e Basi</h2>
+
+<div class="formula-box critica">
+    <div class="nome">Definizioni fondamentali</div>
+    <div class="formula">pH = −log[H₃O⁺] &nbsp;&nbsp;&nbsp; pOH = −log[OH⁻] &nbsp;&nbsp;&nbsp; pH + pOH = 14</div>
+</div>
+
+<h3>Acido/Base FORTE (dissociazione completa)</h3>
+
+<div class="procedura">
+    <div class="procedura-header">PROCEDURA: pH Acido Forte</div>
+    <div class="procedura-body">
+        <ol>
+            <li>[H⁺] = C<sub>acido</sub> × (numero di H⁺ rilasciati)</li>
+            <li>pH = −log[H⁺]</li>
+        </ol>
+    </div>
+</div>
+
+<div class="esempio">
+    <strong>Esempio:</strong> pH di HCl 0,01 M<br>
+    [H⁺] = 0,01 M → pH = −log(0,01) = 2
+</div>
+
+<h3>Acido/Base DEBOLE</h3>
+
+<div class="procedura">
+    <div class="procedura-header">PROCEDURA: pH Acido Debole</div>
+    <div class="procedura-body">
+        <ol>
+            <li>Scrivi la dissociazione: HA ⇌ H⁺ + A⁻</li>
+            <li>
+                <strong>Usa l'approssimazione</strong> (se C >> [H⁺]):
+                <div class="formula formula-small">[H⁺] = √(K<sub>a</sub> × C)</div>
+            </li>
+            <li>pH = −log[H⁺]</li>
+        </ol>
+    </div>
+</div>
+
+<div class="formula-box critica">
+    <div class="nome">Formula rapida per acido debole</div>
+    <div class="formula">pH = ½pK<sub>a</sub> − ½log C</div>
+    <div class="variabili">
+        <dl>
+            <dt>pK<sub>a</sub></dt><dd>= −log(K<sub>a</sub>)</dd>
+            <dt>C</dt><dd>concentrazione iniziale dell'acido [M]</dd>
+        </dl>
+    </div>
+</div>
+
+<div class="formula-box">
+    <div class="nome">Formula rapida per base debole</div>
+    <div class="formula">pOH = ½pK<sub>b</sub> − ½log C &nbsp;&nbsp;&nbsp; poi &nbsp;&nbsp;&nbsp; pH = 14 − pOH</div>
+</div>
+
+<h3>Calcolo INVERSO: Trovare C dato il pH</h3>
+<div class="procedura">
+    <div class="procedura-header">PROCEDURA: Concentrazione da pH</div>
+    <div class="procedura-body">
+        <ol>
+            <li>Calcola [H⁺] = 10<sup>−pH</sup></li>
+            <li>Dalla formula [H⁺] = √(K<sub>a</sub> × C), ricava:</li>
+            <li><div class="formula formula-small">C = [H⁺]² / K<sub>a</sub></div></li>
+        </ol>
+    </div>
+</div>
+
+<h3>Relazione Ka - Kb</h3>
+<div class="formula-box">
+    <div class="nome">Per coppie coniugate</div>
+    <div class="formula">K<sub>a</sub> × K<sub>b</sub> = K<sub>w</sub> = 10<sup>−14</sup> &nbsp;&nbsp;&nbsp; pK<sub>a</sub> + pK<sub>b</sub> = 14</div>
+</div>
+
+<!-- ==================== 8. TAMPONI ==================== -->
+<h2 id="tamponi">8. Soluzioni Tampone</h2>
+
+<div class="formula-box critica">
+    <div class="nome">Equazione di Henderson-Hasselbalch</div>
+    <div class="formula">pH = pK<sub>a</sub> + log([A⁻]/[HA])</div>
+    <p style="text-align:center;">oppure: pH = pK<sub>a</sub> + log(C<sub>sale</sub>/C<sub>acido</sub>)</p>
+</div>
+
+<div class="procedura">
+    <div class="procedura-header">PROCEDURA: pH di un Tampone</div>
+    <div class="procedura-body">
+        <ol>
+            <li>Identifica l'acido debole (HA) e la sua base coniugata (A⁻)</li>
+            <li>Calcola le moli di entrambi</li>
+            <li>Applica Henderson-Hasselbalch</li>
+        </ol>
+    </div>
+</div>
+
+<h3>Aggiunta di Acido/Base Forte al Tampone</h3>
+
+<div class="formula-box">
+    <div class="nome">Dopo aggiunta di acido forte (a moli)</div>
+    <div class="formula">pH = pK<sub>a</sub> + log[(n<sub>sale</sub> − a) / (n<sub>acido</sub> + a)]</div>
+</div>
+
+<div class="formula-box">
+    <div class="nome">Dopo aggiunta di base forte (b moli)</div>
+    <div class="formula">pH = pK<sub>a</sub> + log[(n<sub>sale</sub> + b) / (n<sub>acido</sub> − b)]</div>
+</div>
+
+<div class="trucco">
+    <strong>Il tampone funziona meglio quando:</strong> [A⁻]/[HA] è vicino a 1, cioè pH ≈ pK<sub>a</sub>
+</div>
+
+<h3>Idrolisi dei Sali</h3>
+<table>
+    <tr><th>Tipo di sale</th><th>pH soluzione</th><th>Formula</th></tr>
+    <tr><td>Acido forte + Base forte</td><td>Neutro (7)</td><td>—</td></tr>
+    <tr><td>Acido debole + Base forte</td><td>Basico (&gt;7)</td><td>pH = 7 + ½pK<sub>a</sub> + ½log C</td></tr>
+    <tr><td>Acido forte + Base debole</td><td>Acido (&lt;7)</td><td>pH = 7 − ½pK<sub>b</sub> − ½log C</td></tr>
+</table>
+
+<!-- ==================== 9. LEWIS + VSEPR ==================== -->
+<h2 id="lewis">9. Strutture di Lewis + VSEPR</h2>
+
+<p><strong>Frequenza:</strong> Presente in ogni esame. Richiede: struttura di Lewis, geometria, ibridizzazione, polarità.</p>
+
+<div class="procedura">
+    <div class="procedura-header">PROCEDURA: Struttura di Lewis + Geometria</div>
+    <div class="procedura-body">
+        <ol>
+            <li>
+                <strong>Conta gli elettroni di valenza TOTALI</strong>
+                <div class="step-importante">
+                    Gruppo 1 = 1e⁻ | Gruppo 2 = 2e⁻ | ... | Gruppo 17 = 7e⁻ | Gruppo 18 = 8e⁻<br>
+                    Se ione: +1e⁻ per ogni carica negativa, −1e⁻ per ogni carica positiva
+                </div>
+            </li>
+            <li>
+                <strong>Identifica l'atomo centrale</strong>
+                <ul>
+                    <li>Di solito il meno elettronegativo</li>
+                    <li>H e F sono SEMPRE periferici</li>
+                </ul>
+            </li>
+            <li><strong>Disegna lo scheletro</strong> con legami singoli</li>
+            <li><strong>Distribuisci gli elettroni rimanenti</strong> come doppietti:
+                <ul>
+                    <li>Prima completa l'ottetto degli atomi periferici</li>
+                    <li>Poi metti i rimanenti sul centrale</li>
+                </ul>
+            </li>
+            <li><strong>Se l'atomo centrale non ha ottetto</strong>, forma legami multipli</li>
+            <li>
+                <strong>Conta le "regioni di densità elettronica"</strong> sul centrale:
+                <div class="step-importante">
+                    1 legame (singolo/doppio/triplo) = 1 regione<br>
+                    1 doppietto solitario = 1 regione
+                </div>
+            </li>
+            <li><strong>Determina geometria e ibridizzazione</strong> dalla tabella VSEPR</li>
+        </ol>
+    </div>
+</div>
+
+<h3>Tabella VSEPR Completa</h3>
+<table>
+    <tr>
+        <th>Regioni</th>
+        <th>Legami</th>
+        <th>Lone pairs</th>
+        <th>Geometria</th>
+        <th>Angoli</th>
+        <th>Ibridizzazione</th>
+    </tr>
+    <tr><td>2</td><td>2</td><td>0</td><td>Lineare</td><td>180°</td><td>sp</td></tr>
+    <tr><td>3</td><td>3</td><td>0</td><td>Trigonale planare</td><td>120°</td><td>sp²</td></tr>
+    <tr><td>3</td><td>2</td><td>1</td><td>Angolare</td><td>&lt;120°</td><td>sp²</td></tr>
+    <tr><td>4</td><td>4</td><td>0</td><td>Tetraedrica</td><td>109,5°</td><td>sp³</td></tr>
+    <tr><td>4</td><td>3</td><td>1</td><td>Piramidale trigonale</td><td>≈107°</td><td>sp³</td></tr>
+    <tr><td>4</td><td>2</td><td>2</td><td>Angolare</td><td>≈104,5°</td><td>sp³</td></tr>
+    <tr><td>5</td><td>5</td><td>0</td><td>Bipiramidale trigonale</td><td>90°, 120°</td><td>sp³d</td></tr>
+    <tr><td>5</td><td>4</td><td>1</td><td>Altalena (seesaw)</td><td>&lt;90°, &lt;120°</td><td>sp³d</td></tr>
+    <tr><td>5</td><td>3</td><td>2</td><td>T-shaped</td><td>&lt;90°</td><td>sp³d</td></tr>
+    <tr><td>5</td><td>2</td><td>3</td><td>Lineare</td><td>180°</td><td>sp³d</td></tr>
+    <tr><td>6</td><td>6</td><td>0</td><td>Ottaedrica</td><td>90°</td><td>sp³d²</td></tr>
+    <tr><td>6</td><td>5</td><td>1</td><td>Piramidale quadrata</td><td>&lt;90°</td><td>sp³d²</td></tr>
+    <tr><td>6</td><td>4</td><td>2</td><td>Quadrata planare</td><td>90°</td><td>sp³d²</td></tr>
+</table>
+
+<h3>Elettroni di Valenza - Riferimento Rapido</h3>
+<table>
+    <tr><th>Elemento</th><th>Gruppo</th><th>e⁻ valenza</th><th>Legami tipici</th></tr>
+    <tr><td>H</td><td>1</td><td>1</td><td>1</td></tr>
+    <tr><td>C</td><td>14</td><td>4</td><td>4</td></tr>
+    <tr><td>N</td><td>15</td><td>5</td><td>3 (+ 1 lone pair)</td></tr>
+    <tr><td>O</td><td>16</td><td>6</td><td>2 (+ 2 lone pairs)</td></tr>
+    <tr><td>S</td><td>16</td><td>6</td><td>2, 4 o 6</td></tr>
+    <tr><td>P</td><td>15</td><td>5</td><td>3 o 5</td></tr>
+    <tr><td>Alogeni (F, Cl, Br, I)</td><td>17</td><td>7</td><td>1, 3, 5 o 7</td></tr>
+</table>
+
+<h3>Polarità Molecolare</h3>
+<div class="trucco">
+    <strong>Molecola POLARE se:</strong>
+    <ul>
+        <li>Ha legami polari (ΔEN &gt; 0,4) E</li>
+        <li>Geometria NON simmetrica (i dipoli non si annullano)</li>
+    </ul>
+    <strong>Molecola APOLARE se:</strong>
+    <ul>
+        <li>Solo legami apolari, OPPURE</li>
+        <li>Geometria simmetrica (lineare, trigonale planare, tetraedrica senza lone pairs)</li>
+    </ul>
+</div>
+
+<div class="esempio">
+    <strong>Esempi comuni:</strong><br>
+    <strong>H₂O:</strong> 2 legami + 2 lone pairs → 4 regioni → sp³ → angolare (≈104,5°) → POLARE<br>
+    <strong>CO₂:</strong> 2 doppi legami → 2 regioni → sp → lineare (180°) → APOLARE<br>
+    <strong>NH₃:</strong> 3 legami + 1 lone pair → 4 regioni → sp³ → piramidale → POLARE<br>
+    <strong>CH₄:</strong> 4 legami → 4 regioni → sp³ → tetraedrica → APOLARE<br>
+    <strong>SF₆:</strong> 6 legami → 6 regioni → sp³d² → ottaedrica → APOLARE
+</div>
+
+<!-- ==================== 10. CINETICA ==================== -->
+<h2 id="cinetica">10. Cinetica e Arrhenius</h2>
+
+<h3>Ordine di Reazione</h3>
+<table>
+    <tr><th>Ordine</th><th>Legge integrata</th><th>Grafico lineare</th><th>t<sub>½</sub></th><th>Unità di k</th></tr>
+    <tr><td>0</td><td>[A] = [A]₀ − kt</td><td>[A] vs t</td><td>[A]₀ / 2k</td><td>mol/(L·s)</td></tr>
+    <tr><td>1</td><td>ln[A] = ln[A]₀ − kt</td><td>ln[A] vs t</td><td><strong>0,693 / k</strong></td><td>s⁻¹</td></tr>
+    <tr><td>2</td><td>1/[A] = 1/[A]₀ + kt</td><td>1/[A] vs t</td><td>1 / (k[A]₀)</td><td>L/(mol·s)</td></tr>
+</table>
+
+<div class="trucco">
+    <strong>Come determinare l'ordine:</strong> Fai i 3 grafici. Quello lineare ti dice l'ordine!<br>
+    <strong>Primo ordine:</strong> t<sub>½</sub> è COSTANTE (non dipende da [A]₀)
+</div>
+
+<h3>Equazione di Arrhenius</h3>
+
+<div class="formula-box critica">
+    <div class="nome">Forma a due temperature</div>
+    <div class="formula">ln(k₂/k₁) = (E<sub>a</sub>/R) × (1/T₁ − 1/T₂)</div>
+    <div class="variabili">
+        <dl>
+            <dt>k₁, k₂</dt><dd>costanti cinetiche alle temperature T₁ e T₂</dd>
+            <dt>E<sub>a</sub></dt><dd>energia di attivazione [J/mol]</dd>
+            <dt>R</dt><dd><span class="costante">8,314 J/(mol·K)</span></dd>
+            <dt>T₁, T₂</dt><dd>temperature in Kelvin</dd>
+        </dl>
+    </div>
+</div>
+
+<div class="procedura">
+    <div class="procedura-header">PROCEDURA: Trovare T per cui k raddoppia</div>
+    <div class="procedura-body">
+        <ol>
+            <li>Imposta k₂/k₁ = 2 → ln(2) = 0,693</li>
+            <li>Sostituisci: 0,693 = (E<sub>a</sub>/R) × (1/T₁ − 1/T₂)</li>
+            <li>Risolvi per T₂</li>
+        </ol>
+    </div>
+</div>
+
+<div class="formula-box">
+    <div class="nome">Calcolo energia di attivazione</div>
+    <div class="formula">E<sub>a</sub> = R × ln(k₂/k₁) / (1/T₁ − 1/T₂)</div>
+</div>
+
+<!-- ==================== 11. EFFETTO FOTOELETTRICO ==================== -->
+<h2 id="fotoelettrico">11. Effetto Fotoelettrico e Bohr</h2>
+
+<div class="formula-box critica">
+    <div class="nome">Energia del fotone</div>
+    <div class="formula">E = hν = hc/λ</div>
+    <div class="variabili">
+        <dl>
+            <dt>h</dt><dd><span class="costante">6,63 × 10⁻³⁴ J·s</span> (costante di Planck)</dd>
+            <dt>ν</dt><dd>frequenza [Hz = s⁻¹]</dd>
+            <dt>c</dt><dd><span class="costante">3 × 10⁸ m/s</span></dd>
+            <dt>λ</dt><dd>lunghezza d'onda [m]</dd>
+        </dl>
+    </div>
+</div>
+
+<div class="formula-box critica">
+    <div class="nome">Effetto fotoelettrico</div>
+    <div class="formula">hν = ω + E<sub>cinetica</sub> = hν₀ + ½mv²</div>
+    <div class="variabili">
+        <dl>
+            <dt>ω = hν₀</dt><dd>lavoro di estrazione (energia minima per estrarre e⁻)</dd>
+            <dt>ν₀</dt><dd>frequenza di soglia</dd>
+            <dt>E<sub>cin</sub></dt><dd>energia cinetica dell'elettrone emesso</dd>
+        </dl>
+    </div>
+</div>
+
+<div class="procedura">
+    <div class="procedura-header">PROCEDURA: Esercizio Fotoelettrico</div>
+    <div class="procedura-body">
+        <ol>
+            <li><strong>Calcola ω</strong> dalla frequenza di soglia: ω = hν₀</li>
+            <li><strong>Calcola E del fotone incidente:</strong> E = hc/λ</li>
+            <li><strong>Se E &lt; ω:</strong> NESSUNA emissione</li>
+            <li><strong>Se E ≥ ω:</strong> E<sub>cinetica</sub> = E − ω</li>
+        </ol>
+    </div>
+</div>
+
+<h3>Modello di Bohr (Idrogeno)</h3>
+
+<div class="formula-box">
+    <div class="nome">Energia dell'elettrone al livello n</div>
+    <div class="formula">E<sub>n</sub> = −13,6 / n² [eV]</div>
+</div>
+
+<div class="formula-box">
+    <div class="nome">Formula di Rydberg (transizioni)</div>
+    <div class="formula">1/λ = R<sub>H</sub> × (1/n₁² − 1/n₂²)</div>
+    <p>R<sub>H</sub> = <span class="costante">1,097 × 10⁷ m⁻¹</span></p>
+</div>
+
+<!-- ==================== 12. COSTANTI ==================== -->
+<h2 id="costanti">12. Costanti e Conversioni</h2>
+
+<h3>Costanti Fondamentali</h3>
+<table>
+    <tr><th>Costante</th><th>Simbolo</th><th>Valore</th></tr>
+    <tr><td>Numero di Avogadro</td><td>N<sub>A</sub></td><td><strong>6,022 × 10²³</strong> mol⁻¹</td></tr>
+    <tr><td>Costante di Faraday</td><td>F</td><td><strong>96485</strong> C/mol</td></tr>
+    <tr><td>Costante dei gas</td><td>R</td><td><strong>8,314</strong> J/(mol·K) = <strong>0,0821</strong> L·atm/(mol·K)</td></tr>
+    <tr><td>Costante di Planck</td><td>h</td><td><strong>6,63 × 10⁻³⁴</strong> J·s</td></tr>
+    <tr><td>Velocità della luce</td><td>c</td><td><strong>3 × 10⁸</strong> m/s</td></tr>
+    <tr><td>Prodotto ionico acqua</td><td>K<sub>w</sub></td><td><strong>10⁻¹⁴</strong> (a 25°C)</td></tr>
+    <tr><td>Volume molare (c.n.)</td><td>V<sub>m</sub></td><td><strong>22,4</strong> L/mol</td></tr>
+    <tr><td>Costante di Rydberg</td><td>R<sub>H</sub></td><td><strong>1,097 × 10⁷</strong> m⁻¹</td></tr>
+</table>
+
+<h3>Conversioni Utili</h3>
+<table>
+    <tr><th>Grandezza</th><th>Conversione</th></tr>
+    <tr><td>Temperatura</td><td>T(K) = T(°C) + 273</td></tr>
+    <tr><td>Pressione</td><td>1 atm = 101325 Pa = 760 mmHg = 1,013 bar</td></tr>
+    <tr><td>Energia</td><td>1 eV = 1,6 × 10⁻¹⁹ J &nbsp;|&nbsp; 1 cal = 4,184 J</td></tr>
+    <tr><td>Volume</td><td>1 L = 10⁻³ m³ = 1 dm³ = 1000 mL</td></tr>
+    <tr><td>Lunghezza</td><td>1 nm = 10⁻⁹ m &nbsp;|&nbsp; 1 Å = 10⁻¹⁰ m</td></tr>
+</table>
+
+<div class="quick-ref">
+    <h4>Formule "salvavita" per l'esame</h4>
+    <ul>
+        <li><code>n = m/M</code> → moli da massa</li>
+        <li><code>PV = nRT</code> → gas ideali</li>
+        <li><code>pH = −log[H⁺]</code> → definizione pH</li>
+        <li><code>ΔE = E°(cat) − E°(an)</code> → f.e.m. pila</li>
+        <li><code>E = E° − (0,059/n)log Q</code> → Nernst</li>
+        <li><code>m = MIt/(nF)</code> → Faraday</li>
+        <li><code>ΔG° = −RT ln K</code> → spontaneità</li>
+        <li><code>pH = pKa + log([A⁻]/[HA])</code> → tampone</li>
+    </ul>
+</div>
+
+<hr style="margin-top: 50px;">
+
+<p style="text-align: center; color: #888; font-size: 0.9em;">
+    Formulario Operativo - Chimica Generale<br>
+    Politecnico di Milano<br>
+    <em>ChemPortal - https://jackscampi-backup.github.io/ChemPortal/</em>
+</p>
+
+</body>
+</html>
