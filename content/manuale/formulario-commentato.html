@@ -1,0 +1,1153 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulario Commentato - Chimica Generale</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 2cm;
+        }
+        body {
+            font-family: Georgia, serif;
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            line-height: 1.8;
+            color: #333;
+        }
+        h1 {
+            color: #1a5276;
+            border-bottom: 4px solid #2980b9;
+            padding-bottom: 15px;
+            font-size: 2em;
+        }
+        h2 {
+            color: #2471a3;
+            margin-top: 50px;
+            border-left: 4px solid #3498db;
+            padding-left: 15px;
+            page-break-after: avoid;
+        }
+        h3 {
+            color: #1e8449;
+            margin-top: 30px;
+        }
+        h4 {
+            color: #7d3c98;
+            margin-top: 20px;
+        }
+        .indice {
+            background: #eaf2f8;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .indice ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        .indice li {
+            margin: 5px 0;
+        }
+        .indice a {
+            color: #2471a3;
+            text-decoration: none;
+        }
+        .indice a:hover {
+            text-decoration: underline;
+        }
+        .intro-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 12px;
+            margin: 25px 0;
+        }
+        .intro-box h3 {
+            color: white;
+            margin-top: 0;
+        }
+        .formula-box {
+            background: #fdebd0;
+            padding: 20px;
+            border: 2px solid #e67e22;
+            border-radius: 8px;
+            margin: 25px 0;
+        }
+        .formula-box .nome {
+            font-weight: bold;
+            color: #d35400;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+        .formula-box .formula {
+            font-size: 1.4em;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            text-align: center;
+            background: white;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        .simboli-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 0.95em;
+        }
+        .simboli-table th {
+            background: #3498db;
+            color: white;
+            padding: 10px;
+            text-align: left;
+        }
+        .simboli-table td {
+            border: 1px solid #bdc3c7;
+            padding: 10px;
+        }
+        .simboli-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        .cosa-significa {
+            background: #e8f6f3;
+            padding: 20px;
+            border-left: 4px solid #1abc9c;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        .cosa-significa h4 {
+            color: #16a085;
+            margin-top: 0;
+        }
+        .quando-usare {
+            background: #e8f4fd;
+            padding: 15px;
+            border-left: 4px solid #3498db;
+            margin: 15px 0;
+        }
+        .quando-usare h4 {
+            color: #2980b9;
+            margin-top: 0;
+        }
+        .esempio {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border: 1px solid #ddd;
+        }
+        .esempio .titolo {
+            font-weight: bold;
+            color: #7d3c98;
+            margin-bottom: 10px;
+        }
+        .calcolo {
+            font-family: 'Courier New', monospace;
+            background: #ecf0f1;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .nota {
+            background: #fff3cd;
+            padding: 15px;
+            border-left: 4px solid #f39c12;
+            margin: 15px 0;
+        }
+        .attenzione {
+            background: #fdedec;
+            padding: 15px;
+            border-left: 4px solid #e74c3c;
+            margin: 15px 0;
+        }
+        .riepilogo {
+            background: #d5f5e3;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 30px 0;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #bdc3c7;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background: #3498db;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        sub { font-size: 0.75em; }
+        sup { font-size: 0.75em; }
+        .section-intro {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #9b59b6;
+        }
+        .costanti-box {
+            background: #f0f4f8;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border: 1px solid #bdc3c7;
+        }
+        .conversioni-box {
+            background: #fef9e7;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        hr {
+            border: none;
+            height: 2px;
+            background: linear-gradient(to right, #3498db, #9b59b6);
+            margin: 40px 0;
+        }
+        .highlight {
+            background: #fff176;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Formulario Commentato di Chimica Generale</h1>
+
+<div class="intro-box">
+    <h3>Basato sul Formulario di Filippo Paolo Arculeo</h3>
+    <p>Politecnico di Milano - Esame del Prof. Sebastiano</p>
+    <p>Questo documento riprende tutte le formule del formulario originale, ma per ciascuna spiega:</p>
+    <ul>
+        <li><strong>I simboli</strong> - cosa rappresenta ogni lettera</li>
+        <li><strong>Cosa significa</strong> - il concetto fisico dietro la formula</li>
+        <li><strong>Quando si usa</strong> - in quali tipi di esercizi</li>
+        <li><strong>Esempi</strong> - calcoli pratici svolti</li>
+    </ul>
+</div>
+
+<div class="indice">
+<strong>INDICE</strong>
+<ul>
+    <li><a href="#teoria">1. Teoria Atomica</a></li>
+    <li><a href="#lewis">2. Formule di Lewis e VSEPR</a></li>
+    <li><a href="#stechiometria">3. Stechiometria</a></li>
+    <li><a href="#acidi">4. Acidi e Basi</a></li>
+    <li><a href="#termodinamica">5. Termodinamica</a></li>
+    <li><a href="#cinetica">6. Cinetica Chimica</a></li>
+    <li><a href="#elettrochimica">7. Elettrochimica</a></li>
+    <li><a href="#costanti">8. Costanti Fondamentali</a></li>
+    <li><a href="#conversioni">9. Conversioni</a></li>
+</ul>
+</div>
+
+<!-- ============================================== -->
+<h2 id="teoria">1. Teoria Atomica</h2>
+<!-- ============================================== -->
+
+<div class="section-intro">
+Questa sezione riguarda la struttura dell'atomo, la natura della luce e l'interazione tra radiazione elettromagnetica e materia. Agli esami escono spesso esercizi sull'<strong>effetto fotoelettrico</strong> e sul <strong>modello di Bohr</strong>.
+</div>
+
+<h3>1.1 Relazione lunghezza d'onda - frequenza</h3>
+
+<div class="formula-box">
+    <div class="nome">Relazione fondamentale delle onde</div>
+    <div class="formula">&lambda; = c / &nu;</div>
+
+    <table class="simboli-table">
+        <tr><th>Simbolo</th><th>Nome</th><th>Significato</th><th>Unita</th><th>Valore</th></tr>
+        <tr><td><strong>&lambda;</strong></td><td>lambda</td><td>Lunghezza d'onda</td><td>m, nm, A</td><td>variabile</td></tr>
+        <tr><td><strong>c</strong></td><td>ci</td><td>Velocita della luce</td><td>m/s</td><td><strong>3 x 10<sup>8</sup> m/s</strong></td></tr>
+        <tr><td><strong>&nu;</strong></td><td>ni greco</td><td>Frequenza</td><td>Hz = s<sup>-1</sup></td><td>variabile</td></tr>
+    </table>
+</div>
+
+<div class="cosa-significa">
+    <h4>Cosa significa</h4>
+    <p>La luce e un'<strong>onda elettromagnetica</strong>, cioe un'oscillazione di campi elettrici e magnetici che si propaga nello spazio. Come tutte le onde, ha due caratteristiche fondamentali:</p>
+    <ul>
+        <li><strong>Lunghezza d'onda (&lambda;)</strong>: la distanza tra due "creste" consecutive dell'onda. Immagina le onde del mare: &lambda; e la distanza da una cresta alla successiva.</li>
+        <li><strong>Frequenza (&nu;)</strong>: quante oscillazioni complete avvengono in un secondo. Se &lambda; e lo "spazio", &nu; e il "ritmo".</li>
+    </ul>
+    <p>La formula &lambda; = c/&nu; ci dice che queste due grandezze sono <strong>inversamente proporzionali</strong>: se una aumenta, l'altra deve diminuire, perche il loro prodotto deve sempre dare c (costante).</p>
+    <p><strong>Intuizione fisica</strong>: immagina di camminare facendo passi lunghi (grande &lambda;). Per mantenere la stessa velocita, devi fare pochi passi al secondo (bassa &nu;). Lunghezza d'onda grande = oscillazioni lente; lunghezza d'onda piccola = oscillazioni rapide.</p>
+    <p><strong>Conseguenza pratica</strong>: la luce rossa (&lambda; ~ 700 nm) ha frequenza piu bassa della luce blu (&lambda; ~ 400 nm).</p>
+</div>
+
+<div class="quando-usare">
+    <h4>Quando si usa</h4>
+    <ul>
+        <li>Quando ti danno la frequenza e devi trovare la lunghezza d'onda (o viceversa)</li>
+        <li>Come passaggio intermedio negli esercizi sull'effetto fotoelettrico</li>
+        <li>Per convertire tra &lambda; e &nu; prima di calcolare l'energia</li>
+    </ul>
+</div>
+
+<div class="esempio">
+    <div class="titolo">Esempio</div>
+    <p><em>Un fotone ha frequenza &nu; = 5 x 10<sup>14</sup> Hz. Qual e la sua lunghezza d'onda?</em></p>
+    <div class="calcolo">
+&lambda; = c / &nu; = (3 x 10<sup>8</sup>) / (5 x 10<sup>14</sup>) = 6 x 10<sup>-7</sup> m = <strong>600 nm</strong> (luce arancione)
+    </div>
+</div>
+
+<hr>
+
+<h3>1.2 Energia di un fotone</h3>
+
+<div class="formula-box">
+    <div class="nome">Equazione di Planck</div>
+    <div class="formula">E = h&nu; = hc/&lambda;</div>
+
+    <table class="simboli-table">
+        <tr><th>Simbolo</th><th>Nome</th><th>Significato</th><th>Unita</th><th>Valore</th></tr>
+        <tr><td><strong>E</strong></td><td>-</td><td>Energia del fotone</td><td>J oppure eV</td><td>variabile</td></tr>
+        <tr><td><strong>h</strong></td><td>-</td><td>Costante di Planck</td><td>J&middot;s</td><td><strong>6,63 x 10<sup>-34</sup> J&middot;s</strong></td></tr>
+        <tr><td><strong>&nu;</strong></td><td>ni</td><td>Frequenza</td><td>Hz</td><td>variabile</td></tr>
+        <tr><td><strong>c</strong></td><td>-</td><td>Velocita della luce</td><td>m/s</td><td>3 x 10<sup>8</sup> m/s</td></tr>
+        <tr><td><strong>&lambda;</strong></td><td>lambda</td><td>Lunghezza d'onda</td><td>m</td><td>variabile</td></tr>
+    </table>
+
+    <div class="nota" style="margin-top: 15px;">
+        <strong>Conversione energia:</strong> 1 eV = 1,60 x 10<sup>-19</sup> J<br>
+        Per convertire J &rarr; eV: dividi per 1,60 x 10<sup>-19</sup>
+    </div>
+</div>
+
+<div class="cosa-significa">
+    <h4>Cosa significa</h4>
+    <p>Questa e una delle formule piu rivoluzionarie della fisica moderna. Prima di Planck (1900) si pensava che l'energia potesse assumere qualsiasi valore. Planck scopri che l'energia della luce e <strong>quantizzata</strong>: arriva in "pacchetti" discreti chiamati <strong>fotoni</strong>.</p>
+    <p><strong>E = h&nu;</strong> ci dice che l'energia di ogni fotone e direttamente proporzionale alla sua frequenza:</p>
+    <ul>
+        <li>Fotone di luce <strong>viola</strong> (alta frequenza) &rarr; trasporta <strong>piu energia</strong></li>
+        <li>Fotone di luce <strong>rossa</strong> (bassa frequenza) &rarr; trasporta <strong>meno energia</strong></li>
+        <li>Raggi <strong>UV e X</strong> (frequenze altissime) sono pericolosi perche ogni fotone porta molta energia</li>
+        <li><strong>Onde radio</strong> (frequenze bassissime) sono innocue: ogni fotone ha pochissima energia</li>
+    </ul>
+    <p><strong>Attenzione all'intensita</strong>: aumentare l'intensita della luce significa mandare PIU fotoni, non fotoni piu energetici. Un faro rosso manda miliardi di fotoni "deboli"; un laser UV manda pochi fotoni ma ciascuno molto "potente".</p>
+</div>
+
+<div class="quando-usare">
+    <h4>Quando si usa</h4>
+    <ul>
+        <li><strong>Effetto fotoelettrico</strong>: calcolare l'energia del fotone incidente</li>
+        <li><strong>Transizioni elettroniche</strong>: energia emessa/assorbita quando un elettrone cambia livello</li>
+        <li>Ogni volta che passi da frequenza (o &lambda;) a energia</li>
+    </ul>
+</div>
+
+<div class="esempio">
+    <div class="titolo">Esempio</div>
+    <p><em>Qual e l'energia di un fotone con &lambda; = 500 nm?</em></p>
+    <div class="calcolo">
+E = hc/&lambda; = (6,63 x 10<sup>-34</sup> x 3 x 10<sup>8</sup>) / (500 x 10<sup>-9</sup>)
+E = 3,98 x 10<sup>-19</sup> J = <strong>2,49 eV</strong>
+    </div>
+</div>
+
+<hr>
+
+<h3>1.3 Effetto fotoelettrico</h3>
+
+<div class="formula-box">
+    <div class="nome">Bilancio energetico dell'effetto fotoelettrico</div>
+    <div class="formula">h&nu; = &omega; + &frac12;mv<sup>2</sup></div>
+
+    <table class="simboli-table">
+        <tr><th>Simbolo</th><th>Significato</th><th>Unita</th><th>Note</th></tr>
+        <tr><td><strong>h&nu;</strong></td><td>Energia del fotone incidente</td><td>J</td><td>variabile</td></tr>
+        <tr><td><strong>&omega;</strong></td><td>Lavoro di estrazione (work function)</td><td>J o eV</td><td>dipende dal metallo</td></tr>
+        <tr><td><strong>&frac12;mv<sup>2</sup></strong></td><td>Energia cinetica dell'elettrone</td><td>J</td><td>da calcolare</td></tr>
+        <tr><td><strong>m</strong></td><td>Massa dell'elettrone</td><td>kg</td><td><strong>9,11 x 10<sup>-31</sup> kg</strong></td></tr>
+    </table>
+</div>
+
+<div class="cosa-significa">
+    <h4>Cosa significa</h4>
+    <p>L'effetto fotoelettrico e il fenomeno che valse a Einstein il Nobel nel 1921 e confermo la natura quantistica della luce.</p>
+    <p><strong>Il fenomeno</strong>: quando la luce colpisce una superficie metallica, gli elettroni possono essere "strappati" dal metallo ed espulsi. Ma questo succede SOLO se il fotone ha abbastanza energia.</p>
+    <p><strong>L'analogia della buca</strong>: immagina un elettrone come una pallina in fondo a una buca profonda. Per liberare la pallina, devi fornire almeno l'energia necessaria a farla uscire dalla buca: questa e la <strong>funzione lavoro &omega;</strong>.</p>
+    <ul>
+        <li><strong>Se h&nu; &lt; &omega;</strong>: il fotone non ha abbastanza energia, l'elettrone resta nel metallo</li>
+        <li><strong>Se h&nu; = &omega;</strong>: l'elettrone esce appena appena, con velocita zero</li>
+        <li><strong>Se h&nu; &gt; &omega;</strong>: l'elettrone esce e l'energia "in eccesso" diventa energia cinetica</li>
+    </ul>
+    <p><strong>Perche e rivoluzionario?</strong> Un milione di fotoni rossi (bassa frequenza) non estrae nulla se &omega; e troppo alto. Un singolo fotone UV (alta frequenza) puo farlo. Conta l'energia del SINGOLO fotone!</p>
+</div>
+
+<div class="nota">
+    <strong>Frequenza di soglia:</strong> &omega; = h&nu;<sub>0</sub> &rarr; &nu;<sub>0</sub> = &omega;/h<br>
+    <strong>&nu;<sub>0</sub></strong> e la frequenza minima per estrarre elettroni. Se &nu; &lt; &nu;<sub>0</sub>, l'elettrone NON esce!
+</div>
+
+<div class="esempio">
+    <div class="titolo">Esempio completo</div>
+    <p><em>Un fotone con &lambda; = 200 nm colpisce sodio (&omega; = 2,3 eV). Trova la velocita degli elettroni emessi.</em></p>
+    <div class="calcolo">
+<strong>Passo 1</strong>: Calcolo E_fotone
+E = hc/&lambda; = (6,63 x 10<sup>-34</sup> x 3 x 10<sup>8</sup>) / (200 x 10<sup>-9</sup>) = 9,95 x 10<sup>-19</sup> J = 6,2 eV
+
+<strong>Passo 2</strong>: Calcolo E_cinetica
+E_k = E_fotone - &omega; = 6,2 - 2,3 = 3,9 eV = 6,24 x 10<sup>-19</sup> J
+
+<strong>Passo 3</strong>: Calcolo velocita
+&frac12;mv<sup>2</sup> = E_k
+v = &radic;(2E_k/m) = &radic;(2 x 6,24 x 10<sup>-19</sup> / 9,11 x 10<sup>-31</sup>) = <strong>1,17 x 10<sup>6</sup> m/s</strong>
+    </div>
+</div>
+
+<hr>
+
+<h3>1.4 Formula di Rydberg (spettro dell'idrogeno)</h3>
+
+<div class="formula-box">
+    <div class="nome">Formula di Rydberg</div>
+    <div class="formula">1/&lambda; = R<sub>H</sub> x (1/n<sub>1</sub><sup>2</sup> - 1/n<sub>2</sub><sup>2</sup>)</div>
+    <p style="text-align: center; margin-top: 10px;">con n<sub>2</sub> &gt; n<sub>1</sub></p>
+
+    <table class="simboli-table">
+        <tr><th>Simbolo</th><th>Significato</th><th>Unita</th><th>Valore</th></tr>
+        <tr><td><strong>&lambda;</strong></td><td>Lunghezza d'onda emessa</td><td>m</td><td>variabile</td></tr>
+        <tr><td><strong>R<sub>H</sub></strong></td><td>Costante di Rydberg</td><td>m<sup>-1</sup></td><td><strong>1,097 x 10<sup>7</sup> m<sup>-1</sup></strong></td></tr>
+        <tr><td><strong>n<sub>1</sub></strong></td><td>Livello finale (piu basso)</td><td>-</td><td>1, 2, 3... (intero)</td></tr>
+        <tr><td><strong>n<sub>2</sub></strong></td><td>Livello iniziale (piu alto)</td><td>-</td><td>intero &gt; n<sub>1</sub></td></tr>
+    </table>
+</div>
+
+<div class="cosa-significa">
+    <h4>Cosa significa</h4>
+    <p>Questa formula, scoperta empiricamente da Rydberg nel 1888, fu uno dei grandi misteri che portarono alla meccanica quantistica.</p>
+    <p><strong>Il problema</strong>: quando si scalda l'idrogeno, emette luce. Ma non emette TUTTI i colori: solo alcune righe precise. Perche?</p>
+    <p><strong>La spiegazione (Bohr, 1913)</strong>: l'elettrone nell'atomo di idrogeno puo stare solo su <strong>orbite discrete</strong> (n = 1, 2, 3...). Quando l'elettrone "salta" da un'orbita piu alta (n<sub>2</sub>) a una piu bassa (n<sub>1</sub>), perde energia emessa come fotone. La lunghezza d'onda di quel fotone e determinata dalla differenza di energia tra i due livelli.</p>
+</div>
+
+<table>
+    <tr><th>Serie</th><th>n<sub>1</sub> finale</th><th>Regione spettro</th></tr>
+    <tr><td><strong>Lyman</strong></td><td>1</td><td>Ultravioletto</td></tr>
+    <tr><td><strong>Balmer</strong></td><td>2</td><td><strong>Visibile</strong></td></tr>
+    <tr><td><strong>Paschen</strong></td><td>3</td><td>Infrarosso</td></tr>
+    <tr><td><strong>Brackett</strong></td><td>4</td><td>Infrarosso</td></tr>
+</table>
+
+<div class="esempio">
+    <div class="titolo">Esempio</div>
+    <p><em>Calcola la &lambda; emessa nella transizione n = 3 &rarr; n = 2 (prima riga di Balmer)</em></p>
+    <div class="calcolo">
+1/&lambda; = 1,097 x 10<sup>7</sup> x (1/2<sup>2</sup> - 1/3<sup>2</sup>) = 1,097 x 10<sup>7</sup> x (0,25 - 0,111)
+1/&lambda; = 1,097 x 10<sup>7</sup> x 0,139 = 1,52 x 10<sup>6</sup> m<sup>-1</sup>
+&lambda; = 6,56 x 10<sup>-7</sup> m = <strong>656 nm</strong> (luce rossa)
+    </div>
+</div>
+
+<hr>
+
+<h3>1.5 Modello di Bohr - Raggi delle orbite</h3>
+
+<div class="formula-box">
+    <div class="nome">Raggio delle orbite di Bohr</div>
+    <div class="formula">r<sub>n</sub> = n<sup>2</sup> x a<sub>0</sub></div>
+
+    <table class="simboli-table">
+        <tr><th>Simbolo</th><th>Significato</th><th>Unita</th><th>Valore</th></tr>
+        <tr><td><strong>r<sub>n</sub></strong></td><td>Raggio dell'orbita n-esima</td><td>m o A</td><td>variabile</td></tr>
+        <tr><td><strong>n</strong></td><td>Numero quantico principale</td><td>-</td><td>1, 2, 3...</td></tr>
+        <tr><td><strong>a<sub>0</sub></strong></td><td>Raggio di Bohr</td><td>m o A</td><td><strong>0,529 A</strong></td></tr>
+    </table>
+</div>
+
+<div class="cosa-significa">
+    <h4>Cosa significa</h4>
+    <p>Nel modello di Bohr, l'elettrone orbita su cerchi di raggio ben definito. Il raggio cresce col <strong>quadrato</strong> di n:</p>
+    <ul>
+        <li>L'orbita n = 2 e <strong>4 volte</strong> (2<sup>2</sup>) piu grande di n = 1</li>
+        <li>L'orbita n = 3 e <strong>9 volte</strong> (3<sup>2</sup>) piu grande di n = 1</li>
+    </ul>
+    <p><strong>Il raggio di Bohr a<sub>0</sub></strong>: e il raggio della prima orbita (n = 1), circa 0,5 A. Rappresenta la dimensione "tipica" dell'atomo di idrogeno nello stato fondamentale.</p>
+</div>
+
+<table>
+    <tr><th>n</th><th>Raggio</th></tr>
+    <tr><td>1</td><td>0,529 A</td></tr>
+    <tr><td>2</td><td>2,12 A</td></tr>
+    <tr><td>3</td><td>4,76 A</td></tr>
+    <tr><td>4</td><td>8,46 A</td></tr>
+</table>
+
+<hr>
+
+<h3>1.6 Modello di Bohr - Energia dell'elettrone</h3>
+
+<div class="formula-box">
+    <div class="nome">Energia dell'elettrone nell'atomo di idrogeno</div>
+    <div class="formula">E<sub>n</sub> = -13,6 eV / n<sup>2</sup></div>
+
+    <table class="simboli-table">
+        <tr><th>Simbolo</th><th>Significato</th><th>Unita</th><th>Valore</th></tr>
+        <tr><td><strong>E<sub>n</sub></strong></td><td>Energia nell'orbita n</td><td>eV o J</td><td>negativa!</td></tr>
+        <tr><td><strong>E<sub>0</sub></strong></td><td>Energia stato fondamentale</td><td>eV</td><td><strong>13,6 eV</strong></td></tr>
+        <tr><td><strong>n</strong></td><td>Numero quantico principale</td><td>-</td><td>1, 2, 3...</td></tr>
+    </table>
+</div>
+
+<div class="cosa-significa">
+    <h4>Cosa significa</h4>
+    <p><strong>Perche l'energia e negativa?</strong> Per convenzione, definiamo l'energia ZERO come quella di un elettrone "libero" (infinitamente lontano). Un elettrone legato al nucleo ha MENO energia di uno libero, quindi energia negativa:</p>
+    <ul>
+        <li>A n = 1: E = -13,6 eV &rarr; elettrone molto legato, vicino al nucleo</li>
+        <li>A n = 2: E = -3,4 eV &rarr; meno legato</li>
+        <li>A n = &infin;: E = 0 &rarr; elettrone libero (ionizzazione)</li>
+    </ul>
+    <p><strong>L'analogia del pozzo</strong>: immagina l'elettrone come una pallina in un pozzo profondo 13,6 metri. Per tirarla fuori devi fornire 13,6 "unita" di energia.</p>
+    <p><strong>Energia di ionizzazione</strong>: e l'energia minima per strappare l'elettrone dallo stato fondamentale = <strong>13,6 eV</strong></p>
+</div>
+
+<table>
+    <tr><th>n</th><th>Energia</th></tr>
+    <tr><td>1</td><td>-13,6 eV (stato fondamentale)</td></tr>
+    <tr><td>2</td><td>-3,4 eV</td></tr>
+    <tr><td>3</td><td>-1,51 eV</td></tr>
+    <tr><td>&infin;</td><td>0 (elettrone libero)</td></tr>
+</table>
+
+<hr>
+
+<h3>1.7 Transizioni elettroniche</h3>
+
+<div class="formula-box">
+    <div class="nome">III Postulato di Bohr</div>
+    <div class="formula">&Delta;E = E<sub>finale</sub> - E<sub>iniziale</sub> = h&nu;</div>
+</div>
+
+<div class="cosa-significa">
+    <h4>Cosa significa</h4>
+    <p>Quando l'elettrone salta tra livelli, emette o assorbe un fotone con energia <strong>esattamente uguale</strong> alla differenza di energia tra i livelli.</p>
+    <ul>
+        <li><strong>Emissione</strong> (n<sub>i</sub> &gt; n<sub>f</sub>): l'elettrone cade, emette luce</li>
+        <li><strong>Assorbimento</strong> (n<sub>i</sub> &lt; n<sub>f</sub>): l'elettrone sale, assorbe luce</li>
+    </ul>
+    <p><strong>Perche gli spettri sono come impronte digitali?</strong> Ogni elemento ha i suoi livelli energetici unici. Quindi ogni elemento assorbe/emette lunghezze d'onda diverse!</p>
+</div>
+
+<hr>
+
+<h3>1.8 Carica formale</h3>
+
+<div class="formula-box">
+    <div class="nome">Carica formale</div>
+    <div class="formula">CF = e<sup>-</sup><sub>valenza</sub> - (n° legami) - (n° elettroni solitari)</div>
+</div>
+
+<div class="cosa-significa">
+    <h4>Cosa significa</h4>
+    <p>La carica formale indica se un atomo nella molecola ha "guadagnato" o "perso" elettroni rispetto a quando era isolato.</p>
+    <p><strong>Perche e utile?</strong></p>
+    <ol>
+        <li><strong>Verifica</strong>: la somma di tutte le CF deve essere uguale alla carica totale della specie</li>
+        <li><strong>Scelta tra strutture</strong>: la natura preferisce CF basse (vicine a 0)</li>
+        <li><strong>Localizzazione della carica</strong>: in uno ione, CF ti dice dove "sta" la carica</li>
+    </ol>
+</div>
+
+<div class="esempio">
+    <div class="titolo">Esempio: CO<sub>2</sub> (O=C=O)</div>
+    <p><strong>Per il carbonio centrale:</strong></p>
+    <div class="calcolo">
+e<sup>-</sup> valenza = 4 (gruppo 14)
+e<sup>-</sup> legame = 4 (due doppi legami)
+e<sup>-</sup> non legame = 0
+<strong>CF = 4 - 4 - 0 = 0</strong> ✓
+    </div>
+    <p><strong>Per ogni ossigeno:</strong></p>
+    <div class="calcolo">
+e<sup>-</sup> valenza = 6 (gruppo 16)
+e<sup>-</sup> legame = 2 (un doppio legame)
+e<sup>-</sup> non legame = 4 (due lone pairs)
+<strong>CF = 6 - 2 - 4 = 0</strong> ✓
+    </div>
+</div>
+
+<!-- ============================================== -->
+<h2 id="lewis">2. Formule di Lewis e VSEPR</h2>
+<!-- ============================================== -->
+
+<div class="section-intro">
+Argomento frequentissimo agli esami: data una molecola, disegnare Lewis, determinare geometria e ibridazione.
+</div>
+
+<h3>2.1 Teoria VSEPR - Principio</h3>
+
+<div class="formula-box">
+    <div class="nome">VSEPR = Valence Shell Electron Pair Repulsion</div>
+    <p style="text-align: center; font-size: 1.1em;">Le coppie di elettroni si dispongono per <strong>stare il piu lontano possibile</strong> tra loro</p>
+</div>
+
+<div class="cosa-significa">
+    <h4>Cosa significa</h4>
+    <p>VSEPR e un modello semplice e potente per predire la forma 3D delle molecole.</p>
+    <p><strong>L'idea fondamentale</strong>: gli elettroni hanno carica negativa, quindi si respingono. Le coppie di elettroni attorno all'atomo centrale cercano di stare il piu lontano possibile l'una dall'altra, come persone in un ascensore affollato.</p>
+    <p><strong>Attenzione importante</strong>: la geometria dell'<em>elettrone</em> (tutte le coppie) puo essere diversa dalla geometria della <em>molecola</em> (solo gli atomi visibili).</p>
+</div>
+
+<div class="quando-usare">
+    <h4>Come si usa</h4>
+    <ol>
+        <li><strong>Disegna la struttura di Lewis</strong></li>
+        <li><strong>Conta il numero sterico (NS)</strong> = atomi legati + coppie solitarie</li>
+        <li><strong>Trova la geometria</strong> dalla tabella</li>
+    </ol>
+</div>
+
+<h3>2.2 Tabella VSEPR completa</h3>
+
+<table>
+    <tr><th>NS</th><th>Tipo</th><th>Ibridazione</th><th>Angoli</th><th>Geometria</th><th>Esempi</th></tr>
+    <tr><td><strong>2</strong></td><td>AX<sub>2</sub></td><td>sp</td><td>180°</td><td>Lineare</td><td>CO<sub>2</sub>, BeCl<sub>2</sub></td></tr>
+    <tr><td><strong>3</strong></td><td>AX<sub>3</sub></td><td>sp<sup>2</sup></td><td>120°</td><td>Trigonale planare</td><td>BF<sub>3</sub>, SO<sub>3</sub></td></tr>
+    <tr><td><strong>3</strong></td><td>AX<sub>2</sub>E</td><td>sp<sup>2</sup></td><td>&lt;120°</td><td>Angolare</td><td>SO<sub>2</sub>, O<sub>3</sub></td></tr>
+    <tr><td><strong>4</strong></td><td>AX<sub>4</sub></td><td>sp<sup>3</sup></td><td>109,5°</td><td>Tetraedrica</td><td>CH<sub>4</sub>, CCl<sub>4</sub></td></tr>
+    <tr><td><strong>4</strong></td><td>AX<sub>3</sub>E</td><td>sp<sup>3</sup></td><td>~107°</td><td>Piramidale</td><td>NH<sub>3</sub>, PCl<sub>3</sub></td></tr>
+    <tr><td><strong>4</strong></td><td>AX<sub>2</sub>E<sub>2</sub></td><td>sp<sup>3</sup></td><td>~104,5°</td><td>Angolare</td><td>H<sub>2</sub>O, H<sub>2</sub>S</td></tr>
+    <tr><td><strong>5</strong></td><td>AX<sub>5</sub></td><td>sp<sup>3</sup>d</td><td>90°, 120°</td><td>Bipiramidale trig.</td><td>PCl<sub>5</sub></td></tr>
+    <tr><td><strong>6</strong></td><td>AX<sub>6</sub></td><td>sp<sup>3</sup>d<sup>2</sup></td><td>90°</td><td>Ottaedrica</td><td>SF<sub>6</sub></td></tr>
+</table>
+
+<div class="nota">
+    <h4>Perche gli angoli diminuiscono con le lone pairs?</h4>
+    <p>Le coppie solitarie <strong>occupano piu spazio</strong> (non sono "tirate" verso un altro atomo), quindi schiacciano gli angoli di legame:</p>
+    <ul>
+        <li>CH<sub>4</sub> (0 lone pairs): 109,5°</li>
+        <li>NH<sub>3</sub> (1 lone pair): 107°</li>
+        <li>H<sub>2</sub>O (2 lone pairs): 104,5°</li>
+    </ul>
+    <p><strong>Ordine di repulsione</strong>: lone pair-lone pair &gt; lone pair-legame &gt; legame-legame</p>
+</div>
+
+<h3>2.3 Ibridazione rapida</h3>
+
+<table>
+    <tr><th>NS</th><th>Ibridazione</th></tr>
+    <tr><td>2</td><td>sp</td></tr>
+    <tr><td>3</td><td>sp<sup>2</sup></td></tr>
+    <tr><td>4</td><td>sp<sup>3</sup></td></tr>
+    <tr><td>5</td><td>sp<sup>3</sup>d</td></tr>
+    <tr><td>6</td><td>sp<sup>3</sup>d<sup>2</sup></td></tr>
+</table>
+
+<h3>2.4 Polarita delle molecole</h3>
+
+<p>Una molecola e <strong>polare</strong> se ha legami polari <strong>E</strong> geometria asimmetrica.</p>
+
+<table>
+    <tr><th>Molecola</th><th>Legami polari</th><th>Geometria</th><th>Simmetrica?</th><th>Polare?</th></tr>
+    <tr><td>CO<sub>2</sub></td><td>Si</td><td>Lineare</td><td>Si</td><td><strong>No</strong></td></tr>
+    <tr><td>H<sub>2</sub>O</td><td>Si</td><td>Angolare</td><td>No</td><td><strong>Si</strong></td></tr>
+    <tr><td>CCl<sub>4</sub></td><td>Si</td><td>Tetraedrica</td><td>Si</td><td><strong>No</strong></td></tr>
+    <tr><td>NH<sub>3</sub></td><td>Si</td><td>Piramidale</td><td>No</td><td><strong>Si</strong></td></tr>
+    <tr><td>BF<sub>3</sub></td><td>Si</td><td>Trig. planare</td><td>Si</td><td><strong>No</strong></td></tr>
+</table>
+
+<!-- ============================================== -->
+<h2 id="stechiometria">3. Stechiometria</h2>
+<!-- ============================================== -->
+
+<div class="section-intro">
+Il cuore della chimica quantitativa. Presente in quasi tutti gli esercizi.
+</div>
+
+<h3>3.1 Moli</h3>
+
+<div class="formula-box">
+    <div class="nome">Definizione di mole</div>
+    <div class="formula">n = m / M</div>
+
+    <table class="simboli-table">
+        <tr><th>Simbolo</th><th>Significato</th><th>Unita</th></tr>
+        <tr><td><strong>n</strong></td><td>Numero di moli</td><td>mol</td></tr>
+        <tr><td><strong>m</strong></td><td>Massa</td><td>g</td></tr>
+        <tr><td><strong>M</strong></td><td>Massa molare</td><td>g/mol</td></tr>
+    </table>
+</div>
+
+<div class="cosa-significa">
+    <h4>Cosa significa</h4>
+    <p>La mole e il "ponte" tra il mondo macroscopico (grammi) e il mondo microscopico (atomi e molecole).</p>
+    <p><strong>Il problema</strong>: le reazioni avvengono tra singole molecole, ma noi lavoriamo con grammi.</p>
+    <p><strong>La soluzione</strong>: una mole e un "pacchetto" di <strong>6,022 x 10<sup>23</sup></strong> particelle (numero di Avogadro).</p>
+    <p><strong>Perche le moli sono fondamentali?</strong> Le equazioni chimiche bilanciate ci dicono i rapporti MOLARI, non in grammi.</p>
+</div>
+
+<div class="formula-box">
+    <div class="nome">Numero di Avogadro</div>
+    <div class="formula">N° particelle = n x N<sub>A</sub></div>
+    <p style="text-align: center;"><strong>N<sub>A</sub> = 6,022 x 10<sup>23</sup> mol<sup>-1</sup></strong></p>
+</div>
+
+<hr>
+
+<h3>3.2 Gas ideali</h3>
+
+<div class="formula-box">
+    <div class="nome">Equazione di stato dei gas ideali</div>
+    <div class="formula">PV = nRT</div>
+
+    <table class="simboli-table">
+        <tr><th>Simbolo</th><th>Significato</th><th>Unita</th></tr>
+        <tr><td><strong>P</strong></td><td>Pressione</td><td>atm, Pa, bar</td></tr>
+        <tr><td><strong>V</strong></td><td>Volume</td><td>L, m<sup>3</sup></td></tr>
+        <tr><td><strong>n</strong></td><td>Moli</td><td>mol</td></tr>
+        <tr><td><strong>R</strong></td><td>Costante dei gas</td><td>(vedi sotto)</td></tr>
+        <tr><td><strong>T</strong></td><td>Temperatura</td><td><strong>K (Kelvin!)</strong></td></tr>
+    </table>
+</div>
+
+<table>
+    <tr><th>Unita di P e V</th><th>R =</th></tr>
+    <tr><td>atm, L</td><td><strong>0,0821 L&middot;atm/(mol&middot;K)</strong></td></tr>
+    <tr><td>Pa, m<sup>3</sup></td><td>8,314 J/(mol&middot;K)</td></tr>
+    <tr><td>bar, L</td><td>0,0831 L&middot;bar/(mol&middot;K)</td></tr>
+</table>
+
+<div class="nota">
+    <strong>Volume molare a STP</strong>: A 0°C e 1 atm: <strong>V = 22,4 L/mol</strong><br>
+    <strong>Conversione temperatura</strong>: T(K) = T(°C) + 273
+</div>
+
+<h3>3.3 Molarita e diluizioni</h3>
+
+<div class="formula-box">
+    <div class="nome">Molarita</div>
+    <div class="formula">M = n<sub>soluto</sub> / V<sub>soluzione</sub></div>
+</div>
+
+<div class="formula-box">
+    <div class="nome">Formula per diluizioni</div>
+    <div class="formula">M<sub>1</sub>V<sub>1</sub> = M<sub>2</sub>V<sub>2</sub></div>
+    <p style="text-align: center;">Le moli non cambiano quando diluisci!</p>
+</div>
+
+<!-- ============================================== -->
+<h2 id="acidi">4. Acidi e Basi</h2>
+<!-- ============================================== -->
+
+<div class="section-intro">
+Argomento fondamentale: pH, tamponi, idrolisi.
+</div>
+
+<h3>4.1 Costante di acidita</h3>
+
+<div class="formula-box">
+    <div class="nome">Costante di acidita Ka</div>
+    <div class="formula">Ka = [H<sub>3</sub>O<sup>+</sup>][A<sup>-</sup>] / [HA]</div>
+    <p style="text-align: center;">Per la reazione: HA + H<sub>2</sub>O ⇄ H<sub>3</sub>O<sup>+</sup> + A<sup>-</sup></p>
+</div>
+
+<div class="cosa-significa">
+    <h4>Cosa significa</h4>
+    <p>Ka e la costante di equilibrio per la dissociazione di un acido in acqua. Ci dice quanto l'acido "vuole" cedere il suo protone H<sup>+</sup>.</p>
+    <ul>
+        <li><strong>Ka &gt;&gt; 1</strong>: acido FORTE (molto dissociato)</li>
+        <li><strong>Ka &lt;&lt; 1</strong>: acido DEBOLE (poco dissociato)</li>
+    </ul>
+    <p><strong>pKa = -log(Ka)</strong>: piu piccolo pKa &rarr; acido piu forte</p>
+</div>
+
+<h3>4.2 pH e pOH</h3>
+
+<div class="formula-box">
+    <div class="nome">Definizioni fondamentali</div>
+    <div class="formula">pH = -log[H<sub>3</sub>O<sup>+</sup>]</div>
+    <div class="formula">pOH = -log[OH<sup>-</sup>]</div>
+    <div class="formula">pH + pOH = 14</div>
+</div>
+
+<div class="formula-box">
+    <div class="nome">Prodotto ionico dell'acqua</div>
+    <div class="formula">K<sub>w</sub> = [H<sub>3</sub>O<sup>+</sup>][OH<sup>-</sup>] = 10<sup>-14</sup> (a 25°C)</div>
+</div>
+
+<h3>4.3 pH di acidi deboli</h3>
+
+<div class="formula-box">
+    <div class="nome">Approssimazione per acidi deboli</div>
+    <div class="formula">[H<sub>3</sub>O<sup>+</sup>] = &radic;(Ka x C<sub>a</sub>)</div>
+    <p style="text-align: center;">Valida se C<sub>a</sub>/Ka &gt; 100</p>
+</div>
+
+<h3>4.4 Soluzioni tampone</h3>
+
+<div class="formula-box">
+    <div class="nome">Equazione di Henderson-Hasselbalch</div>
+    <div class="formula">pH = pKa + log([A<sup>-</sup>]/[HA])</div>
+</div>
+
+<div class="cosa-significa">
+    <h4>Cosa significa</h4>
+    <p>I tamponi sono soluzioni che resistono ai cambiamenti di pH. Contengono sia un acido debole HA che la sua base coniugata A<sup>-</sup>.</p>
+    <p><strong>Come funzionano</strong>:</p>
+    <ul>
+        <li>Aggiungi acido (H<sup>+</sup>) &rarr; A<sup>-</sup> lo assorbe: A<sup>-</sup> + H<sup>+</sup> &rarr; HA</li>
+        <li>Aggiungi base (OH<sup>-</sup>) &rarr; HA la neutralizza: HA + OH<sup>-</sup> &rarr; A<sup>-</sup> + H<sub>2</sub>O</li>
+    </ul>
+    <p><strong>Quando [A<sup>-</sup>] = [HA]</strong>: pH = pKa (massima capacita tamponante)</p>
+</div>
+
+<!-- ============================================== -->
+<h2 id="termodinamica">5. Termodinamica</h2>
+<!-- ============================================== -->
+
+<div class="section-intro">
+Energia, spontaneita, equilibrio.
+</div>
+
+<h3>5.1 Primo principio</h3>
+
+<div class="formula-box">
+    <div class="nome">Primo principio della termodinamica</div>
+    <div class="formula">&Delta;U = q + w</div>
+
+    <table class="simboli-table">
+        <tr><th>Simbolo</th><th>Significato</th><th>Segno</th></tr>
+        <tr><td><strong>&Delta;U</strong></td><td>Variazione energia interna</td><td>-</td></tr>
+        <tr><td><strong>q</strong></td><td>Calore</td><td>+ assorbito, - ceduto</td></tr>
+        <tr><td><strong>w</strong></td><td>Lavoro</td><td>+ sul sistema, - dal sistema</td></tr>
+    </table>
+</div>
+
+<div class="formula-box">
+    <div class="nome">Lavoro di espansione</div>
+    <div class="formula">w = -P&Delta;V</div>
+</div>
+
+<h3>5.2 Entalpia</h3>
+
+<div class="formula-box">
+    <div class="nome">Entalpia standard di reazione</div>
+    <div class="formula">&Delta;H°<sub>reaz</sub> = &Sigma; &Delta;H°<sub>f</sub>(prodotti) - &Sigma; &Delta;H°<sub>f</sub>(reagenti)</div>
+</div>
+
+<table>
+    <tr><th>&Delta;H</th><th>Tipo reazione</th></tr>
+    <tr><td>&lt; 0</td><td>Esotermica (libera calore)</td></tr>
+    <tr><td>&gt; 0</td><td>Endotermica (assorbe calore)</td></tr>
+</table>
+
+<h3>5.3 Entropia</h3>
+
+<div class="formula-box">
+    <div class="nome">Definizione di entropia</div>
+    <div class="formula">&Delta;S = q<sub>rev</sub> / T</div>
+</div>
+
+<div class="cosa-significa">
+    <h4>Cosa significa</h4>
+    <p>L'entropia S misura il <strong>disordine</strong>. Aumenta quando:</p>
+    <ul>
+        <li>Solido &rarr; liquido &rarr; gas</li>
+        <li>Aumenta T o V</li>
+        <li>Aumenta il numero di moli gassose</li>
+    </ul>
+    <p><strong>Secondo principio</strong>: &Delta;S<sub>universo</sub> &gt; 0 nei processi spontanei</p>
+</div>
+
+<h3>5.4 Energia libera di Gibbs</h3>
+
+<div class="formula-box">
+    <div class="nome">Energia libera di Gibbs</div>
+    <div class="formula">&Delta;G = &Delta;H - T&Delta;S</div>
+</div>
+
+<div class="cosa-significa">
+    <h4>Cosa significa</h4>
+    <p>&Delta;G e LA grandezza che decide se una reazione avviene spontaneamente.</p>
+    <ul>
+        <li><strong>&Delta;H</strong>: contributo energetico. Se &lt; 0, favorisce spontaneita</li>
+        <li><strong>T&Delta;S</strong>: contributo entropico. Se &Delta;S &gt; 0, favorisce spontaneita</li>
+    </ul>
+</div>
+
+<table>
+    <tr><th>&Delta;G</th><th>Significato</th></tr>
+    <tr><td>&lt; 0</td><td><strong>Spontanea</strong></td></tr>
+    <tr><td>= 0</td><td>Equilibrio</td></tr>
+    <tr><td>&gt; 0</td><td>Non spontanea</td></tr>
+</table>
+
+<div class="attenzione">
+    <strong>Attenzione</strong>: "spontaneo" NON significa "veloce"! La cinetica e un'altra storia.
+</div>
+
+<h3>5.5 Relazione &Delta;G° e K</h3>
+
+<div class="formula-box">
+    <div class="nome">Energia libera e costante di equilibrio</div>
+    <div class="formula">&Delta;G° = -RT ln(K)</div>
+    <div class="formula">K = e<sup>(-&Delta;G°/RT)</sup></div>
+</div>
+
+<div class="cosa-significa">
+    <h4>Cosa significa</h4>
+    <ul>
+        <li>&Delta;G° molto negativo &rarr; K grande &rarr; equilibrio a destra</li>
+        <li>&Delta;G° molto positivo &rarr; K piccolo &rarr; equilibrio a sinistra</li>
+    </ul>
+</div>
+
+<h3>5.6 Equazione di Van't Hoff</h3>
+
+<div class="formula-box">
+    <div class="nome">Van't Hoff</div>
+    <div class="formula">ln(K<sub>2</sub>/K<sub>1</sub>) = -(&Delta;H°/R) x (1/T<sub>2</sub> - 1/T<sub>1</sub>)</div>
+</div>
+
+<div class="cosa-significa">
+    <h4>Cosa significa</h4>
+    <ul>
+        <li>&Delta;H° &gt; 0 (endotermica): K aumenta con T</li>
+        <li>&Delta;H° &lt; 0 (esotermica): K diminuisce con T</li>
+    </ul>
+    <p>E il principio di Le Chatelier quantificato!</p>
+</div>
+
+<!-- ============================================== -->
+<h2 id="cinetica">6. Cinetica Chimica</h2>
+<!-- ============================================== -->
+
+<div class="section-intro">
+Quanto velocemente avvengono le reazioni.
+</div>
+
+<h3>6.1 Velocita di reazione</h3>
+
+<div class="formula-box">
+    <div class="nome">Legge cinetica</div>
+    <div class="formula">v = k x [A]<sup>&alpha;</sup> x [B]<sup>&beta;</sup></div>
+</div>
+
+<div class="attenzione">
+    <strong>Attenzione!</strong> &alpha; e &beta; si determinano SPERIMENTALMENTE, NON sono i coefficienti stechiometrici!
+</div>
+
+<h3>6.2 Leggi integrate</h3>
+
+<table>
+    <tr><th>Ordine</th><th>Legge integrata</th><th>Grafico lineare</th><th>t<sub>1/2</sub></th></tr>
+    <tr><td>0</td><td>[A] = -kt + [A]<sub>0</sub></td><td>[A] vs t</td><td>[A]<sub>0</sub>/(2k)</td></tr>
+    <tr><td>1</td><td>ln[A] = -kt + ln[A]<sub>0</sub></td><td>ln[A] vs t</td><td><strong>0,693/k</strong></td></tr>
+    <tr><td>2</td><td>1/[A] = kt + 1/[A]<sub>0</sub></td><td>1/[A] vs t</td><td>1/(k[A]<sub>0</sub>)</td></tr>
+</table>
+
+<h3>6.3 Equazione di Arrhenius</h3>
+
+<div class="formula-box">
+    <div class="nome">Equazione di Arrhenius</div>
+    <div class="formula">k = A x e<sup>(-E<sub>a</sub>/RT)</sup></div>
+
+    <table class="simboli-table">
+        <tr><th>Simbolo</th><th>Significato</th><th>Unita</th></tr>
+        <tr><td><strong>k</strong></td><td>Costante cinetica</td><td>dipende dall'ordine</td></tr>
+        <tr><td><strong>A</strong></td><td>Fattore pre-esponenziale</td><td>come k</td></tr>
+        <tr><td><strong>E<sub>a</sub></strong></td><td>Energia di attivazione</td><td>J/mol</td></tr>
+        <tr><td><strong>R</strong></td><td>Costante dei gas</td><td>8,314 J/(mol&middot;K)</td></tr>
+    </table>
+</div>
+
+<div class="cosa-significa">
+    <h4>Cosa significa</h4>
+    <p>L'equazione di Arrhenius spiega PERCHE la temperatura accelera le reazioni.</p>
+    <p><strong>Il modello</strong>: le molecole devono avere abbastanza energia per superare una "barriera" (E<sub>a</sub>). Piu alta e E<sub>a</sub>, piu lenta e la reazione.</p>
+    <p><strong>I catalizzatori</strong>: abbassano E<sub>a</sub>, fornendo un percorso alternativo con barriera piu bassa.</p>
+</div>
+
+<div class="formula-box">
+    <div class="nome">Calcolo E<sub>a</sub> da due temperature</div>
+    <div class="formula">E<sub>a</sub> = R x (T<sub>1</sub>T<sub>2</sub>)/(T<sub>2</sub>-T<sub>1</sub>) x ln(k<sub>2</sub>/k<sub>1</sub>)</div>
+</div>
+
+<!-- ============================================== -->
+<h2 id="elettrochimica">7. Elettrochimica</h2>
+<!-- ============================================== -->
+
+<div class="section-intro">
+Reazioni con trasferimento di elettroni, pile, elettrolisi.
+</div>
+
+<h3>7.1 Celle elettrochimiche</h3>
+
+<table>
+    <tr><th>Tipo</th><th>Conversione</th><th>&Delta;G</th><th>Esempio</th></tr>
+    <tr><td><strong>Galvanica (pila)</strong></td><td>Chimica &rarr; Elettrica</td><td>&lt; 0</td><td>Batteria</td></tr>
+    <tr><td><strong>Elettrolitica</strong></td><td>Elettrica &rarr; Chimica</td><td>&gt; 0</td><td>Elettrolisi</td></tr>
+</table>
+
+<div class="nota">
+    <strong>Trucco mnemonico</strong>: AN-OX (Anodo = Ossidazione), CAT-RED (Catodo = Riduzione)<br>
+    Nella <strong>pila</strong>: Anodo (-), Catodo (+)<br>
+    Nell'<strong>elettrolisi</strong>: Anodo (+), Catodo (-)
+</div>
+
+<h3>7.2 Potenziale standard</h3>
+
+<div class="formula-box">
+    <div class="nome">f.e.m. standard</div>
+    <div class="formula">&Delta;E° = E°<sub>catodo</sub> - E°<sub>anodo</sub></div>
+</div>
+
+<div class="cosa-significa">
+    <h4>Cosa significa</h4>
+    <ul>
+        <li>E° piu <strong>positivo</strong> &rarr; specie piu <strong>ossidante</strong> (vuole elettroni)</li>
+        <li>E° piu <strong>negativo</strong> &rarr; specie piu <strong>riducente</strong> (cede elettroni)</li>
+    </ul>
+    <p>Per una pila funzionante: <strong>&Delta;E° &gt; 0</strong></p>
+</div>
+
+<div class="formula-box">
+    <div class="nome">Relazione con &Delta;G°</div>
+    <div class="formula">&Delta;G° = -nF&Delta;E°</div>
+    <p style="text-align: center;"><strong>F = 96485 C/mol</strong> (costante di Faraday)</p>
+</div>
+
+<h3>7.3 Equazione di Nernst</h3>
+
+<div class="formula-box">
+    <div class="nome">Equazione di Nernst (a 25°C)</div>
+    <div class="formula">E = E° - (0,059/n) x log(Q)</div>
+</div>
+
+<div class="cosa-significa">
+    <h4>Cosa significa</h4>
+    <p>E° vale solo in condizioni standard (concentrazioni = 1 M). In condizioni reali, il potenziale cambia!</p>
+    <p>Se aumenti [Cu<sup>2+</sup>], stai "spingendo" l'equilibrio verso la riduzione &rarr; E aumenta.</p>
+</div>
+
+<h3>7.4 Relazione E° e K</h3>
+
+<div class="formula-box">
+    <div class="nome">Costante di equilibrio da potenziale</div>
+    <div class="formula">log K = (n x E°) / 0,059</div>
+</div>
+
+<h3>7.5 Leggi di Faraday</h3>
+
+<div class="formula-box">
+    <div class="nome">Formula di Faraday per l'elettrolisi</div>
+    <div class="formula">m = (M x I x t) / (n x F)</div>
+
+    <table class="simboli-table">
+        <tr><th>Simbolo</th><th>Significato</th><th>Unita</th></tr>
+        <tr><td><strong>m</strong></td><td>Massa depositata</td><td>g</td></tr>
+        <tr><td><strong>M</strong></td><td>Massa molare</td><td>g/mol</td></tr>
+        <tr><td><strong>I</strong></td><td>Corrente</td><td>A</td></tr>
+        <tr><td><strong>t</strong></td><td>Tempo</td><td><strong>s (secondi!)</strong></td></tr>
+        <tr><td><strong>n</strong></td><td>Elettroni per ione</td><td>-</td></tr>
+        <tr><td><strong>F</strong></td><td>Costante di Faraday</td><td>96485 C/mol</td></tr>
+    </table>
+</div>
+
+<div class="cosa-significa">
+    <h4>Cosa significa</h4>
+    <p>Le leggi di Faraday collegano l'elettricita (corrente e tempo) alla chimica (massa depositata).</p>
+    <p><strong>Analizziamo la formula</strong>:</p>
+    <ul>
+        <li><strong>I x t = Q</strong> (carica in Coulomb)</li>
+        <li><strong>Q / F</strong> = moli di elettroni</li>
+        <li><strong>moli e<sup>-</sup> / n</strong> = moli di metallo</li>
+        <li><strong>moli x M</strong> = massa</li>
+    </ul>
+</div>
+
+<h3>7.6 Pile a concentrazione</h3>
+
+<div class="formula-box">
+    <div class="nome">f.e.m. pila a concentrazione</div>
+    <div class="formula">E = (0,059/n) x log(C<sub>2</sub>/C<sub>1</sub>)</div>
+</div>
+
+<div class="cosa-significa">
+    <h4>Cosa significa</h4>
+    <p>Pile con stesso metallo ma soluzioni a concentrazione diversa. Funzionano perche il sistema tende a equilibrare le concentrazioni.</p>
+    <p>Nota che E° = 0! Tutta la f.e.m. viene dalla differenza di concentrazione.</p>
+</div>
+
+<!-- ============================================== -->
+<h2 id="costanti">8. Costanti Fondamentali</h2>
+<!-- ============================================== -->
+
+<div class="costanti-box">
+<table>
+    <tr><th>Costante</th><th>Simbolo</th><th>Valore</th></tr>
+    <tr><td>Velocita della luce</td><td>c</td><td>3,00 x 10<sup>8</sup> m/s</td></tr>
+    <tr><td>Costante di Planck</td><td>h</td><td>6,63 x 10<sup>-34</sup> J&middot;s</td></tr>
+    <tr><td>Numero di Avogadro</td><td>N<sub>A</sub></td><td>6,022 x 10<sup>23</sup> mol<sup>-1</sup></td></tr>
+    <tr><td>Costante dei gas</td><td>R</td><td>8,314 J/(mol&middot;K) = 0,0821 L&middot;atm/(mol&middot;K)</td></tr>
+    <tr><td>Costante di Faraday</td><td>F</td><td>96485 C/mol</td></tr>
+    <tr><td>Costante di Boltzmann</td><td>k</td><td>1,38 x 10<sup>-23</sup> J/K</td></tr>
+    <tr><td>Carica elettrone</td><td>e</td><td>1,60 x 10<sup>-19</sup> C</td></tr>
+    <tr><td>Massa elettrone</td><td>m<sub>e</sub></td><td>9,11 x 10<sup>-31</sup> kg</td></tr>
+    <tr><td>Raggio di Bohr</td><td>a<sub>0</sub></td><td>0,529 A</td></tr>
+    <tr><td>Costante di Rydberg</td><td>R<sub>H</sub></td><td>1,097 x 10<sup>7</sup> m<sup>-1</sup></td></tr>
+    <tr><td>Prodotto ionico acqua</td><td>K<sub>w</sub></td><td>10<sup>-14</sup></td></tr>
+    <tr><td>Energia stato fond. H</td><td>E<sub>0</sub></td><td>13,6 eV</td></tr>
+</table>
+</div>
+
+<!-- ============================================== -->
+<h2 id="conversioni">9. Conversioni</h2>
+<!-- ============================================== -->
+
+<div class="conversioni-box">
+<h4>Energia</h4>
+<ul>
+    <li>1 eV = 1,60 x 10<sup>-19</sup> J</li>
+    <li>1 cal = 4,184 J</li>
+    <li>1 kcal = 4184 J</li>
+</ul>
+
+<h4>Pressione</h4>
+<ul>
+    <li>1 atm = 101325 Pa = 760 mmHg</li>
+    <li>1 bar &asymp; 1 atm</li>
+</ul>
+
+<h4>Temperatura</h4>
+<ul>
+    <li>T(K) = T(°C) + 273</li>
+</ul>
+
+<h4>Volume</h4>
+<ul>
+    <li>1 L = 1 dm<sup>3</sup> = 10<sup>-3</sup> m<sup>3</sup></li>
+    <li>1 mL = 1 cm<sup>3</sup></li>
+</ul>
+
+<h4>Lunghezza</h4>
+<ul>
+    <li>1 A = 10<sup>-10</sup> m = 0,1 nm</li>
+</ul>
+</div>
+
+<hr>
+
+<div class="riepilogo">
+    <h3>Fine del Formulario Commentato</h3>
+    <p>Questo documento contiene tutte le formule necessarie per l'esame di Chimica Generale, con spiegazioni dettagliate per capire non solo COME usarle, ma PERCHE funzionano.</p>
+    <p><strong>Suggerimenti per lo studio:</strong></p>
+    <ul>
+        <li>Non memorizzare le formule: <strong>capiscile</strong></li>
+        <li>Fai tanti esercizi usando questo formulario come riferimento</li>
+        <li>Per ogni formula, chiediti: "cosa succederebbe se questa grandezza aumentasse/diminuisse?"</li>
+    </ul>
+</div>
+
+</body>
+</html>

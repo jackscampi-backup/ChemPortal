@@ -77,6 +77,16 @@ const CHAPTERS_DATA = {
       "exerciseCount": 0,
       "icon": "🏷️",
       "hasTrainer": true
+    },
+    {
+      "id": "formulario",
+      "title": "Formulario Commentato",
+      "file": "formulario-commentato.html",
+      "description": "Tutte le formule con spiegazioni dettagliate: cosa significano, quando usarle, esempi svolti",
+      "topics": ["Teoria Atomica", "VSEPR", "Stechiometria", "Acidi e Basi", "Termodinamica", "Cinetica", "Elettrochimica", "Costanti"],
+      "exerciseCount": 0,
+      "icon": "📋",
+      "isFormulario": true
     }
   ]
 };
