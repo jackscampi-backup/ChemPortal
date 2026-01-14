@@ -816,23 +816,56 @@
 <h2 id="equilibrio">7. Equilibrio Chimico (Kp / Kc) <span class="cap-ref">(Cap 07-08)</span></h2>
 
 <div class="procedura">
-    <div class="procedura-header">PROCEDURA: Calcolo Concentrazioni all'Equilibrio</div>
+    <div class="procedura-header">PROCEDURA: Calcolo con Tabella ICE</div>
     <div class="procedura-body">
         <ol>
             <li><strong>Scrivi la reazione bilanciata</strong></li>
             <li>
-                <strong>Costruisci la tabella ICE:</strong>
+                <strong>Costruisci la tabella ICE</strong> (Iniziale, Cambio, Equilibrio):
                 <table style="margin:10px 0;">
                     <tr><th></th><th>Reagenti</th><th>Prodotti</th></tr>
                     <tr><td><strong>I</strong>niziale</td><td>C₀</td><td>0</td></tr>
                     <tr><td><strong>C</strong>ambio</td><td>−ax</td><td>+bx</td></tr>
                     <tr><td><strong>E</strong>quilibrio</td><td>C₀ − ax</td><td>bx</td></tr>
                 </table>
+                <div class="step-importante">
+                    <strong>a, b</strong> = coefficienti stechiometrici<br>
+                    <strong>x</strong> = avanzamento della reazione (incognita)
+                </div>
             </li>
-            <li><strong>Scrivi l'espressione di K</strong> e sostituisci i valori all'equilibrio</li>
+            <li><strong>Scrivi l'espressione di K</strong> e sostituisci i valori della riga E</li>
             <li><strong>Risolvi</strong> per trovare x</li>
         </ol>
     </div>
+</div>
+
+<div class="procedura">
+    <div class="procedura-header">PROCEDURA: Calcolo Kp da grado di dissociazione α</div>
+    <div class="procedura-body">
+        <p>Per reazioni tipo: A ⇌ 2B (1 mole iniziale di A)</p>
+        <ol>
+            <li>
+                <strong>Tabella ICE con α:</strong>
+                <table style="margin:10px 0;">
+                    <tr><th></th><th>A</th><th>B</th></tr>
+                    <tr><td>Iniziale</td><td>1</td><td>0</td></tr>
+                    <tr><td>Cambio</td><td>−α</td><td>+2α</td></tr>
+                    <tr><td>Equilibrio</td><td>1−α</td><td>2α</td></tr>
+                </table>
+            </li>
+            <li><strong>Moli totali all'equilibrio:</strong> n<sub>tot</sub> = (1−α) + 2α = 1 + α</li>
+            <li><strong>Frazioni molari:</strong> χ<sub>A</sub> = (1−α)/(1+α), χ<sub>B</sub> = 2α/(1+α)</li>
+            <li><strong>Pressioni parziali:</strong> P<sub>i</sub> = χ<sub>i</sub> × P<sub>tot</sub></li>
+            <li><strong>Calcola Kp:</strong> K<sub>p</sub> = P<sub>B</sub>² / P<sub>A</sub></li>
+        </ol>
+    </div>
+</div>
+
+<div class="attenzione">
+    <strong>Quando usare Kp vs Kc:</strong><br>
+    - <strong>Kp</strong>: se il problema dà pressioni o chiede pressioni parziali<br>
+    - <strong>Kc</strong>: se il problema dà concentrazioni molari<br>
+    - Conversione: K<sub>p</sub> = K<sub>c</sub> × (RT)<sup>Δn</sup>
 </div>
 
 <div class="formula-box critica">
@@ -896,6 +929,16 @@
     <div class="formula">ΔH°<sub>reaz</sub> = Σ ΔH°<sub>f</sub>(prodotti) − Σ ΔH°<sub>f</sub>(reagenti)</div>
 </div>
 
+<div class="formula-box critica">
+    <div class="nome">ΔG di reazione da energie libere di formazione</div>
+    <div class="formula">ΔG°<sub>reaz</sub> = Σ ΔG°<sub>f</sub>(prodotti) − Σ ΔG°<sub>f</sub>(reagenti)</div>
+</div>
+
+<div class="attenzione">
+    <strong>Regola fondamentale:</strong> Gli elementi puri nel loro stato standard hanno ΔH°<sub>f</sub> = 0 e ΔG°<sub>f</sub> = 0.<br>
+    Esempi: O₂(g), N₂(g), H₂(g), C(grafite), Fe(s), Cu(s) → tutti hanno ΔG°<sub>f</sub> = 0
+</div>
+
 <h3>Energia Libera di Gibbs</h3>
 
 <div class="formula-box critica">
@@ -913,7 +956,43 @@
 <div class="formula-box critica">
     <div class="nome">Relazione ΔG° - Keq</div>
     <div class="formula">ΔG° = −RT ln K = −2,303 RT log K</div>
-    <p>A 25°C: ΔG° = −5,7 × log K [kJ/mol]</p>
+    <div class="variabili">
+        <dl>
+            <dt>R</dt><dd><strong>8,314 J/(mol·K)</strong> oppure <strong>1,987 cal/(mol·K)</strong></dd>
+            <dt>T</dt><dd>temperatura in Kelvin (25°C = 298 K)</dd>
+        </dl>
+    </div>
+</div>
+
+<div class="procedura">
+    <div class="procedura-header">PROCEDURA: Calcolare K da dati termodinamici</div>
+    <div class="procedura-body">
+        <ol>
+            <li><strong>Calcola ΔG°<sub>reaz</sub></strong> dalla formula:
+                <div class="step-importante">
+                    ΔG°<sub>reaz</sub> = Σ ΔG°<sub>f</sub>(prodotti) − Σ ΔG°<sub>f</sub>(reagenti)<br>
+                    Ricorda: elementi puri (N₂, H₂, O₂, C, metalli) hanno ΔG°<sub>f</sub> = 0
+                </div>
+            </li>
+            <li><strong>Attenzione alle unità!</strong>
+                <ul>
+                    <li>Se ΔG° in <strong>J/mol</strong> → usa R = 8,314 J/(mol·K)</li>
+                    <li>Se ΔG° in <strong>cal/mol</strong> → usa R = 1,987 cal/(mol·K)</li>
+                    <li>Se ΔG° in <strong>kJ/mol</strong> → converti in J (×1000) oppure usa R = 8,314×10⁻³ kJ/(mol·K)</li>
+                </ul>
+            </li>
+            <li><strong>Calcola ln K</strong> dalla formula riordinata:
+                <div class="step-importante">
+                    ln K = −ΔG° / (RT)
+                </div>
+            </li>
+            <li><strong>Calcola K</strong>:
+                <div class="step-importante">
+                    K = e<sup>ln K</sup>
+                </div>
+            </li>
+        </ol>
+    </div>
 </div>
 
 <h3>Spontaneità - Tabella Riassuntiva</h3>
@@ -945,9 +1024,47 @@
     <tr><td>2</td><td>1/[A] = 1/[A]₀ + kt</td><td>1/[A] vs t</td><td>1 / (k[A]₀)</td><td>L/(mol·s)</td></tr>
 </table>
 
+<div class="procedura">
+    <div class="procedura-header">PROCEDURA: Determinare l'ordine di reazione</div>
+    <div class="procedura-body">
+        <p><strong>Metodo 1 - Dai dati [A] vs t:</strong></p>
+        <ol>
+            <li>Prova a plottare i dati in 3 modi:
+                <ul>
+                    <li>[A] vs t → se lineare → <strong>ordine 0</strong></li>
+                    <li>ln[A] vs t → se lineare → <strong>ordine 1</strong></li>
+                    <li>1/[A] vs t → se lineare → <strong>ordine 2</strong></li>
+                </ul>
+            </li>
+            <li>La pendenza del grafico lineare = k (o −k per ordine 1)</li>
+        </ol>
+        <p><strong>Metodo 2 - Dal tempo di dimezzamento:</strong></p>
+        <ul>
+            <li>Se t<sub>½</sub> è <strong>costante</strong> al variare di [A]₀ → <strong>ordine 1</strong></li>
+            <li>Se t<sub>½</sub> <strong>aumenta</strong> al diminuire di [A]₀ → <strong>ordine 2</strong></li>
+            <li>Se t<sub>½</sub> <strong>diminuisce</strong> al diminuire di [A]₀ → <strong>ordine 0</strong></li>
+        </ul>
+    </div>
+</div>
+
+<div class="procedura">
+    <div class="procedura-header">PROCEDURA: Calcolare k (ordine 2)</div>
+    <div class="procedura-body">
+        <p>Dati: [A]₀, [A] a tempo t</p>
+        <ol>
+            <li>Usa la legge integrata: 1/[A] = 1/[A]₀ + kt</li>
+            <li>Risolvi per k:
+                <div class="step-importante">
+                    k = (1/[A] − 1/[A]₀) / t
+                </div>
+            </li>
+        </ol>
+    </div>
+</div>
+
 <div class="trucco">
-    <strong>Come determinare l'ordine:</strong> Fai i 3 grafici. Quello lineare ti dice l'ordine!<br>
-    <strong>Primo ordine:</strong> t<sub>½</sub> è COSTANTE (non dipende da [A]₀)
+    <strong>Primo ordine:</strong> t<sub>½</sub> = 0,693/k (COSTANTE, non dipende da [A]₀)<br>
+    <strong>Secondo ordine:</strong> t<sub>½</sub> = 1/(k[A]₀) (dipende da [A]₀!)
 </div>
 
 <h3>Equazione di Arrhenius</h3>
@@ -1034,9 +1151,60 @@
     </div>
 </div>
 
+<div class="procedura">
+    <div class="procedura-header">PROCEDURA: Come costruire Q per Nernst</div>
+    <div class="procedura-body">
+        <p>Per la semireazione generica: <strong>Ox + ne⁻ → Rid</strong></p>
+        <ol>
+            <li><strong>Scrivi Q come:</strong>
+                <div class="step-importante">
+                    Q = [prodotti] / [reagenti]<br>
+                    (esclusi e⁻, H₂O e solidi puri)
+                </div>
+            </li>
+            <li><strong>Gli esponenti sono i coefficienti stechiometrici</strong></li>
+            <li><strong>Esempio con MnO₄⁻:</strong>
+                <p style="margin:5px 0;">MnO₄⁻ + 8H⁺ + 5e⁻ → Mn²⁺ + 4H₂O</p>
+                <div class="step-importante">
+                    Q = [Mn²⁺] / ([MnO₄⁻] × [H⁺]⁸)<br>
+                    (H₂O non compare perché è solvente)
+                </div>
+            </li>
+            <li><strong>Nella formula di Nernst:</strong>
+                <div class="step-importante">
+                    E = E° − (0,059/n) × log Q<br>
+                    E = 1,51 − (0,059/5) × log([Mn²⁺]/([MnO₄⁻][H⁺]⁸))
+                </div>
+            </li>
+        </ol>
+    </div>
+</div>
+
 <div class="attenzione">
-    <strong>Per la cella completa:</strong> Q = [prodotti]/[reagenti] della reazione GLOBALE.<br>
-    <strong>Per una semicella:</strong> [ridotto]/[ossidato] della semireazione.
+    <strong>Cosa NON mettere in Q:</strong><br>
+    - Elettroni (e⁻)<br>
+    - Acqua (H₂O) → è il solvente<br>
+    - Solidi puri (metalli, precipitati)<br>
+    - Gas a pressione standard (1 atm)
+</div>
+
+<h3>Pile a Concentrazione</h3>
+
+<div class="procedura">
+    <div class="procedura-header">PROCEDURA: Pila a Concentrazione</div>
+    <div class="procedura-body">
+        <p><strong>Definizione:</strong> stessa coppia redox, concentrazioni diverse</p>
+        <ol>
+            <li><strong>Calcola E di ogni semicella</strong> con Nernst</li>
+            <li><strong>Il catodo</strong> è la semicella con E <strong>più alto</strong></li>
+            <li><strong>L'anodo</strong> è la semicella con E <strong>più basso</strong></li>
+            <li><strong>f.e.m.:</strong> ΔE = E<sub>catodo</sub> − E<sub>anodo</sub></li>
+        </ol>
+        <div class="step-importante">
+            <strong>Regola rapida:</strong> L'anodo è nella soluzione MENO concentrata (per cationi)<br>
+            Formula diretta: ΔE = (0,059/n) × log(C<sub>alta</sub>/C<sub>bassa</sub>)
+        </div>
+    </div>
 </div>
 
 <h3>Calcolo di Keq da E°</h3>
@@ -1053,13 +1221,6 @@
     E°(Cu²⁺/Cu) = +0,34 V, E°(Zn²⁺/Zn) = −0,76 V<br>
     ΔE° = 0,34 − (−0,76) = 1,10 V, n = 2<br>
     log K = (2 × 1,10) / 0,059 = 37,3 → K = 10<sup>37,3</sup> ≈ 2 × 10<sup>37</sup>
-</div>
-
-<h3>Pile a Concentrazione</h3>
-<div class="formula-box">
-    <div class="nome">Pila a concentrazione (stesso metallo)</div>
-    <div class="formula">ΔE = (0,059/n) × log(C<sub>alta</sub>/C<sub>bassa</sub>)</div>
-    <p>L'anodo è nella soluzione <strong>meno concentrata</strong></p>
 </div>
 
 </section>
