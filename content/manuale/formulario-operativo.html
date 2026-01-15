@@ -366,14 +366,14 @@
     <ul>
         <li><a href="#stechiometria">1. Stechiometria e Gas</a> <span class="cap">Cap 01-02</span></li>
         <li><a href="#redox">2. Bilanciamento Redox</a> <span class="cap">Cap 01-02</span></li>
-        <li><a href="#fotoelettrico">3. Teoria Atomica e Fotoelettrico</a> <span class="cap">Cap 03-04</span></li>
+        <li><a href="#fotoelettrico">3. Teoria Atomica, Proprietà Periodiche, Ioni</a> <span class="cap">Cap 03-04</span></li>
         <li><a href="#lewis">4. Lewis + VSEPR</a> <span class="cap">Cap 05</span></li>
         <li><a href="#ph">5. pH Acidi e Basi</a> <span class="cap">Cap 06</span></li>
         <li><a href="#tamponi">6. Soluzioni Tampone</a> <span class="cap">Cap 06</span></li>
         <li><a href="#equilibrio">7. Equilibrio Chimico (Kp/Kc)</a> <span class="cap">Cap 07-08</span></li>
-        <li><a href="#termodinamica">8. Termodinamica (ΔH, ΔG, Hess)</a> <span class="cap">Cap 07-08</span></li>
+        <li><a href="#termodinamica">8. Termodinamica (ΔH, ΔG, ΔS, Calorimetria)</a> <span class="cap">Cap 07-08</span></li>
         <li><a href="#cinetica">9. Cinetica e Arrhenius</a> <span class="cap">Cap 09</span></li>
-        <li><a href="#pile">10. Pile Galvaniche + Nernst</a> <span class="cap">Cap 10</span></li>
+        <li><a href="#pile">10. Pile, Nernst e Kps Elettrochimica</a> <span class="cap">Cap 10</span></li>
         <li><a href="#elettrolisi">11. Elettrolisi + Faraday</a> <span class="cap">Cap 10</span></li>
         <li><a href="#costanti">12. Costanti e Conversioni</a></li>
     </ul>
@@ -520,7 +520,7 @@
 
 <!-- ==================== CAP 03-04: TEORIA ATOMICA ==================== -->
 <section class="cap-0304">
-<h2 id="fotoelettrico">3. Teoria Atomica e Fotoelettrico <span class="cap-ref">(Cap 03-04)</span></h2>
+<h2 id="fotoelettrico">3. Teoria Atomica, Proprietà Periodiche, Ioni <span class="cap-ref">(Cap 03-04)</span></h2>
 
 <div class="formula-box critica">
     <div class="nome">Energia del fotone</div>
@@ -576,6 +576,112 @@
 <div class="trucco">
     <strong>Ordine di riempimento:</strong> 1s → 2s → 2p → 3s → 3p → 4s → 3d → 4p → 5s → 4d → 5p → 6s → 4f → 5d → 6p → 7s...<br>
     <strong>Regola di Hund:</strong> Gli elettroni occupano prima tutti gli orbitali singolarmente, poi si appaiano.
+</div>
+
+<h3>Configurazioni Elettroniche degli Ioni</h3>
+
+<div class="procedura">
+    <div class="procedura-header">PROCEDURA: Configurazione di un Ione</div>
+    <div class="procedura-body">
+        <ol>
+            <li><strong>Scrivi la configurazione dell'atomo neutro</strong></li>
+            <li><strong>Per i CATIONI (ioni +):</strong> rimuovi elettroni dal livello con n più alto
+                <div class="step-importante">
+                    Attenzione ai metalli di transizione!<br>
+                    Fe: [Ar] 4s² 3d⁶ → Fe²⁺: [Ar] 3d⁶ (si perdono prima i 4s, NON i 3d!)
+                </div>
+            </li>
+            <li><strong>Per gli ANIONI (ioni −):</strong> aggiungi elettroni al livello in corso di riempimento</li>
+        </ol>
+    </div>
+</div>
+
+<div class="esempio">
+    <strong>Esempi:</strong><br>
+    <strong>Cu⁺:</strong> Cu = [Ar] 3d¹⁰ 4s¹ → Cu⁺ = [Ar] 3d¹⁰ (perde l'unico 4s)<br>
+    <strong>Fe³⁺:</strong> Fe = [Ar] 3d⁶ 4s² → Fe³⁺ = [Ar] 3d⁵ (perde 2 dai 4s + 1 dai 3d)<br>
+    <strong>S²⁻:</strong> S = [Ne] 3s² 3p⁴ → S²⁻ = [Ne] 3s² 3p⁶ = [Ar]
+</div>
+
+<h3>Proprietà Periodiche - Trend</h3>
+
+<table>
+    <tr>
+        <th>Proprietà</th>
+        <th>Lungo il PERIODO (→)</th>
+        <th>Lungo il GRUPPO (↓)</th>
+        <th>Valore MASSIMO</th>
+    </tr>
+    <tr>
+        <td><strong>Raggio atomico</strong></td>
+        <td>Diminuisce ↓</td>
+        <td>Aumenta ↑</td>
+        <td>Francio (Fr) - in basso a sinistra</td>
+    </tr>
+    <tr>
+        <td><strong>Energia di ionizzazione</strong></td>
+        <td>Aumenta ↑</td>
+        <td>Diminuisce ↓</td>
+        <td>Elio (He) - in alto a destra</td>
+    </tr>
+    <tr>
+        <td><strong>Affinità elettronica</strong></td>
+        <td>Aumenta ↑</td>
+        <td>Diminuisce ↓</td>
+        <td>Cloro (Cl) - alogeni</td>
+    </tr>
+    <tr>
+        <td><strong>Elettronegatività</strong></td>
+        <td>Aumenta ↑</td>
+        <td>Diminuisce ↓</td>
+        <td>Fluoro (F) - in alto a destra</td>
+    </tr>
+</table>
+
+<div class="trucco">
+    <strong>Memoria visiva:</strong> Tutte le proprietà (tranne il raggio) aumentano andando verso il <strong>Fluoro</strong> (alto-destra).<br>
+    Il raggio fa il contrario: aumenta verso il <strong>Francio</strong> (basso-sinistra).
+</div>
+
+<div class="formula-box">
+    <div class="nome">Energia di ionizzazione</div>
+    <p>Energia minima per rimuovere un elettrone: <strong>X(g) → X⁺(g) + e⁻</strong></p>
+    <p>Dipende da: <strong>Z<sub>eff</sub></strong> (carica nucleare efficace) e <strong>raggio atomico</strong></p>
+</div>
+
+<h3>Ioni Isoelettronici e Raggi Ionici</h3>
+
+<div class="procedura">
+    <div class="procedura-header">PROCEDURA: Ordinare Ioni Isoelettronici per Dimensione</div>
+    <div class="procedura-body">
+        <ol>
+            <li><strong>Verifica che siano isoelettronici</strong> (stesso numero di e⁻)</li>
+            <li><strong>Trova Z (numero atomico)</strong> di ogni ione</li>
+            <li><strong>Applica la regola:</strong>
+                <div class="step-importante">
+                    A parità di elettroni: <strong>maggiore Z → minore raggio</strong><br>
+                    (più protoni "stringono" di più la nuvola elettronica)
+                </div>
+            </li>
+            <li><strong>Ordina per Z crescente</strong> = ordine per raggio <strong>decrescente</strong></li>
+        </ol>
+    </div>
+</div>
+
+<div class="esempio">
+    <strong>Esempio:</strong> Ordinare per dimensione crescente: S²⁻, Sc³⁺, Ca²⁺, P³⁻ (tutti con 18 e⁻)<br>
+    <ul>
+        <li>P³⁻: Z = 15 → raggio maggiore</li>
+        <li>S²⁻: Z = 16</li>
+        <li>Ca²⁺: Z = 20</li>
+        <li>Sc³⁺: Z = 21 → raggio minore</li>
+    </ul>
+    <strong>Risposta:</strong> Sc³⁺ < Ca²⁺ < S²⁻ < P³⁻
+</div>
+
+<div class="attenzione">
+    <strong>Regola generale:</strong> I <strong>cationi</strong> sono sempre più piccoli degli <strong>anioni</strong> isoelettronici<br>
+    (nei cationi i protoni superano gli elettroni, negli anioni è il contrario)
 </div>
 
 </section>
@@ -648,6 +754,17 @@
     <tr><td>6</td><td>5</td><td>1</td><td>Piramidale quadrata</td><td>&lt;90°</td><td>sp³d²</td></tr>
     <tr><td>6</td><td>4</td><td>2</td><td>Quadrata planare</td><td>90°</td><td>sp³d²</td></tr>
 </table>
+
+<div class="attenzione">
+    <strong>Espansione dell'ottetto:</strong> Gli elementi del <strong>periodo 3 e successivi</strong> (P, S, Cl, Br, I, Xe...) possono avere più di 8 elettroni attorno a sé perché dispongono di <strong>orbitali d vuoti</strong> nel loro livello di valenza.<br><br>
+    <strong>Esempi tipici:</strong>
+    <ul>
+        <li><strong>PCl₅</strong> → 5 legami → 10 e⁻ attorno a P → ibridazione sp³d</li>
+        <li><strong>SF₆</strong> → 6 legami → 12 e⁻ attorno a S → ibridazione sp³d²</li>
+        <li><strong>XeF₄</strong> → 4 legami + 2 lone pairs → 12 e⁻ attorno a Xe → sp³d²</li>
+    </ul>
+    <strong>Attenzione:</strong> Gli elementi del <strong>periodo 2</strong> (C, N, O, F) <strong>NON</strong> possono espandere l'ottetto (non hanno orbitali d disponibili).
+</div>
 
 <h3>Elettroni di Valenza - Riferimento Rapido</h3>
 <table>
@@ -904,7 +1021,7 @@
 
 <!-- ==================== CAP 07-08: TERMODINAMICA ==================== -->
 <section class="cap-0708">
-<h2 id="termodinamica">8. Termodinamica (ΔH, ΔG, Hess) <span class="cap-ref">(Cap 07-08)</span></h2>
+<h2 id="termodinamica">8. Termodinamica (ΔH, ΔG, ΔS, Calorimetria) <span class="cap-ref">(Cap 07-08)</span></h2>
 
 <h3>Legge di Hess</h3>
 
@@ -1010,6 +1127,86 @@
     <div class="formula">ln(K₂/K₁) = −(ΔH°/R) × (1/T₂ − 1/T₁)</div>
 </div>
 
+<h3>Entropia di Reazione (ΔS°)</h3>
+
+<div class="formula-box critica">
+    <div class="nome">ΔS° di reazione da entropie molari standard</div>
+    <div class="formula">ΔS°<sub>reaz</sub> = Σ S°(prodotti) − Σ S°(reagenti)</div>
+</div>
+
+<div class="attenzione">
+    <strong>ATTENZIONE:</strong> A differenza di ΔH°<sub>f</sub> e ΔG°<sub>f</sub>, i valori di S° degli elementi puri <strong>NON sono zero!</strong><br>
+    Ogni sostanza ha un valore di S° > 0 (entropia assoluta).
+</div>
+
+<div class="trucco">
+    <strong>Regole pratiche per prevedere il segno di ΔS°:</strong>
+    <ul>
+        <li><strong>ΔS° > 0</strong> (disordine aumenta): reazioni che producono gas, dissoluzione, aumento del numero di moli</li>
+        <li><strong>ΔS° < 0</strong> (ordine aumenta): reazioni che consumano gas, precipitazione, diminuzione del numero di moli</li>
+    </ul>
+    <strong>Ordine di entropia:</strong> S°(gas) >> S°(liquido) > S°(solido)
+</div>
+
+<div class="esempio">
+    <strong>Esempio:</strong> Calcolare ΔS°<sub>f</sub> di CaO(s) dalla reazione: Ca(s) + ½O₂(g) → CaO(s)<br>
+    Dati: S°(Ca,s) = 41,4 J/(mol·K), S°(O₂,g) = 205,0 J/(mol·K), S°(CaO,s) = 39,7 J/(mol·K)<br>
+    ΔS° = 39,7 − [41,4 + 0,5 × 205,0] = 39,7 − 143,9 = <strong>−104,2 J/(mol·K)</strong><br>
+    (Negativo perché scompare un gas!)
+</div>
+
+<h3>Calorimetria e Passaggi di Stato</h3>
+
+<div class="formula-box critica">
+    <div class="nome">Calore per variazione di temperatura</div>
+    <div class="formula">Q = m × c × ΔT</div>
+    <div class="variabili">
+        <dl>
+            <dt>Q</dt><dd>calore scambiato [J o cal]</dd>
+            <dt>m</dt><dd>massa [g]</dd>
+            <dt>c</dt><dd>calore specifico [J/(g·K) o cal/(g·°C)]</dd>
+            <dt>ΔT</dt><dd>variazione di temperatura [K o °C]</dd>
+        </dl>
+    </div>
+</div>
+
+<div class="formula-box critica">
+    <div class="nome">Calore per passaggio di stato (T costante)</div>
+    <div class="formula">Q = m × L</div>
+    <div class="variabili">
+        <dl>
+            <dt>L<sub>f</sub></dt><dd>calore latente di fusione (ghiaccio: 334 J/g = 79 cal/g)</dd>
+            <dt>L<sub>v</sub></dt><dd>calore latente di vaporizzazione (acqua: 2260 J/g = 540 cal/g)</dd>
+        </dl>
+    </div>
+</div>
+
+<div class="procedura">
+    <div class="procedura-header">PROCEDURA: Calcolo Calore per Trasformazione Completa</div>
+    <div class="procedura-body">
+        <ol>
+            <li><strong>Identifica tutte le fasi</strong> della trasformazione</li>
+            <li><strong>Per ogni fase</strong>, calcola il calore:
+                <ul>
+                    <li>Se cambia T (stesso stato): Q = m × c × ΔT</li>
+                    <li>Se cambia stato (T costante): Q = m × L</li>
+                </ul>
+            </li>
+            <li><strong>Somma tutti i contributi:</strong> Q<sub>tot</sub> = Q₁ + Q₂ + Q₃ + ...</li>
+        </ol>
+    </div>
+</div>
+
+<div class="esempio">
+    <strong>Esempio:</strong> Calore per trasformare 20 g di ghiaccio (0°C) in vapore (100°C)<br>
+    <ul>
+        <li>Q₁ (fusione): 20 × 79 = 1580 cal</li>
+        <li>Q₂ (riscaldamento acqua): 20 × 1 × 100 = 2000 cal</li>
+        <li>Q₃ (vaporizzazione): 20 × 540 = 10800 cal</li>
+    </ul>
+    Q<sub>tot</sub> = 1580 + 2000 + 10800 = <strong>14380 cal</strong>
+</div>
+
 </section>
 
 <!-- ==================== CAP 09: CINETICA ==================== -->
@@ -1067,6 +1264,57 @@
     <strong>Secondo ordine:</strong> t<sub>½</sub> = 1/(k[A]₀) (dipende da [A]₀!)
 </div>
 
+<h3>Calcolo della Composizione nel Tempo</h3>
+
+<div class="formula-box critica">
+    <div class="nome">Legge integrata primo ordine (forma esponenziale)</div>
+    <div class="formula">[A] = [A]₀ × e<sup>−kt</sup></div>
+    <p style="text-align:center;">equivalente a: ln[A] = ln[A]₀ − kt</p>
+</div>
+
+<div class="procedura">
+    <div class="procedura-header">PROCEDURA: Composizione della Miscela dopo un Tempo t</div>
+    <div class="procedura-body">
+        <ol>
+            <li><strong>Identifica l'ordine di reazione</strong> dalle unità di k:
+                <div class="step-importante">
+                    k in s⁻¹ → primo ordine<br>
+                    k in mol/(L·s) → ordine zero<br>
+                    k in L/(mol·s) → secondo ordine
+                </div>
+            </li>
+            <li><strong>Bilancia la reazione</strong> di decomposizione/formazione</li>
+            <li><strong>Calcola [A] al tempo t</strong> con la legge integrata appropriata:
+                <ul>
+                    <li>Ordine 1: [A] = [A]₀ × e<sup>−kt</sup></li>
+                    <li>Ordine 0: [A] = [A]₀ − kt</li>
+                    <li>Ordine 2: [A] = [A]₀ / (1 + kt[A]₀)</li>
+                </ul>
+            </li>
+            <li><strong>Calcola le moli reagite:</strong> Δn = n₀ − n(t)</li>
+            <li><strong>Usa la stechiometria</strong> per trovare le moli dei prodotti</li>
+        </ol>
+    </div>
+</div>
+
+<div class="esempio">
+    <strong>Esempio:</strong> 0,05 mol di N₂O₅ in 1L, k = 1,12×10⁻⁴ s⁻¹, dopo 1 ora.<br>
+    Reazione: 2N₂O₅ → 4NO₂ + O₂<br>
+    <ul>
+        <li>k in s⁻¹ → primo ordine</li>
+        <li>t = 3600 s, kt = 0,403</li>
+        <li>[N₂O₅] = 0,05 × e<sup>−0,403</sup> = 0,05 × 0,668 = <strong>0,0334 mol</strong></li>
+        <li>N₂O₅ reagito = 0,05 − 0,0334 = 0,0166 mol</li>
+        <li>NO₂ formato = (4/2) × 0,0166 = <strong>0,0332 mol</strong></li>
+        <li>O₂ formato = (1/2) × 0,0166 = <strong>0,0083 mol</strong></li>
+    </ul>
+</div>
+
+<div class="attenzione">
+    <strong>Attenzione alle unità di tempo!</strong><br>
+    Se k è in s⁻¹, converti sempre t in secondi: 1 min = 60 s, 1 ora = 3600 s
+</div>
+
 <h3>Equazione di Arrhenius</h3>
 
 <div class="formula-box critica">
@@ -1102,7 +1350,7 @@
 
 <!-- ==================== CAP 10: PILE GALVANICHE ==================== -->
 <section class="cap-10">
-<h2 id="pile">10. Pile Galvaniche + Nernst <span class="cap-ref">(Cap 10)</span></h2>
+<h2 id="pile">10. Pile, Nernst e Kps Elettrochimica <span class="cap-ref">(Cap 10)</span></h2>
 
 <p><strong>Frequenza:</strong> Sempre presenti. Calcolo f.e.m., applicazione Nernst, calcolo Keq.</p>
 
@@ -1221,6 +1469,54 @@
     E°(Cu²⁺/Cu) = +0,34 V, E°(Zn²⁺/Zn) = −0,76 V<br>
     ΔE° = 0,34 − (−0,76) = 1,10 V, n = 2<br>
     log K = (2 × 1,10) / 0,059 = 37,3 → K = 10<sup>37,3</sup> ≈ 2 × 10<sup>37</sup>
+</div>
+
+<h3>Determinazione Kps per via Elettrochimica</h3>
+
+<p><strong>Problema tipico:</strong> Determinare la Kps di un sale poco solubile (es. AgCl, AgBr) usando una pila.</p>
+
+<div class="procedura">
+    <div class="procedura-header">PROCEDURA: Kps di un Sale d'Argento per via Elettrochimica</div>
+    <div class="procedura-body">
+        <ol>
+            <li><strong>Costruisci una pila a concentrazione:</strong>
+                <div class="step-importante">
+                    <strong>Anodo (−):</strong> Ag | soluzione satura di AgX + X⁻ (1 M)<br>
+                    <strong>Catodo (+):</strong> Ag | Ag⁺ (1 M, da AgNO₃)<br>
+                    Notazione: Ag | AgX(sat), X⁻(1M) || Ag⁺(1M) | Ag
+                </div>
+            </li>
+            <li><strong>Misura la f.e.m. della pila</strong></li>
+            <li><strong>Calcola [Ag⁺] nella soluzione satura:</strong>
+                <div class="step-importante">
+                    [Ag⁺]<sub>satura</sub> = [Ag⁺]<sub>nota</sub> × 10<sup>−f.e.m./0,059</sup>
+                </div>
+            </li>
+            <li><strong>Calcola Kps:</strong>
+                <div class="step-importante">
+                    Kps = [Ag⁺]<sub>satura</sub> × [X⁻]
+                </div>
+            </li>
+        </ol>
+    </div>
+</div>
+
+<div class="formula-box critica">
+    <div class="nome">Formula diretta per Kps (se [Ag⁺]<sub>nota</sub> = [X⁻] = 1 M)</div>
+    <div class="formula">Kps = 10<sup>−f.e.m./0,059</sup></div>
+</div>
+
+<div class="esempio">
+    <strong>Esempio:</strong> f.e.m. misurata = 0,59 V. Calcolare Kps di AgCl.<br>
+    Kps = 10<sup>−0,59/0,059</sup> = 10<sup>−10</sup> = <strong>1 × 10⁻¹⁰</strong><br>
+    (valore tabulato AgCl: 1,8 × 10⁻¹⁰ ✓)
+</div>
+
+<div class="trucco">
+    <strong>Perché funziona?</strong><br>
+    Nella semicella con AgX saturo + eccesso di X⁻, la [Ag⁺] è bassissima (effetto ione comune).<br>
+    La differenza di [Ag⁺] tra le due semicelle genera una f.e.m. misurabile.<br>
+    <strong>Vantaggio:</strong> E° si cancella (stessa coppia Ag⁺/Ag in entrambe le semicelle)!
 </div>
 
 </section>
