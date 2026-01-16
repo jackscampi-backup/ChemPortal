@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Esercizi Svolti - Chimica Generale</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 2cm;
+        }
+        body {
+            font-family: Georgia, serif;
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            line-height: 1.8;
+            color: #333;
+        }
+        h1 {
+            color: #1a5276;
+            border-bottom: 4px solid #2980b9;
+            padding-bottom: 15px;
+        }
+        h2 {
+            color: #2471a3;
+            margin-top: 50px;
+            border-left: 4px solid #3498db;
+            padding-left: 15px;
+        }
+        h3 {
+            color: #1e8449;
+            margin-top: 30px;
+        }
+        h4 {
+            color: #7d3c98;
+            margin-top: 20px;
+        }
+        .indice {
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .indice ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        .indice li {
+            margin: 8px 0;
+        }
+        .indice a {
+            color: #2471a3;
+            text-decoration: none;
+        }
+        .metodo-box {
+            border: 2px solid #1abc9c;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 25px 0;
+        }
+        .metodo-box h3 {
+            color: #1abc9c;
+            margin-top: 0;
+        }
+        .step {
+            border-left: 4px solid #3498db;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        .step-number {
+            background: #3498db;
+            color: white;
+            font-weight: bold;
+            padding: 3px 10px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        .esempio {
+            border: 1px solid #f4d03f;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .esempio h4 {
+            color: #9a7d0a;
+            margin-top: 0;
+        }
+        .warning-box {
+            border-left: 5px solid #e67e22;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        .tip-box {
+            border-left: 5px solid #27ae60;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        .formula {
+            background: #fff3cd;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            font-size: 1.1em;
+            margin: 10px 0;
+            display: inline-block;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        td, th {
+            border: 1px solid #ddd;
+            padding: 10px;
+        }
+        .semireazione {
+            font-family: 'Courier New', monospace;
+            padding: 8px 12px;
+            display: block;
+            margin: 8px 0;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Esercizi Svolti - Chimica Generale</h1>
+
+<div class="indice">
+    <h3>Indice</h3>
+    <ul>
+        <li><a href="#redox">1. Bilanciamento Redox</a></li>
+        <li><a href="#vsepr">2. Lewis e VSEPR</a></li>
+        <li><a href="#ph">3. pH e Acidi/Basi</a></li>
+        <li><a href="#termodinamica">4. Termodinamica</a></li>
+        <li><a href="#cinetica">5. Cinetica</a></li>
+        <li><a href="#elettrochimica">6. Elettrochimica</a></li>
+    </ul>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════════════════ -->
+<h2 id="redox">1. BILANCIAMENTO REDOX - Metodo Universale</h2>
+<!-- ═══════════════════════════════════════════════════════════════════════════════ -->
+
+<p>Questo metodo funziona <strong>sempre</strong>, sia in ambiente acido che basico. Si basa sulla separazione della reazione in due semireazioni (ossidazione e riduzione) che vengono bilanciate separatamente e poi sommate.</p>
+
+<div class="metodo-box">
+    <h3>Il Metodo delle Semireazioni in 9 Passi</h3>
+
+    <div class="step">
+        <span class="step-number">1</span>
+        <strong>Assegna i numeri di ossidazione</strong><br>
+        Identifica quali atomi si ossidano (n.o. aumenta) e quali si riducono (n.o. diminuisce).
+        <div class="tip-box">
+            <strong>Regole per i n.o.:</strong>
+            <ul>
+                <li><strong>Elementi liberi</strong> (non combinati): n.o. = 0 → Es: O₂, H₂, Fe, Na</li>
+                <li><strong>Ossigeno</strong>: n.o. = −2 nella maggior parte dei composti</li>
+                <li><strong>Idrogeno</strong>: n.o. = +1 nella maggior parte dei composti</li>
+            </ul>
+            <strong>Eccezioni importanti:</strong>
+            <ul>
+                <li><strong>Perossidi</strong>: composti con legame O−O, dove l'ossigeno ha n.o. = <strong>−1</strong><br>
+                    Es: H₂O₂ (acqua ossigenata), Na₂O₂ (perossido di sodio), BaO₂ (perossido di bario)<br>
+                    Come riconoscerli: il nome contiene "perossido" oppure la formula ha rapporto O/metallo anomalo</li>
+                <li><strong>Idruri metallici</strong>: composti dove H è legato a un metallo, e l'idrogeno ha n.o. = <strong>−1</strong><br>
+                    Es: NaH (idruro di sodio), CaH₂ (idruro di calcio), LiH (idruro di litio)<br>
+                    Come riconoscerli: il nome contiene "idruro" oppure H è combinato solo con un metallo</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="step">
+        <span class="step-number">2</span>
+        <strong>Scrivi le due semireazioni separate</strong><br>
+        Una per l'ossidazione, una per la riduzione. Includi solo le specie che cambiano n.o.
+    </div>
+
+    <div class="step">
+        <span class="step-number">3</span>
+        <strong>Bilancia gli atomi DIVERSI da O e H</strong><br>
+        Aggiungi coefficienti stechiometrici davanti alle specie.
+    </div>
+
+    <div class="step">
+        <span class="step-number">4</span>
+        <strong>Bilancia gli OSSIGENI con H₂O</strong><br>
+        Aggiungi molecole d'acqua dalla parte che ne ha meno.
+    </div>
+
+    <div class="step">
+        <span class="step-number">5</span>
+        <strong>Bilancia gli IDROGENI con H⁺</strong><br>
+        Aggiungi ioni H⁺ dalla parte che ha meno idrogeni.
+    </div>
+
+    <div class="step">
+        <span class="step-number">6</span>
+        <strong>Bilancia le CARICHE con e⁻</strong><br>
+        Aggiungi elettroni dalla parte più positiva per pareggiare le cariche.
+        <div class="warning-box">
+            <strong>Verifica:</strong> Nell'ossidazione gli e⁻ sono a destra (vengono persi).<br>
+            Nella riduzione gli e⁻ sono a sinistra (vengono acquistati).
+        </div>
+    </div>
+
+    <div class="step">
+        <span class="step-number">7</span>
+        <strong>Moltiplica per pareggiare gli elettroni</strong><br>
+        Gli elettroni persi devono essere uguali a quelli acquistati. Trova il mcm e moltiplica.
+    </div>
+
+    <div class="step">
+        <span class="step-number">8</span>
+        <strong>Somma le semireazioni</strong><br>
+        Gli elettroni si elidono. Semplifica le specie uguali su entrambi i lati (H₂O, H⁺).
+    </div>
+
+    <div class="step">
+        <span class="step-number">9</span>
+        <strong>SOLO se ambiente BASICO: neutralizza gli H⁺</strong><br>
+        Aggiungi tanti OH⁻ quanti sono gli H⁺, <em>da entrambi i lati</em>.<br>
+        H⁺ + OH⁻ → H₂O, poi semplifica le molecole d'acqua.
+    </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════════════════ -->
+<h2 id="vsepr">2. LEWIS E VSEPR</h2>
+<!-- ═══════════════════════════════════════════════════════════════════════════════ -->
+
+<p>Disegnare la struttura di Lewis di una molecola.</p>
+
+<div class="metodo-box">
+    <h3>Metodo in 6 passi</h3>
+
+    <div class="step">
+        <span class="step-number">1</span>
+        <strong>Individua l'atomo centrale</strong><br>
+        È quello scritto per primo nella formula (es: <strong>S</strong>O₂, <strong>N</strong>H₃), oppure il meno elettronegativo.<br>
+        H e F sono <strong>sempre</strong> terminali.
+    </div>
+
+    <div class="step">
+        <span class="step-number">2</span>
+        <strong>Conta gli elettroni di valenza totali</strong><br>
+        Somma gli e⁻ di valenza di tutti gli atomi (= numero del gruppo per elementi rappresentativi).<br>
+        Per ioni: <strong>+e⁻</strong> se carica negativa, <strong>−e⁻</strong> se positiva.
+    </div>
+
+    <div class="step">
+        <span class="step-number">3</span>
+        <strong>Disegna i legami singoli</strong><br>
+        Collega ogni atomo terminale al centrale con un legame singolo (2 e⁻ ciascuno).<br>
+        Sottrai questi elettroni dal totale.
+    </div>
+
+    <div class="step">
+        <span class="step-number">4</span>
+        <strong>Distribuisci gli e⁻ rimanenti partendo dall'esterno</strong><br>
+        Completa l'ottetto degli atomi terminali (H solo 2 e⁻).
+    </div>
+
+    <div class="step">
+        <span class="step-number">5</span>
+        <strong>Metti gli e⁻ avanzati sull'atomo centrale</strong>
+    </div>
+
+    <div class="step">
+        <span class="step-number">6</span>
+        <strong>Se l'atomo centrale non ha l'ottetto: forma legami multipli</strong><br>
+        Prendi un doppietto solitario da un atomo vicino e trasformalo in legame doppio (o triplo).
+    </div>
+</div>
+
+<div class="warning-box">
+    <strong>Eccezioni all'ottetto:</strong>
+    <ul>
+        <li><strong>B, Be:</strong> possono avere meno di 8 e⁻</li>
+        <li><strong>Elementi dal 3° periodo</strong> (S, P, Cl...): possono avere più di 8 e⁻</li>
+    </ul>
+</div>
+
+<div class="tip-box">
+    <strong>Per geometria e ibridazione:</strong> calcola NS = (atomi legati) + (doppietti solitari sull'atomo centrale), poi usa la tabella VSEPR nel formulario.
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════════════════ -->
+<h2 id="ph">3. pH</h2>
+<!-- ═══════════════════════════════════════════════════════════════════════════════ -->
+
+<p>Esercizio tipico: pH di acido/base debole, poi pH dopo aggiunta di qualcosa.</p>
+
+<h3>3.1 pH di acido o base debole</h3>
+
+<div class="metodo-box">
+    <div class="step">
+        <strong>Acido debole:</strong> <span class="formula">[H⁺] = √(Ka × C)</span> → <span class="formula">pH = −log[H⁺]</span>
+    </div>
+    <div class="step">
+        <strong>Base debole:</strong> <span class="formula">[OH⁻] = √(Kb × C)</span> → <span class="formula">pOH = −log[OH⁻]</span> → <span class="formula">pH = 14 − pOH</span>
+    </div>
+</div>
+
+<h3>3.2 pH dopo aggiunta (→ tampone)</h3>
+
+<div class="metodo-box">
+    <h3>Metodo in 3 passi</h3>
+
+    <div class="step">
+        <span class="step-number">1</span>
+        <strong>Calcola le moli iniziali</strong><br>
+        n = C × V (di acido debole e/o sua base coniugata)
+    </div>
+
+    <div class="step">
+        <span class="step-number">2</span>
+        <strong>Aggiorna le moli dopo la reazione</strong><br>
+        <ul>
+            <li><strong>Aggiungi acido forte:</strong> consuma la base (A⁻), produce l'acido (HA)</li>
+            <li><strong>Aggiungi base forte:</strong> consuma l'acido (HA), produce la base (A⁻)</li>
+        </ul>
+    </div>
+
+    <div class="step">
+        <span class="step-number">3</span>
+        <strong>Applica Henderson-Hasselbalch</strong><br>
+        <span class="formula">pH = pKa + log(n_base / n_acido)</span>
+    </div>
+</div>
+
+<div class="tip-box">
+    <strong>Se dopo l'aggiunta hai sia HA che A⁻:</strong> è un tampone → usa Henderson-Hasselbalch.<br>
+    <strong>Se uno dei due è finito:</strong> non è più tampone → torna al caso acido/base debole (o forte se in eccesso).
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════════════════ -->
+<h2 id="termodinamica">4. TERMODINAMICA</h2>
+<!-- ═══════════════════════════════════════════════════════════════════════════════ -->
+
+<h3>4.1 Calorimetria (bomba calorimetrica)</h3>
+
+<p>Calcolare il calore di combustione/reazione da dati sperimentali.</p>
+
+<div class="metodo-box">
+    <h3>Metodo in 3 passi</h3>
+
+    <div class="step">
+        <span class="step-number">1</span>
+        <strong>Calcola il calore assorbito dal calorimetro</strong><br>
+        <span class="formula">q = C × ΔT</span><br>
+        dove C = capacità termica (cal/°C o J/K), ΔT = variazione temperatura
+    </div>
+
+    <div class="step">
+        <span class="step-number">2</span>
+        <strong>Calcola le moli di sostanza bruciata</strong><br>
+        <span class="formula">n = m / MM</span><br>
+        dove m = massa (g), MM = massa molare (g/mol)
+    </div>
+
+    <div class="step">
+        <span class="step-number">3</span>
+        <strong>Calcola il calore molare</strong><br>
+        <span class="formula">ΔH = q / n</span><br>
+        Il segno è <strong>negativo</strong> per combustioni (esotermiche)
+    </div>
+</div>
+
+<h3>4.2 Legge di Hess</h3>
+
+<p>Calcolare ΔH di una reazione combinando reazioni note.</p>
+
+<div class="metodo-box">
+    <h3>Metodo in 4 passi</h3>
+
+    <div class="step">
+        <span class="step-number">1</span>
+        <strong>Scrivi la reazione obiettivo</strong><br>
+        Identifica reagenti e prodotti della reazione di cui vuoi calcolare ΔH
+    </div>
+
+    <div class="step">
+        <span class="step-number">2</span>
+        <strong>Manipola le reazioni date</strong><br>
+        Per ogni reazione puoi:
+        <ul>
+            <li><strong>Invertirla</strong> → cambia segno a ΔH</li>
+            <li><strong>Moltiplicarla</strong> per un coefficiente → moltiplica anche ΔH</li>
+        </ul>
+    </div>
+
+    <div class="step">
+        <span class="step-number">3</span>
+        <strong>Somma le reazioni</strong><br>
+        Le specie intermedie si devono elidere, lasciando solo reagenti e prodotti finali
+    </div>
+
+    <div class="step">
+        <span class="step-number">4</span>
+        <strong>Somma i ΔH</strong><br>
+        <span class="formula">ΔH°reaz = Σ ΔH°i</span>
+    </div>
+</div>
+
+<div class="tip-box">
+    <strong>Alternativa con ΔH°f tabulati:</strong><br>
+    <span class="formula">ΔH°reaz = Σ ΔH°f(prodotti) − Σ ΔH°f(reagenti)</span><br>
+    Ricorda: ΔH°f degli elementi puri (O₂, H₂, N₂, C, metalli) = 0
+</div>
+
+<h3>4.3 Equilibrio chimico (Kp, Kc)</h3>
+
+<p>Calcolare composizione all'equilibrio o costante di equilibrio.</p>
+
+<div class="metodo-box">
+    <h3>Metodo della tabella ICE</h3>
+
+    <div class="step">
+        <span class="step-number">1</span>
+        <strong>Scrivi la reazione bilanciata</strong><br>
+        Identifica i coefficienti stechiometrici
+    </div>
+
+    <div class="step">
+        <span class="step-number">2</span>
+        <strong>Costruisci la tabella ICE</strong><br>
+        <table>
+            <tr><td></td><td>Reagenti</td><td>Prodotti</td></tr>
+            <tr><td><strong>I</strong> (initial)</td><td>concentrazione iniziale</td><td>di solito 0</td></tr>
+            <tr><td><strong>C</strong> (change)</td><td>−ax (si consuma)</td><td>+bx (si forma)</td></tr>
+            <tr><td><strong>E</strong> (equilibrium)</td><td>I − ax</td><td>0 + bx</td></tr>
+        </table>
+        dove a, b = coefficienti stechiometrici, x = avanzamento reazione
+    </div>
+
+    <div class="step">
+        <span class="step-number">3</span>
+        <strong>Scrivi l'espressione di K e risolvi</strong><br>
+        <span class="formula">Kc = [prodotti]^coeff / [reagenti]^coeff</span><br>
+        <span class="formula">Kp = (p_prodotti)^coeff / (p_reagenti)^coeff</span>
+    </div>
+</div>
+
+<div class="warning-box">
+    <strong>Quando usare Kp vs Kc:</strong>
+    <ul>
+        <li><strong>Kp</strong>: quando hai pressioni parziali (gas)</li>
+        <li><strong>Kc</strong>: quando hai concentrazioni molari</li>
+        <li>Relazione: <span class="formula">Kp = Kc × (RT)^Δn</span> dove Δn = mol gas prodotti − mol gas reagenti</li>
+    </ul>
+</div>
+
+<h3>4.4 Entropia di reazione</h3>
+
+<p>Calcolare ΔS° da valori tabulati.</p>
+
+<div class="metodo-box">
+    <h3>Formula diretta</h3>
+
+    <div class="step">
+        <span class="step-number">1</span>
+        <strong>Applica la formula</strong><br>
+        <span class="formula">ΔS°reaz = Σ S°(prodotti) − Σ S°(reagenti)</span><br>
+        Usa i valori di S° assoluti dalla tabella (in J/mol·K)
+    </div>
+</div>
+
+<div class="tip-box">
+    <strong>A differenza di ΔH° e ΔG°:</strong> per l'entropia si usano valori <strong>assoluti</strong> (S°), non di formazione. Gli elementi puri hanno S° ≠ 0.
+</div>
+
+<h3>4.5 Keq da energia libera</h3>
+
+<p>Calcolare la costante di equilibrio da ΔG°.</p>
+
+<div class="metodo-box">
+    <h3>Metodo in 2 passi</h3>
+
+    <div class="step">
+        <span class="step-number">1</span>
+        <strong>Calcola ΔG° della reazione</strong><br>
+        <span class="formula">ΔG°reaz = Σ ΔG°f(prodotti) − Σ ΔG°f(reagenti)</span><br>
+        Ricorda: ΔG°f degli elementi puri = 0
+    </div>
+
+    <div class="step">
+        <span class="step-number">2</span>
+        <strong>Calcola K dalla relazione</strong><br>
+        <span class="formula">ΔG° = −RT ln K</span><br>
+        quindi: <span class="formula">K = e^(−ΔG°/RT)</span><br>
+        oppure: <span class="formula">ln K = −ΔG° / RT</span>
+    </div>
+</div>
+
+<div class="warning-box">
+    <strong>Attenzione alle unità:</strong>
+    <ul>
+        <li>Se ΔG° è in <strong>J/mol</strong> → usa R = 8,314 J/(mol·K)</li>
+        <li>Se ΔG° è in <strong>cal/mol</strong> → usa R = 1,987 cal/(mol·K)</li>
+        <li>T sempre in <strong>Kelvin</strong></li>
+    </ul>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════════════════ -->
+<h2 id="cinetica">5. CINETICA</h2>
+<!-- ═══════════════════════════════════════════════════════════════════════════════ -->
+
+<h3>5.1 Equazione di Arrhenius</h3>
+
+<p>Calcolare T per un certo rapporto k₂/k₁, oppure calcolare Ea.</p>
+
+<div class="metodo-box">
+    <h3>Formula a due temperature</h3>
+
+    <div class="step">
+        <span class="step-number">1</span>
+        <strong>Usa la forma logaritmica</strong><br>
+        <span class="formula">ln(k₂/k₁) = (Ea/R) × (1/T₁ − 1/T₂)</span>
+    </div>
+
+    <div class="step">
+        <span class="step-number">2</span>
+        <strong>Isola l'incognita</strong><br>
+        <ul>
+            <li>Se cerchi <strong>T₂</strong>: ricava 1/T₂ e poi inverti</li>
+            <li>Se cerchi <strong>Ea</strong>: isola Ea = R × ln(k₂/k₁) / (1/T₁ − 1/T₂)</li>
+        </ul>
+    </div>
+</div>
+
+<div class="tip-box">
+    <strong>Caso tipico:</strong> "A che T la reazione è 2 volte più veloce?"<br>
+    Significa k₂/k₁ = 2, quindi ln(k₂/k₁) = ln 2 = 0,693
+</div>
+
+<h3>5.2 Determinare l'ordine di reazione</h3>
+
+<p>Da dati sperimentali [A] vs t, trovare l'ordine.</p>
+
+<div class="metodo-box">
+    <h3>Metodo del tempo di dimezzamento</h3>
+
+    <div class="step">
+        <span class="step-number">1</span>
+        <strong>Trova t₁/₂ dai dati</strong><br>
+        t₁/₂ = tempo in cui [A] diventa metà del valore iniziale
+    </div>
+
+    <div class="step">
+        <span class="step-number">2</span>
+        <strong>Verifica se t₁/₂ dipende da [A]₀</strong><br>
+        <ul>
+            <li><strong>I ordine</strong>: t₁/₂ = costante (non dipende da [A]₀)</li>
+            <li><strong>II ordine</strong>: t₁/₂ raddoppia se [A]₀ dimezza</li>
+        </ul>
+    </div>
+</div>
+
+<div class="metodo-box">
+    <h3>Metodo grafico (alternativo)</h3>
+
+    <div class="step">
+        <span class="step-number">1</span>
+        <strong>Prova i tre grafici</strong><br>
+        <ul>
+            <li>Se <strong>[A] vs t</strong> è lineare → ordine 0</li>
+            <li>Se <strong>ln[A] vs t</strong> è lineare → ordine 1</li>
+            <li>Se <strong>1/[A] vs t</strong> è lineare → ordine 2</li>
+        </ul>
+    </div>
+</div>
+
+<h3>5.3 Leggi cinetiche integrate</h3>
+
+<p>Calcolare [A] a tempo t, oppure t per raggiungere certa [A].</p>
+
+<div class="metodo-box">
+    <h3>Formule per ordine</h3>
+
+    <div class="step">
+        <strong>Ordine 0:</strong><br>
+        <span class="formula">[A] = [A]₀ − kt</span><br>
+        <span class="formula">t₁/₂ = [A]₀ / 2k</span>
+    </div>
+
+    <div class="step">
+        <strong>Ordine 1:</strong><br>
+        <span class="formula">ln[A] = ln[A]₀ − kt</span>  oppure  <span class="formula">[A] = [A]₀ × e^(−kt)</span><br>
+        <span class="formula">t₁/₂ = ln2 / k = 0,693 / k</span> (non dipende da [A]₀)
+    </div>
+
+    <div class="step">
+        <strong>Ordine 2:</strong><br>
+        <span class="formula">1/[A] = 1/[A]₀ + kt</span><br>
+        <span class="formula">t₁/₂ = 1 / (k × [A]₀)</span>
+    </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════════════════ -->
+<h2 id="elettrochimica">6. ELETTROCHIMICA</h2>
+<!-- ═══════════════════════════════════════════════════════════════════════════════ -->
+
+<h3>6.1 Pile galvaniche (f.e.m. standard)</h3>
+
+<p>Calcolare la forza elettromotrice di una pila.</p>
+
+<div class="metodo-box">
+    <h3>Metodo in 3 passi</h3>
+
+    <div class="step">
+        <span class="step-number">1</span>
+        <strong>Identifica catodo e anodo</strong><br>
+        <ul>
+            <li><strong>Catodo</strong> = elettrodo con E° più alto (si riduce)</li>
+            <li><strong>Anodo</strong> = elettrodo con E° più basso (si ossida)</li>
+        </ul>
+    </div>
+
+    <div class="step">
+        <span class="step-number">2</span>
+        <strong>Calcola la f.e.m.</strong><br>
+        <span class="formula">ΔE° = E°catodo − E°anodo</span><br>
+        Il risultato deve essere <strong>sempre positivo</strong> (pila spontanea)
+    </div>
+
+    <div class="step">
+        <span class="step-number">3</span>
+        <strong>Scrivi le semireazioni</strong><br>
+        <ul>
+            <li>Catodo: riduzione (acquista e⁻)</li>
+            <li>Anodo: ossidazione (perde e⁻)</li>
+        </ul>
+    </div>
+</div>
+
+<h3>6.2 Equazione di Nernst</h3>
+
+<p>Calcolare f.e.m. a concentrazioni non standard.</p>
+
+<div class="metodo-box">
+    <h3>Formula</h3>
+
+    <div class="step">
+        <span class="step-number">1</span>
+        <strong>Applica Nernst</strong><br>
+        <span class="formula">ΔE = ΔE° − (0,059/n) × log Q</span> (a 25°C)<br>
+        dove n = numero di elettroni scambiati
+    </div>
+
+    <div class="step">
+        <span class="step-number">2</span>
+        <strong>Costruisci Q correttamente</strong><br>
+        <span class="formula">Q = [prodotti della riduzione] / [reagenti della riduzione]</span><br>
+        Per la reazione globale: Q = [specie ridotte] / [specie ossidate]
+    </div>
+</div>
+
+<div class="warning-box">
+    <strong>Come costruire Q:</strong>
+    <ul>
+        <li>Al <strong>numeratore</strong>: concentrazioni delle specie nella forma ridotta</li>
+        <li>Al <strong>denominatore</strong>: concentrazioni delle specie nella forma ossidata</li>
+        <li>Se c'è H⁺ nella semireazione, includerlo con il suo esponente</li>
+        <li>I solidi puri e l'acqua NON compaiono in Q</li>
+    </ul>
+</div>
+
+<h3>6.3 Pile a concentrazione</h3>
+
+<p>Stessi elettrodi, concentrazioni diverse.</p>
+
+<div class="metodo-box">
+    <h3>Metodo in 2 passi</h3>
+
+    <div class="step">
+        <span class="step-number">1</span>
+        <strong>Identifica anodo e catodo</strong><br>
+        <ul>
+            <li><strong>Anodo</strong> = semicella con concentrazione <strong>minore</strong></li>
+            <li><strong>Catodo</strong> = semicella con concentrazione <strong>maggiore</strong></li>
+        </ul>
+        (la reazione va nel senso di equilibrare le concentrazioni)
+    </div>
+
+    <div class="step">
+        <span class="step-number">2</span>
+        <strong>Calcola f.e.m. con Nernst semplificata</strong><br>
+        <span class="formula">ΔE = (0,059/n) × log(C_maggiore / C_minore)</span><br>
+        Nota: ΔE° = 0 per pile a concentrazione (stessi elettrodi)
+    </div>
+</div>
+
+<h3>6.4 Elettrolisi (leggi di Faraday)</h3>
+
+<p>Calcolare massa depositata o volume di gas prodotto.</p>
+
+<div class="metodo-box">
+    <h3>Metodo in 3 passi</h3>
+
+    <div class="step">
+        <span class="step-number">1</span>
+        <strong>Calcola la carica totale</strong><br>
+        <span class="formula">Q = I × t</span><br>
+        dove I = corrente (A), t = tempo (<strong>in secondi!</strong>)
+    </div>
+
+    <div class="step">
+        <span class="step-number">2</span>
+        <strong>Calcola le moli di elettroni</strong><br>
+        <span class="formula">mol e⁻ = Q / F</span><br>
+        dove F = 96485 C/mol (costante di Faraday)
+    </div>
+
+    <div class="step">
+        <span class="step-number">3</span>
+        <strong>Calcola le moli di sostanza e poi la massa</strong><br>
+        <span class="formula">mol sostanza = mol e⁻ / n</span><br>
+        dove n = elettroni per ione (dalla semireazione)<br>
+        <span class="formula">m = mol × MM</span>
+    </div>
+</div>
+
+<div class="tip-box">
+    <strong>Formula compatta:</strong><br>
+    <span class="formula">m = (MM × I × t) / (n × F)</span>
+</div>
+
+<div class="warning-box">
+    <strong>Per i gas:</strong> usa il volume molare invece di MM<br>
+    <span class="formula">V = mol × 22,4 L/mol</span> (a c.n.: 0°C, 1 atm)
+</div>
+
+<h3>6.5 Keq da potenziali</h3>
+
+<p>Calcolare la costante di equilibrio da ΔE°.</p>
+
+<div class="metodo-box">
+    <h3>Formula diretta</h3>
+
+    <div class="step">
+        <span class="step-number">1</span>
+        <strong>Usa la relazione</strong><br>
+        <span class="formula">log K = (n × ΔE°) / 0,059</span> (a 25°C)<br>
+        oppure: <span class="formula">ln K = (n × F × ΔE°) / (R × T)</span>
+    </div>
+</div>
+
+<div class="tip-box">
+    <strong>Relazione con ΔG°:</strong><br>
+    <span class="formula">ΔG° = −nFΔE°</span> e <span class="formula">ΔG° = −RT ln K</span><br>
+    Combinando: <span class="formula">nFΔE° = RT ln K</span>
+</div>
+
+</body>
+</html>

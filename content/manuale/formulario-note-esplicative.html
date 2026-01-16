@@ -1,0 +1,2704 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulario - Note Esplicative dei Simboli</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 2cm;
+        }
+        body {
+            font-family: Georgia, serif;
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            line-height: 1.8;
+            color: #333;
+        }
+        h1 {
+            color: #1a5276;
+            border-bottom: 4px solid #2980b9;
+            padding-bottom: 15px;
+            font-size: 2em;
+        }
+        h2 {
+            color: #2471a3;
+            margin-top: 50px;
+            border-left: 4px solid #3498db;
+            padding-left: 15px;
+            page-break-after: avoid;
+        }
+        h3 {
+            color: #1e8449;
+            margin-top: 30px;
+        }
+        h4 {
+            color: #7d3c98;
+            margin-top: 20px;
+        }
+        .indice {
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .indice ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        .indice li {
+            margin: 8px 0;
+        }
+        .indice a {
+            color: #2471a3;
+            text-decoration: none;
+        }
+        .indice a:hover {
+            text-decoration: underline;
+        }
+        .intro-box {
+            padding: 25px;
+            margin: 25px 0;
+        }
+        .intro-box h3 {
+            margin-top: 0;
+        }
+        .nota-sezione {
+            border-left: 5px solid #1abc9c;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .simbolo-box {
+            background: #fef9e7;
+            padding: 15px 20px;
+            border: 1px solid #f4d03f;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        .simbolo-box .simbolo {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #9a7d0a;
+            font-family: 'Courier New', monospace;
+        }
+        .simbolo-box .descrizione {
+            margin-top: 8px;
+            color: #666;
+        }
+        .simbolo-box .unita {
+            margin-top: 5px;
+            color: #1e8449;
+            font-weight: bold;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th {
+            background: #3498db;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        td {
+            border: 1px solid #ddd;
+            padding: 10px;
+        }
+        .formula-evidenziata {
+            background: #fff3cd;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            font-size: 1.1em;
+            margin: 10px 0;
+            display: inline-block;
+        }
+        .costante {
+            color: #c0392b;
+            font-weight: bold;
+        }
+        .warning-box {
+            border-left: 5px solid #e67e22;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        @media print {
+            .indice {
+                page-break-after: always;
+            }
+            h2 {
+                page-break-before: always;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<h1>Formulario di Chimica Generale</h1>
+
+<div class="indice">
+    <h3>Indice</h3>
+    <ul>
+        <li><a href="#teoria-atomica">1. Teoria Atomica</a>
+            <ul>
+                <li>1.1 Lunghezza d'onda e frequenza</li>
+                <li>1.2 Energia di un fotone</li>
+                <li>1.3 Spettro dell'atomo di idrogeno</li>
+                <li>1.4 Corpo nero e legge di Planck</li>
+                <li>1.5 Effetto fotoelettrico</li>
+                <li>1.6 Atomo di Bohr</li>
+            </ul>
+        </li>
+        <li><a href="#lewis">2. Formule di Lewis</a>
+            <ul>
+                <li>2.1 Tabella VSEPR - Geometrie molecolari</li>
+                <li>2.2 Criteri per le strutture di risonanza</li>
+                <li>2.3 Polarità del legame</li>
+                <li>2.4 Paramagnetismo e Diamagnetismo</li>
+            </ul>
+        </li>
+        <li><a href="#stechiometria">3. Stechiometria</a>
+            <ul>
+                <li>3.1 Massa atomica media</li>
+                <li>3.2 Mole e numero di particelle</li>
+                <li>3.3 Composizione percentuale e frazione in massa</li>
+                <li>3.4 Densità</li>
+                <li>3.5 Bilanciamento e reazioni</li>
+                <li>3.6 Ossidoriduzioni (Redox)</li>
+                <li>3.7 Soluzioni - Concentrazioni</li>
+                <li>3.8 Gas perfetti</li>
+            </ul>
+        </li>
+        <li><a href="#acidi-basi">4. Acidi e Basi</a>
+            <ul>
+                <li>4.1 Costante di acidità Ka</li>
+                <li>4.2 Costante di basicità Kb</li>
+                <li>4.3 pH e pOH</li>
+                <li>4.4 Prodotto ionico dell'acqua</li>
+                <li>4.5 Bilancio di massa e di carica</li>
+                <li>4.6 Grado di dissociazione</li>
+                <li>4.7 Classificazione forza acido/base</li>
+                <li>4.8 Acidi e basi forti</li>
+                <li>4.9 Acidi e basi deboli - Approssimazioni</li>
+                <li>4.10 Idrolisi dei sali</li>
+                <li>4.11 Soluzioni tampone</li>
+                <li>4.12 Indicatori</li>
+                <li>4.13 Prodotto di solubilità</li>
+            </ul>
+        </li>
+        <li><a href="#termodinamica">5. Termodinamica</a>
+            <ul>
+                <li>5.1 Tipologie di trasformazione termodinamica</li>
+                <li>5.2 Convenzione dei segni</li>
+                <li>5.3 Primo principio della termodinamica</li>
+                <li>5.4 Casi particolari del I principio</li>
+                <li>5.5 Capacità termica</li>
+                <li>5.6 Entalpia</li>
+                <li>5.7 Entropia</li>
+                <li>5.8 Energia libera di Gibbs</li>
+                <li>5.9 Equilibri e quozienti di reazione</li>
+            </ul>
+        </li>
+        <li><a href="#cinetica">6. Cinetica Chimica</a>
+            <ul>
+                <li>6.1 Velocità di reazione</li>
+                <li>6.2 Legge cinetica</li>
+                <li>6.3 Leggi cinetiche integrate</li>
+                <li>6.4 Tempo di dimezzamento</li>
+                <li>6.5 Teoria delle collisioni</li>
+                <li>6.6 Equazione di Arrhenius</li>
+                <li>6.7 Selettività</li>
+                <li>6.8 Meccanismo di reazione</li>
+            </ul>
+        </li>
+        <li><a href="#elettrochimica">7. Elettrochimica</a>
+            <ul>
+                <li>7.1 Grandezze elettriche fondamentali</li>
+                <li>7.2 Celle galvaniche (pile)</li>
+                <li>7.3 Potenziale standard di riduzione</li>
+                <li>7.4 Relazione tra ΔG° e ΔE°</li>
+                <li>7.5 Equazione di Nernst</li>
+                <li>7.6 Pile a concentrazione</li>
+                <li>7.7 Leggi di Faraday (elettrolisi)</li>
+                <li>7.8 Elettrolisi dell'acqua</li>
+                <li>7.9 Tensione di decomposizione</li>
+                <li>7.10 Riepilogo formule chiave</li>
+            </ul>
+        </li>
+    </ul>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════════════════ -->
+<h2 id="teoria-atomica">1. TEORIA ATOMICA</h2>
+<!-- ═══════════════════════════════════════════════════════════════════════════════ -->
+
+<div class="nota-sezione">
+    <strong>Panoramica:</strong> Questa sezione contiene le formule fondamentali sulla natura della luce, l'effetto fotoelettrico, lo spettro dell'idrogeno e il modello atomico di Bohr. Sono le basi per capire come gli elettroni interagiscono con l'energia.
+</div>
+
+<h3>1.1 Lunghezza d'onda e frequenza</h3>
+
+<p class="formula-evidenziata">λ = c / ν</p>
+
+<table>
+    <tr>
+        <td><strong>λ</strong> (lambda)</td>
+        <td>Lunghezza d'onda</td>
+        <td>Distanza tra due creste consecutive di un'onda elettromagnetica. Più λ è piccola, più l'onda è "energetica" (UV, raggi X). Più λ è grande, meno energetica (infrarosso, onde radio).</td>
+        <td><strong>m</strong> (metri)<br>Spesso: nm (10⁻⁹ m) o Å (10⁻¹⁰ m)</td>
+    </tr>
+    <tr>
+        <td><strong>c</strong></td>
+        <td>Velocità della luce</td>
+        <td>Velocità di propagazione della luce nel vuoto. È una <span class="costante">costante universale</span>.</td>
+        <td><strong>m/s</strong><br>Valore: 2,99 × 10⁸ m/s</td>
+    </tr>
+    <tr>
+        <td><strong>ν</strong> (nu)</td>
+        <td>Frequenza</td>
+        <td>Numero di oscillazioni complete dell'onda al secondo. Alta frequenza = alta energia.</td>
+        <td><strong>Hz</strong> = s⁻¹<br>(1 Hz = 1 ciclo/secondo)</td>
+    </tr>
+</table>
+
+<h3>1.2 Energia di un fotone</h3>
+
+<p class="formula-evidenziata">E = hν</p>
+
+<table>
+    <tr>
+        <td><strong>E</strong></td>
+        <td>Energia del fotone</td>
+        <td>Energia trasportata da un singolo "pacchetto" di luce (fotone). Questa formula è il fondamento della meccanica quantistica: l'energia non è continua ma quantizzata.</td>
+        <td><strong>J</strong> (Joule)<br>Spesso: eV (elettronvolt)</td>
+    </tr>
+    <tr>
+        <td><strong>h</strong></td>
+        <td>Costante di Planck</td>
+        <td>Costante fondamentale che lega energia e frequenza. <span class="costante">Costante universale</span>.</td>
+        <td><strong>J·s</strong><br>Valore: 6,63 × 10⁻³⁴ J·s</td>
+    </tr>
+    <tr>
+        <td><strong>ν</strong></td>
+        <td>Frequenza</td>
+        <td>Frequenza della radiazione elettromagnetica.</td>
+        <td><strong>Hz</strong> = s⁻¹</td>
+    </tr>
+</table>
+
+<h3>1.3 Spettro dell'atomo di idrogeno</h3>
+
+<h4>Energia di ionizzazione</h4>
+<p class="formula-evidenziata">E = E∞ − E_stato = 0 − E_stato</p>
+
+<table>
+    <tr>
+        <td><strong>E</strong></td>
+        <td>Energia di ionizzazione</td>
+        <td>Energia necessaria per strappare completamente un elettrone dall'atomo (portarlo a distanza infinita dal nucleo).</td>
+        <td><strong>J</strong> o <strong>eV</strong></td>
+    </tr>
+    <tr>
+        <td><strong>E∞</strong></td>
+        <td>Energia a distanza infinita</td>
+        <td>Energia dell'elettrone quando è completamente libero dal nucleo. Per convenzione, si pone = 0.</td>
+        <td><strong>J</strong></td>
+    </tr>
+    <tr>
+        <td><strong>E_stato</strong></td>
+        <td>Energia dello stato legato</td>
+        <td>Energia dell'elettrone quando è legato al nucleo in un determinato livello n. È sempre negativa (stato legato = più basso di zero).</td>
+        <td><strong>J</strong></td>
+    </tr>
+</table>
+
+<h4>Formula di Balmer</h4>
+<p class="formula-evidenziata">λ = B × (n² / (n² − 4))</p>
+
+<table>
+    <tr>
+        <td><strong>λ</strong></td>
+        <td>Lunghezza d'onda emessa</td>
+        <td>Lunghezza d'onda della luce emessa quando l'elettrone cade da un livello n al livello n=2 (serie di Balmer, luce visibile).</td>
+        <td><strong>m</strong></td>
+    </tr>
+    <tr>
+        <td><strong>B</strong></td>
+        <td>Limite di Balmer</td>
+        <td>Costante caratteristica della serie di Balmer. <span class="costante">Costante</span>.</td>
+        <td><strong>m</strong><br>Valore: 3,65 × 10⁻⁷ m = 3645,6 Å</td>
+    </tr>
+    <tr>
+        <td><strong>n</strong></td>
+        <td>Numero quantico principale</td>
+        <td>Numero intero che indica il livello energetico di partenza dell'elettrone. Deve essere n > 2 per questa formula.</td>
+        <td><strong>adimensionale</strong> (numero puro)</td>
+    </tr>
+</table>
+
+<h4>Formula di Rydberg</h4>
+<p class="formula-evidenziata">1/λ = k̄ = R_H × (1/n₁² − 1/n₂²)</p>
+
+<table>
+    <tr>
+        <td><strong>1/λ</strong></td>
+        <td>Numero d'onda</td>
+        <td>Inverso della lunghezza d'onda. Proporzionale all'energia.</td>
+        <td><strong>m⁻¹</strong></td>
+    </tr>
+    <tr>
+        <td><strong>k̄</strong></td>
+        <td>Numero d'onda</td>
+        <td>Simbolo alternativo per 1/λ.</td>
+        <td><strong>m⁻¹</strong></td>
+    </tr>
+    <tr>
+        <td><strong>R_H</strong></td>
+        <td>Costante di Rydberg</td>
+        <td>Costante che dipende dalla massa dell'elettrone e dalle costanti fondamentali. <span class="costante">Costante</span>.</td>
+        <td><strong>m⁻¹</strong><br>Valore: 1,097 × 10⁷ m⁻¹</td>
+    </tr>
+    <tr>
+        <td><strong>n₁, n₂</strong></td>
+        <td>Numeri quantici</td>
+        <td>Livelli energetici iniziale (n₁) e finale (n₂) dell'elettrone. Condizione: n₂ > n₁.</td>
+        <td><strong>adimensionale</strong></td>
+    </tr>
+</table>
+
+<h4>Numero d'onda</h4>
+<p class="formula-evidenziata">k̄ = 1/λ = ν/c</p>
+
+<table>
+    <tr>
+        <td><strong>k̄</strong></td>
+        <td>Numero d'onda</td>
+        <td>Numero di lunghezze d'onda per unità di lunghezza. È direttamente proporzionale all'energia del fotone.</td>
+        <td><strong>m⁻¹</strong> o <strong>cm⁻¹</strong></td>
+    </tr>
+</table>
+
+<h3>1.4 Corpo nero e legge di Planck</h3>
+
+<p class="formula-evidenziata">E_tot = nhν</p>
+
+<table>
+    <tr>
+        <td><strong>E_tot</strong></td>
+        <td>Energia totale</td>
+        <td>Energia totale dei fotoni emessi. È sempre un multiplo intero di hν (quantizzazione).</td>
+        <td><strong>J</strong></td>
+    </tr>
+    <tr>
+        <td><strong>n</strong></td>
+        <td>Numero di fotoni</td>
+        <td>Numero intero di quanti di energia (fotoni).</td>
+        <td><strong>adimensionale</strong></td>
+    </tr>
+</table>
+
+<h4>Densità di energia</h4>
+<p class="formula-evidenziata">U = (2πν²/c²) × (hν / (e^(hν/kT) − 1))</p>
+
+<table>
+    <tr>
+        <td><strong>U</strong></td>
+        <td>Densità di energia</td>
+        <td>Energia per unità di volume e per unità di frequenza irradiata da un corpo nero.</td>
+        <td><strong>J/m³</strong></td>
+    </tr>
+    <tr>
+        <td><strong>k</strong></td>
+        <td>Costante di Boltzmann</td>
+        <td>Collega l'energia termica alla temperatura. <span class="costante">Costante</span>.</td>
+        <td><strong>J/K</strong><br>Valore: 1,38 × 10⁻²³ J/K</td>
+    </tr>
+    <tr>
+        <td><strong>T</strong></td>
+        <td>Temperatura assoluta</td>
+        <td>Temperatura del corpo nero in kelvin.</td>
+        <td><strong>K</strong> (Kelvin)</td>
+    </tr>
+    <tr>
+        <td><strong>e</strong></td>
+        <td>Numero di Nepero</td>
+        <td>Base del logaritmo naturale, costante matematica ≈ 2,718.</td>
+        <td><strong>adimensionale</strong></td>
+    </tr>
+</table>
+
+<h3>1.5 Effetto fotoelettrico</h3>
+
+<h4>Energia incidente</h4>
+<p class="formula-evidenziata">E = hν = ω + (1/2)m_e v² = ω + E_k</p>
+
+<table>
+    <tr>
+        <td><strong>E</strong></td>
+        <td>Energia del fotone incidente</td>
+        <td>Energia totale portata dal fotone che colpisce il metallo.</td>
+        <td><strong>J</strong></td>
+    </tr>
+    <tr>
+        <td><strong>ω</strong> (omega)</td>
+        <td>Lavoro di estrazione (o funzione lavoro)</td>
+        <td>Energia minima necessaria per strappare un elettrone dal metallo. Dipende dal tipo di metallo.</td>
+        <td><strong>J</strong> o <strong>eV</strong></td>
+    </tr>
+    <tr>
+        <td><strong>m_e</strong></td>
+        <td>Massa dell'elettrone</td>
+        <td>Massa a riposo dell'elettrone. <span class="costante">Costante</span>.</td>
+        <td><strong>kg</strong><br>Valore: 9,11 × 10⁻³¹ kg</td>
+    </tr>
+    <tr>
+        <td><strong>v</strong></td>
+        <td>Velocità dell'elettrone</td>
+        <td>Velocità con cui l'elettrone viene espulso dal metallo.</td>
+        <td><strong>m/s</strong></td>
+    </tr>
+    <tr>
+        <td><strong>E_k</strong></td>
+        <td>Energia cinetica dell'elettrone</td>
+        <td>Energia cinetica dell'elettrone emesso. È ciò che "avanza" dall'energia del fotone dopo aver superato il lavoro di estrazione.</td>
+        <td><strong>J</strong></td>
+    </tr>
+</table>
+
+<h4>Lavoro di estrazione</h4>
+<p class="formula-evidenziata">ω = hν − E_k = hν₀</p>
+
+<table>
+    <tr>
+        <td><strong>ν₀</strong></td>
+        <td>Frequenza di soglia</td>
+        <td>Frequenza minima della luce necessaria per estrarre un elettrone. Se ν < ν₀, non c'è effetto fotoelettrico, indipendentemente dall'intensità della luce.</td>
+        <td><strong>Hz</strong></td>
+    </tr>
+</table>
+
+<h3>1.6 Atomo di Bohr</h3>
+
+<h4>I Postulato - Equilibrio delle forze</h4>
+<p class="formula-evidenziata">F_attrazione = F_centripeta → (k_es × e²) / r² = (m_e × v²) / r</p>
+
+<table>
+    <tr>
+        <td><strong>F_attrazione</strong></td>
+        <td>Forza elettrostatica</td>
+        <td>Forza di Coulomb tra il nucleo positivo e l'elettrone negativo.</td>
+        <td><strong>N</strong> (Newton)</td>
+    </tr>
+    <tr>
+        <td><strong>F_centripeta</strong></td>
+        <td>Forza centripeta</td>
+        <td>Forza necessaria per mantenere l'elettrone in orbita circolare.</td>
+        <td><strong>N</strong></td>
+    </tr>
+    <tr>
+        <td><strong>k_es</strong></td>
+        <td>Costante elettrostatica</td>
+        <td>Costante della legge di Coulomb. <span class="costante">Costante</span>.</td>
+        <td><strong>N·m²/C²</strong><br>Valore: 8,99 × 10⁹ N·m²/C²</td>
+    </tr>
+    <tr>
+        <td><strong>e</strong></td>
+        <td>Carica dell'elettrone</td>
+        <td>Valore assoluto della carica elettrica elementare. <span class="costante">Costante</span>.</td>
+        <td><strong>C</strong> (Coulomb)<br>Valore: 1,60 × 10⁻¹⁹ C</td>
+    </tr>
+    <tr>
+        <td><strong>r</strong></td>
+        <td>Raggio dell'orbita</td>
+        <td>Distanza dell'elettrone dal nucleo.</td>
+        <td><strong>m</strong></td>
+    </tr>
+</table>
+
+<h4>II Postulato - Quantizzazione del momento angolare</h4>
+<p class="formula-evidenziata">L = m_e × v × r = n × h / (2π)</p>
+
+<table>
+    <tr>
+        <td><strong>L</strong></td>
+        <td>Momento angolare</td>
+        <td>Grandezza che descrive la "quantità di rotazione" dell'elettrone. Nel modello di Bohr può assumere solo valori discreti (multipli di ℏ = h/2π).</td>
+        <td><strong>kg·m²/s</strong> o <strong>J·s</strong></td>
+    </tr>
+    <tr>
+        <td><strong>n</strong></td>
+        <td>Numero quantico principale</td>
+        <td>Numero intero positivo (1, 2, 3, ...) che identifica l'orbita. Determina l'energia e il raggio dell'orbita.</td>
+        <td><strong>adimensionale</strong></td>
+    </tr>
+</table>
+
+<h4>Raggi permessi</h4>
+<p class="formula-evidenziata">r = n² × a₀</p>
+
+<table>
+    <tr>
+        <td><strong>r</strong></td>
+        <td>Raggio dell'n-esima orbita</td>
+        <td>Distanza dell'elettrone dal nucleo nell'orbita n.</td>
+        <td><strong>m</strong></td>
+    </tr>
+    <tr>
+        <td><strong>a₀</strong></td>
+        <td>Raggio di Bohr</td>
+        <td>Raggio della prima orbita (n=1) dell'idrogeno. <span class="costante">Costante</span>.</td>
+        <td><strong>m</strong><br>Valore: 0,53 Å = 5,3 × 10⁻¹¹ m</td>
+    </tr>
+</table>
+
+<h4>Energia totale dell'elettrone</h4>
+<p class="formula-evidenziata">E_n = −E₀ / n²</p>
+
+<table>
+    <tr>
+        <td><strong>E_n</strong></td>
+        <td>Energia del livello n</td>
+        <td>Energia totale dell'elettrone nell'orbita n. È sempre negativa (stato legato). Più n è grande, più l'energia si avvicina a zero.</td>
+        <td><strong>J</strong> o <strong>eV</strong></td>
+    </tr>
+    <tr>
+        <td><strong>E₀</strong></td>
+        <td>Energia dello stato fondamentale</td>
+        <td>Energia (in valore assoluto) del primo livello dell'idrogeno. <span class="costante">Costante per H</span>.</td>
+        <td><strong>J</strong> o <strong>eV</strong><br>Valore: 2,179 × 10⁻¹⁸ J = 13,60 eV</td>
+    </tr>
+</table>
+
+<h4>III Postulato - Transizioni</h4>
+<p class="formula-evidenziata">ΔE = E_f − E_i = hν</p>
+
+<table>
+    <tr>
+        <td><strong>ΔE</strong></td>
+        <td>Variazione di energia</td>
+        <td>Energia scambiata (emessa o assorbita) quando l'elettrone passa da un livello all'altro.</td>
+        <td><strong>J</strong></td>
+    </tr>
+    <tr>
+        <td><strong>E_f</strong></td>
+        <td>Energia stato finale</td>
+        <td>Energia del livello in cui arriva l'elettrone.</td>
+        <td><strong>J</strong></td>
+    </tr>
+    <tr>
+        <td><strong>E_i</strong></td>
+        <td>Energia stato iniziale</td>
+        <td>Energia del livello da cui parte l'elettrone.</td>
+        <td><strong>J</strong></td>
+    </tr>
+</table>
+
+<div class="warning-box">
+    <strong>Nota importante:</strong> Se E_f < E_i (l'elettrone scende), ΔE è negativo e viene <strong>emesso</strong> un fotone. Se E_f > E_i (l'elettrone sale), ΔE è positivo e viene <strong>assorbito</strong> un fotone.
+</div>
+
+<h4>Carica formale</h4>
+<p class="formula-evidenziata">C_formale = e⁻_valenza − e⁻_legame − e⁻_non legame</p>
+
+<table>
+    <tr>
+        <td><strong>C_formale</strong></td>
+        <td>Carica formale</td>
+        <td>Carica fittizia assegnata a un atomo in una molecola, assumendo che gli elettroni di legame siano equamente condivisi.</td>
+        <td><strong>adimensionale</strong> (numero intero)</td>
+    </tr>
+    <tr>
+        <td><strong>e⁻_valenza</strong></td>
+        <td>Elettroni di valenza</td>
+        <td>Numero di elettroni nel guscio esterno dell'atomo isolato (dalla tavola periodica).</td>
+        <td><strong>adimensionale</strong></td>
+    </tr>
+    <tr>
+        <td><strong>e⁻_legame</strong></td>
+        <td>Elettroni di legame</td>
+        <td>Metà degli elettroni coinvolti nei legami che l'atomo forma (ogni legame = 2 elettroni, ne conti 1).</td>
+        <td><strong>adimensionale</strong></td>
+    </tr>
+    <tr>
+        <td><strong>e⁻_non legame</strong></td>
+        <td>Elettroni non leganti</td>
+        <td>Elettroni nei doppietti solitari dell'atomo (lone pairs).</td>
+        <td><strong>adimensionale</strong></td>
+    </tr>
+</table>
+
+<!-- ═══════════════════════════════════════════════════════════════════════════════ -->
+<h2 id="lewis">2. FORMULE DI LEWIS</h2>
+<!-- ═══════════════════════════════════════════════════════════════════════════════ -->
+
+<div class="nota-sezione">
+    <strong>Panoramica:</strong> Questa sezione riguarda la rappresentazione delle molecole tramite le strutture di Lewis, la teoria VSEPR per prevedere la geometria molecolare, e i concetti di ibridizzazione e polarità. Non ci sono molte "formule" numeriche, ma regole e tabelle fondamentali.
+</div>
+
+<h3>2.1 Tabella VSEPR - Geometrie molecolari</h3>
+
+<p>La teoria VSEPR (Valence Shell Electron Pair Repulsion) prevede la geometria in base al <strong>numero sterico (NS)</strong>.</p>
+
+<table>
+    <tr>
+        <td><strong>NS</strong></td>
+        <td>Numero Sterico</td>
+        <td>Numero totale di "domini elettronici" attorno all'atomo centrale. Si calcola come: NS = (atomi legati) + (doppietti solitari). Determina la geometria di base.</td>
+        <td><strong>adimensionale</strong><br>Valori: 2, 3, 4, 5, 6</td>
+    </tr>
+    <tr>
+        <td><strong>XY_n</strong></td>
+        <td>Formula generica molecola</td>
+        <td>X = atomo centrale, Y = atomi legati, n = numero di atomi legati. Es: XY₄ = 4 atomi legati all'atomo centrale.</td>
+        <td><strong>notazione</strong></td>
+    </tr>
+    <tr>
+        <td><strong>sp, sp², sp³, sp³d, sp³d²</strong></td>
+        <td>Ibridizzazione</td>
+        <td>Tipo di orbitali ibridi formati dall'atomo centrale. Dipende dal numero sterico:<br>
+        • NS=2 → sp<br>
+        • NS=3 → sp²<br>
+        • NS=4 → sp³<br>
+        • NS=5 → sp³d<br>
+        • NS=6 → sp³d²</td>
+        <td><strong>notazione orbitali</strong></td>
+    </tr>
+</table>
+
+<h4>Geometrie in funzione di NS e doppietti solitari</h4>
+
+<table>
+    <tr><td>2</td><td>0</td><td>Lineare</td><td>180°</td><td>CO₂, BeCl₂</td></tr>
+    <tr><td>3</td><td>0</td><td>Trigonale planare</td><td>120°</td><td>BF₃</td></tr>
+    <tr><td>3</td><td>1</td><td>Angolare</td><td>&lt;120°</td><td>SO₂</td></tr>
+    <tr><td>4</td><td>0</td><td>Tetraedrica</td><td>109,5°</td><td>CH₄</td></tr>
+    <tr><td>4</td><td>1</td><td>Piramidale trigonale</td><td>107,5°</td><td>NH₃</td></tr>
+    <tr><td>4</td><td>2</td><td>Angolare</td><td>104,5°</td><td>H₂O</td></tr>
+    <tr><td>5</td><td>0</td><td>Bipiramidale trigonale</td><td>90°; 120°</td><td>PCl₅</td></tr>
+    <tr><td>5</td><td>1</td><td>Tetraedrica irregolare</td><td>90°; 120°</td><td>SF₄</td></tr>
+    <tr><td>5</td><td>2</td><td>A T</td><td>90°</td><td>ClF₃</td></tr>
+    <tr><td>5</td><td>3</td><td>Lineare</td><td>180°</td><td>XeF₂</td></tr>
+    <tr><td>6</td><td>0</td><td>Ottaedrica</td><td>90°</td><td>SF₆</td></tr>
+    <tr><td>6</td><td>1</td><td>Piramidale quadrata</td><td>&lt;90°</td><td>BrF₅</td></tr>
+    <tr><td>6</td><td>2</td><td>Quadrata piana</td><td>90°</td><td>XeF₄</td></tr>
+</table>
+
+<h3>2.2 Criteri per le strutture di risonanza</h3>
+
+<table>
+    <tr>
+        <td><strong>1. Cariche formali ridotte</strong></td>
+        <td>Le strutture con cariche formali più vicine a zero sono preferibili.</td>
+    </tr>
+    <tr>
+        <td><strong>2. Cariche adiacenti</strong></td>
+        <td>Sfavorire strutture con cariche dello stesso segno su atomi adiacenti.</td>
+    </tr>
+    <tr>
+        <td><strong>3. Elettronegatività</strong></td>
+        <td>La carica negativa deve stare sull'atomo più elettronegativo.</td>
+    </tr>
+</table>
+
+<h3>2.3 Polarità del legame</h3>
+
+<table>
+    <tr>
+        <td><strong>Legame polare</strong></td>
+        <td>Legame tra atomi con diversa elettronegatività. Gli elettroni sono spostati verso l'atomo più elettronegativo.</td>
+    </tr>
+    <tr>
+        <td><strong>Molecola polare</strong></td>
+        <td>Molecola in cui i momenti dipolari dei legami NON si annullano (dipende dalla geometria).</td>
+    </tr>
+    <tr>
+        <td><strong>Molecola apolare</strong></td>
+        <td>Molecola simmetrica in cui i momenti dipolari si annullano (es: CO₂, CCl₄).</td>
+    </tr>
+</table>
+
+<h3>2.4 Paramagnetismo e Diamagnetismo</h3>
+
+<table>
+    <tr>
+        <td><strong>Paramagnetico</strong></td>
+        <td>Sostanza con almeno un elettrone spaiato (singolo in un orbitale). È attratta da un campo magnetico.</td>
+    </tr>
+    <tr>
+        <td><strong>Diamagnetico</strong></td>
+        <td>Sostanza con tutti gli elettroni appaiati. È debolmente respinta da un campo magnetico.</td>
+    </tr>
+</table>
+
+<!-- ═══════════════════════════════════════════════════════════════════════════════ -->
+<h2 id="stechiometria">3. STECHIOMETRIA</h2>
+<!-- ═══════════════════════════════════════════════════════════════════════════════ -->
+
+<div class="nota-sezione">
+    <strong>Panoramica:</strong> La stechiometria è la "matematica della chimica": calcoli di masse, moli, concentrazioni, gas. È la sezione più ricca di formule operative, fondamentale per quasi tutti gli esercizi d'esame.
+</div>
+
+<h3>3.1 Massa atomica media</h3>
+
+<p class="formula-evidenziata">m_at.media = Σ (m_isotopica × abbondanza isotopica)</p>
+
+<table>
+    <tr>
+        <td><strong>m_at.media</strong></td>
+        <td>Massa atomica media</td>
+        <td>Media pesata delle masse degli isotopi di un elemento, pesata per le rispettive abbondanze. È il valore che trovi sulla tavola periodica.</td>
+        <td><strong>uma</strong> (unità di massa atomica)<br>1 uma = 1,66 × 10⁻²⁴ g</td>
+    </tr>
+    <tr>
+        <td><strong>m_isotopica</strong></td>
+        <td>Massa isotopica</td>
+        <td>Massa di un singolo isotopo dell'elemento.</td>
+        <td><strong>uma</strong></td>
+    </tr>
+    <tr>
+        <td><strong>abbondanza isotopica</strong></td>
+        <td>Abbondanza relativa</td>
+        <td>Frazione (da 0 a 1) dell'isotopo presente in natura. La somma di tutte le abbondanze = 1.</td>
+        <td><strong>adimensionale</strong> (frazione)</td>
+    </tr>
+</table>
+
+<h3>3.2 Mole e numero di particelle</h3>
+
+<p class="formula-evidenziata">n = m / M</p>
+
+<table>
+    <tr>
+        <td><strong>n</strong></td>
+        <td>Numero di moli</td>
+        <td>Quantità di sostanza espressa in moli. Una mole contiene N_A particelle.</td>
+        <td><strong>mol</strong></td>
+    </tr>
+    <tr>
+        <td><strong>m</strong></td>
+        <td>Massa</td>
+        <td>Massa della sostanza.</td>
+        <td><strong>g</strong> (grammi)</td>
+    </tr>
+    <tr>
+        <td><strong>M</strong></td>
+        <td>Massa molare</td>
+        <td>Massa di una mole di sostanza. Numericamente uguale alla massa atomica/molecolare in uma.</td>
+        <td><strong>g/mol</strong></td>
+    </tr>
+</table>
+
+<p class="formula-evidenziata">N_particelle = n × N_A</p>
+
+<table>
+    <tr>
+        <td><strong>N_particelle</strong></td>
+        <td>Numero di particelle</td>
+        <td>Numero effettivo di atomi, molecole o ioni.</td>
+        <td><strong>adimensionale</strong> (numero puro)</td>
+    </tr>
+    <tr>
+        <td><strong>N_A</strong></td>
+        <td>Numero di Avogadro</td>
+        <td>Numero di particelle in una mole. <span class="costante">Costante</span>.</td>
+        <td><strong>mol⁻¹</strong><br>Valore: 6,022 × 10²³ mol⁻¹</td>
+    </tr>
+</table>
+
+<h3>3.3 Composizione percentuale e frazione in massa</h3>
+
+<p class="formula-evidenziata">x = n × (M_elemento / M_composto)</p>
+
+<table>
+    <tr>
+        <td><strong>x</strong></td>
+        <td>Frazione in massa</td>
+        <td>Frazione della massa totale del composto dovuta a un dato elemento.</td>
+        <td><strong>adimensionale</strong> (da 0 a 1)</td>
+    </tr>
+    <tr>
+        <td><strong>n</strong></td>
+        <td>Indice stechiometrico</td>
+        <td>Numero di atomi dell'elemento nella formula molecolare.</td>
+        <td><strong>adimensionale</strong></td>
+    </tr>
+    <tr>
+        <td><strong>M_elemento</strong></td>
+        <td>Massa molare elemento</td>
+        <td>Massa molare dell'elemento considerato.</td>
+        <td><strong>g/mol</strong></td>
+    </tr>
+    <tr>
+        <td><strong>M_composto</strong></td>
+        <td>Massa molare composto</td>
+        <td>Massa molare totale del composto.</td>
+        <td><strong>g/mol</strong></td>
+    </tr>
+</table>
+
+<p class="formula-evidenziata">%_elemento = x × 100</p>
+
+<h3>3.4 Densità</h3>
+
+<p class="formula-evidenziata">ρ = m / V</p>
+
+<table>
+    <tr>
+        <td><strong>ρ</strong> (rho)</td>
+        <td>Densità</td>
+        <td>Massa per unità di volume. Indica quanto è "concentrata" la materia.</td>
+        <td><strong>g/mL</strong> o <strong>g/cm³</strong> o <strong>kg/m³</strong></td>
+    </tr>
+    <tr>
+        <td><strong>m</strong></td>
+        <td>Massa</td>
+        <td>Massa della sostanza.</td>
+        <td><strong>g</strong></td>
+    </tr>
+    <tr>
+        <td><strong>V</strong></td>
+        <td>Volume</td>
+        <td>Volume occupato dalla sostanza.</td>
+        <td><strong>mL</strong> o <strong>L</strong></td>
+    </tr>
+</table>
+
+<h3>3.5 Bilanciamento e reazioni</h3>
+
+<h4>Procedura di bilanciamento</h4>
+<table>
+    <tr><td><strong>1</strong></td><td>Partire dall'elemento presente nel <strong>minor numero di composti</strong></td></tr>
+    <tr><td><strong>2</strong></td><td>Passare agli altri elementi, lasciando per ultimi <strong>H e O</strong></td></tr>
+    <tr><td><strong>3</strong></td><td>Portare tutti i coefficienti <strong>all'intero</strong></td></tr>
+    <tr><td><strong>4</strong></td><td>Riverificare: n° atomi reagenti = n° atomi prodotti (per ogni elemento)</td></tr>
+</table>
+
+<h4>Rapporto molare</h4>
+<p class="formula-evidenziata">rapporto molare = coeff.stechiom._prodotto / coeff.stechiom._reagente</p>
+
+<table>
+    <tr>
+        <td><strong>coeff.stechiom.</strong></td>
+        <td>Coefficiente stechiometrico</td>
+        <td>Numero che precede ogni specie nella reazione bilanciata. Indica le proporzioni molari.</td>
+        <td><strong>adimensionale</strong></td>
+    </tr>
+</table>
+
+<h4>Rapporto molare in n stadi</h4>
+<p class="formula-evidenziata">rapporto molare tot = Π (rapporto molare_k) = rapp₁ × rapp₂ × ... × rappₙ</p>
+
+<table>
+    <tr>
+        <td><strong>Π</strong></td>
+        <td>Produttoria</td>
+        <td>Prodotto di tutti i rapporti molari dei singoli stadi. Si usa quando una reazione avviene in più passaggi successivi.</td>
+        <td><strong>adimensionale</strong></td>
+    </tr>
+</table>
+
+<h4>Reagente limitante</h4>
+<p class="formula-evidenziata">n_x / coeff.st._x &lt; n_altri / coeff.st._altri → x è limitante</p>
+
+<table>
+    <tr>
+        <td><strong>n_x</strong></td>
+        <td>Moli del reagente x</td>
+        <td>Quantità in moli del reagente che stai testando.</td>
+        <td><strong>mol</strong></td>
+    </tr>
+    <tr>
+        <td><strong>Reagente limitante</strong></td>
+        <td>—</td>
+        <td>Il reagente che si esaurisce per primo, limitando la quantità di prodotto ottenibile.</td>
+        <td>—</td>
+    </tr>
+</table>
+
+<h4>Resa percentuale</h4>
+<p class="formula-evidenziata">η% = (quantità ottenuta / quantità teorica) × 100</p>
+
+<table>
+    <tr>
+        <td><strong>η%</strong> (eta)</td>
+        <td>Resa percentuale</td>
+        <td>Rapporto tra la quantità effettivamente ottenuta e quella teoricamente calcolata, espresso in percentuale.</td>
+        <td><strong>%</strong></td>
+    </tr>
+    <tr>
+        <td><strong>quantità teorica</strong></td>
+        <td>Resa teorica</td>
+        <td>Quantità massima di prodotto calcolata dalla stechiometria, assumendo conversione completa.</td>
+        <td><strong>g</strong> o <strong>mol</strong></td>
+    </tr>
+</table>
+
+<h3>3.6 Ossidoriduzioni (Redox)</h3>
+
+<table>
+    <tr>
+        <td><strong>Numero di ossidazione (n.o.)</strong></td>
+        <td>Carica formale che un atomo avrebbe se tutti i legami fossero ionici. Per convenzione: O = −2, H = +1 (salvo eccezioni).</td>
+    </tr>
+    <tr>
+        <td><strong>Ossidazione</strong></td>
+        <td>Perdita di elettroni → aumento del n.o.</td>
+    </tr>
+    <tr>
+        <td><strong>Riduzione</strong></td>
+        <td>Acquisto di elettroni → diminuzione del n.o.</td>
+    </tr>
+    <tr>
+        <td><strong>Specie ossidante</strong></td>
+        <td>La specie che si riduce (acquista e⁻), causando l'ossidazione dell'altra.</td>
+    </tr>
+    <tr>
+        <td><strong>Specie riducente</strong></td>
+        <td>La specie che si ossida (perde e⁻), causando la riduzione dell'altra.</td>
+    </tr>
+</table>
+
+<h4>Procedura di bilanciamento delle ossidoriduzioni</h4>
+
+<table>
+    <tr>
+        <td><strong>1</strong></td>
+        <td>Assegnare i n.o.: di default O = −2, H = +1</td>
+    </tr>
+    <tr>
+        <td><strong>2</strong></td>
+        <td>Calcolare i n.o. degli altri elementi usando: <strong>carica ionica = Σ (n.o. × coefficiente)</strong></td>
+    </tr>
+    <tr>
+        <td><strong>3</strong></td>
+        <td>Individuare ossidante (n.o. diminuisce) e riducente (n.o. aumenta)</td>
+    </tr>
+    <tr>
+        <td><strong>4</strong></td>
+        <td>Scrivere le semireazioni:<br>
+            • Ossidazione: riducente → forma ossidata + n e⁻<br>
+            • Riduzione: ossidante + n e⁻ → forma ridotta</td>
+    </tr>
+    <tr>
+        <td><strong>5</strong></td>
+        <td>Trovare il m.c.m. tra gli e⁻ delle due semireazioni e moltiplicare</td>
+    </tr>
+    <tr>
+        <td><strong>6</strong></td>
+        <td>Sommare le semireazioni (gli e⁻ si annullano) → reazione bilanciata</td>
+    </tr>
+</table>
+
+<h3>3.7 Soluzioni - Concentrazioni</h3>
+
+<h4>Molarità</h4>
+<p class="formula-evidenziata">C = n_soluto / V_soluzione</p>
+
+<table>
+    <tr>
+        <td><strong>C</strong></td>
+        <td>Concentrazione molare (Molarità)</td>
+        <td>Numero di moli di soluto per litro di soluzione. È la concentrazione più usata.</td>
+        <td><strong>M</strong> = <strong>mol/L</strong></td>
+    </tr>
+    <tr>
+        <td><strong>n_soluto</strong></td>
+        <td>Moli di soluto</td>
+        <td>Quantità di sostanza disciolta.</td>
+        <td><strong>mol</strong></td>
+    </tr>
+    <tr>
+        <td><strong>V_soluzione</strong></td>
+        <td>Volume della soluzione</td>
+        <td>Volume totale della soluzione (soluto + solvente).</td>
+        <td><strong>L</strong></td>
+    </tr>
+</table>
+
+<h4>Grammi per litro</h4>
+<p class="formula-evidenziata">g/L = m_soluto / V_soluzione</p>
+
+<table>
+    <tr>
+        <td><strong>g/L</strong></td>
+        <td>Concentrazione in grammi per litro</td>
+        <td>Massa di soluto per litro di soluzione. Utile quando si lavora direttamente con le masse.</td>
+        <td><strong>g/L</strong></td>
+    </tr>
+    <tr>
+        <td><strong>m_soluto</strong></td>
+        <td>Massa del soluto</td>
+        <td>Massa della sostanza disciolta.</td>
+        <td><strong>g</strong></td>
+    </tr>
+</table>
+
+<h4>Frazione molare</h4>
+<p class="formula-evidenziata">χ = n_soluto / n_totali</p>
+
+<table>
+    <tr>
+        <td><strong>χ</strong> (chi)</td>
+        <td>Frazione molare</td>
+        <td>Rapporto tra le moli di un componente e le moli totali della miscela.</td>
+        <td><strong>adimensionale</strong> (da 0 a 1)</td>
+    </tr>
+    <tr>
+        <td><strong>n_totali</strong></td>
+        <td>Moli totali</td>
+        <td>Somma delle moli di tutti i componenti della soluzione.</td>
+        <td><strong>mol</strong></td>
+    </tr>
+</table>
+
+<h4>Percentuale molare</h4>
+<p class="formula-evidenziata">%_molare = χ × 100 = (n_soluto / n_totali) × 100</p>
+
+<table>
+    <tr>
+        <td><strong>%_molare</strong></td>
+        <td>Percentuale molare</td>
+        <td>Frazione molare espressa in percentuale.</td>
+        <td><strong>%</strong></td>
+    </tr>
+</table>
+
+<h4>Normalità</h4>
+<p class="formula-evidenziata">N = n°_eq / V_soluzione = M × VO</p>
+
+<table>
+    <tr>
+        <td><strong>N</strong></td>
+        <td>Normalità</td>
+        <td>Numero di equivalenti per litro di soluzione.</td>
+        <td><strong>eq/L</strong></td>
+    </tr>
+    <tr>
+        <td><strong>n°_eq</strong></td>
+        <td>Numero di equivalenti</td>
+        <td>Quantità di sostanza espressa in equivalenti.</td>
+        <td><strong>eq</strong></td>
+    </tr>
+    <tr>
+        <td><strong>VO</strong></td>
+        <td>Valenza operativa</td>
+        <td>Numero di unità reattive per molecola (H⁺ ceduti, OH⁻ ceduti, e⁻ scambiati, ecc.).</td>
+        <td><strong>adimensionale</strong></td>
+    </tr>
+</table>
+
+<h4>Numero di equivalenti</h4>
+<p class="formula-evidenziata">n°_eq = m / m_eq</p>
+
+<table>
+    <tr>
+        <td><strong>n°_eq</strong></td>
+        <td>Numero di equivalenti</td>
+        <td>Quantità di sostanza espressa in equivalenti. Un equivalente è la quantità che reagisce con/fornisce 1 mol di H⁺ o e⁻.</td>
+        <td><strong>eq</strong></td>
+    </tr>
+</table>
+
+<h4>Massa equivalente</h4>
+<p class="formula-evidenziata">m_eq = M / VO</p>
+
+<table>
+    <tr>
+        <td><strong>m_eq</strong></td>
+        <td>Massa equivalente</td>
+        <td>Massa di un equivalente di sostanza.</td>
+        <td><strong>g/eq</strong></td>
+    </tr>
+</table>
+
+<h4>Valenza operativa (VO) - Dettaglio</h4>
+
+<table>
+    <tr>
+        <td><strong>Acidi</strong></td>
+        <td>N° di ioni H⁺ rilasciati</td>
+        <td>H₂SO₄: VO = 2<br>HCl: VO = 1</td>
+    </tr>
+    <tr>
+        <td><strong>Basi/Idrossidi</strong></td>
+        <td>N° di ioni OH⁻ rilasciati</td>
+        <td>Ca(OH)₂: VO = 2<br>NaOH: VO = 1</td>
+    </tr>
+    <tr>
+        <td><strong>Sali</strong></td>
+        <td>N° di cariche (+) o (−)</td>
+        <td>Na₂SO₄: VO = 2<br>AlCl₃: VO = 3</td>
+    </tr>
+    <tr>
+        <td><strong>Ossidi</strong></td>
+        <td>(indice O) × 2 / (indice elemento)</td>
+        <td>Fe₂O₃: VO = 3×2/2 = 3</td>
+    </tr>
+    <tr>
+        <td><strong>Redox</strong></td>
+        <td>N° di e⁻ scambiati nella semireazione</td>
+        <td>Fe → Fe³⁺: VO = 3</td>
+    </tr>
+</table>
+
+<h3>3.8 Gas perfetti</h3>
+
+<h4>Equazione di stato dei gas ideali</h4>
+<p class="formula-evidenziata">PV = nRT</p>
+
+<table>
+    <tr>
+        <td><strong>P</strong></td>
+        <td>Pressione</td>
+        <td>Forza per unità di superficie esercitata dal gas sulle pareti del contenitore.</td>
+        <td><strong>Pa</strong> (Pascal) o <strong>atm</strong> o <strong>bar</strong></td>
+    </tr>
+    <tr>
+        <td><strong>V</strong></td>
+        <td>Volume</td>
+        <td>Volume occupato dal gas.</td>
+        <td><strong>m³</strong> o <strong>L</strong></td>
+    </tr>
+    <tr>
+        <td><strong>n</strong></td>
+        <td>Moli di gas</td>
+        <td>Quantità di gas in moli.</td>
+        <td><strong>mol</strong></td>
+    </tr>
+    <tr>
+        <td><strong>R</strong></td>
+        <td>Costante dei gas</td>
+        <td>Costante universale dei gas. <span class="costante">Costante</span>. ATTENZIONE: usa il valore con le unità coerenti!</td>
+        <td>• 8,314 J/(mol·K)<br>• 0,0821 L·atm/(mol·K)<br>• 8314 L·Pa/(mol·K)</td>
+    </tr>
+    <tr>
+        <td><strong>T</strong></td>
+        <td>Temperatura assoluta</td>
+        <td>Temperatura in Kelvin. SEMPRE in Kelvin per i gas!</td>
+        <td><strong>K</strong><br>T(K) = T(°C) + 273,15</td>
+    </tr>
+</table>
+
+<div class="warning-box">
+    <strong>Attenzione alle unità!</strong> Se usi P in atm e V in L, devi usare R = 0,0821 L·atm/(mol·K). Se usi P in Pa e V in m³, usa R = 8,314 J/(mol·K).
+</div>
+
+<h4>Leggi dei gas</h4>
+
+<table>
+    <tr>
+        <td><strong>Boyle</strong></td>
+        <td>n, T costanti</td>
+        <td>P₁V₁ = P₂V₂</td>
+    </tr>
+    <tr>
+        <td><strong>Gay-Lussac (isobara)</strong></td>
+        <td>n, P costanti</td>
+        <td>V₁/T₁ = V₂/T₂</td>
+    </tr>
+    <tr>
+        <td><strong>Charles (isocora)</strong></td>
+        <td>n, V costanti</td>
+        <td>P₁/T₁ = P₂/T₂</td>
+    </tr>
+    <tr>
+        <td><strong>Avogadro</strong></td>
+        <td>P, T costanti (STP)</td>
+        <td>V = 22,4 L per 1 mol</td>
+    </tr>
+</table>
+
+<h4>Pressioni parziali (Legge di Dalton)</h4>
+<p class="formula-evidenziata">p_i = χ_i × P_tot</p>
+<p class="formula-evidenziata">P_tot = Σ p_i</p>
+
+<table>
+    <tr>
+        <td><strong>p_i</strong></td>
+        <td>Pressione parziale</td>
+        <td>Pressione che eserciterebbe il gas i se occupasse da solo tutto il volume. È proporzionale alla frazione molare.</td>
+        <td><strong>atm</strong> o <strong>Pa</strong></td>
+    </tr>
+    <tr>
+        <td><strong>P_tot</strong></td>
+        <td>Pressione totale</td>
+        <td>Somma di tutte le pressioni parziali.</td>
+        <td><strong>atm</strong> o <strong>Pa</strong></td>
+    </tr>
+    <tr>
+        <td><strong>χ_i</strong></td>
+        <td>Frazione molare del gas i</td>
+        <td>n_i / n_totali</td>
+        <td><strong>adimensionale</strong></td>
+    </tr>
+</table>
+
+<!-- ═══════════════════════════════════════════════════════════════════════════════ -->
+<h2 id="acidi-basi">4. ACIDI E BASI</h2>
+<!-- ═══════════════════════════════════════════════════════════════════════════════ -->
+
+<div class="nota-sezione">
+    <strong>Panoramica:</strong> Questa sezione copre gli equilibri acido-base: costanti Ka e Kb, calcolo del pH, tamponi, idrolisi e indicatori. È fondamentale per gli esercizi su soluzioni acide, basiche e tampone.
+</div>
+
+<h3>4.1 Costante di acidità Ka</h3>
+
+<p>Per un acido generico HA che si dissocia in acqua:</p>
+<p class="formula-evidenziata">HA + H₂O ⇄ H₃O⁺ + A⁻</p>
+<p class="formula-evidenziata">Ka = [H₃O⁺][A⁻] / [HA]</p>
+
+<table>
+    <tr>
+        <td><strong>Ka</strong></td>
+        <td>Costante di acidità</td>
+        <td>Misura la "forza" dell'acido. Più Ka è grande, più l'acido è forte (si dissocia di più).</td>
+        <td><strong>adimensionale</strong> (o mol/L in senso rigoroso)</td>
+    </tr>
+    <tr>
+        <td><strong>[H₃O⁺]</strong></td>
+        <td>Concentrazione ione idronio</td>
+        <td>Concentrazione molare degli ioni H₃O⁺ all'equilibrio. Determina l'acidità.</td>
+        <td><strong>M</strong> = mol/L</td>
+    </tr>
+    <tr>
+        <td><strong>[A⁻]</strong></td>
+        <td>Concentrazione base coniugata</td>
+        <td>Concentrazione della base coniugata dell'acido all'equilibrio.</td>
+        <td><strong>M</strong></td>
+    </tr>
+    <tr>
+        <td><strong>[HA]</strong></td>
+        <td>Concentrazione acido indissociato</td>
+        <td>Concentrazione dell'acido non dissociato all'equilibrio.</td>
+        <td><strong>M</strong></td>
+    </tr>
+</table>
+
+<h4>Acidi poliprotici</h4>
+<p>Per acidi diprotici (H₂A) ci sono due costanti: Ka₁ e Ka₂, con Ka₁ > Ka₂.</p>
+
+<h3>4.2 Costante di basicità Kb</h3>
+
+<p>Per una base B che reagisce con l'acqua:</p>
+<p class="formula-evidenziata">B + H₂O ⇄ OH⁻ + BH⁺</p>
+<p class="formula-evidenziata">Kb = [OH⁻][BH⁺] / [B]</p>
+
+<table>
+    <tr>
+        <td><strong>Kb</strong></td>
+        <td>Costante di basicità</td>
+        <td>Misura la "forza" della base. Più Kb è grande, più la base è forte.</td>
+        <td><strong>adimensionale</strong></td>
+    </tr>
+    <tr>
+        <td><strong>[OH⁻]</strong></td>
+        <td>Concentrazione ione ossidrile</td>
+        <td>Concentrazione molare degli ioni OH⁻ all'equilibrio. Determina la basicità.</td>
+        <td><strong>M</strong></td>
+    </tr>
+    <tr>
+        <td><strong>[BH⁺]</strong></td>
+        <td>Concentrazione acido coniugato</td>
+        <td>Concentrazione dell'acido coniugato della base.</td>
+        <td><strong>M</strong></td>
+    </tr>
+</table>
+
+<h3>4.3 pH e pOH</h3>
+
+<p class="formula-evidenziata">pH = −log₁₀[H₃O⁺]</p>
+<p class="formula-evidenziata">pOH = −log₁₀[OH⁻]</p>
+<p class="formula-evidenziata">pH + pOH = 14 (a 25°C)</p>
+
+<table>
+    <tr>
+        <td><strong>pH</strong></td>
+        <td>Potenziale idrogeno</td>
+        <td>Scala logaritmica che misura l'acidità. pH < 7 = acido, pH = 7 = neutro, pH > 7 = basico.</td>
+        <td><strong>adimensionale</strong><br>Range: 0-14</td>
+    </tr>
+    <tr>
+        <td><strong>pOH</strong></td>
+        <td>Potenziale ossidrile</td>
+        <td>Scala logaritmica che misura la basicità. Complementare al pH.</td>
+        <td><strong>adimensionale</strong></td>
+    </tr>
+</table>
+
+<h4>Formule inverse</h4>
+<p class="formula-evidenziata">[H₃O⁺] = 10^(−pH)</p>
+<p class="formula-evidenziata">[OH⁻] = 10^(−pOH)</p>
+
+<h3>4.4 Prodotto ionico dell'acqua</h3>
+
+<p class="formula-evidenziata">Kw = [H₃O⁺] × [OH⁻] = 10⁻¹⁴ (a 25°C)</p>
+
+<table>
+    <tr>
+        <td><strong>Kw</strong></td>
+        <td>Prodotto ionico dell'acqua</td>
+        <td>Costante di equilibrio per l'autoionizzazione dell'acqua: 2H₂O ⇄ H₃O⁺ + OH⁻. <span class="costante">Costante a T fissata</span>.</td>
+        <td><strong>10⁻¹⁴</strong> a 25°C</td>
+    </tr>
+</table>
+
+<h3>4.5 Bilancio di massa e di carica</h3>
+
+<h4>Bilancio di massa</h4>
+<p class="formula-evidenziata">Ca = [HA]_dopo dissociazione + [A⁻]</p>
+<p class="formula-evidenziata">Cb = [BOH]_dopo dissociazione + [B⁺]</p>
+
+<table>
+    <tr>
+        <td><strong>Ca, Cb</strong></td>
+        <td>Concentrazione analitica</td>
+        <td>Concentrazione totale dell'acido/base (dissociato + non dissociato). È la concentrazione "di partenza".</td>
+        <td><strong>M</strong></td>
+    </tr>
+</table>
+
+<h4>Bilancio di carica</h4>
+<p class="formula-evidenziata">[H₃O⁺] = [A⁻] + [OH⁻] (per acidi)</p>
+<p class="formula-evidenziata">[OH⁻] = [BH⁺] + [H₃O⁺] (per basi)</p>
+
+<p><em>Principio: la somma delle cariche positive deve uguagliare la somma delle cariche negative.</em></p>
+
+<h3>4.6 Grado di dissociazione</h3>
+
+<p class="formula-evidenziata">α = [A⁻] / Ca = (moli dissociate) / (moli iniziali)</p>
+
+<table>
+    <tr>
+        <td><strong>α</strong> (alfa)</td>
+        <td>Grado di dissociazione</td>
+        <td>Frazione dell'acido/base che si è dissociata. Per acidi forti α ≈ 1, per acidi deboli α << 1.</td>
+        <td><strong>adimensionale</strong> (da 0 a 1)</td>
+    </tr>
+    <tr>
+        <td><strong>Ca</strong></td>
+        <td>Concentrazione analitica</td>
+        <td>Concentrazione totale (iniziale) dell'acido, prima della dissociazione.</td>
+        <td><strong>M</strong></td>
+    </tr>
+</table>
+
+<p class="formula-evidenziata">%dissociazione = α × 100</p>
+
+<h3>4.7 Classificazione forza acido/base</h3>
+
+<table>
+    <tr><td>Ka > 1</td><td>Acido forte</td><td>Base debolissima (trascurabile)</td></tr>
+    <tr><td>10⁻⁴ < Ka < 1</td><td>Acido medio-forte</td><td>Base medio-debole</td></tr>
+    <tr><td>10⁻⁷ < Ka < 10⁻⁴</td><td>Acido medio-debole</td><td>Base medio-forte</td></tr>
+    <tr><td>Ka < 10⁻⁷</td><td>Acido debolissimo</td><td>Base forte</td></tr>
+</table>
+
+<h3>4.8 Acidi e basi forti</h3>
+
+<p>Gli acidi e basi forti si dissociano <strong>completamente</strong> (α = 1, β = 1).</p>
+
+<p class="formula-evidenziata">[H₃O⁺] = VO × Ca (per acidi forti)</p>
+<p class="formula-evidenziata">[OH⁻] = VO × Cb (per basi forti)</p>
+
+<table>
+    <tr>
+        <td><strong>VO</strong></td>
+        <td>Valenza operativa</td>
+        <td>Numero di H⁺ o OH⁻ rilasciati per molecola (es: H₂SO₄ → VO = 2).</td>
+        <td><strong>adimensionale</strong></td>
+    </tr>
+</table>
+
+<div class="warning-box">
+    <strong>Esempi di acidi forti:</strong> HCl, HNO₃, H₂SO₄, HClO₄<br>
+    <strong>Esempi di basi forti:</strong> NaOH, KOH, Ca(OH)₂, Ba(OH)₂
+</div>
+
+<h3>4.9 Acidi e basi deboli - Approssimazioni</h3>
+
+<h4>Caso generale (acido debole)</h4>
+<p class="formula-evidenziata">Ka = [H₃O⁺]² / (Ca − [H₃O⁺])</p>
+
+<h4>Approssimazione acido molto debole (Ca >> [H₃O⁺])</h4>
+<p class="formula-evidenziata">Ka ≈ [H₃O⁺]² / Ca</p>
+<p class="formula-evidenziata">→ [H₃O⁺] = √(Ka × Ca)</p>
+
+<table>
+    <tr>
+        <td><strong>Ca</strong></td>
+        <td>Concentrazione analitica acido</td>
+        <td>Concentrazione iniziale dell'acido prima della dissociazione.</td>
+        <td><strong>M</strong></td>
+    </tr>
+    <tr>
+        <td><strong>Cb</strong></td>
+        <td>Concentrazione analitica base</td>
+        <td>Concentrazione iniziale della base.</td>
+        <td><strong>M</strong></td>
+    </tr>
+</table>
+
+<div class="warning-box">
+    <strong>Quando vale l'approssimazione?</strong> L'approssimazione Ca >> [H₃O⁺] è valida se Ka × Ca < 10⁻⁸ circa. Se non vale, devi risolvere l'equazione di secondo grado completa.
+</div>
+
+<h3>4.10 Idrolisi dei sali</h3>
+
+<table>
+    <tr><td>Acido forte + Base forte</td><td>Non avviene</td><td>≈ 7 (neutro)</td></tr>
+    <tr><td>Acido debole + Base forte</td><td>Idrolisi basica (A⁻)</td><td>> 7 (basico)</td></tr>
+    <tr><td>Acido forte + Base debole</td><td>Idrolisi acida (BH⁺)</td><td>< 7 (acido)</td></tr>
+    <tr><td>Acido debole + Base debole</td><td>Entrambe</td><td>Dipende da Ka e Kb</td></tr>
+</table>
+
+<h4>Costante di idrolisi</h4>
+<p class="formula-evidenziata">Ki = Kw / Ka (per idrolisi basica di A⁻)</p>
+<p class="formula-evidenziata">Ki = Kw / Kb (per idrolisi acida di BH⁺)</p>
+
+<table>
+    <tr>
+        <td><strong>Ki</strong></td>
+        <td>Costante di idrolisi</td>
+        <td>Costante di equilibrio per la reazione di idrolisi del sale.</td>
+        <td><strong>adimensionale</strong></td>
+    </tr>
+</table>
+
+<h4>Approssimazioni per idrolisi</h4>
+
+<p><strong>Se [H₃O⁺] > 10⁻⁶ e [OH⁻] > 10⁻⁶</strong> (trascuro dissociazione acqua):</p>
+<p class="formula-evidenziata">Cs × [H₃O⁺]² − Kw × [H₃O⁺] − Ka × Kw = 0</p>
+
+<p>Da cui:</p>
+<p class="formula-evidenziata">[H₃O⁺] = (Kw + √(Kw² + 4KaKwCs)) / (2Cs)</p>
+
+<p><strong>Acido/Base molto debole (Cs >> Ki)</strong>:</p>
+<p class="formula-evidenziata">pH = (1/2) × pKw + (1/2) × pKa + (1/2) × log₁₀Cs</p>
+<p class="formula-evidenziata">pH = 7 + (1/2) × pKa + (1/2) × log₁₀Cs</p>
+
+<h3>4.11 Soluzioni tampone</h3>
+
+<p class="formula-evidenziata">pH = pKa + log₁₀(Cs / Ca)</p>
+
+<p>Questa è l'<strong>equazione di Henderson-Hasselbalch</strong>.</p>
+
+<table>
+    <tr>
+        <td><strong>pKa</strong></td>
+        <td>pKa dell'acido</td>
+        <td>pKa = −log₁₀(Ka). È il pH a cui [HA] = [A⁻].</td>
+        <td><strong>adimensionale</strong></td>
+    </tr>
+    <tr>
+        <td><strong>Cs</strong></td>
+        <td>Concentrazione del sale</td>
+        <td>Concentrazione della base coniugata (il sale, es: CH₃COONa).</td>
+        <td><strong>M</strong></td>
+    </tr>
+    <tr>
+        <td><strong>Ca</strong></td>
+        <td>Concentrazione dell'acido</td>
+        <td>Concentrazione dell'acido debole (es: CH₃COOH).</td>
+        <td><strong>M</strong></td>
+    </tr>
+</table>
+
+<h4>Aggiunta di acido/base forte al tampone</h4>
+<p class="formula-evidenziata">pH = pKa + log₁₀((Cs − a) / (Ca + a)) [aggiunta di a moli di acido]</p>
+<p class="formula-evidenziata">pH = pKa + log₁₀((Cs + b) / (Ca − b)) [aggiunta di b moli di base]</p>
+
+<table>
+    <tr>
+        <td><strong>a</strong></td>
+        <td>Moli di acido forte aggiunte</td>
+        <td>L'acido forte reagisce con la base coniugata (Cs diminuisce, Ca aumenta).</td>
+        <td><strong>mol</strong></td>
+    </tr>
+    <tr>
+        <td><strong>b</strong></td>
+        <td>Moli di base forte aggiunte</td>
+        <td>La base forte reagisce con l'acido debole (Ca diminuisce, Cs aumenta).</td>
+        <td><strong>mol</strong></td>
+    </tr>
+</table>
+
+<h3>4.12 Indicatori</h3>
+
+<p>Un indicatore è un acido debole HIn che ha colori diversi nella forma associata e dissociata:</p>
+<p class="formula-evidenziata">HIn + H₂O ⇄ H₃O⁺ + In⁻</p>
+
+<h4>Costante di acidità dell'indicatore</h4>
+<p class="formula-evidenziata">KIn = ([H₃O⁺] × [In⁻]) / [HIn]</p>
+
+<h4>pH dell'indicatore</h4>
+<p class="formula-evidenziata">pH = pKIn + log₁₀([In⁻] / [HIn])</p>
+
+<h4>Punto di viraggio</h4>
+<p>Quando [HIn] = [In⁻], allora [H₃O⁺] = KIn, quindi:</p>
+<p class="formula-evidenziata">pH_viraggio = pKIn</p>
+
+<p>Considerando che il viraggio è visibile quando [In⁻]/[HIn] ≈ 1/10 oppure 10/1:</p>
+<p class="formula-evidenziata">pH_viraggio = pKIn ± 1</p>
+
+<table>
+    <tr>
+        <td><strong>KIn</strong></td>
+        <td>Costante di acidità dell'indicatore</td>
+        <td>L'indicatore è un acido debole (HIn) che cambia colore quando si dissocia (In⁻).</td>
+        <td><strong>adimensionale</strong></td>
+    </tr>
+    <tr>
+        <td><strong>pKIn</strong></td>
+        <td>pK dell'indicatore</td>
+        <td>pH al punto centrale del viraggio, dove [HIn] = [In⁻].</td>
+        <td><strong>adimensionale</strong></td>
+    </tr>
+    <tr>
+        <td><strong>Intervallo di viraggio</strong></td>
+        <td>Range di pH</td>
+        <td>Intervallo di pH in cui è visibile il cambiamento di colore (circa 2 unità di pH).</td>
+        <td>—</td>
+    </tr>
+</table>
+
+<h3>4.13 Prodotto di solubilità</h3>
+
+<p>Per un sale poco solubile MₘAₙ:</p>
+<p class="formula-evidenziata">MₘAₙ(s) ⇄ mM^(n+) + nA^(m−)</p>
+<p class="formula-evidenziata">Kps = [M^(n+)]ᵐ × [A^(m−)]ⁿ</p>
+
+<table>
+    <tr>
+        <td><strong>Kps</strong></td>
+        <td>Prodotto di solubilità</td>
+        <td>Costante di equilibrio per la dissoluzione di un sale poco solubile. Più Kps è piccolo, meno solubile è il sale.</td>
+        <td>Dipende dalla stechiometria (es: M² per MX)</td>
+    </tr>
+    <tr>
+        <td><strong>[M^(n+)]</strong></td>
+        <td>Concentrazione catione</td>
+        <td>Concentrazione del catione metallico in soluzione satura.</td>
+        <td><strong>M</strong></td>
+    </tr>
+    <tr>
+        <td><strong>[A^(m−)]</strong></td>
+        <td>Concentrazione anione</td>
+        <td>Concentrazione dell'anione in soluzione satura.</td>
+        <td><strong>M</strong></td>
+    </tr>
+</table>
+
+<!-- ═══════════════════════════════════════════════════════════════════════════════ -->
+<h2 id="termodinamica">5. TERMODINAMICA</h2>
+<!-- ═══════════════════════════════════════════════════════════════════════════════ -->
+
+<div class="nota-sezione">
+    <strong>Panoramica:</strong> La termodinamica studia gli scambi di energia nelle reazioni chimiche. Comprende i concetti di entalpia (ΔH), entropia (ΔS), energia libera di Gibbs (ΔG) e le costanti di equilibrio. È fondamentale per prevedere se una reazione è spontanea.
+</div>
+
+<h3>5.1 Tipologie di trasformazione termodinamica</h3>
+
+<table>
+    <tr><td><strong>Isocora</strong></td><td>V = costante</td><td>w = 0 (nessun lavoro PV)</td></tr>
+    <tr><td><strong>Isoterma</strong></td><td>T = costante</td><td>ΔU = 0 (per gas ideali)</td></tr>
+    <tr><td><strong>Isobara</strong></td><td>P = costante</td><td>q = ΔH</td></tr>
+    <tr><td><strong>Adiabatica</strong></td><td>q = 0</td><td>ΔU = w</td></tr>
+</table>
+
+<h3>5.2 Convenzione dei segni</h3>
+
+<table>
+    <tr><td><strong>q (calore)</strong></td><td>Sistema assorbe calore</td><td>Sistema cede calore</td></tr>
+    <tr><td><strong>w (lavoro)</strong></td><td>Lavoro fatto SUL sistema (compressione)</td><td>Lavoro fatto DAL sistema (espansione)</td></tr>
+</table>
+
+<h3>5.3 Primo principio della termodinamica</h3>
+
+<p class="formula-evidenziata">ΔU = q + w</p>
+
+<table>
+    <tr>
+        <td><strong>ΔU</strong></td>
+        <td>Variazione di energia interna</td>
+        <td>Cambiamento dell'energia totale del sistema (cinetica + potenziale delle molecole). È una funzione di stato.</td>
+        <td><strong>J</strong> (Joule)</td>
+    </tr>
+    <tr>
+        <td><strong>q</strong></td>
+        <td>Calore</td>
+        <td>Energia trasferita per differenza di temperatura. NON è una funzione di stato.</td>
+        <td><strong>J</strong></td>
+    </tr>
+    <tr>
+        <td><strong>w</strong></td>
+        <td>Lavoro</td>
+        <td>Energia trasferita meccanicamente. NON è una funzione di stato.</td>
+        <td><strong>J</strong></td>
+    </tr>
+</table>
+
+<h4>Lavoro meccanico (PV)</h4>
+<p class="formula-evidenziata">w = −PΔV = −P(V₂ − V₁)</p>
+
+<table>
+    <tr>
+        <td><strong>P</strong></td>
+        <td>Pressione esterna</td>
+        <td>Pressione contro cui il sistema espande o si comprime.</td>
+        <td><strong>Pa</strong> o <strong>atm</strong></td>
+    </tr>
+    <tr>
+        <td><strong>ΔV</strong></td>
+        <td>Variazione di volume</td>
+        <td>V₂ − V₁. Se positivo = espansione (w < 0), se negativo = compressione (w > 0).</td>
+        <td><strong>m³</strong> o <strong>L</strong></td>
+    </tr>
+</table>
+
+<div class="warning-box">
+    <strong>Segno del lavoro:</strong> Il segno negativo nella formula indica che quando il gas si espande (ΔV > 0), il sistema compie lavoro sull'ambiente (w < 0).
+</div>
+
+<h4>Lavoro come integrale</h4>
+<p class="formula-evidenziata">w = −∫(V₁→V₂) P dV</p>
+
+<p>Per un gas ideale in trasformazione isoterma:</p>
+<p class="formula-evidenziata">w = −nRT ln(V₂/V₁) = −nRT ln(P₁/P₂)</p>
+
+<h4>Calore assorbito</h4>
+<p class="formula-evidenziata">q = ΔU − w = wa − w</p>
+
+<table>
+    <tr>
+        <td><strong>wa</strong></td>
+        <td>Lavoro adiabatico</td>
+        <td>Lavoro compiuto in una trasformazione adiabatica (q = 0). In questo caso wa = ΔU.</td>
+        <td><strong>J</strong></td>
+    </tr>
+</table>
+
+<h3>5.4 Casi particolari del I principio</h3>
+
+<table>
+    <tr><td>Sistema isolato (q = 0, w = 0)</td><td>ΔU = 0</td></tr>
+    <tr><td>Processo adiabatico (q = 0)</td><td>ΔU = w</td></tr>
+    <tr><td>Volume costante (w = 0)</td><td>ΔU = qᵥ</td></tr>
+    <tr><td>Trasformazione ciclica (Uᶠ = Uⁱ)</td><td>q = −w</td></tr>
+</table>
+
+<h3>5.5 Capacità termica</h3>
+
+<p class="formula-evidenziata">C = q / ΔT</p>
+
+<table>
+    <tr>
+        <td><strong>C</strong></td>
+        <td>Capacità termica</td>
+        <td>Calore necessario per aumentare di 1 K la temperatura del sistema.</td>
+        <td><strong>J/K</strong></td>
+    </tr>
+    <tr>
+        <td><strong>ΔT</strong></td>
+        <td>Variazione di temperatura</td>
+        <td>T₂ − T₁</td>
+        <td><strong>K</strong> o <strong>°C</strong></td>
+    </tr>
+</table>
+
+<p class="formula-evidenziata">Cₛₚₑc = C / m (capacità termica specifica)</p>
+<p class="formula-evidenziata">Cₘₒₗ = C / n (capacità termica molare)</p>
+
+<h3>5.6 Entalpia</h3>
+
+<p class="formula-evidenziata">ΔH = qₚ (calore a pressione costante)</p>
+
+<table>
+    <tr>
+        <td><strong>ΔH</strong></td>
+        <td>Variazione di entalpia</td>
+        <td>Calore scambiato a pressione costante. È una funzione di stato, misura il "contenuto termico" della reazione.</td>
+        <td><strong>kJ/mol</strong> o <strong>J</strong></td>
+    </tr>
+    <tr>
+        <td><strong>qₚ</strong></td>
+        <td>Calore a P costante</td>
+        <td>Calore scambiato quando la pressione è mantenuta costante.</td>
+        <td><strong>J</strong></td>
+    </tr>
+</table>
+
+<h4>Convenzione dei segni per ΔH</h4>
+<table>
+    <tr><td>ΔH < 0</td><td>Il sistema cede calore</td><td><strong>Esotermica</strong></td></tr>
+    <tr><td>ΔH > 0</td><td>Il sistema assorbe calore</td><td><strong>Endotermica</strong></td></tr>
+</table>
+
+<h4>Entalpia standard di formazione</h4>
+<p class="formula-evidenziata">ΔH°ᵣₑₐz = Σ ΔH°ᶠ(prodotti) − Σ ΔH°ᶠ(reagenti)</p>
+
+<table>
+    <tr>
+        <td><strong>ΔH°ᶠ</strong></td>
+        <td>Entalpia standard di formazione</td>
+        <td>Calore sviluppato/assorbito quando 1 mol di composto si forma dai suoi elementi nello stato standard. Per elementi puri: ΔH°ᶠ = 0.</td>
+        <td><strong>kJ/mol</strong></td>
+    </tr>
+    <tr>
+        <td><strong>°</strong> (apice)</td>
+        <td>Condizioni standard</td>
+        <td>P = 1 atm, T = 298,15 K (25°C), concentrazioni 1 M.</td>
+        <td>—</td>
+    </tr>
+</table>
+
+<h4>Legge di Hess</h4>
+<p class="formula-evidenziata">ΔH°ₜₒₜ = Σ ΔH°ᵢ (somma delle entalpie dei singoli passaggi)</p>
+
+<p><em>"Se una reazione può essere scritta come combinazione di più reazioni, anche ΔH° è la somma algebrica dei ΔH° delle singole reazioni."</em></p>
+
+<h4>Relazione tra qp e qv</h4>
+<p>• <strong>qp</strong> = calore scambiato a P costante = ΔH</p>
+<p>• <strong>qv</strong> = calore scambiato a V costante = ΔU</p>
+
+<table>
+    <tr>
+        <td>Fase solida o liquida (o gas senza variazione moli)</td>
+        <td>qv ≈ qp</td>
+    </tr>
+    <tr>
+        <td>Fase gassosa con variazione del n° di moli</td>
+        <td>qv = qp − ΔnRT</td>
+    </tr>
+</table>
+
+<table>
+    <tr>
+        <td><strong>Δn</strong></td>
+        <td>Variazione moli gassose</td>
+        <td>n_prodotti(g) − n_reagenti(g). Numero di moli di gas prodotte meno quelle consumate.</td>
+        <td><strong>mol</strong></td>
+    </tr>
+</table>
+
+<h3>5.7 Entropia</h3>
+
+<p class="formula-evidenziata">S = k ln W</p>
+
+<table>
+    <tr>
+        <td><strong>S</strong></td>
+        <td>Entropia</td>
+        <td>Misura del "disordine" o del numero di modi in cui l'energia può essere distribuita. È una funzione di stato.</td>
+        <td><strong>J/(mol·K)</strong></td>
+    </tr>
+    <tr>
+        <td><strong>k</strong></td>
+        <td>Costante di Boltzmann</td>
+        <td>Collega l'entropia alla probabilità. <span class="costante">Costante</span>.</td>
+        <td><strong>J/K</strong><br>Valore: 1,38 × 10⁻²³ J/K</td>
+    </tr>
+    <tr>
+        <td><strong>W</strong></td>
+        <td>Numero di microstati</td>
+        <td>Numero di modi microscopici in cui un sistema può realizzare un dato stato macroscopico.</td>
+        <td><strong>adimensionale</strong></td>
+    </tr>
+</table>
+
+<h4>Variazione di entropia</h4>
+<p class="formula-evidenziata">ΔS = qᵣₑᵥ / T</p>
+
+<table>
+    <tr>
+        <td><strong>ΔS</strong></td>
+        <td>Variazione di entropia</td>
+        <td>Cambiamento di entropia del sistema.</td>
+        <td><strong>J/K</strong></td>
+    </tr>
+    <tr>
+        <td><strong>qᵣₑᵥ</strong></td>
+        <td>Calore reversibile</td>
+        <td>Calore scambiato in un processo ideale reversibile.</td>
+        <td><strong>J</strong></td>
+    </tr>
+</table>
+
+<h4>II Principio della termodinamica</h4>
+<p><em>"Per un processo spontaneo, l'entropia dell'universo (sistema + ambiente) aumenta sempre."</em></p>
+
+<table>
+    <tr><td>ΔSᵤₙᵢᵥ > 0</td><td>Processo spontaneo (irreversibile)</td></tr>
+    <tr><td>ΔSᵤₙᵢᵥ = 0</td><td>Processo reversibile (equilibrio)</td></tr>
+    <tr><td>ΔSᵤₙᵢᵥ < 0</td><td>Processo non spontaneo</td></tr>
+</table>
+
+<h4>Rendimento</h4>
+<p class="formula-evidenziata">η = |w| / |qₐₛₛₒᵣᵦᵢₜₒ| = 1 − |qceduto| / |qassorbito|</p>
+
+<h4>Disuguaglianza di Clausius</h4>
+<p class="formula-evidenziata">dSsist ≥ dqsist / T (per ogni trasformazione isoterma)</p>
+
+<p>• Se dSsist > dq/T → processo irreversibile<br>
+• Se dSsist = dq/T → processo reversibile</p>
+
+<h4>III Principio della termodinamica</h4>
+<p><em>"In una trasformazione reversibile, la variazione di entropia tende a zero al tendere a zero della temperatura assoluta."</em></p>
+
+<p class="formula-evidenziata">lim(T→0) ΔS = 0</p>
+
+<p>Conseguenza: allo zero assoluto, l'entropia di un cristallo perfetto è zero (S = 0).</p>
+
+<h3>5.8 Energia libera di Gibbs</h3>
+
+<p class="formula-evidenziata">G = H − TS</p>
+<p class="formula-evidenziata">ΔG = ΔH − TΔS</p>
+
+<table>
+    <tr>
+        <td><strong>G</strong></td>
+        <td>Energia libera di Gibbs</td>
+        <td>Energia disponibile per compiere lavoro utile a T e P costanti. È LA grandezza chiave per prevedere la spontaneità.</td>
+        <td><strong>J</strong> o <strong>kJ</strong></td>
+    </tr>
+    <tr>
+        <td><strong>ΔG</strong></td>
+        <td>Variazione di energia libera</td>
+        <td>Cambiamento di G durante una reazione.</td>
+        <td><strong>kJ/mol</strong></td>
+    </tr>
+    <tr>
+        <td><strong>H</strong></td>
+        <td>Entalpia</td>
+        <td>Contenuto termico del sistema.</td>
+        <td><strong>J</strong></td>
+    </tr>
+    <tr>
+        <td><strong>T</strong></td>
+        <td>Temperatura assoluta</td>
+        <td>Temperatura in Kelvin.</td>
+        <td><strong>K</strong></td>
+    </tr>
+    <tr>
+        <td><strong>S</strong></td>
+        <td>Entropia</td>
+        <td>Misura del disordine.</td>
+        <td><strong>J/(mol·K)</strong></td>
+    </tr>
+</table>
+
+<h4>Criterio di spontaneità</h4>
+<table>
+    <tr><td><strong>ΔG < 0</strong></td><td>Processo <strong>spontaneo</strong> (esoergonico)</td></tr>
+    <tr><td><strong>ΔG = 0</strong></td><td>Sistema all'<strong>equilibrio</strong></td></tr>
+    <tr><td><strong>ΔG > 0</strong></td><td>Processo <strong>non spontaneo</strong> (endoergonico)</td></tr>
+</table>
+
+<div class="warning-box">
+    <strong>Importante:</strong> ΔG indica se una reazione È spontanea, non quanto velocemente avverrà. Una reazione con ΔG < 0 può comunque essere lentissima se l'energia di attivazione è alta!
+</div>
+
+<h4>Energia libera standard</h4>
+<p class="formula-evidenziata">ΔG° = Σ ΔG°ᶠ(prodotti) − Σ ΔG°ᶠ(reagenti)</p>
+
+<h4>Differenziale dell'energia libera</h4>
+<p class="formula-evidenziata">dG = VdP − SdT</p>
+
+<p>A temperatura costante (dT = 0): dG = VdP</p>
+<p>A pressione costante (dP = 0): dG = −SdT</p>
+
+<h4>Relazione con la costante di equilibrio</h4>
+<p class="formula-evidenziata">ΔG° = −RT ln K</p>
+<p class="formula-evidenziata">ΔG = ΔG° + RT ln Q</p>
+
+<table>
+    <tr>
+        <td><strong>K</strong></td>
+        <td>Costante di equilibrio</td>
+        <td>Valore del quoziente di reazione Q all'equilibrio.</td>
+        <td><strong>adimensionale</strong></td>
+    </tr>
+    <tr>
+        <td><strong>Q</strong></td>
+        <td>Quoziente di reazione</td>
+        <td>Rapporto [prodotti]/[reagenti] in un momento qualsiasi (non necessariamente all'equilibrio).</td>
+        <td><strong>adimensionale</strong></td>
+    </tr>
+    <tr>
+        <td><strong>R</strong></td>
+        <td>Costante dei gas</td>
+        <td><span class="costante">Costante</span>.</td>
+        <td><strong>8,314 J/(mol·K)</strong></td>
+    </tr>
+</table>
+
+<h3>5.9 Equilibri e quozienti di reazione</h3>
+
+<p>Per una reazione generica: aA + bB ⇄ cC + dD</p>
+
+<h4>Quoziente di reazione (concentrazioni)</h4>
+<p class="formula-evidenziata">Qc = [C]ᶜ × [D]ᵈ / ([A]ᵃ × [B]ᵇ)</p>
+
+<h4>Quoziente di reazione (pressioni parziali)</h4>
+<p class="formula-evidenziata">Qp = pCᶜ × pDᵈ / (pAᵃ × pBᵇ)</p>
+
+<table>
+    <tr>
+        <td><strong>Qc</strong></td>
+        <td>Quoziente di reazione (concentrazioni)</td>
+        <td>Rapporto prodotti/reagenti usando le concentrazioni molari.</td>
+        <td>Dipende dalla stechiometria</td>
+    </tr>
+    <tr>
+        <td><strong>Qp</strong></td>
+        <td>Quoziente di reazione (pressioni)</td>
+        <td>Rapporto prodotti/reagenti usando le pressioni parziali.</td>
+        <td>Dipende dalla stechiometria</td>
+    </tr>
+    <tr>
+        <td><strong>a, b, c, d</strong></td>
+        <td>Coefficienti stechiometrici</td>
+        <td>Esponenti nella formula del quoziente.</td>
+        <td><strong>adimensionale</strong></td>
+    </tr>
+</table>
+
+<h4>Costanti di equilibrio</h4>
+<p class="formula-evidenziata">Kc = [C]ᶜₑq × [D]ᵈₑq / ([A]ᵃₑq × [B]ᵇₑq)</p>
+<p class="formula-evidenziata">Kp = pCᶜₑq × pDᵈₑq / (pAᵃₑq × pBᵇₑq)</p>
+
+<table>
+    <tr>
+        <td><strong>Kc</strong></td>
+        <td>Costante di equilibrio (concentrazioni)</td>
+        <td>Valore di Qc all'equilibrio. Dipende SOLO dalla temperatura.</td>
+        <td>Dipende dalla stechiometria</td>
+    </tr>
+    <tr>
+        <td><strong>Kp</strong></td>
+        <td>Costante di equilibrio (pressioni)</td>
+        <td>Valore di Qp all'equilibrio. Usata per reazioni in fase gas.</td>
+        <td>Dipende dalla stechiometria</td>
+    </tr>
+    <tr>
+        <td><strong>eq</strong> (pedice)</td>
+        <td>All'equilibrio</td>
+        <td>Indica che le concentrazioni/pressioni sono quelle all'equilibrio.</td>
+        <td>—</td>
+    </tr>
+</table>
+
+<h4>Relazione tra Kp e Kc</h4>
+<p class="formula-evidenziata">Kp = Kc × (RT)^Δn</p>
+
+<table>
+    <tr>
+        <td><strong>Δn</strong></td>
+        <td>Variazione moli gassose</td>
+        <td>Δn = (c + d) − (a + b) = moli prodotti gassosi − moli reagenti gassosi. Se Δn = 0, allora Kp = Kc.</td>
+        <td><strong>adimensionale</strong></td>
+    </tr>
+</table>
+
+<h4>Equazione di Van't Hoff</h4>
+<p class="formula-evidenziata">ln(K₂/K₁) = −(ΔH°/R) × (1/T₂ − 1/T₁)</p>
+
+<table>
+    <tr>
+        <td><strong>K₁, K₂</strong></td>
+        <td>Costanti di equilibrio</td>
+        <td>Costanti di equilibrio alle temperature T₁ e T₂.</td>
+        <td><strong>adimensionale</strong></td>
+    </tr>
+    <tr>
+        <td><strong>T₁, T₂</strong></td>
+        <td>Temperature</td>
+        <td>Due temperature diverse a cui si valuta K.</td>
+        <td><strong>K</strong></td>
+    </tr>
+    <tr>
+        <td><strong>ΔH°</strong></td>
+        <td>Entalpia standard di reazione</td>
+        <td>Determina come K varia con T: se ΔH° > 0 (endotermica), K aumenta con T.</td>
+        <td><strong>J/mol</strong></td>
+    </tr>
+</table>
+
+<!-- ═══════════════════════════════════════════════════════════════════════════════ -->
+<h2 id="cinetica">6. CINETICA CHIMICA</h2>
+<!-- ═══════════════════════════════════════════════════════════════════════════════ -->
+
+<div class="nota-sezione">
+    <strong>Panoramica:</strong> La cinetica studia la velocità delle reazioni chimiche. Comprende le leggi cinetiche, l'ordine di reazione, il tempo di dimezzamento e l'equazione di Arrhenius. È fondamentale per capire QUANTO VELOCEMENTE avviene una reazione.
+</div>
+
+<h3>6.1 Velocità di reazione</h3>
+
+<p>Per una reazione aA + bB → cC + dD:</p>
+<p class="formula-evidenziata">v = −(1/a) × d[A]/dt = −(1/b) × d[B]/dt = (1/c) × d[C]/dt = (1/d) × d[D]/dt</p>
+
+<table>
+    <tr>
+        <td><strong>v</strong></td>
+        <td>Velocità di reazione</td>
+        <td>Variazione della concentrazione per unità di tempo. Il segno − per i reagenti rende v sempre positiva.</td>
+        <td><strong>mol/(L·s)</strong> = M/s</td>
+    </tr>
+    <tr>
+        <td><strong>d[A]/dt</strong></td>
+        <td>Derivata della concentrazione</td>
+        <td>Variazione istantanea della concentrazione di A nel tempo.</td>
+        <td><strong>M/s</strong></td>
+    </tr>
+    <tr>
+        <td><strong>a, b, c, d</strong></td>
+        <td>Coefficienti stechiometrici</td>
+        <td>Normalizzano la velocità così che sia la stessa indipendentemente da quale specie si considera.</td>
+        <td><strong>adimensionale</strong></td>
+    </tr>
+</table>
+
+<h3>6.2 Legge cinetica</h3>
+
+<p class="formula-evidenziata">v = k × [A]^α × [B]^β</p>
+
+<table>
+    <tr>
+        <td><strong>k</strong></td>
+        <td>Costante cinetica</td>
+        <td>Costante di proporzionalità che dipende dalla temperatura e dalla natura della reazione. NON dai coefficienti stechiometrici.</td>
+        <td>Dipende dall'ordine (vedi sotto)</td>
+    </tr>
+    <tr>
+        <td><strong>α</strong></td>
+        <td>Ordine rispetto ad A</td>
+        <td>Esponente della concentrazione di A. Si determina sperimentalmente, NON dalla stechiometria.</td>
+        <td><strong>adimensionale</strong></td>
+    </tr>
+    <tr>
+        <td><strong>β</strong></td>
+        <td>Ordine rispetto a B</td>
+        <td>Esponente della concentrazione di B.</td>
+        <td><strong>adimensionale</strong></td>
+    </tr>
+</table>
+
+<h4>Ordine di reazione complessivo</h4>
+<p class="formula-evidenziata">ordine totale = α + β</p>
+
+<h4>Unità della costante cinetica k</h4>
+<table>
+    <tr><td>0</td><td>M/s = mol/(L·s)</td></tr>
+    <tr><td>1</td><td>s⁻¹</td></tr>
+    <tr><td>2</td><td>M⁻¹·s⁻¹ = L/(mol·s)</td></tr>
+    <tr><td>n</td><td>M^(1−n)·s⁻¹</td></tr>
+</table>
+
+<h4>Velocità diretta e inversa all'equilibrio</h4>
+<p>Per una reazione reversibile: A + B ⇄ C + D</p>
+<p class="formula-evidenziata">vdir = k₁[A][B] = k₋₁[C][D] = vinv</p>
+
+<p>All'equilibrio:</p>
+<p class="formula-evidenziata">k₁/k₋₁ = [C][D]/[A][B] = K</p>
+
+<table>
+    <tr>
+        <td><strong>k₁</strong></td>
+        <td>Costante cinetica diretta</td>
+        <td>Costante di velocità della reazione diretta (reagenti → prodotti).</td>
+        <td>Dipende dall'ordine</td>
+    </tr>
+    <tr>
+        <td><strong>k₋₁</strong></td>
+        <td>Costante cinetica inversa</td>
+        <td>Costante di velocità della reazione inversa (prodotti → reagenti).</td>
+        <td>Dipende dall'ordine</td>
+    </tr>
+    <tr>
+        <td><strong>K</strong></td>
+        <td>Costante di equilibrio</td>
+        <td>Rapporto tra le costanti cinetiche diretta e inversa.</td>
+        <td><strong>adimensionale</strong></td>
+    </tr>
+</table>
+
+<h3>6.3 Leggi cinetiche integrate</h3>
+
+<h4>Reazione di I ordine</h4>
+<p class="formula-evidenziata">ln[A] = −kt + ln[A]₀</p>
+<p class="formula-evidenziata">[A] = [A]₀ × e^(−kt)</p>
+
+<table>
+    <tr>
+        <td><strong>[A]₀</strong></td>
+        <td>Concentrazione iniziale</td>
+        <td>Concentrazione di A al tempo t = 0.</td>
+        <td><strong>M</strong></td>
+    </tr>
+    <tr>
+        <td><strong>[A]</strong></td>
+        <td>Concentrazione al tempo t</td>
+        <td>Concentrazione di A al tempo t generico.</td>
+        <td><strong>M</strong></td>
+    </tr>
+    <tr>
+        <td><strong>t</strong></td>
+        <td>Tempo</td>
+        <td>Tempo trascorso dall'inizio della reazione.</td>
+        <td><strong>s</strong> (o min, h)</td>
+    </tr>
+</table>
+
+<h4>Reazione di II ordine</h4>
+<p class="formula-evidenziata">1/[A] = kt + 1/[A]₀</p>
+
+<h4>Come determinare l'ordine sperimentalmente</h4>
+<table>
+    <tr><td>[A] vs t</td><td>Ordine 0</td></tr>
+    <tr><td>ln[A] vs t</td><td>Ordine 1</td></tr>
+    <tr><td>1/[A] vs t</td><td>Ordine 2</td></tr>
+</table>
+
+<h3>6.4 Tempo di dimezzamento</h3>
+
+<p class="formula-evidenziata">t₁/₂ = tempo necessario perché [A] diventi [A]₀/2</p>
+
+<table>
+    <tr><td><strong>I ordine</strong></td><td>t₁/₂ = ln2 / k = 0,693 / k</td><td>NON dipende da [A]₀</td></tr>
+    <tr><td><strong>II ordine</strong></td><td>t₁/₂ = 1 / (k × [A]₀)</td><td>Dipende da [A]₀</td></tr>
+</table>
+
+<table>
+    <tr>
+        <td><strong>t₁/₂</strong></td>
+        <td>Tempo di dimezzamento</td>
+        <td>Tempo necessario perché la concentrazione del reagente si riduca alla metà.</td>
+        <td><strong>s</strong> (o altra unità di tempo)</td>
+    </tr>
+    <tr>
+        <td><strong>ln2</strong></td>
+        <td>Logaritmo naturale di 2</td>
+        <td>Costante matematica ≈ 0,693.</td>
+        <td><strong>adimensionale</strong></td>
+    </tr>
+</table>
+
+<h3>6.5 Teoria delle collisioni</h3>
+
+<h4>Libero cammino medio</h4>
+<p class="formula-evidenziata">L = l̄/n̄ = 1/(πd²n*)</p>
+
+<table>
+    <tr>
+        <td><strong>L</strong></td>
+        <td>Libero cammino medio</td>
+        <td>Distanza media percorsa da una molecola tra due collisioni successive.</td>
+        <td><strong>m</strong></td>
+    </tr>
+    <tr>
+        <td><strong>d</strong></td>
+        <td>Diametro molecolare</td>
+        <td>Diametro effettivo della molecola.</td>
+        <td><strong>m</strong></td>
+    </tr>
+    <tr>
+        <td><strong>n*</strong></td>
+        <td>Densità numerica</td>
+        <td>Numero medio di molecole per unità di volume.</td>
+        <td><strong>m⁻³</strong></td>
+    </tr>
+</table>
+
+<h4>Numero complessivo di collisioni</h4>
+<p class="formula-evidenziata">N = (π × d² × l̄ × (n*)²) / 2</p>
+
+<h4>Velocità media delle particelle</h4>
+<p class="formula-evidenziata">l̄ = √(3RT/M)</p>
+
+<table>
+    <tr>
+        <td><strong>M</strong></td>
+        <td>Massa molecolare</td>
+        <td>Massa molare del gas.</td>
+        <td><strong>kg/mol</strong></td>
+    </tr>
+</table>
+
+<h4>Numero di urti con E > Ea</h4>
+<p class="formula-evidenziata">NEa = Ntot × e^(−Ea/RT)</p>
+
+<p>Considerando il <strong>fattore sterico</strong> (orientazione dell'urto):</p>
+<p class="formula-evidenziata">Neff = p × Ntot × e^(−Ea/RT)</p>
+
+<table>
+    <tr>
+        <td><strong>p</strong></td>
+        <td>Fattore sterico</td>
+        <td>Frazione degli urti che hanno l'orientazione corretta per reagire (0 < p ≤ 1).</td>
+        <td><strong>adimensionale</strong></td>
+    </tr>
+    <tr>
+        <td><strong>Ea</strong></td>
+        <td>Energia di attivazione</td>
+        <td>Energia minima che le molecole devono avere perché l'urto sia efficace.</td>
+        <td><strong>J/mol</strong></td>
+    </tr>
+</table>
+
+<h3>6.6 Equazione di Arrhenius</h3>
+
+<p class="formula-evidenziata">k = A × e^(−Ea/RT)</p>
+<p class="formula-evidenziata">ln k = ln A − Ea/(RT)</p>
+
+<table>
+    <tr>
+        <td><strong>k</strong></td>
+        <td>Costante cinetica</td>
+        <td>Costante di velocità a temperatura T.</td>
+        <td>Dipende dall'ordine</td>
+    </tr>
+    <tr>
+        <td><strong>A</strong></td>
+        <td>Fattore pre-esponenziale (fattore di frequenza)</td>
+        <td>Rappresenta la frequenza delle collisioni "efficaci". Dipende dalla geometria della collisione.</td>
+        <td>Stesse unità di k</td>
+    </tr>
+    <tr>
+        <td><strong>Ea</strong></td>
+        <td>Energia di attivazione</td>
+        <td>Energia minima necessaria perché una collisione porti a reazione. È la "barriera energetica".</td>
+        <td><strong>J/mol</strong> o <strong>kJ/mol</strong></td>
+    </tr>
+    <tr>
+        <td><strong>R</strong></td>
+        <td>Costante dei gas</td>
+        <td><span class="costante">Costante</span>.</td>
+        <td><strong>8,314 J/(mol·K)</strong></td>
+    </tr>
+    <tr>
+        <td><strong>T</strong></td>
+        <td>Temperatura assoluta</td>
+        <td>Temperatura in Kelvin.</td>
+        <td><strong>K</strong></td>
+    </tr>
+</table>
+
+<h4>Forma a due temperature</h4>
+<p class="formula-evidenziata">ln(k₂/k₁) = (Ea/R) × (1/T₁ − 1/T₂)</p>
+<p class="formula-evidenziata">Ea = R × (T₁T₂/(T₂ − T₁)) × ln(k₂/k₁)</p>
+
+<table>
+    <tr>
+        <td><strong>k₁, k₂</strong></td>
+        <td>Costanti cinetiche</td>
+        <td>Costanti di velocità alle temperature T₁ e T₂.</td>
+        <td>Dipende dall'ordine</td>
+    </tr>
+    <tr>
+        <td><strong>T₁, T₂</strong></td>
+        <td>Temperature</td>
+        <td>Due temperature a cui si misura k.</td>
+        <td><strong>K</strong></td>
+    </tr>
+</table>
+
+<h3>6.7 Selettività</h3>
+
+<p>Per reazioni parallele:</p>
+<pre>
+  A →(k₁) B
+  A →(k₂) C
+</pre>
+
+<p class="formula-evidenziata">S₀ = xB / xC = k₁/k₂</p>
+
+<table>
+    <tr>
+        <td><strong>S₀</strong></td>
+        <td>Selettività</td>
+        <td>Rapporto tra i prodotti formati in reazioni parallele competitive.</td>
+        <td><strong>adimensionale</strong></td>
+    </tr>
+    <tr>
+        <td><strong>xB, xC</strong></td>
+        <td>Frazioni convertite</td>
+        <td>Frazioni del reagente A convertite rispettivamente in B e in C.</td>
+        <td><strong>adimensionale</strong></td>
+    </tr>
+</table>
+
+<h3>6.8 Meccanismo di reazione</h3>
+
+<table>
+    <tr>
+        <td><strong>Stadio elementare</strong></td>
+        <td>Un singolo passaggio del meccanismo a livello molecolare.</td>
+    </tr>
+    <tr>
+        <td><strong>Intermedio</strong></td>
+        <td>Specie che si forma e si consuma durante la reazione, non compare nella reazione globale.</td>
+    </tr>
+    <tr>
+        <td><strong>Stadio lento (rate-determining step)</strong></td>
+        <td>Lo stadio con l'energia di attivazione più alta. Determina la velocità della reazione globale.</td>
+    </tr>
+    <tr>
+        <td><strong>Complesso attivato (stato di transizione)</strong></td>
+        <td>Configurazione di massima energia lungo la coordinata di reazione.</td>
+    </tr>
+</table>
+
+<div class="warning-box">
+    <strong>Attenzione:</strong> L'ordine di reazione si ricava SOLO sperimentalmente. Coincide con i coefficienti stechiometrici SOLO se la reazione è elementare (avviene in un solo stadio).
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════════════════ -->
+<h2 id="elettrochimica">7. ELETTROCHIMICA</h2>
+<!-- ═══════════════════════════════════════════════════════════════════════════════ -->
+
+<div class="nota-sezione">
+    <strong>Panoramica:</strong> L'elettrochimica studia le relazioni tra reazioni chimiche e corrente elettrica. Comprende le pile galvaniche, l'elettrolisi, l'equazione di Nernst e le leggi di Faraday. È cruciale per batterie, corrosione ed elettrodeposizione.
+</div>
+
+<h3>7.1 Grandezze elettriche fondamentali</h3>
+
+<table>
+    <tr>
+        <td><strong>q</strong></td>
+        <td>Carica elettrica</td>
+        <td>q = I × t</td>
+        <td><strong>C</strong> (Coulomb)</td>
+    </tr>
+    <tr>
+        <td><strong>I</strong></td>
+        <td>Intensità di corrente</td>
+        <td>I = q / t</td>
+        <td><strong>A</strong> (Ampere) = C/s</td>
+    </tr>
+    <tr>
+        <td><strong>ΔE</strong> o <strong>V</strong></td>
+        <td>Differenza di potenziale</td>
+        <td>—</td>
+        <td><strong>V</strong> (Volt) = J/C</td>
+    </tr>
+    <tr>
+        <td><strong>R</strong></td>
+        <td>Resistenza elettrica</td>
+        <td>R = V/I = ρ × l/A</td>
+        <td><strong>Ω</strong> (Ohm) = V/A</td>
+    </tr>
+    <tr>
+        <td><strong>ω</strong></td>
+        <td>Potenza elettrica</td>
+        <td>ω = V × I</td>
+        <td><strong>W</strong> (Watt) = J/s</td>
+    </tr>
+    <tr>
+        <td><strong>W</strong></td>
+        <td>Lavoro elettrico</td>
+        <td>W = q × V</td>
+        <td><strong>J</strong> (Joule) o <strong>eV</strong></td>
+    </tr>
+</table>
+
+<table>
+    <tr>
+        <td><strong>ρ</strong></td>
+        <td>Resistività</td>
+        <td>Proprietà del materiale che misura quanto si oppone al passaggio di corrente.</td>
+        <td><strong>Ω·m</strong></td>
+    </tr>
+    <tr>
+        <td><strong>l</strong></td>
+        <td>Lunghezza del conduttore</td>
+        <td>Lunghezza del filo conduttore.</td>
+        <td><strong>m</strong></td>
+    </tr>
+    <tr>
+        <td><strong>A</strong></td>
+        <td>Area della sezione</td>
+        <td>Area della sezione trasversale del conduttore.</td>
+        <td><strong>m²</strong></td>
+    </tr>
+</table>
+
+<h3>7.2 Celle galvaniche (pile)</h3>
+
+<p>Una pila è un dispositivo che converte energia chimica in energia elettrica attraverso una reazione redox spontanea.</p>
+
+<h4>Convenzioni</h4>
+<table>
+    <tr><td><strong>Anodo</strong></td><td>Polo negativo (nella pila)</td><td>Ossidazione (perde e⁻)</td><td>(−)</td></tr>
+    <tr><td><strong>Catodo</strong></td><td>Polo positivo (nella pila)</td><td>Riduzione (acquista e⁻)</td><td>(+)</td></tr>
+</table>
+
+<h4>Notazione della cella</h4>
+<p class="formula-evidenziata">(−) Anodo | soluzione₁ || soluzione₂ | Catodo (+)</p>
+
+<table>
+    <tr><td><strong>|</strong></td><td>Interfaccia elettrodo/soluzione</td></tr>
+    <tr><td><strong>||</strong></td><td>Ponte salino (separa le due semicelle)</td></tr>
+</table>
+
+<h4>Lavoro extrameccanico</h4>
+<p>Tutto il lavoro w' diverso da quello di espansione/compressione (es: lavoro elettrico nelle pile):</p>
+<p class="formula-evidenziata">ΔU = q − PΔV + w'</p>
+<p class="formula-evidenziata">Δq = ΔU + PΔV − w'</p>
+
+<h4>Energia libera e lavoro extrameccanico</h4>
+<p class="formula-evidenziata">ΔG ≤ w'</p>
+<p>In condizioni di reversibilità: ΔG = w'</p>
+
+<p>Nelle pile il lavoro extrameccanico è il <strong>lavoro elettrico</strong>:</p>
+<p class="formula-evidenziata">w' = ΔG = −nFΔE</p>
+
+<h3>7.3 Potenziale standard di riduzione</h3>
+
+<p class="formula-evidenziata">E° = potenziale di riduzione standard (vs SHE)</p>
+
+<table>
+    <tr>
+        <td><strong>E°</strong></td>
+        <td>Potenziale standard di riduzione</td>
+        <td>Potenziale della semicella quando tutte le specie sono a concentrazione 1 M (o pressione 1 atm per i gas), a 25°C. Misurato rispetto all'elettrodo a idrogeno standard (SHE, E° = 0).</td>
+        <td><strong>V</strong></td>
+    </tr>
+    <tr>
+        <td><strong>SHE</strong></td>
+        <td>Standard Hydrogen Electrode</td>
+        <td>Elettrodo di riferimento: 2H⁺(1M) + 2e⁻ → H₂(1 atm). Per convenzione E° = 0.</td>
+        <td>—</td>
+    </tr>
+</table>
+
+<h4>Forza elettromotrice (f.e.m.) della pila</h4>
+<p class="formula-evidenziata">ΔE° = E°_catodo − E°_anodo</p>
+
+<table>
+    <tr>
+        <td><strong>ΔE°</strong></td>
+        <td>Forza elettromotrice standard</td>
+        <td>Differenza di potenziale standard della pila. Deve essere > 0 perché la pila funzioni spontaneamente.</td>
+        <td><strong>V</strong></td>
+    </tr>
+    <tr>
+        <td><strong>E°_catodo</strong></td>
+        <td>Potenziale standard del catodo</td>
+        <td>Potenziale della semicella dove avviene la riduzione.</td>
+        <td><strong>V</strong></td>
+    </tr>
+    <tr>
+        <td><strong>E°_anodo</strong></td>
+        <td>Potenziale standard dell'anodo</td>
+        <td>Potenziale della semicella dove avviene l'ossidazione.</td>
+        <td><strong>V</strong></td>
+    </tr>
+</table>
+
+<div class="warning-box">
+    <strong>Regola pratica:</strong> L'elemento con E° più alto si riduce (catodo), quello con E° più basso si ossida (anodo). La f.e.m. = E°(più alto) − E°(più basso) è sempre positiva.
+</div>
+
+<h3>7.4 Relazione tra ΔG° e ΔE°</h3>
+
+<p class="formula-evidenziata">ΔG° = −nFΔE°</p>
+
+<table>
+    <tr>
+        <td><strong>ΔG°</strong></td>
+        <td>Energia libera standard</td>
+        <td>Lavoro massimo ottenibile dalla reazione.</td>
+        <td><strong>J</strong></td>
+    </tr>
+    <tr>
+        <td><strong>n</strong></td>
+        <td>Numero di elettroni scambiati</td>
+        <td>Numero di moli di elettroni trasferiti nella reazione redox bilanciata.</td>
+        <td><strong>adimensionale</strong> (o mol e⁻)</td>
+    </tr>
+    <tr>
+        <td><strong>F</strong></td>
+        <td>Costante di Faraday</td>
+        <td>Carica di una mole di elettroni. <span class="costante">Costante</span>.</td>
+        <td><strong>C/mol</strong><br>Valore: 96485 C/mol</td>
+    </tr>
+</table>
+
+<h3>7.5 Equazione di Nernst</h3>
+
+<p class="formula-evidenziata">ΔE = ΔE° − (RT/nF) × ln Q</p>
+
+<p>A 25°C (T = 298 K), usando logaritmo in base 10:</p>
+<p class="formula-evidenziata">ΔE = ΔE° − (0,059/n) × log₁₀ Q</p>
+
+<table>
+    <tr>
+        <td><strong>ΔE</strong></td>
+        <td>F.e.m. in condizioni non standard</td>
+        <td>Potenziale della pila quando le concentrazioni non sono tutte 1 M.</td>
+        <td><strong>V</strong></td>
+    </tr>
+    <tr>
+        <td><strong>Q</strong></td>
+        <td>Quoziente di reazione</td>
+        <td>[prodotti]/[reagenti] con gli esponenti stechiometrici.</td>
+        <td><strong>adimensionale</strong></td>
+    </tr>
+    <tr>
+        <td><strong>0,059</strong></td>
+        <td>Fattore di Nernst (a 25°C)</td>
+        <td>= RT/F × ln10 = 2,303RT/F ≈ 0,059 V a 298 K.</td>
+        <td><strong>V</strong></td>
+    </tr>
+    <tr>
+        <td><strong>n</strong></td>
+        <td>Elettroni scambiati</td>
+        <td>Numero di e⁻ nella semireazione bilanciata.</td>
+        <td><strong>adimensionale</strong></td>
+    </tr>
+</table>
+
+<div class="warning-box">
+    <strong>Come costruire Q per Nernst:</strong> Q = [specie ridotte]^coeff / [specie ossidate]^coeff. In pratica, [prodotti catodici] / [prodotti anodici], escludendo solidi e liquidi puri.
+</div>
+
+<h3>7.6 Pile a concentrazione</h3>
+
+<p>Pila con lo stesso elettrolita a concentrazioni diverse.</p>
+<p class="formula-evidenziata">ΔE = (0,059/n) × log₁₀(C₁/C₂)</p>
+
+<table>
+    <tr>
+        <td><strong>C₁</strong></td>
+        <td>Concentrazione maggiore</td>
+        <td>Semicella con concentrazione più alta (catodo).</td>
+        <td><strong>M</strong></td>
+    </tr>
+    <tr>
+        <td><strong>C₂</strong></td>
+        <td>Concentrazione minore</td>
+        <td>Semicella con concentrazione più bassa (anodo).</td>
+        <td><strong>M</strong></td>
+    </tr>
+</table>
+
+<p>Nota: ΔE° = 0 per pile a concentrazione (stessi elettrodi).</p>
+
+<h4>Pila a concentrazione con H⁺</h4>
+<p>Se M⁺ = H⁺ (elettrodo a idrogeno):</p>
+<p class="formula-evidenziata">ΔE = ΔE° − 0,059 × pH</p>
+
+<h4>Determinazione del Kps da pile a concentrazione</h4>
+<p>Per un sale poco solubile con soluzione satura di concentrazione C₁:</p>
+<p class="formula-evidenziata">Kps = (C₁)²</p>
+
+<p>Questo metodo permette di determinare Kps misurando la f.e.m. di una pila a concentrazione.</p>
+
+<h3>7.7 Leggi di Faraday (elettrolisi)</h3>
+
+<h4>Prima legge</h4>
+<p><em>"La massa di sostanza depositata è proporzionale alla carica elettrica passata."</em></p>
+
+<h4>Seconda legge e formula unificata</h4>
+<p class="formula-evidenziata">m = (M × q) / (n × F) = (M × I × t) / (n × F)</p>
+
+<table>
+    <tr>
+        <td><strong>m</strong></td>
+        <td>Massa depositata</td>
+        <td>Massa di sostanza depositata all'elettrodo.</td>
+        <td><strong>g</strong></td>
+    </tr>
+    <tr>
+        <td><strong>M</strong></td>
+        <td>Massa molare</td>
+        <td>Massa molare della sostanza depositata.</td>
+        <td><strong>g/mol</strong></td>
+    </tr>
+    <tr>
+        <td><strong>q</strong></td>
+        <td>Carica totale</td>
+        <td>Carica elettrica totale passata = I × t.</td>
+        <td><strong>C</strong></td>
+    </tr>
+    <tr>
+        <td><strong>I</strong></td>
+        <td>Intensità di corrente</td>
+        <td>Corrente che attraversa la cella.</td>
+        <td><strong>A</strong></td>
+    </tr>
+    <tr>
+        <td><strong>t</strong></td>
+        <td>Tempo</td>
+        <td>Durata dell'elettrolisi.</td>
+        <td><strong>s</strong></td>
+    </tr>
+    <tr>
+        <td><strong>n</strong></td>
+        <td>Elettroni per ione</td>
+        <td>Numero di elettroni necessari per ridurre/ossidare uno ione (es: n=2 per Cu²⁺ + 2e⁻ → Cu).</td>
+        <td><strong>adimensionale</strong></td>
+    </tr>
+    <tr>
+        <td><strong>F</strong></td>
+        <td>Costante di Faraday</td>
+        <td>96485 C/mol. <span class="costante">Costante</span>.</td>
+        <td><strong>C/mol</strong></td>
+    </tr>
+</table>
+
+<h4>Moli depositate</h4>
+<p class="formula-evidenziata">mol = q / (n × F) = I × t / (n × F)</p>
+
+<h3>7.8 Elettrolisi dell'acqua</h3>
+
+<table>
+    <tr><td><strong>Anodo (+)</strong></td><td>2H₂O → O₂ + 4H⁺ + 4e⁻</td></tr>
+    <tr><td><strong>Catodo (−)</strong></td><td>2H₂O + 2e⁻ → H₂ + 2OH⁻</td></tr>
+</table>
+
+<div class="warning-box">
+    <strong>Pila vs Elettrolisi:</strong>
+    <ul>
+        <li><strong>Pila:</strong> Reazione spontanea (ΔG < 0), produce corrente. Anodo = (−), Catodo = (+).</li>
+        <li><strong>Elettrolisi:</strong> Reazione NON spontanea (ΔG > 0), richiede corrente esterna. Anodo = (+), Catodo = (−).</li>
+    </ul>
+    L'ossidazione avviene SEMPRE all'anodo, la riduzione SEMPRE al catodo!
+</div>
+
+<h3>7.9 Tensione di decomposizione</h3>
+
+<p>Se applico ad una cella una tensione continua, misuro una corrente solo dopo che V = V₀:</p>
+<p class="formula-evidenziata">V₀ = (Ea + εa) − (Ec − εc)</p>
+
+<table>
+    <tr>
+        <td><strong>V₀</strong></td>
+        <td>Tensione di decomposizione</td>
+        <td>Tensione minima necessaria per far avvenire l'elettrolisi.</td>
+        <td><strong>V</strong></td>
+    </tr>
+    <tr>
+        <td><strong>Ea, Ec</strong></td>
+        <td>Potenziali di elettrodo</td>
+        <td>Potenziali standard (o reali) dell'anodo e del catodo.</td>
+        <td><strong>V</strong></td>
+    </tr>
+    <tr>
+        <td><strong>εa, εc</strong></td>
+        <td>Sovratensioni</td>
+        <td>Tensioni aggiuntive richieste a causa di fenomeni cinetici agli elettrodi (resistenze, polarizzazione).</td>
+        <td><strong>V</strong></td>
+    </tr>
+</table>
+
+<h3>7.10 Riepilogo formule chiave</h3>
+
+<table>
+    <tr><td>ΔE° = E°_cat − E°_an</td><td>F.e.m. standard della pila</td></tr>
+    <tr><td>ΔG° = −nFΔE°</td><td>Energia libera da potenziale</td></tr>
+    <tr><td>ΔE = ΔE° − (0,059/n)logQ</td><td>Nernst a 25°C</td></tr>
+    <tr><td>m = MIt/(nF)</td><td>Massa depositata (Faraday)</td></tr>
+</table>
+
+</body>
+</html>
